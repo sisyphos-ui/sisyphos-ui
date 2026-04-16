@@ -1,0 +1,61 @@
+@use "@sisyphos-ui/core/src/tokens/variables" as *;
+
+$popover-bg: var(--sisyphos-color-neutral-lighter, #fff);
+$popover-border: var(--sisyphos-color-border, #e4e7eb);
+$arrow-size: 8px;
+
+.sisyphos-popover {
+  background: $popover-bg;
+  color: var(--sisyphos-color-neutral-dark, #212b36);
+  border: 1px solid $popover-border;
+  border-radius: $radius-md;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+  padding: $spacing-md;
+  min-width: 200px;
+  max-width: 480px;
+  z-index: $z-index-pickers;
+  transition: opacity $duration-s ease;
+}
+
+.sisyphos-popover-arrow {
+  position: absolute;
+  width: 0;
+  height: 0;
+  border: $arrow-size solid transparent;
+  filter: drop-shadow(0 0 0.5px $popover-border);
+}
+
+.sisyphos-popover.top .sisyphos-popover-arrow,
+.sisyphos-popover.top-start .sisyphos-popover-arrow,
+.sisyphos-popover.top-end .sisyphos-popover-arrow {
+  bottom: -#{$arrow-size * 2};
+  left: 50%;
+  transform: translateX(-50%);
+  border-top-color: $popover-bg;
+}
+.sisyphos-popover.top-start .sisyphos-popover-arrow { left: $spacing-md; transform: none; }
+.sisyphos-popover.top-end   .sisyphos-popover-arrow { left: auto; right: $spacing-md; transform: none; }
+
+.sisyphos-popover.bottom .sisyphos-popover-arrow,
+.sisyphos-popover.bottom-start .sisyphos-popover-arrow,
+.sisyphos-popover.bottom-end .sisyphos-popover-arrow {
+  top: -#{$arrow-size * 2};
+  left: 50%;
+  transform: translateX(-50%);
+  border-bottom-color: $popover-bg;
+}
+.sisyphos-popover.bottom-start .sisyphos-popover-arrow { left: $spacing-md; transform: none; }
+.sisyphos-popover.bottom-end   .sisyphos-popover-arrow { left: auto; right: $spacing-md; transform: none; }
+
+.sisyphos-popover.left .sisyphos-popover-arrow {
+  right: -#{$arrow-size * 2};
+  top: 50%;
+  transform: translateY(-50%);
+  border-left-color: $popover-bg;
+}
+.sisyphos-popover.right .sisyphos-popover-arrow {
+  left: -#{$arrow-size * 2};
+  top: 50%;
+  transform: translateY(-50%);
+  border-right-color: $popover-bg;
+}

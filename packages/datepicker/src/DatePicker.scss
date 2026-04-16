@@ -1,0 +1,266 @@
+@use "@sisyphos-ui/core/src/tokens/variables" as *;
+
+.sisyphos-datepicker {
+  display: inline-flex;
+  flex-direction: column;
+  gap: $spacing-xxs;
+  min-width: 240px;
+
+  &.full-width { width: 100%; }
+  &.disabled   { opacity: $opacity-s; pointer-events: none; }
+}
+
+.sisyphos-datepicker-label {
+  font-size: $size-md;
+  font-weight: $font-weight-medium;
+  color: var(--sisyphos-color-neutral-dark, #212b36);
+
+  &.error { color: var(--sisyphos-color-error, #fb3748); }
+  &.required::after { content: " *"; color: var(--sisyphos-color-error, #fb3748); }
+}
+
+.sisyphos-datepicker-trigger {
+  display: flex;
+  align-items: center;
+  gap: $spacing-xs;
+  padding: $spacing-xxs $spacing-s;
+  background: var(--sisyphos-color-neutral-lighter, #fff);
+  border: 1px solid var(--sisyphos-color-border, #c4cdd5);
+  border-radius: $radius-s;
+  cursor: pointer;
+  transition: border-color $duration-s, box-shadow $duration-s;
+
+  &:hover { border-color: var(--sisyphos-color-neutral-dark, #919eab); }
+  &.focused {
+    border-color: var(--sisyphos-color-primary, #ff7022);
+    box-shadow: 0 0 0 3px var(--sisyphos-color-primary-lighter, #ffede0);
+  }
+
+  .sisyphos-datepicker.sm & { min-height: 32px; font-size: $size-sm; }
+  .sisyphos-datepicker.md & { min-height: 40px; font-size: $size-md; }
+  .sisyphos-datepicker.lg & { min-height: 48px; font-size: $size-lg; }
+
+  .sisyphos-datepicker.error & {
+    border-color: var(--sisyphos-color-error, #fb3748);
+  }
+}
+
+.sisyphos-datepicker-start-icon,
+.sisyphos-datepicker-chevron {
+  display: inline-flex;
+  align-items: center;
+  color: var(--sisyphos-color-neutral-dark, #637381);
+
+  svg { width: 1em; height: 1em; }
+}
+
+.sisyphos-datepicker-input {
+  flex: 1;
+  border: 0;
+  outline: none;
+  background: transparent;
+  font: inherit;
+  color: var(--sisyphos-color-neutral-dark, #212b36);
+  cursor: inherit;
+
+  &::placeholder { color: var(--sisyphos-color-neutral-dark, #919eab); opacity: 0.7; }
+}
+
+.sisyphos-datepicker-end-icons {
+  display: inline-flex;
+  align-items: center;
+  gap: $spacing-xxs;
+}
+
+.sisyphos-datepicker-clear {
+  appearance: none;
+  background: transparent;
+  border: 0;
+  padding: 0;
+  cursor: pointer;
+  color: var(--sisyphos-color-neutral-dark, #919eab);
+  display: inline-flex;
+  align-items: center;
+
+  &:hover { color: var(--sisyphos-color-neutral-dark, #212b36); }
+}
+
+.sisyphos-datepicker-error {
+  font-size: $size-sm;
+  color: var(--sisyphos-color-error, #fb3748);
+}
+
+/* ── DROPDOWN ─────────────────────────────────────────────────────────── */
+.sisyphos-datepicker-dropdown {
+  background: var(--sisyphos-color-neutral-lighter, #fff);
+  border: 1px solid var(--sisyphos-color-border, #e4e7eb);
+  border-radius: $radius-md;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+  padding: $spacing-s;
+  z-index: $z-index-pickers;
+  transition: opacity $duration-s ease;
+  min-width: 280px;
+}
+
+.sisyphos-datepicker-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: $spacing-xs;
+}
+
+.sisyphos-datepicker-nav {
+  appearance: none;
+  background: transparent;
+  border: 0;
+  cursor: pointer;
+  font-size: $size-lg;
+  width: 28px;
+  height: 28px;
+  border-radius: $radius-xs;
+  color: var(--sisyphos-color-neutral-dark, #637381);
+
+  &:hover { background: var(--sisyphos-color-neutral-lighter, #f4f6f8); }
+}
+
+.sisyphos-datepicker-header-title {
+  appearance: none;
+  background: transparent;
+  border: 0;
+  cursor: pointer;
+  font-weight: $font-weight-semibold;
+  color: var(--sisyphos-color-neutral-dark, #212b36);
+  padding: $spacing-xxs $spacing-xs;
+  border-radius: $radius-xs;
+
+  &:hover { background: var(--sisyphos-color-neutral-lighter, #f4f6f8); }
+}
+
+.sisyphos-datepicker-weekdays,
+.sisyphos-datepicker-days {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 2px;
+}
+
+.sisyphos-datepicker-weekday {
+  text-align: center;
+  font-size: $size-xs;
+  color: var(--sisyphos-color-neutral-dark, #919eab);
+  padding: $spacing-xxs 0;
+  font-weight: $font-weight-medium;
+}
+
+.sisyphos-datepicker-day {
+  appearance: none;
+  background: transparent;
+  border: 0;
+  cursor: pointer;
+  padding: 0;
+  height: 32px;
+  border-radius: $radius-xs;
+  font-size: $size-sm;
+  color: var(--sisyphos-color-neutral-dark, #212b36);
+
+  &:hover:not(.disabled):not(.selected) {
+    background: var(--sisyphos-color-neutral-lighter, #f4f6f8);
+  }
+
+  &.other-month { color: var(--sisyphos-color-neutral-dark, #c4cdd5); cursor: default; }
+
+  &.today { box-shadow: inset 0 0 0 1px var(--sisyphos-color-primary, #ff7022); color: var(--sisyphos-color-primary, #ff7022); }
+
+  &.selected {
+    background: var(--sisyphos-color-primary, #ff7022);
+    color: #fff;
+  }
+
+  &.in-range:not(.selected) {
+    background: var(--sisyphos-color-primary-lighter, #ffede0);
+    color: var(--sisyphos-color-primary, #ff7022);
+    border-radius: 0;
+  }
+
+  &.disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+  }
+}
+
+.sisyphos-datepicker-months,
+.sisyphos-datepicker-years {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: $spacing-xxs;
+}
+
+.sisyphos-datepicker-month,
+.sisyphos-datepicker-year {
+  appearance: none;
+  background: transparent;
+  border: 0;
+  padding: $spacing-xs;
+  border-radius: $radius-xs;
+  cursor: pointer;
+  font-size: $size-sm;
+  color: var(--sisyphos-color-neutral-dark, #212b36);
+
+  &:hover { background: var(--sisyphos-color-neutral-lighter, #f4f6f8); }
+  &.selected {
+    background: var(--sisyphos-color-primary, #ff7022);
+    color: #fff;
+  }
+}
+
+/* ── TIME ─────────────────────────────────────────────────────────────── */
+.sisyphos-datepicker-time {
+  margin-top: $spacing-s;
+  padding-top: $spacing-s;
+  border-top: 1px solid var(--sisyphos-color-border, #eef0f2);
+
+  &.range {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: $spacing-md;
+  }
+}
+
+.sisyphos-datepicker-time-group {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-xxs;
+}
+
+.sisyphos-datepicker-time-label {
+  font-size: $size-sm;
+  font-weight: $font-weight-semibold;
+  color: var(--sisyphos-color-neutral-dark, #212b36);
+  margin-bottom: $spacing-xxs;
+}
+
+.sisyphos-datepicker-time-row {
+  display: flex;
+  align-items: center;
+  gap: $spacing-xs;
+  font-size: $size-md;
+  color: var(--sisyphos-color-neutral-dark, #212b36);
+
+  select {
+    flex: 1;
+    min-width: 0;
+    min-height: 40px;
+    font: inherit;
+    font-size: $size-sm;
+    padding: $spacing-xxs $spacing-xs;
+    border: 1px solid var(--sisyphos-color-border, #c4cdd5);
+    border-radius: $radius-xs;
+    background: var(--sisyphos-color-neutral-lighter, #fff);
+    color: inherit;
+
+    &:focus {
+      outline: none;
+      border-color: var(--sisyphos-color-primary, #ff7022);
+    }
+    &:disabled { opacity: $opacity-xs; }
+  }
+}

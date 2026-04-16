@@ -1,0 +1,77 @@
+{
+  "name": "@sisyphos-ui/checkbox",
+  "version": "0.2.0",
+  "description": "Checkbox component for Sisyphos UI design system",
+  "keywords": [
+    "checkbox",
+    "component",
+    "design-system",
+    "react",
+    "sisyphos-ui",
+    "typescript",
+    "ui"
+  ],
+  "homepage": "https://github.com/sisyphos-ui/sisyphos-ui#readme",
+  "bugs": {
+    "url": "https://github.com/sisyphos-ui/sisyphos-ui/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sisyphos-ui/sisyphos-ui.git",
+    "directory": "packages/checkbox"
+  },
+  "license": "MIT",
+  "author": "Sisyphos UI Contributors",
+  "sideEffects": [
+    "**/*.css",
+    "**/*.scss"
+  ],
+  "main": "./dist/index.js",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.js"
+    },
+    "./styles.css": "./dist/index.css",
+    "./styles": "./dist/index.css"
+  },
+  "files": [
+    "CHANGELOG.md",
+    "LICENSE",
+    "README.md",
+    "dist"
+  ],
+  "scripts": {
+    "build": "tsup",
+    "dev": "tsup --watch",
+    "lint": "eslint .",
+    "clean": "rm -rf .turbo && rm -rf node_modules && rm -rf dist",
+    "type-check": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@sisyphos-ui/core": "workspace:*"
+  },
+  "peerDependencies": {
+    "react": "^17.0.0 || ^18.0.0 || ^19.0.0",
+    "react-dom": "^17.0.0 || ^18.0.0 || ^19.0.0"
+  },
+  "devDependencies": {
+    "@sisyphos-ui/eslint-config": "workspace:*",
+    "@types/react": "^18.2.48",
+    "@types/react-dom": "^18.2.18",
+    "@types/node": "^20.11.5",
+    "esbuild-sass-plugin": "^3.3.1",
+    "sass": "^1.77.0",
+    "tsup": "^8.0.1",
+    "typescript": "^5.3.3"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}

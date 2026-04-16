@@ -1,0 +1,513 @@
+import { Meta } from "@storybook/blocks";
+
+<Meta title="Foundation/Troubleshooting" />
+
+# Troubleshooting
+
+Sisyphos UI kullanırken karşılaşabileceğiniz common issues ve çözümleri.
+
+---
+
+## 🐛 Common Issues
+
+### Issue 1: Theme Değişiklikleri Uygulanmıyor
+
+**Problem:** `applyTheme()` çağırıyorsunuz ama componentler değişmiyor.
+
+**Çözüm:**
+
+```tsx
+// ✅ Doğru: Styles'i import ettiniz mi?
+import '@sisyphos-ui/core/styles.scss'; // En önce!
+
+// ✅ Doğru: Theme'i app render'dan ÖNCE uyguladınız mı?
+// main.tsx
+import '@sisyphos-ui/core/styles.scss';
+import { applyTheme } from '@sisyphos-ui/core';
+
+applyTheme({ colors: { primary: '#007bff' } }); // Render'dan ÖNCE!
+
+ReactDOM.createRoot(document.getElementById('root')!).render(
+  <React.StrictMode>
+    <App />
+  </React.StrictMode>
+);
+
+// ❌ Yanlış: Theme'i component içinde uygulama
+function Component() {
+  applyTheme({ colors: { primary: '#007bff' } }); // ❌ YANLIŞ!
+  return <Button />;
+}
+```
+
+**Checklist:**
+- [ ] `@sisyphos-ui/core/styles.scss` import edildi mi? (en önce)
+- [ ] `applyTheme()` main.tsx'te çağrıldı mı? (render'dan önce)
+- [ ] CSS variables tanımlı mı? (Browser DevTools'da `:root` elementinde `--sisyphos-color-primary` var mı?)
+- [ ] Component'ler CSS variables kullanıyor mu? (`var(--sisyphos-color-primary)`)
+
+**Debug:**
+
+```tsx
+// Browser DevTools Console'da kontrol edin:
+console.log(getComputedStyle(document.documentElement).getPropertyValue('--sisyphos-color-primary'));
+// Eğer '#007bff' dönerse → Theme uygulanmış ✅
+// Eğer '' veya undefined dönerse → Theme uygulanmamış ❌
+```
+
+---
+
+### Issue 2: CSS Variables Çalışmıyor
+
+**Problem:** CSS variables tanımlı değil veya çalışmıyor.
+
+**Çözüm:**
+
+```tsx
+// ✅ Doğru: Styles'i import ettiniz mi?
+import '@sisyphos-ui/core/styles.scss'; // Bu dosya default-theme.scss'i import eder
+
+// ✅ Doğru: Styles import order doğru mu?
+// main.tsx
+import '@sisyphos-ui/core/styles.scss'; // 1. Önce styles
+import { applyTheme } from '@sisyphos-ui/core'; // 2. Sonra theme functions
+import App from './App'; // 3. Sonra app
+
+// ❌ Yanlış: Styles import edilmemiş
+import { applyTheme } from '@sisyphos-ui/core'; // ❌ Styles yok!
+```
+
+**Checklist:**
+- [ ] `@sisyphos-ui/core/styles.scss` import edildi mi?
+- [ ] Import order doğru mu? (styles → theme functions → app)
+- [ ] Browser DevTools'da `:root` elementinde CSS variables var mı?
+
+**Debug:**
+
+```css
+/* Browser DevTools Elements tab'ında :root elementini açın */
+:root {
+  --sisyphos-color-primary: #ff7022; /* ✅ Varsa styles yüklendi */
+  /* ... diğer variables */
+}
+```
+
+---
+
+### Issue 3: SCSS Variables Çalışmıyor
+
+**Problem:** SCSS variables (`$spacing-md`, `$radius-s`) çalışmıyor.
+
+**Çözüm:**
+
+```scss
+// ✅ Doğru: @use ile import et
+@use "@sisyphos-ui/core/tokens/variables" as *;
+
+.my-component {
+  padding: $spacing-md; /* ✅ Çalışır */
+  border-radius: $radius-s; /* ✅ Çalışır */
+}
+
+// ❌ Yanlış: @import kullanma (deprecated)
+@import "@sisyphos-ui/core/tokens/variables"; /* ❌ Çalışmaz */
+
+// ❌ Yanlış: Import eksik
+.my-component {
+  padding: $spacing-md; /* ❌ Undefined variable error */
+}
+```
+
+**Checklist:**
+- [ ] `@use "@sisyphos-ui/core/tokens/variables" as *;` import edildi mi?
+- [ ] `@import` kullanmıyorsunuz değil mi? (`@use` kullanın)
+- [ ] Import order doğru mu? (`@use` en üstte)
+
+**Debug:**
+
+```scss
+/* SCSS compile error mesajlarını kontrol edin */
+// Error: Undefined variable: "$spacing-md"
+// → @use import eksik veya yanlış path
+```
+
+---
+
+### Issue 4: TypeScript Hataları
+
+**Problem:** `ThemeConfig` type errors.
+
+**Çözüm:**
+
+```tsx
+// ✅ Doğru: createTheme kullan (type-safe)
+import { createTheme, type ThemeConfig } from '@sisyphos-ui/core';
+
+const myTheme: ThemeConfig = createTheme({
+  colors: { primary: '#007bff' }, // ✅ Type-checked
+  spacing: { md: 20 }, // ✅ Type-checked
+});
+
+// ❌ Yanlış: Direkt object (type errors olabilir)
+const badTheme: ThemeConfig = {
+  colors: { primary: '#007bff' }, // ❌ Type errors
+  spacing: { md: 20 }, // ❌ Type errors
+};
+
+// ✅ Doğru: Type import et
+import type { ThemeConfig, ThemeMode } from '@sisyphos-ui/core';
+
+// ❌ Yanlış: Type import eksik
+const theme: ThemeConfig = { ... }; // ❌ ThemeConfig tanımlı değil
+```
+
+**Checklist:**
+- [ ] `createTheme()` kullanıyor musunuz?
+- [ ] `ThemeConfig` type'ını import ettiniz mi?
+- [ ] TypeScript version yeterli mi? (5.3+)
+
+**Debug:**
+
+```tsx
+// TypeScript errors:
+// Error: Property 'colors' does not exist on type 'ThemeConfig'
+// → createTheme() kullan veya type'ı düzelt
+```
+
+---
+
+### Issue 5: Component Styles Çalışmıyor
+
+**Problem:** Component render oluyor ama styles uygulanmıyor.
+
+**Çözüm:**
+
+```tsx
+// ✅ Doğru: SCSS import ettiniz mi?
+// MyComponent.tsx
+import './MyComponent.scss'; // ✅ Component SCSS'i import et
+
+// ✅ Doğru: Global styles import ettiniz mi?
+// main.tsx
+import '@sisyphos-ui/core/styles.scss'; // ✅ Global styles
+import App from './App';
+
+// ❌ Yanlış: SCSS import eksik
+function MyComponent() {
+  return <div className="my-component">Hello</div>; // ❌ Styles yok!
+  // import './MyComponent.scss'; eksik!
+}
+```
+
+**Checklist:**
+- [ ] Component SCSS dosyası import edildi mi? (`import './MyComponent.scss';`)
+- [ ] Global styles import edildi mi? (`import '@sisyphos-ui/core/styles.scss';`)
+- [ ] SCSS compile edildi mi? (build başarılı mı?)
+
+**Debug:**
+
+```tsx
+// Browser DevTools'da component elementini kontrol edin:
+// <div class="my-component"> → Class var mı?
+// Computed styles → Styles uygulanmış mı?
+```
+
+---
+
+### Issue 6: Dark Mode Çalışmıyor
+
+**Problem:** `setThemeMode('dark')` çalışmıyor.
+
+**Çözüm:**
+
+```tsx
+// ✅ Doğru: setThemeMode kullan
+import { setThemeMode } from '@sisyphos-ui/core';
+
+setThemeMode('dark'); // ✅ Doğru
+
+// ❌ Yanlış: Class ekleme/çıkarma
+document.documentElement.classList.add('sisyphos-theme-dark'); // ❌ YANLIŞ!
+
+// ✅ Doğru: getThemeMode ile kontrol et
+import { getThemeMode, setThemeMode } from '@sisyphos-ui/core';
+
+const currentMode = getThemeMode(); // 'light' | 'dark'
+setThemeMode(currentMode === 'light' ? 'dark' : 'light');
+```
+
+**Checklist:**
+- [ ] `setThemeMode()` kullanıyor musunuz?
+- [ ] `sisyphos-theme-dark` class'ı `:root` elementine ekleniyor mu? (DevTools'da kontrol)
+- [ ] Dark mode CSS variables tanımlı mı? (`default-theme.scss` içinde `.sisyphos-theme-dark` var mı?)
+
+**Debug:**
+
+```tsx
+// Browser DevTools Console'da kontrol edin:
+console.log(document.documentElement.classList.contains('sisyphos-theme-dark'));
+// true → Dark mode aktif ✅
+// false → Dark mode pasif ❌
+```
+
+---
+
+### Issue 7: SCSS Nesting Warnings
+
+**Problem:** Build sırasında SCSS nesting warnings.
+
+**Çözüm:**
+
+```scss
+// ❌ Yanlış: Nested BEM (causes warnings)
+.my-component {
+  &__element {
+    &--modifier { } // ❌ SCSS nesting warnings
+  }
+}
+
+// ✅ Doğru: Simplified BEM (flat structure)
+.my-component { }
+.my-component-element { }
+.my-component-element--modifier { }
+```
+
+**Checklist:**
+- [ ] Simplified BEM naming convention kullanıyor musunuz?
+- [ ] Nested `&__` kullanmıyorsunuz değil mi?
+- [ ] Flat class structure kullanıyor musunuz?
+
+**Debug:**
+
+```bash
+# Build output'ta warnings:
+# WARN: Cannot use type selector "__element" directly after nesting selector "&"
+# → Simplified BEM kullan
+```
+
+---
+
+### Issue 8: Comment Format Warnings
+
+**Problem:** Build sırasında comment format warnings.
+
+**Çözüm:**
+
+```scss
+// ❌ Yanlış: SCSS comment format (causes warnings)
+// Variants
+// Sizes
+
+// ✅ Doğru: CSS comment format
+/* Variants */
+/* Sizes */
+```
+
+**Checklist:**
+- [ ] `/* */` format kullanıyor musunuz?
+- [ ] `//` format kullanmıyorsunuz değil mi?
+
+**Debug:**
+
+```bash
+# Build output'ta warnings:
+# WARN: Comments in CSS use "/* ... */" instead of "//"
+# → /* */ format kullan
+```
+
+---
+
+### Issue 9: Package Import Errors
+
+**Problem:** `Module not found` veya import errors.
+
+**Çözüm:**
+
+```tsx
+// ✅ Doğru: Package install edildi mi?
+pnpm add @sisyphos-ui/ui
+
+// ✅ Doğru: Import path doğru mu?
+import { Button } from '@sisyphos-ui/ui'; // ✅
+
+// ❌ Yanlış: Yanlış import path
+import { Button } from '@sisyphos-ui/button'; // ❌ Direct import (çalışır ama ui kullanın)
+
+// ✅ Doğru: Styles import path
+import '@sisyphos-ui/core/styles.scss'; // ✅
+
+// ❌ Yanlış: Yanlış styles path
+import '@sisyphos-ui/ui/styles.scss'; // ❌ Yanlış path
+```
+
+**Checklist:**
+- [ ] Package install edildi mi? (`pnpm add @sisyphos-ui/ui`)
+- [ ] Import path doğru mu? (`@sisyphos-ui/ui` veya `@sisyphos-ui/core`)
+- [ ] node_modules'da package var mı?
+
+**Debug:**
+
+```bash
+# Package var mı kontrol edin:
+ls node_modules/@sisyphos-ui/
+# ui/
+# core/
+# button/
+```
+
+---
+
+### Issue 10: Hard-Coded Values Still Used
+
+**Problem:** Component'lerde hala hard-coded değerler var.
+
+**Çözüm:**
+
+```scss
+// ❌ Yanlış: Hard-coded values
+.my-component {
+  padding: 16px;           /* ❌ Use $spacing-md */
+  color: #212b36;          /* ❌ Use var(--sisyphos-color-neutral-dark) */
+  background: #ff7022;     /* ❌ Use var(--sisyphos-color-primary) */
+  border-radius: 12px;     /* ❌ Use $radius-md */
+  font-size: 16px;         /* ❌ Use $base-size */
+  z-index: 1000;           /* ❌ Use $z-index-overlay */
+}
+
+// ✅ Doğru: Tokens kullan
+.my-component {
+  padding: $spacing-md;
+  color: var(--sisyphos-color-neutral-dark, #212b36);
+  background: var(--sisyphos-color-primary, #ff7022);
+  border-radius: $radius-md;
+  font-size: $base-size;
+  z-index: $z-index-overlay;
+}
+```
+
+**Checklist:**
+- [ ] Tüm spacing değerleri SCSS variables kullanıyor mu? (`$spacing-md`)
+- [ ] Tüm color değerleri CSS variables kullanıyor mu? (`var(--sisyphos-color-primary)`)
+- [ ] Tüm typography değerleri SCSS variables kullanıyor mu? (`$base-size`)
+- [ ] Tüm border-radius değerleri SCSS variables kullanıyor mu? (`$radius-md`)
+- [ ] Tüm z-index değerleri SCSS variables kullanıyor mu? (`$z-index-overlay`)
+
+**Debug:**
+
+```bash
+# Hard-coded değerleri bul:
+grep -r "#[0-9a-fA-F]\{3,6\}" src/  # Colors
+grep -r "[0-9]px" src/               # Spacing (minimal olmalı)
+grep -r "font-size: [0-9]" src/      # Typography
+grep -r "border-radius: [0-9]" src/  # Border radius
+grep -r "z-index: [0-9]" src/        # Z-index
+```
+
+---
+
+## 🔍 Debugging Tools
+
+### Browser DevTools
+
+**CSS Variables Kontrol:**
+
+```javascript
+// Console'da çalıştırın:
+const rootStyles = getComputedStyle(document.documentElement);
+console.log(rootStyles.getPropertyValue('--sisyphos-color-primary'));
+console.log(rootStyles.getPropertyValue('--sisyphos-spacing-md'));
+console.log(rootStyles.getPropertyValue('--sisyphos-radius-s'));
+```
+
+**Theme Mode Kontrol:**
+
+```javascript
+// Console'da çalıştırın:
+console.log(document.documentElement.classList.contains('sisyphos-theme-dark'));
+console.log(document.documentElement.classList.contains('sisyphos-theme-light'));
+```
+
+**Element Styles Kontrol:**
+
+```javascript
+// Browser DevTools Elements tab'ında:
+// 1. Element'i seçin
+// 2. Computed styles tab'ını açın
+// 3. CSS variables değerlerini kontrol edin
+```
+
+---
+
+### TypeScript Check
+
+```bash
+# TypeScript errors kontrol edin:
+pnpm build
+
+# Veya:
+npx tsc --noEmit
+```
+
+---
+
+### SCSS Check
+
+```bash
+# SCSS compile errors kontrol edin:
+pnpm build
+
+# Hard-coded değerleri bul:
+grep -r "#[0-9a-fA-F]\{3,6\}" packages/*/src/
+grep -r "[0-9]px" packages/*/src/ | grep -v "var(" | grep -v "calc("
+```
+
+---
+
+## 🆘 Still Having Issues?
+
+### Common Solutions
+
+1. **Clear Cache:**
+   ```bash
+   rm -rf node_modules
+   rm -rf dist
+   pnpm install
+   pnpm build
+   ```
+
+2. **Check Versions:**
+   ```bash
+   node --version  # v18+
+   pnpm --version  # 8+
+   ```
+
+3. **Check Imports:**
+   ```tsx
+   // ✅ Doğru order:
+   import '@sisyphos-ui/core/styles.scss'; // 1. First
+   import { applyTheme } from '@sisyphos-ui/core'; // 2. Second
+   import { Button } from '@sisyphos-ui/ui'; // 3. Third
+   ```
+
+4. **Check File Structure:**
+   ```
+   ✅ Doğru:
+   src/
+   ├── main.tsx (applyTheme here)
+   ├── App.tsx
+   └── components/
+   
+   ❌ Yanlış:
+   src/
+   ├── App.tsx (applyTheme here - YANLIŞ!)
+   └── components/
+   ```
+
+---
+
+## 📚 Related Documentation
+
+- [Theme System](./?path=/docs/foundation-theme-system--docs) - Theme troubleshooting
+- [Core Package](./?path=/docs/foundation-core-package--docs) - SCSS troubleshooting
+- [Best Practices](./?path=/docs/foundation-best-practices--docs) - Common mistakes
+- [Component Structure](./?path=/docs/foundation-component-structure--docs) - Component issues

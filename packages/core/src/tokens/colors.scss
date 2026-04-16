@@ -1,0 +1,86 @@
+/**
+ * Color Tokens - SCSS Utility Functions
+ * 
+ * NOTE: This file is for SCSS utility functions only.
+ * Default colors are defined in default-theme.scss as CSS variables.
+ * 
+ * This file can be used for:
+ * - SCSS functions that need color values
+ * - Color manipulation utilities
+ * - SCSS-only color operations
+ * 
+ * For component styling, use CSS variables from default-theme.scss:
+ * - var(--sisyphos-color-primary)
+ * - var(--sisyphos-color-success)
+ * etc.
+ */
+
+/* Color Reference Map (for SCSS functions only) */
+$color-reference: (
+  "primary": (
+    "main": #ff7022,
+    "light": #ff8637,
+    "lighter": #ffede0,
+    "dark": #e5631c,
+    "darker": #b84d16,
+    "contained": #f04906,
+  ),
+  "success": (
+    "main": #22c55e,
+    "light": #4ade80,
+    "lighter": #dcfce7,
+    "dark": #16a34a,
+    "darker": #15803d,
+    "contained": #16a34a,
+  ),
+  "error": (
+    "main": #fb3748,
+    "light": #fc5a67,
+    "lighter": #fee2e2,
+    "dark": #dc2626,
+    "darker": #b91c1c,
+    "contained": #dc2626,
+  ),
+  "warning": (
+    "main": #ffab00,
+    "light": #ffc107,
+    "lighter": #fef3c7,
+    "dark": #f59e0b,
+    "darker": #d97706,
+    "contained": #f59e0b,
+  ),
+  "info": (
+    "main": #00b8d9,
+    "light": #06b6d4,
+    "lighter": #cffafe,
+    "dark": #0891b2,
+    "darker": #0e7490,
+    "contained": #0891b2,
+  ),
+  "neutral": (
+    "main": #f9fafb,
+    "lighter": #ffffff,
+    "light": #f3f4f6,
+    "dark": #212b36,
+    "darker": rgba(145, 158, 171, 0.2),
+  ),
+);
+
+/* Utility Functions (if needed in the future) */
+@use "sass:map";
+
+/**
+ * Get color value from reference map (SCSS only)
+ * @example
+ * $primary-main: get-color("primary", "main"); // #ff7022
+ */
+@function get-color($color-name, $shade: "main") {
+  @if map.has-key($color-reference, $color-name) {
+    $color-map: map.get($color-reference, $color-name);
+    @if map.has-key($color-map, $shade) {
+      @return map.get($color-map, $shade);
+    }
+  }
+  @warn "Color '#{$color-name}' with shade '#{$shade}' not found.";
+  @return null;
+}

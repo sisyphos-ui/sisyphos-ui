@@ -1,0 +1,57 @@
+{
+  "name": "sisyphos-ui",
+  "version": "0.2.0",
+  "private": true,
+  "description": "A modern, accessible, themeable React component library. 30+ components, CSS variables, zero runtime deps beyond React.",
+  "homepage": "https://github.com/sisyphos-ui/sisyphos-ui#readme",
+  "bugs": {
+    "url": "https://github.com/sisyphos-ui/sisyphos-ui/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sisyphos-ui/sisyphos-ui.git"
+  },
+  "license": "MIT",
+  "author": "Sisyphos UI Contributors",
+  "scripts": {
+    "build": "turbo run build",
+    "dev": "turbo run dev",
+    "dev:storybook": "pnpm --filter @sisyphos-ui/storybook dev",
+    "dev:playground": "pnpm --filter @sisyphos-ui/playground dev",
+    "lint": "turbo run lint",
+    "format": "prettier --write \"packages/**/src/**/*.{ts,tsx,scss}\" \"apps/**/src/**/*.{ts,tsx,scss}\"",
+    "format:check": "prettier --check \"packages/**/src/**/*.{ts,tsx,scss}\" \"apps/**/src/**/*.{ts,tsx,scss}\"",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "clean": "turbo run clean && rm -rf node_modules",
+    "changeset": "changeset",
+    "version-packages": "changeset version",
+    "release": "turbo run build --filter=./packages/* && changeset publish",
+    "type-check": "turbo run type-check",
+    "storybook": "pnpm --filter @sisyphos-ui/storybook dev",
+    "build:storybook": "pnpm --filter @sisyphos-ui/storybook build",
+    "chromatic": "chromatic --exit-zero-on-changes"
+  },
+  "devDependencies": {
+    "@changesets/cli": "^2.27.1",
+    "@sisyphos-ui/eslint-config": "workspace:*",
+    "@testing-library/jest-dom": "^6.4.0",
+    "@testing-library/react": "^14.2.0",
+    "@testing-library/user-event": "^14.5.0",
+    "@vitejs/plugin-react": "^4.3.0",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "eslint": "^8.57.0",
+    "jsdom": "^24.0.0",
+    "prettier": "^3.3.0",
+    "turbo": "^2.0.18",
+    "typescript": "^5.3.3",
+    "vitest": "^1.6.0"
+  },
+  "packageManager": "pnpm@8.15.0",
+  "engines": {
+    "node": ">=18.0.0",
+    "pnpm": ">=8.0.0"
+  }
+}
+

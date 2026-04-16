@@ -1,0 +1,32 @@
+name: Feature request
+description: Suggest a new component, prop, or behavior.
+labels: ["enhancement"]
+body:
+  - type: textarea
+    id: problem
+    attributes:
+      label: What problem does this solve?
+      description: Describe the use case. What are you trying to build that today's API can't express cleanly?
+    validations:
+      required: true
+
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Proposed API
+      description: Sketch the component or prop you'd like. TypeScript types welcome.
+      render: tsx
+    validations:
+      required: true
+
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Alternatives considered
+      description: What workarounds have you tried? Why aren't they enough?
+
+  - type: input
+    id: prior-art
+    attributes:
+      label: Prior art
+      description: Link to how another library (Radix, MUI, Mantine, Chakra, …) solves this.

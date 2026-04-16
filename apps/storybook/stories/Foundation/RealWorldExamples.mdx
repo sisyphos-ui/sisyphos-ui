@@ -1,0 +1,630 @@
+import { Meta } from "@storybook/blocks";
+
+<Meta title="Foundation/Real-World Examples" />
+
+# Real-World Examples
+
+Farklı proje türlerinde Sisyphos UI kullanım senaryoları ve implementation examples.
+
+---
+
+## 🎯 Senaryo 1: E-Commerce Site (Single Brand)
+
+**Proje Tipi:** E-ticaret sitesi  
+**Tema İhtiyacı:** Sadece brand color override  
+**Karmaşıklık:** Basit
+
+### File Structure
+
+```
+ecommerce-project/
+├── src/
+│   ├── main.tsx
+│   ├── App.tsx
+│   ├── theme/
+│   │   └── brand-theme.ts
+│   └── components/
+│       └── ProductCard.tsx
+```
+
+### Implementation
+
+**Step 1: Theme Configuration**
+
+```tsx
+// src/theme/brand-theme.ts
+import { createTheme, type ThemeConfig } from '@sisyphos-ui/core';
+
+export const brandTheme: ThemeConfig = createTheme({
+  colors: {
+    primary: '#007bff', // Brand color (Mavi)
+  },
+});
+```
+
+**Step 2: Apply Theme**
+
+```tsx
+// src/main.tsx
+import React from 'react';
+import ReactDOM from 'react-dom/client';
+import '@sisyphos-ui/core/styles.scss';
+import { applyTheme } from '@sisyphos-ui/core';
+import { brandTheme } from './theme/brand-theme';
+import App from './App';
+
+// Apply theme before rendering
+applyTheme(brandTheme);
+
+ReactDOM.createRoot(document.getElementById('root')!).render(
+  <React.StrictMode>
+    <App />
+  </React.StrictMode>
+);
+```
+
+**Step 3: Use Components**
+
+```tsx
+// src/components/ProductCard.tsx
+import { Button } from '@sisyphos-ui/ui';
+
+interface ProductCardProps {
+  title: string;
+  price: number;
+  image: string;
+}
+
+export function ProductCard({ title, price, image }: ProductCardProps) {
+  return (
+    <div className="product-card">
+      <img src={image} alt={title} />
+      <h3>{title}</h3>
+      <p>{price} TL</p>
+      <Button color="primary" variant="contained">
+        Sepete Ekle
+      </Button>
+      <Button color="primary" variant="outlined">
+        Favorilere Ekle
+      </Button>
+    </div>
+  );
+}
+```
+
+**Result:**
+- ✅ Tüm primary button'lar brand color (mavi) kullanır
+- ✅ Minimal configuration (1 satır tema kodu)
+- ✅ %80 use case
+
+---
+
+## 🎯 Senaryo 2: SaaS Dashboard (Full Customization)
+
+**Proje Tipi:** SaaS dashboard  
+**Tema İhtiyacı:** Tüm semantic colors, spacing, typography  
+**Karmaşıklık:** Orta
+
+### File Structure
+
+```
+saas-dashboard/
+├── src/
+│   ├── main.tsx
+│   ├── App.tsx
+│   ├── theme/
+│   │   ├── index.ts
+│   │   └── saas-theme.ts
+│   ├── components/
+│   │   ├── Dashboard.tsx
+│   │   └── Alert.tsx
+│   └── hooks/
+│       └── useTheme.ts
+```
+
+### Implementation
+
+**Step 1: Full Theme Configuration**
+
+```tsx
+// src/theme/saas-theme.ts
+import { createTheme, type ThemeConfig } from '@sisyphos-ui/core';
+
+export const saasTheme: ThemeConfig = createTheme({
+  colors: {
+    primary: '#7c3aed',    // Purple - Main actions
+    success: '#10b981',    // Emerald - Success states
+    error: '#ef4444',      // Red - Error states
+    warning: '#f59e0b',    // Amber - Warning states
+    info: '#3b82f6',       // Blue - Info messages
+    neutral: {
+      main: '#f9fafb',
+      lighter: '#ffffff',
+      light: '#f3f4f6',
+      dark: '#374151',
+      darker: '#1f2937',
+    },
+  },
+  spacing: {
+    md: 20,  // Default 16px -> 20px
+    lg: 30,  // Default 24px -> 30px
+  },
+  typography: {
+    fontFamily: 'Poppins, sans-serif',
+    sizes: {
+      base: 15, // Default 16px -> 15px
+    },
+    weights: {
+      medium: 500,
+      semibold: 600,
+      bold: 700,
+    },
+  },
+  borderRadius: {
+    md: 8,  // Default 12px -> 8px (daha keskin)
+  },
+});
+```
+
+**Step 2: Apply Theme with Hook**
+
+```tsx
+// src/hooks/useTheme.ts
+import { useEffect } from 'react';
+import { applyTheme, type ThemeConfig } from '@sisyphos-ui/core';
+
+export function useTheme(theme: ThemeConfig) {
+  useEffect(() => {
+    applyTheme(theme);
+  }, [theme]);
+}
+
+// src/main.tsx
+import React from 'react';
+import ReactDOM from 'react-dom/client';
+import '@sisyphos-ui/core/styles.scss';
+import { saasTheme } from './theme/saas-theme';
+import { useTheme } from './hooks/useTheme';
+import App from './App';
+
+function AppWithTheme() {
+  useTheme(saasTheme);
+  return <App />;
+}
+
+ReactDOM.createRoot(document.getElementById('root')!).render(
+  <React.StrictMode>
+    <AppWithTheme />
+  </React.StrictMode>
+);
+```
+
+**Step 3: Dashboard Components**
+
+```tsx
+// src/components/Dashboard.tsx
+import { Button, Alert } from '@sisyphos-ui/ui';
+
+export function Dashboard() {
+  return (
+    <div className="dashboard">
+      <header>
+        <h1>Dashboard</h1>
+        <Button color="primary">Create Project</Button>
+      </header>
+
+      <main>
+        <Alert color="success">
+          Project created successfully!
+        </Alert>
+        <Alert color="error">
+          Failed to delete project
+        </Alert>
+        <Alert color="warning">
+          Low disk space
+        </Alert>
+        <Alert color="info">
+          New feature available
+        </Alert>
+      </main>
+    </div>
+  );
+}
+```
+
+**Result:**
+- ✅ Tam tema customizasyonu
+- ✅ Organized structure (theme, hooks, components)
+- ✅ Reusable hooks pattern
+
+---
+
+## 🎯 Senaryo 3: Multi-Brand Application (Dynamic Theme)
+
+**Proje Tipi:** White-label SaaS  
+**Tema İhtiyacı:** Her müşteri için farklı tema  
+**Karmaşıklık:** İleri
+
+### File Structure
+
+```
+multi-brand-app/
+├── src/
+│   ├── main.tsx
+│   ├── App.tsx
+│   ├── theme/
+│   │   ├── index.ts
+│   │   ├── themes.ts
+│   │   └── theme-manager.ts
+│   ├── hooks/
+│   │   └── useBrandTheme.ts
+│   ├── utils/
+│   │   └── theme-storage.ts
+│   └── api/
+│       └── theme-api.ts
+```
+
+### Implementation
+
+**Step 1: Brand Themes Configuration**
+
+```tsx
+// src/theme/themes.ts
+import { createTheme, type ThemeConfig } from '@sisyphos-ui/core';
+
+export const brandThemes: Record<string, ThemeConfig> = {
+  brandA: createTheme({
+    colors: { primary: '#007bff' }, // Mavi
+    borderRadius: { md: 8 },
+  }),
+  brandB: createTheme({
+    colors: { primary: '#10b981' }, // Yeşil
+    borderRadius: { md: 12 },
+  }),
+  brandC: createTheme({
+    colors: { primary: '#f59e0b' }, // Turuncu
+    borderRadius: { md: 16 },
+  }),
+  brandD: createTheme({
+    colors: { primary: '#7c3aed' }, // Mor
+    borderRadius: { md: 20 },
+  }),
+};
+
+export type BrandId = keyof typeof brandThemes;
+```
+
+**Step 2: Theme Manager**
+
+```tsx
+// src/theme/theme-manager.ts
+import { applyTheme, type ThemeConfig } from '@sisyphos-ui/core';
+import { saveTheme } from '../utils/theme-storage';
+
+export function applyBrandTheme(brandId: string, theme: ThemeConfig) {
+  applyTheme(theme);
+  saveTheme(theme); // Persist to localStorage
+}
+
+// src/utils/theme-storage.ts
+import { type ThemeConfig } from '@sisyphos-ui/core';
+
+const THEME_STORAGE_KEY = 'app-theme';
+
+export function saveTheme(theme: ThemeConfig) {
+  localStorage.setItem(THEME_STORAGE_KEY, JSON.stringify(theme));
+}
+
+export function loadTheme(): ThemeConfig | null {
+  const stored = localStorage.getItem(THEME_STORAGE_KEY);
+  return stored ? JSON.parse(stored) : null;
+}
+```
+
+**Step 3: Brand Theme Hook**
+
+```tsx
+// src/hooks/useBrandTheme.ts
+import { useEffect, useState } from 'react';
+import { applyBrandTheme } from '../theme/theme-manager';
+import { brandThemes, type BrandId } from '../theme/themes';
+import { fetchBrandTheme } from '../api/theme-api';
+import { type ThemeConfig } from '@sisyphos-ui/core';
+
+export function useBrandTheme(brandId: BrandId | null) {
+  const [theme, setTheme] = useState<ThemeConfig | null>(null);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<Error | null>(null);
+
+  useEffect(() => {
+    async function loadTheme() {
+      if (!brandId) return;
+
+      setLoading(true);
+      setError(null);
+
+      try {
+        // Önce local theme'i dene
+        let themeConfig: ThemeConfig | null = brandThemes[brandId] || null;
+
+        // Eğer API'den yüklemek isterseniz:
+        // themeConfig = await fetchBrandTheme(brandId);
+
+        if (themeConfig) {
+          applyBrandTheme(brandId, themeConfig);
+          setTheme(themeConfig);
+        }
+      } catch (err) {
+        setError(err instanceof Error ? err : new Error('Failed to load theme'));
+        // Fallback to default theme
+        if (brandId in brandThemes) {
+          applyBrandTheme(brandId, brandThemes[brandId]);
+        }
+      } finally {
+        setLoading(false);
+      }
+    }
+
+    loadTheme();
+  }, [brandId]);
+
+  return { theme, loading, error };
+}
+```
+
+**Step 4: API Integration (Optional)**
+
+```tsx
+// src/api/theme-api.ts
+import { type ThemeConfig } from '@sisyphos-ui/core';
+
+export async function fetchBrandTheme(brandId: string): Promise<ThemeConfig> {
+  const response = await fetch(`/api/brands/${brandId}/theme`);
+  if (!response.ok) {
+    throw new Error(`Failed to fetch theme for brand: ${brandId}`);
+  }
+  return response.json();
+}
+```
+
+**Step 5: App Usage**
+
+```tsx
+// src/App.tsx
+import { useBrandTheme } from './hooks/useBrandTheme';
+import { useAuth } from './hooks/useAuth';
+import { Dashboard } from './components/Dashboard';
+
+function App() {
+  const { user } = useAuth();
+  const { loading, error } = useBrandTheme(user?.brandId || null);
+
+  if (loading) return <div>Loading theme...</div>;
+  if (error) return <div>Error: {error.message}</div>;
+
+  return <Dashboard />;
+}
+```
+
+**Result:**
+- ✅ Dynamic theme loading (API'den veya local)
+- ✅ Theme persistence (localStorage)
+- ✅ Error handling (fallback theme)
+- ✅ Loading states
+- ✅ Reusable hook pattern
+
+---
+
+## 🎯 Senaryo 4: Internal Tools (Zero Config)
+
+**Proje Tipi:** Internal dashboard (HRSync, PDKS)  
+**Tema İhtiyacı:** Default theme (hiçbir customizasyon yok)  
+**Karmaşıklık:** Çok Basit
+
+### Implementation
+
+```tsx
+// src/main.tsx
+import React from 'react';
+import ReactDOM from 'react-dom/client';
+import '@sisyphos-ui/core/styles.scss'; // Sadece styles import et
+import App from './App';
+
+// Hiçbir theme uygulama yok - default theme çalışır!
+
+ReactDOM.createRoot(document.getElementById('root')!).render(
+  <React.StrictMode>
+    <App />
+  </React.StrictMode>
+);
+```
+
+```tsx
+// src/components/Toolbar.tsx
+import { Button } from '@sisyphos-ui/ui';
+
+export function Toolbar() {
+  return (
+    <div className="toolbar">
+      <Button color="primary">Save</Button>
+      <Button color="success">Export</Button>
+      <Button color="error">Delete</Button>
+      <Button color="warning">Warning</Button>
+    </div>
+  );
+}
+```
+
+**Result:**
+- ✅ Zero config - hiçbir tema kodu yok
+- ✅ Default Sisyphos theme otomatik çalışır
+- ✅ En basit use case
+
+---
+
+## 🎯 Senaryo 5: User Customizable Theme (Advanced)
+
+**Proje Tipi:** SaaS with user themes  
+**Tema İhtiyacı:** Kullanıcı kendi temasını seçebilsin  
+**Karmaşıklık:** İleri
+
+### Implementation
+
+**Step 1: Theme Presets**
+
+```tsx
+// src/theme/presets.ts
+import { createTheme, type ThemeConfig } from '@sisyphos-ui/core';
+
+export const themePresets = {
+  default: createTheme({
+    colors: { primary: '#ff7022' },
+  }),
+  blue: createTheme({
+    colors: { primary: '#007bff' },
+  }),
+  green: createTheme({
+    colors: { primary: '#10b981' },
+  }),
+  purple: createTheme({
+    colors: { primary: '#7c3aed' },
+  }),
+  red: createTheme({
+    colors: { primary: '#ef4444' },
+  }),
+} as const;
+
+export type ThemePreset = keyof typeof themePresets;
+```
+
+**Step 2: Theme Selector Component**
+
+```tsx
+// src/components/ThemeSelector.tsx
+import { useState } from 'react';
+import { applyTheme } from '@sisyphos-ui/core';
+import { themePresets, type ThemePreset } from '../theme/presets';
+import { saveTheme, loadTheme } from '../utils/theme-storage';
+import { Button } from '@sisyphos-ui/ui';
+
+export function ThemeSelector() {
+  const [selectedTheme, setSelectedTheme] = useState<ThemePreset>(() => {
+    const saved = loadTheme();
+    // Find matching preset
+    const preset = Object.entries(themePresets).find(
+      ([, theme]) => JSON.stringify(theme) === JSON.stringify(saved)
+    )?.[0] as ThemePreset;
+    return preset || 'default';
+  });
+
+  const handleThemeChange = (preset: ThemePreset) => {
+    const theme = themePresets[preset];
+    applyTheme(theme);
+    saveTheme(theme);
+    setSelectedTheme(preset);
+  };
+
+  return (
+    <div className="theme-selector">
+      <h3>Choose Theme</h3>
+      <div className="theme-buttons">
+        {(Object.keys(themePresets) as ThemePreset[]).map((preset) => (
+          <Button
+            key={preset}
+            onClick={() => handleThemeChange(preset)}
+            variant={selectedTheme === preset ? 'contained' : 'outlined'}
+            color={selectedTheme === preset ? 'primary' : 'info'}
+          >
+            {preset}
+          </Button>
+        ))}
+      </div>
+    </div>
+  );
+}
+```
+
+**Step 3: Custom Theme Builder (Advanced)**
+
+```tsx
+// src/components/ThemeBuilder.tsx
+import { useState } from 'react';
+import { applyTheme, createTheme, type ThemeConfig } from '@sisyphos-ui/core';
+import { Button } from '@sisyphos-ui/ui';
+
+export function ThemeBuilder() {
+  const [primaryColor, setPrimaryColor] = useState('#007bff');
+  const [spacing, setSpacing] = useState(16);
+  const [borderRadius, setBorderRadius] = useState(12);
+
+  const handleApply = () => {
+    const customTheme: ThemeConfig = createTheme({
+      colors: { primary: primaryColor },
+      spacing: { md: spacing },
+      borderRadius: { md: borderRadius },
+    });
+    applyTheme(customTheme);
+  };
+
+  return (
+    <div className="theme-builder">
+      <h3>Custom Theme Builder</h3>
+      <div className="theme-controls">
+        <label>
+          Primary Color:
+          <input
+            type="color"
+            value={primaryColor}
+            onChange={(e) => setPrimaryColor(e.target.value)}
+          />
+        </label>
+        <label>
+          Spacing (md):
+          <input
+            type="number"
+            value={spacing}
+            onChange={(e) => setSpacing(Number(e.target.value))}
+          />
+        </label>
+        <label>
+          Border Radius (md):
+          <input
+            type="number"
+            value={borderRadius}
+            onChange={(e) => setBorderRadius(Number(e.target.value))}
+          />
+        </label>
+        <Button color="primary" onClick={handleApply}>
+          Apply Theme
+        </Button>
+      </div>
+    </div>
+  );
+}
+```
+
+**Result:**
+- ✅ User-selectable themes
+- ✅ Theme persistence
+- ✅ Custom theme builder
+- ✅ Real-time preview
+
+---
+
+## 📊 Senaryo Karşılaştırması
+
+| Senaryo | Karmaşıklık | Tema İhtiyacı | Configuration | Use Case |
+|---------|-------------|---------------|---------------|----------|
+| E-Commerce | Basit | Brand color only | 1 satır | %80 use case |
+| SaaS Dashboard | Orta | Full customization | Organized structure | Internal tools |
+| Multi-Brand | İleri | Dynamic themes | API integration | White-label SaaS |
+| Internal Tools | Çok Basit | Zero config | Hiçbir şey yok | Internal dashboards |
+| User Customizable | İleri | User-selectable | Theme builder | SaaS with themes |
+
+---
+
+## 🔗 Related Documentation
+
+- [Theme System](./?path=/docs/foundation-theme-system--docs) - Tema sistemi detayları
+- [Best Practices](./?path=/docs/foundation-best-practices--docs) - Best practices
+- [Troubleshooting](./?path=/docs/foundation-troubleshooting--docs) - Common issues

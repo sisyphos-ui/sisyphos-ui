@@ -1,0 +1,105 @@
+@use "@sisyphos-ui/core/src/tokens/variables" as *;
+
+.sisyphos-dialog-root {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: $spacing-md;
+  z-index: $z-index-overlay;
+
+  &.with-backdrop {
+    background: rgba(15, 23, 42, 0.4);
+    backdrop-filter: blur(2px);
+  }
+}
+
+.sisyphos-dialog {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  background: var(--sisyphos-color-neutral-lighter, #fff);
+  color: var(--sisyphos-color-neutral-dark, #212b36);
+  border-radius: $radius-lg;
+  box-shadow: 0 24px 48px rgba(0, 0, 0, 0.18);
+  width: 100%;
+  max-height: calc(100vh - #{$spacing-md} * 2);
+  outline: none;
+
+  /* Sizes */
+  &.sm   { max-width: 400px; }
+  &.md   { max-width: 560px; }
+  &.lg   { max-width: 720px; }
+  &.xl   { max-width: 960px; }
+  &.full { max-width: none; height: calc(100vh - #{$spacing-md} * 2); border-radius: $radius-md; }
+}
+
+.sisyphos-dialog-header {
+  display: flex;
+  align-items: flex-start;
+  gap: $spacing-md;
+  padding: $spacing-lg $spacing-lg $spacing-s;
+  border-bottom: 1px solid var(--sisyphos-color-border, #eef0f2);
+}
+
+.sisyphos-dialog-title {
+  margin: 0;
+  font-size: $h5;
+  font-weight: $font-weight-semibold;
+  line-height: $line-height;
+  flex: 1;
+  min-width: 0;
+}
+
+.sisyphos-dialog-description {
+  margin: 0;
+  padding: 0 $spacing-lg;
+  font-size: $size-md;
+  color: var(--sisyphos-color-neutral-dark, #637381);
+  line-height: $line-height;
+}
+
+.sisyphos-dialog-body {
+  flex: 1;
+  overflow-y: auto;
+  padding: $spacing-md $spacing-lg;
+}
+
+.sisyphos-dialog-footer {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: $spacing-xs;
+  padding: $spacing-s $spacing-lg $spacing-lg;
+  border-top: 1px solid var(--sisyphos-color-border, #eef0f2);
+}
+
+.sisyphos-dialog-close {
+  appearance: none;
+  background: transparent;
+  border: 0;
+  padding: 0;
+  margin: 0 0 0 auto;
+  width: 32px;
+  height: 32px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  color: var(--sisyphos-color-neutral-dark, #637381);
+  border-radius: $radius-xs;
+  flex-shrink: 0;
+
+  svg { width: 18px; height: 18px; }
+
+  &:hover {
+    background: var(--sisyphos-color-neutral-lighter, #f4f6f8);
+    color: var(--sisyphos-color-neutral-dark, #212b36);
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--sisyphos-color-primary, #ff7022);
+    outline-offset: 2px;
+  }
+}

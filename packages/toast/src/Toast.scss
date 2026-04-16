@@ -1,0 +1,133 @@
+@use "@sisyphos-ui/core/src/tokens/variables" as *;
+@use "sass:map";
+
+$toast-colors: (
+  default: (
+    bg: var(--sisyphos-color-neutral-dark, #212b36),
+    fg: var(--sisyphos-color-neutral-lighter, #fff),
+    accent: var(--sisyphos-color-neutral-lighter, #fff),
+  ),
+  success: (
+    bg: var(--sisyphos-color-neutral-lighter, #fff),
+    fg: var(--sisyphos-color-neutral-dark, #212b36),
+    accent: var(--sisyphos-color-success, #22c55e),
+  ),
+  error: (
+    bg: var(--sisyphos-color-neutral-lighter, #fff),
+    fg: var(--sisyphos-color-neutral-dark, #212b36),
+    accent: var(--sisyphos-color-error, #fb3748),
+  ),
+  warning: (
+    bg: var(--sisyphos-color-neutral-lighter, #fff),
+    fg: var(--sisyphos-color-neutral-dark, #212b36),
+    accent: var(--sisyphos-color-warning, #ffab00),
+  ),
+  info: (
+    bg: var(--sisyphos-color-neutral-lighter, #fff),
+    fg: var(--sisyphos-color-neutral-dark, #212b36),
+    accent: var(--sisyphos-color-info, #00b8d9),
+  ),
+);
+
+/* ── TOASTER ──────────────────────────────────────────────────────────── */
+.sisyphos-toaster {
+  position: fixed;
+  display: flex;
+  pointer-events: none;
+  z-index: $z-index-overlay;
+  padding: $spacing-md;
+  max-width: 420px;
+  width: auto;
+
+  &.top-left,    &.bottom-left    { left: 0; }
+  &.top-right,   &.bottom-right   { right: 0; }
+  &.top-center,  &.bottom-center  { left: 50%; transform: translateX(-50%); }
+  &.top-left,    &.top-right,     &.top-center    { top: 0; }
+  &.bottom-left, &.bottom-right,  &.bottom-center { bottom: 0; }
+}
+
+/* ── TOAST ────────────────────────────────────────────────────────────── */
+.sisyphos-toast {
+  pointer-events: auto;
+  min-width: 280px;
+  max-width: 380px;
+  display: flex;
+  align-items: flex-start;
+  gap: $spacing-s;
+  padding: $spacing-s $spacing-md;
+  border-radius: $radius-md;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+  animation: sisyphos-toast-enter 200ms ease-out;
+
+  @each $name, $cfg in $toast-colors {
+    &.#{$name} {
+      background: map.get($cfg, bg);
+      color: map.get($cfg, fg);
+      border: 1px solid map.get($cfg, accent);
+
+      .sisyphos-toast-icon { color: map.get($cfg, accent); }
+    }
+  }
+}
+
+@keyframes sisyphos-toast-enter {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: none; }
+}
+
+.sisyphos-toast-icon {
+  flex-shrink: 0;
+  margin-top: 2px;
+  display: inline-flex;
+
+  svg { width: 18px; height: 18px; }
+}
+
+.sisyphos-toast-body {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.sisyphos-toast-title {
+  font-size: $size-md;
+  font-weight: $font-weight-semibold;
+  line-height: $line-height;
+}
+
+.sisyphos-toast-description {
+  font-size: $size-sm;
+  opacity: 0.85;
+  line-height: $line-height;
+}
+
+.sisyphos-toast-action {
+  flex-shrink: 0;
+}
+
+.sisyphos-toast-close {
+  appearance: none;
+  background: transparent;
+  border: 0;
+  padding: 0;
+  color: currentColor;
+  opacity: 0.6;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.5em;
+  height: 1.5em;
+  border-radius: $radius-xxs;
+  flex-shrink: 0;
+
+  svg { width: 1em; height: 1em; }
+
+  &:hover { opacity: 1; }
+  &:focus-visible {
+    outline: 2px solid currentColor;
+    outline-offset: 2px;
+  }
+}

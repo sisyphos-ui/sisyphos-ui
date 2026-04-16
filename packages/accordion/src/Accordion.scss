@@ -1,0 +1,86 @@
+@use "@sisyphos-ui/core/src/tokens/variables" as *;
+
+.sisyphos-accordion {
+  display: flex;
+  flex-direction: column;
+
+  &.outlined {
+    border: 1px solid var(--sisyphos-color-border, #eef0f2);
+    border-radius: $radius-md;
+    overflow: hidden;
+
+    .sisyphos-accordion-item + .sisyphos-accordion-item {
+      border-top: 1px solid var(--sisyphos-color-border, #eef0f2);
+    }
+  }
+
+  &.ghost {
+    gap: $spacing-xxs;
+  }
+}
+
+.sisyphos-accordion-item {
+  background: var(--sisyphos-color-neutral-lighter, #fff);
+
+  .sisyphos-accordion.ghost & {
+    border-radius: $radius-s;
+    background: var(--sisyphos-color-neutral-lighter, #f9fafb);
+  }
+
+  &.disabled { opacity: $opacity-s; pointer-events: none; }
+}
+
+.sisyphos-accordion-heading { margin: 0; }
+
+.sisyphos-accordion-trigger {
+  width: 100%;
+  appearance: none;
+  background: transparent;
+  border: 0;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: $spacing-md;
+  padding: $spacing-md $spacing-lg;
+  font: inherit;
+  font-weight: $font-weight-semibold;
+  color: var(--sisyphos-color-neutral-dark, #212b36);
+  text-align: left;
+  transition: background $duration-s;
+
+  &:hover { background: var(--sisyphos-color-neutral-lighter, #f4f6f8); }
+  &:focus-visible {
+    outline: 2px solid var(--sisyphos-color-primary, #ff7022);
+    outline-offset: -2px;
+  }
+}
+
+.sisyphos-accordion-trigger-label {
+  flex: 1;
+  min-width: 0;
+}
+
+.sisyphos-accordion-trigger-icon {
+  display: inline-flex;
+  align-items: center;
+  color: var(--sisyphos-color-neutral-dark, #637381);
+  transition: transform $duration-s;
+
+  &.rotated { transform: rotate(180deg); }
+  svg { width: 1em; height: 1em; }
+}
+
+.sisyphos-accordion-content {
+  padding: 0 $spacing-lg;
+  overflow: hidden;
+  transition: opacity $duration-s;
+
+  &[hidden] { display: none; }
+}
+
+.sisyphos-accordion-content-inner {
+  padding: 0 0 $spacing-md;
+  color: var(--sisyphos-color-neutral-dark, #637381);
+  line-height: $line-height;
+}

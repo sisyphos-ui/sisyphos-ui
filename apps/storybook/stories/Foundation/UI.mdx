@@ -1,0 +1,186 @@
+import { Meta } from "@storybook/blocks";
+
+<Meta title="Foundation/UI Package" />
+
+# UI Package
+
+`@sisyphos-ui/ui` paketi, tüm Sisyphos UI componentlerini tek bir yerden export eden **umbrella package**'tir.
+
+## 📦 Paket İçeriği
+
+### Components
+
+Tüm componentler `@sisyphos-ui/ui` üzerinden import edilir:
+
+```tsx
+import { Button, Input, Modal, Card } from '@sisyphos-ui/ui';
+```
+
+### Core Functions
+
+Theme fonksiyonları da `@sisyphos-ui/ui` üzerinden export edilir:
+
+```tsx
+import { applyTheme, setThemeMode } from '@sisyphos-ui/ui';
+```
+
+---
+
+## 🎯 Kullanım
+
+### Installation
+
+```bash
+npm install @sisyphos-ui/ui
+# veya
+pnpm add @sisyphos-ui/ui
+# veya
+yarn add @sisyphos-ui/ui
+```
+
+### Basic Usage
+
+```tsx
+// main.tsx veya App.tsx
+import '@sisyphos-ui/core/styles.scss';
+import { Button, applyTheme } from '@sisyphos-ui/ui';
+
+// Tema uygula
+applyTheme({
+  colors: { primary: '#007bff' },
+});
+
+// Component kullan
+function App() {
+  return <Button color="primary">Click Me</Button>;
+}
+```
+
+---
+
+## 📁 Paket Yapısı
+
+```
+@sisyphos-ui/ui/
+├── src/
+│   └── index.ts              # Re-exports all components
+├── package.json
+└── dist/
+```
+
+### Internal Structure
+
+```tsx
+// packages/ui/src/index.ts
+export * from '@sisyphos-ui/core';    // Theme functions
+export * from '@sisyphos-ui/button';  // Button component
+export * from '@sisyphos-ui/input';   // Input component (future)
+// ... diğer componentler
+```
+
+---
+
+## 🧩 Component Architecture
+
+Her component kendi paketinde tutulur:
+
+```
+packages/
+├── button/           # Button component
+├── input/            # Input component
+├── modal/            # Modal component
+└── ui/               # Umbrella package (re-exports all)
+```
+
+### Neden Bu Yapı?
+
+1. **Tree-shaking**: Sadece kullandığınız component import edilir
+2. **Independent Versioning**: Her component kendi versiyonunu yönetir
+3. **Selective Updates**: Sadece güncellemek istediğiniz component'i güncelleyebilirsiniz
+4. **Better DX**: Tek bir import ile tüm componentlere erişim
+
+---
+
+## 📦 Available Components
+
+### Button
+
+```tsx
+import { Button } from '@sisyphos-ui/ui';
+
+<Button color="primary" variant="contained">
+  Click Me
+</Button>
+```
+
+**Variants:**
+- `contained` (default)
+- `outlined`
+- `text`
+- `soft`
+
+**Colors:**
+- `primary`
+- `success`
+- `error`
+- `warning`
+- `info`
+
+**Sizes:**
+- `small`
+- `medium` (default)
+- `large`
+
+### More Components Coming Soon...
+
+- Input
+- Modal
+- Card
+- Select
+- Checkbox
+- Radio
+- Switch
+- ...ve daha fazlası
+
+---
+
+## 🎨 Theme Integration
+
+UI Package, Core Package'in tema sistemini kullanır:
+
+```tsx
+import { applyTheme, Button } from '@sisyphos-ui/ui';
+
+// Tema uygula
+applyTheme({
+  colors: { primary: '#007bff' },
+});
+
+// Tüm componentler otomatik yeni temayı kullanır
+<Button color="primary">Click Me</Button> // Mavi olur
+```
+
+---
+
+## 🔗 Direct Package Imports
+
+İsterseniz component'leri doğrudan kendi paketlerinden de import edebilirsiniz:
+
+```tsx
+// Umbrella package (Recommended)
+import { Button } from '@sisyphos-ui/ui';
+
+// Direct import (Alternative)
+import { Button } from '@sisyphos-ui/button';
+```
+
+Her iki yöntem de çalışır, ancak umbrella package kullanımı daha pratik ve tutarlıdır.
+
+---
+
+## 📚 Related Documentation
+
+- [Core Package](./Core) - Design tokens ve theme sistemi
+- [Theme System](./Theme) - Tema customizasyonu
+- [Design Tokens](./DesignTokens) - Token showcase
+- [Components](./?path=/story/components--button) - Component dokümantasyonu

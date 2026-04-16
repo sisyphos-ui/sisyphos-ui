@@ -1,0 +1,729 @@
+# Sisyphos UI Design System - Cursor Rules
+
+## 🎯 Design Philosophy
+
+**Sisyphos UI is a PURE Design System:**
+- **Components + Tokens ONLY** - No utilities, no state management, no business logic
+- **Pure Design System Focus** - Focus on UI components and design tokens
+- **Framework Agnostic** - Works with any state management (Redux, Zustand, Context, etc.)
+- **No React Integration** - No ThemeProvider, users manage their own state
+
+---
+
+## 📦 Package Structure
+
+```
+packages/
+├── core/              # Theme system + Design tokens
+├── button/            # Component packages
+├── input/             # Component packages (future)
+└── ui/                # Umbrella package (re-exports all)
+```
+
+**Rule:** Every component must be in its own package under `packages/`.
+
+---
+
+## 🧩 Component Development Rules
+
+### 1. Component Structure (MANDATORY)
+
+Every component MUST follow this structure:
+
+```
+packages/component-name/
+├── src/
+│   ├── ComponentName.tsx      # React component
+│   ├── ComponentName.scss     # Styles (uses tokens)
+│   ├── ComponentName.stories.tsx  # Storybook (optional)
+│   └── index.ts                # Exports
+├── package.json
+├── tsconfig.json
+└── tsup.config.ts
+```
+
+### 2. TypeScript Rules
+
+#### Component File Structure (MANDATORY):
+
+```tsx
+/**
+ * ComponentName
+ * @description Brief description
+ */
+import React, { useMemo } from "react";
+import "./ComponentName.scss";
+
+// ==================== TYPES ====================
+export interface ComponentNameProps {
+  /** Description with JSDoc */
+  variant?: "primary" | "secondary";
+  color?: "primary" | "success" | "error" | "warning" | "info";
+  size?: "xs" | "sm" | "md" | "lg" | "xl";
+  className?: string;
+  children?: React.ReactNode;
+  disabled?: boolean;
+}
+
+// ==================== COMPONENT ====================
+export const ComponentName: React.FC<ComponentNameProps> = ({
+  variant = "primary",
+  color = "primary",
+  size = "md",
+  className = "",
+  children,
+  disabled = false,
+}) => {
+  // Use useMemo for class name building
+  const componentClasses = useMemo(() => {
+    return [
+      "sisyphos-componentname",
+      `sisyphos-componentname--${variant}`,
+      `sisyphos-componentname--${color}`,
+      `sisyphos-componentname--${size}`,
+      disabled && "sisyphos-componentname--disabled",
+      className,
+    ]
+      .filter(Boolean)
+      .join(" ");
+  }, [variant, color, size, disabled, className]);
+
+  return <div className={componentClasses}>{children}</div>;
+};
+
+ComponentName.displayName = "ComponentName";
+```
+
+#### TypeScript Requirements:
+- ✅ Always use `React.FC` or `React.forwardRef`
+- ✅ Always set `displayName`
+- ✅ Always document props with JSDoc comments
+- ✅ Use `useMemo` for class name building
+- ✅ Extend native HTML props when applicable: `React.InputHTMLAttributes<HTMLInputElement>`
+- ✅ Use semantic prop names: `color="primary"` not `color="blue"`
+
+### 3. SCSS Rules (CRITICAL - NO HARD-CODED VALUES)
+
+#### MANDATORY: Use Design Tokens
+
+```scss
+/* ✅ CORRECT - Use tokens */
+@use "@sisyphos-ui/core/tokens/variables" as *;
+@use "@sisyphos-ui/core/tokens/mixins" as *;
+
+.sisyphos-componentname {
+  /* Spacing - Use SCSS variables */
+  padding: $spacing-md;
+  margin: $spacing-s;
+  
+  /* Typography - Use SCSS variables */
+  font-size: $base-size;
+  font-weight: $font-weight-medium;
+  line-height: $line-height;
+  
+  /* Colors - Use CSS variables (theme-aware) */
+  color: var(--sisyphos-color-neutral-dark, #212b36);
+  background: var(--sisyphos-color-neutral-lighter, #fff);
+  border-color: var(--sisyphos-color-neutral-darker, #919eab33);
+  
+  /* Border Radius - Use SCSS variables */
+  border-radius: $radius-md;
+  
+  /* Transitions - Use SCSS variables */
+  transition: all $duration-s;
+  
+  /* Z-Index - Use SCSS variables */
+  z-index: $z-index-overlay;
+  
+  /* Opacity - Use SCSS variables */
+  opacity: var(--sisyphos-opacity-xs, 0.6);
+}
+
+/* ❌ WRONG - Hard-coded values */
+.sisyphos-componentname {
+  padding: 16px;              /* ❌ Use $spacing-md */
+  color: #212b36;             /* ❌ Use var(--sisyphos-color-neutral-dark) */
+  border-radius: 12px;        /* ❌ Use $radius-md */
+  font-size: 16px;            /* ❌ Use $base-size */
+  z-index: 1000;              /* ❌ Use $z-index-overlay */
+}
+```
+
+#### Color Usage Rules:
+
+```scss
+/* ✅ CORRECT - Semantic colors with CSS variables */
+color: var(--sisyphos-color-primary, #ff7022);
+background: var(--sisyphos-color-success, #22c55e);
+border-color: var(--sisyphos-color-error-dark, #FB3748);
+
+/* For neutral colors (backgrounds, borders, text) */
+color: var(--sisyphos-color-neutral-dark, #212b36);
+background: var(--sisyphos-color-neutral-lighter, #fff);
+border-color: var(--sisyphos-color-neutral-darker, #919eab33);
+
+/* ✅ CORRECT - With fallback values */
+color: var(--sisyphos-color-primary, #ff7022); /* Default value as fallback */
+
+/* ❌ WRONG - Hard-coded colors */
+color: #007bff;              /* ❌ Use CSS variable */
+background: #ffffff;         /* ❌ Use var(--sisyphos-color-neutral-lighter) */
+border-color: #dadfe3;       /* ❌ Use var(--sisyphos-color-neutral-darker) */
+```
+
+#### Spacing Rules:
+
+```scss
+/* ✅ CORRECT - Use SCSS spacing tokens */
+padding: $spacing-xs;        /* 8px */
+padding: $spacing-s;         /* 10px */
+padding: $spacing-md;        /* 16px */
+padding: $spacing-lg;        /* 24px */
+
+/* ✅ CORRECT - Calculations with tokens */
+padding: calc($spacing-s + 2px);
+margin: $spacing-md $spacing-lg;
+
+/* ❌ WRONG - Hard-coded spacing */
+padding: 8px;                /* ❌ Use $spacing-xs */
+padding: 16px 24px;          /* ❌ Use $spacing-md $spacing-lg */
+```
+
+#### Typography Rules:
+
+```scss
+/* ✅ CORRECT - Use typography tokens */
+font-size: $base-size;           /* 16px */
+font-size: $size-md;             /* 14px */
+font-weight: $font-weight-medium; /* 500 */
+line-height: $line-height;       /* 1.5rem */
+
+/* ❌ WRONG - Hard-coded typography */
+font-size: 16px;                 /* ❌ Use $base-size */
+font-weight: 500;                /* ❌ Use $font-weight-medium */
+```
+
+#### Border Radius Rules:
+
+```scss
+/* ✅ CORRECT - Use radius tokens */
+border-radius: $radius-xs;       /* 6px */
+border-radius: $radius-md;       /* 12px */
+border-radius: $radius-full;     /* 9999px */
+
+/* ❌ WRONG - Hard-coded radius */
+border-radius: 8px;              /* ❌ Use $radius-s */
+border-radius: 12px;             /* ❌ Use $radius-md */
+```
+
+#### Z-Index Rules:
+
+```scss
+/* ✅ CORRECT - Use z-index tokens */
+z-index: $z-index-overlay;       /* 900 */
+z-index: $z-index-tooltip;       /* 10000 */
+
+/* ❌ WRONG - Hard-coded z-index */
+z-index: 1000;                   /* ❌ Use $z-index-overlay */
+z-index: 10000;                  /* ❌ Use $z-index-tooltip */
+```
+
+#### Comment Format Rules (MANDATORY):
+
+```scss
+/* ✅ CORRECT - CSS comment format */
+/* Variants */
+/* Simplified BEM - Text element */
+/* Spacing tokens */
+
+/* ❌ WRONG - SCSS comment format causes warnings */
+// Variants              /* ❌ Use /* */ format */
+// Simplified BEM        /* ❌ Use /* */ format */
+```
+
+### 4. CSS Variable Naming Convention (MANDATORY)
+
+**ALL CSS variables MUST follow this pattern:**
+- Prefix: `--sisyphos-`
+- Category: `color-`, `spacing-`, `radius-`, `font-`, etc.
+- Name: Semantic name (camelCase in JS, kebab-case in CSS)
+
+```css
+/* ✅ CORRECT - Semantic naming */
+--sisyphos-color-primary
+--sisyphos-color-success
+--sisyphos-spacing-md
+--sisyphos-radius-s
+--sisyphos-font-size-base
+
+/* ❌ WRONG - Non-semantic naming */
+--sisyphos-blue-color        // ❌ Use --sisyphos-color-primary
+--sisyphos-padding-medium    // ❌ Use --sisyphos-spacing-md
+```
+
+### 5. Component Class Naming (Simplified BEM - MANDATORY)
+
+**We use Simplified BEM to avoid SCSS nesting warnings and improve readability:**
+
+```scss
+// ✅ CORRECT - Simplified BEM methodology (no nesting)
+.sisyphos-button { }
+.sisyphos-button-text { }
+.sisyphos-button-icon { }
+.sisyphos-button-icon--start { }
+.sisyphos-button-icon--end { }
+.sisyphos-button-icon--dropdown { }
+.sisyphos-button--disabled { }
+.sisyphos-button-dropdown { }
+.sisyphos-button-dropdown-item { }
+
+// ❌ WRONG - Full BEM nesting (causes warnings)
+.sisyphos-button {
+  &__icon {
+    &--start { }  // ❌ Causes SCSS nesting warnings
+  }
+}
+
+// ❌ WRONG - Non-BEM
+.button { }                    // ❌ Missing prefix
+.button-icon-start { }         // ❌ Not BEM
+```
+
+**Rules:**
+- Prefix: `sisyphos-` (lowercase) - REQUIRED for npm package isolation
+- Component name: `button`, `input`, `modal` (lowercase)
+- Element: `-text`, `-icon`, `-dropdown` (single dash, flattened structure)
+- Modifier: `--start`, `--disabled` (double dash for modifiers)
+- **NO NESTING**: Use flat class structure to avoid SCSS & syntax warnings
+
+### 5a. Short & Classic Naming (MANDATORY)
+
+**Tüm componentlerde kısa ve klasik isimlendirme zorunludur:**
+
+- **Size / Radius props:** `xs` | `sm` | `md` | `lg` | `xl`
+- **Size class:** `xs`, `sm`, `md`, `lg`, `xl` (ortak, component context'inde)
+- **Radius class:** `radius-xs`, `radius-sm`, `radius-md`, `radius-lg`, `radius-xl` (ortak modifier - tüm componentlerde aynı)
+- **Token mapping:** xs→xxs/4px, sm→s/8px, md→12px, lg→16px, xl→24px
+
+**Ortak modifier class:** Size ve radius için component prefix YOK. Her component kendi SCSS'inde `.radius-xl` vb. tanımlar, aynı token'ı kullanır.
+
+### 5b. Stil Alan Element = Modifier Sorumlusu (MANDATORY)
+
+**Size, radius gibi stil modifier'ları doğrudan stil alan elemente ver.** Container/wrapper değil.
+
+- **React:** Modifier class'ları (size, radius) stil alan elementin className'ine ekle
+- **SCSS:** Base element block'u içinde `&.xs`, `&.radius-xl` ile tanımla - Button ve Input aynı yapı
+
+```scss
+// ✅ CORRECT - Button ve Input aynı sade yapı
+.sisyphos-button {
+  &.xs { padding: ...; }
+  &.radius-xl { border-radius: $radius-xl !important; }
+}
+.sisyphos-input {
+  &.xs { padding: ...; }
+  &.radius-xl { border-radius: $radius-xl !important; }
+}
+
+// ❌ WRONG - Uzun selector
+.sisyphos-input-container.radius-xl .sisyphos-input { }
+```
+
+### 6. Semantic Colors (MANDATORY)
+
+**ALWAYS use semantic color names:**
+
+```tsx
+// ✅ CORRECT - Semantic colors
+color="primary"    // Brand/main actions
+color="success"    // Success states
+color="error"      // Error/destructive
+color="warning"    // Warning states
+color="info"       // Info messages
+
+// ❌ WRONG - Visual color names
+color="blue"       // ❌ Use "primary"
+color="red"        // ❌ Use "error"
+color="green"      // ❌ Use "success"
+```
+
+### 7. Variants Pattern (MANDATORY)
+
+Every component MUST support:
+- **Variants**: `contained`, `outlined`, `text`, `soft` (where applicable)
+- **Colors**: `primary`, `success`, `error`, `warning`, `info`
+- **Sizes**: `xs` | `sm` | `md` | `lg` | `xl` (short, classic)
+- **Radius** (optional): `xs` | `sm` | `md` | `lg` | `xl`
+- **States**: `disabled`, `hover`, `active`, `focus`
+
+### 8. SCSS Mixins Usage
+
+**Available mixins from `@sisyphos-ui/core/tokens/mixins`:**
+
+```scss
+// Button variants (if applicable)
+@include button-variant($variant, $color, $bg-color, $border-color, $radius);
+
+// Responsive breakpoints
+@include mobile { }
+@include tablet { }
+@include desktop { }
+
+// Box styling
+@include box-style($border-color, $border-radius, $box-shadow, $bg-color);
+```
+
+---
+
+## 🎨 Theme System Rules
+
+### 1. CSS Variables Usage (MANDATORY)
+
+**All styling MUST use CSS variables for theme support:**
+
+```scss
+// ✅ CORRECT - Theme-aware
+color: var(--sisyphos-color-primary, #ff7022);
+padding: var(--sisyphos-spacing-md, 16px);
+border-radius: var(--sisyphos-radius-s, 8px);
+
+// ❌ WRONG - Not theme-aware
+color: #ff7022;
+padding: 16px;
+border-radius: 8px;
+```
+
+### 2. SCSS Variables Usage (RECOMMENDED)
+
+**Use SCSS variables for cleaner code (they reference CSS variables):**
+
+```scss
+// ✅ RECOMMENDED - SCSS variables (references CSS variables)
+@use "@sisyphos-ui/core/tokens/variables" as *;
+
+padding: $spacing-md;        // → var(--sisyphos-spacing-md, 16px)
+border-radius: $radius-s;    // → var(--sisyphos-radius-s, 8px)
+font-size: $base-size;       // → var(--sisyphos-font-size-base, 16px)
+```
+
+### 3. Theme Apply Function
+
+**Components DO NOT manage theme state. Users use `applyTheme()`:**
+
+```typescript
+// ✅ CORRECT - User applies theme
+import { applyTheme } from '@sisyphos-ui/core';
+
+applyTheme({
+  colors: { primary: '#007bff' },
+  spacing: { md: 20 },
+  borderRadius: { s: 10 },
+});
+
+// ❌ WRONG - Component should NOT have theme state
+// Components only use CSS variables
+```
+
+### 4. applyTheme Uyumluluk (MANDATORY)
+
+**Component geliştirirken applyTheme ile uyumlu olması zorunludur:**
+
+- Component'ler **sadece** `--sisyphos-*` CSS değişkenlerini kullanmalı (default-theme.scss'teki veya applyTheme ile override edilebilir token'lar)
+- SCSS'te `$spacing-*`, `$radius-*`, `$base-size` vb. kullan; bunlar zaten CSS variable referansı
+- Renk için `var(--sisyphos-color-*)` kullan; applyTheme `colors`, `neutral` ile override eder
+- Spacing/radius için `var(--sisyphos-spacing-*)`, `var(--sisyphos-radius-*)` kullan; applyTheme ile override edilir
+
+**ThemeConfig anahtarları:** colors, neutral (main, lighter, light, dark, darker, border), spacing, typography, borderRadius, opacity, duration, zIndex
+
+**Özet:** Component = görsel token'larla çizilir, tema = token'ları değiştirir. Hard-coded değer yok.
+
+---
+
+## 📦 Package Configuration Rules
+
+### 1. package.json Structure (MANDATORY)
+
+```json
+{
+  "name": "@sisyphos-ui/componentname",
+  "version": "0.1.0",
+  "description": "Brief description",
+  "main": "./dist/index.js",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
+  "sideEffects": ["**/*.css", "**/*.scss"],
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.js"
+    },
+    "./styles.css": "./dist/index.css"
+  },
+  "dependencies": {
+    "@sisyphos-ui/core": "workspace:*"
+  },
+  "peerDependencies": {
+    "react": "^17.0.0 || ^18.0.0",
+    "react-dom": "^17.0.0 || ^18.0.0"
+  },
+  "files": ["dist"],
+  "publishConfig": {
+    "access": "public"
+  }
+}
+```
+
+### 2. tsup.config.ts (MANDATORY)
+
+```typescript
+import { defineConfig } from "tsup";
+
+export default defineConfig({
+  entry: ["src/index.ts"],
+  format: ["cjs", "esm"],
+  dts: true,
+  splitting: false,
+  sourcemap: true,
+  clean: true,
+  treeshake: true,
+  external: ["react", "react-dom", "@sisyphos-ui/core"],
+  esbuildOptions(options) {
+    options.loader = {
+      ...options.loader,
+      ".scss": "css",
+    };
+  },
+});
+```
+
+### 3. tsconfig.json (MANDATORY)
+
+```json
+{
+  "extends": "../../tsconfig.json",
+  "compilerOptions": {
+    "outDir": "dist",
+    "rootDir": "src",
+    "jsx": "react-jsx"
+  },
+  "include": ["src/**/*"],
+  "exclude": ["node_modules", "dist", "**/*.stories.tsx"]
+}
+```
+
+### 4. src/index.ts (MANDATORY)
+
+```typescript
+// Export component
+export { ComponentName } from "./ComponentName";
+export type { ComponentNameProps } from "./ComponentName";
+
+// Import styles (will be bundled)
+import "./ComponentName.scss";
+```
+
+---
+
+## 🚫 FORBIDDEN Practices
+
+### ❌ DO NOT:
+1. **Hard-code colors** - Always use CSS variables
+2. **Hard-code spacing** - Always use tokens
+3. **Hard-code typography** - Always use tokens
+4. **Hard-code border-radius** - Always use tokens
+5. **Hard-code z-index** - Always use tokens
+6. **Use visual color names** - Use semantic names (primary, success, etc.)
+7. **Add utility functions** - No cn(), debounce(), formatDate()
+8. **Add state management** - No Redux, Zustand, Context in design system
+9. **Add React integration** - No ThemeProvider, useTheme()
+10. **Add business logic** - Only UI components and styles
+11. **Use inline styles** - Always use SCSS classes
+12. **Use global CSS classes** - Always use prefixed classes (`sisyphos-*`)
+
+---
+
+## ✅ REQUIRED Practices
+
+### ✅ ALWAYS:
+1. **Use design tokens** - SCSS variables or CSS variables
+2. **Use semantic naming** - `primary`, `success`, `error` (not `blue`, `green`, `red`)
+3. **Use Simplified BEM methodology** - `.sisyphos-component-element--modifier` (flat structure, no nesting)
+4. **Document props** - JSDoc comments for all props
+5. **Set displayName** - `ComponentName.displayName = "ComponentName"`
+6. **Use useMemo** - For class name building
+7. **Use forwardRef** - If component needs ref
+8. **Support variants** - contained, outlined, text, soft (where applicable)
+9. **Support colors** - primary, success, error, warning, info
+10. **Support sizes** - xs, sm, md, lg, xl (short, classic)
+11. **Support disabled state** - Always handle disabled prop
+12. **Use accessibility** - ARIA attributes, keyboard navigation, focus states
+
+---
+
+## 🔍 Code Review Checklist
+
+Before submitting a component, ensure:
+
+### TypeScript:
+- [ ] Component has proper TypeScript types
+- [ ] Props are documented with JSDoc
+- [ ] `displayName` is set
+- [ ] Uses `useMemo` for class names
+- [ ] Extends native HTML props when applicable
+- [ ] Uses semantic prop names
+
+### SCSS:
+- [ ] NO hard-coded colors (uses CSS variables)
+- [ ] NO hard-coded spacing (uses tokens)
+- [ ] NO hard-coded typography (uses tokens)
+- [ ] NO hard-coded border-radius (uses tokens)
+- [ ] NO hard-coded z-index (uses tokens)
+- [ ] Uses Simplified BEM naming convention (no nesting, flat structure)
+- [ ] Uses `sisyphos-` prefix
+- [ ] Imports tokens from `@sisyphos-ui/core/tokens`
+
+### Functionality:
+- [ ] Supports semantic colors (primary, success, error, warning, info)
+- [ ] Supports variants (contained, outlined, text, soft)
+- [ ] Supports sizes (xs, sm, md, lg, xl)
+- [ ] Handles disabled state
+- [ ] Has accessibility attributes (aria-*, role, tabIndex)
+- [ ] Supports keyboard navigation
+- [ ] Has focus states
+
+### Package:
+- [ ] package.json is correctly configured
+- [ ] tsup.config.ts is correct
+- [ ] tsconfig.json extends root config
+- [ ] src/index.ts exports component and types
+- [ ] Added to `@sisyphos-ui/ui` package
+
+---
+
+## 📝 Example: Adding New Component
+
+### Step 1: Create Package Structure
+
+```bash
+cd packages
+mkdir input && cd input
+mkdir src
+touch package.json tsconfig.json tsup.config.ts
+touch src/Input.tsx src/Input.scss src/index.ts
+```
+
+### Step 2: Follow Button Component Pattern
+
+**Reference:** `packages/button/src/Button.tsx` and `packages/button/src/Button.scss`
+
+### Step 3: Use Design Tokens
+
+```scss
+@use "@sisyphos-ui/core/tokens/variables" as *;
+@use "@sisyphos-ui/core/tokens/mixins" as *;
+
+.sisyphos-input {
+  padding: $spacing-s $spacing-md;
+  border-radius: $radius-s;
+  font-size: $base-size;
+  color: var(--sisyphos-color-neutral-dark, #212b36);
+  border-color: var(--sisyphos-color-neutral-darker, #919eab33);
+  
+  &:focus {
+    border-color: var(--sisyphos-color-primary, #ff7022);
+  }
+}
+```
+
+### Step 4: Add to UI Package
+
+```json
+// packages/ui/package.json
+{
+  "dependencies": {
+    "@sisyphos-ui/input": "workspace:*"
+  }
+}
+```
+
+```typescript
+// packages/ui/src/index.ts
+export * from "@sisyphos-ui/input";
+```
+
+### Step 5: Build and Test
+
+```bash
+pnpm build
+pnpm dev:playground  # Test in playground
+pnpm storybook       # Test in Storybook
+```
+
+---
+
+## 🎯 Theme Sync Verification
+
+**CRITICAL:** When creating/updating a component, verify:
+
+1. **All colors use CSS variables** - Check with: `grep -r "#[0-9a-fA-F]\{3,6\}" src/`
+2. **All spacing uses tokens** - Check with: `grep -r "[0-9]px" src/` (should be minimal)
+3. **All typography uses tokens** - Check font-size, font-weight, line-height
+4. **All border-radius uses tokens** - Check border-radius values
+5. **Test with applyTheme()** - Change theme and verify component updates
+
+---
+
+## 📚 Reference Files
+
+**When creating new components, reference:**
+- Button component: `packages/button/src/Button.tsx` and `Button.scss`
+- Component template: `COMPONENT_TEMPLATE.md`
+- Architecture: `ARCHITECTURE.md`
+- Theme guide: `THEME_GUIDE.md`
+
+**Design tokens available:**
+- SCSS variables: `packages/core/src/tokens/variables.scss`
+- CSS variables: `packages/core/src/theme/default-theme.scss`
+- Mixins: `packages/core/src/tokens/mixins.scss`
+
+---
+
+## 🚀 Quick Command Reference
+
+```bash
+# Create new component
+cd packages && mkdir componentname && cd componentname
+
+# Build specific package
+pnpm build --filter=@sisyphos-ui/componentname
+
+# Build all packages
+pnpm build
+
+# Watch mode
+pnpm dev --filter=@sisyphos-ui/componentname
+
+# Test in playground
+pnpm dev:playground
+
+# Storybook
+pnpm storybook
+```
+
+---
+
+## 🎨 Remember
+
+**Design System = Components + Tokens ONLY**
+
+- ✅ Components (Button, Input, Modal, etc.)
+- ✅ Design Tokens (Colors, Spacing, Typography, etc.)
+- ✅ Theme System (applyTheme, CSS Variables)
+
+- ❌ Utilities (cn, debounce, formatDate)
+- ❌ State Management (Redux, Zustand, Context)
+- ❌ React Integration (ThemeProvider, useTheme)
+- ❌ Business Logic (Form validation, API calls)
+
+**Keep it pure. Keep it simple. Keep it focused.**

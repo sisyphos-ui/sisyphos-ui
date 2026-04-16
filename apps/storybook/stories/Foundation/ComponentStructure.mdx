@@ -1,0 +1,518 @@
+import { Meta } from "@storybook/blocks";
+
+<Meta title="Foundation/Component Structure" />
+
+# Component Structure
+
+Sisyphos UI component'lerinin yapısı ve kendi component'inizi oluştururken takip edilecek pattern.
+
+---
+
+## 📁 Component File Structure
+
+### Standard Structure
+
+```
+packages/button/
+├── src/
+│   ├── Button.tsx          # Component logic
+│   ├── Button.scss         # Component styles (uses tokens)
+│   ├── Button.stories.tsx  # Storybook stories (optional)
+│   └── index.ts            # Exports
+├── dist/                   # Build output (auto-generated)
+├── package.json
+├── tsconfig.json
+└── tsup.config.ts
+```
+
+---
+
+## 📝 Component Implementation Example
+
+### Complete Button Component Structure
+
+**Button.tsx:**
+
+```tsx
+/**
+ * Button Component
+ * @description Primary button component with variants, colors, and sizes
+ */
+import React, { useState, useRef, useEffect, useMemo } from "react";
+import "./Button.scss";
+
+// ==================== TYPES ====================
+
+export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+  /** Visual variant of the button */
+  variant?: "contained" | "outlined" | "text" | "soft";
+  /** Semantic color of the button */
+  color?: "primary" | "success" | "error" | "warning" | "info";
+  /** Size of the button */
+  size?: "small" | "medium" | "large";
+  /** Icon to display before text */
+  startIcon?: React.ReactNode;
+  /** Icon to display after text */
+  endIcon?: React.ReactNode;
+  /** Button content */
+  children: React.ReactNode;
+}
+
+// ==================== COMPONENT ====================
+
+export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
+  (
+    {
+      children,
+      className = "",
+      color = "primary",
+      disabled = false,
+      endIcon,
+      onClick,
+      size = "medium",
+      startIcon,
+      type = "button",
+      variant = "contained",
+      ...props
+    },
+    ref
+  ) => {
+    // State
+    const [isLoading, setIsLoading] = useState(false);
+
+    // Computed
+    const buttonClasses = useMemo(() => {
+      const variantClass = `${variant}.${color}`;
+      return [
+        "sisyphos-button",
+        variant,
+        color,
+        variantClass,
+        size,
+        disabled && "disabled",
+        isLoading && "loading",
+        className,
+      ]
+        .filter(Boolean)
+        .join(" ");
+    }, [variant, color, size, disabled, isLoading, className]);
+
+    // Render
+    return (
+      <button
+        ref={ref}
+        className={buttonClasses}
+        onClick={onClick}
+        type={type}
+        disabled={disabled || isLoading}
+        aria-disabled={disabled || isLoading}
+        {...props}
+      >
+        {startIcon && (
+          <span className="sisyphos-button-icon sisyphos-button-icon--start">
+            {startIcon}
+          </span>
+        )}
+        <span className="sisyphos-button-text">{children}</span>
+        {endIcon && (
+          <span className="sisyphos-button-icon sisyphos-button-icon--end">
+            {endIcon}
+          </span>
+        )}
+      </button>
+    );
+  }
+);
+
+Button.displayName = "Button";
+```
+
+**Button.scss:**
+
+```scss
+/* ✅ CORRECT - Use design tokens */
+@use "@sisyphos-ui/core/tokens/variables" as *;
+@use "@sisyphos-ui/core/tokens/mixins" as *;
+
+.sisyphos-button {
+  /* Layout */
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  
+  /* Spacing - Use SCSS variables */
+  padding: $spacing-s $spacing-md;
+  margin: 0;
+  
+  /* Typography - Use SCSS variables */
+  font-size: $base-size;
+  font-weight: $font-weight-medium;
+  font-family: $font-family;
+  line-height: $line-height;
+  
+  /* Colors - Use CSS variables (theme-aware) */
+  color: var(--sisyphos-color-neutral-lighter, #fff);
+  background: var(--sisyphos-color-primary, #ff7022);
+  border: 1px solid transparent;
+  
+  /* Border Radius - Use SCSS variables */
+  border-radius: $radius-s;
+  
+  /* Transitions - Use SCSS variables */
+  transition: all $duration-s;
+  
+  /* Cursor */
+  cursor: pointer;
+  user-select: none;
+  
+  /* States */
+  &:hover {
+    background: var(--sisyphos-color-primary-light, #ff8637);
+  }
+  
+  &:focus-visible {
+    outline: 2px solid var(--sisyphos-color-primary, #ff7022);
+    outline-offset: 2px;
+  }
+  
+  &:disabled,
+  &.disabled {
+    cursor: not-allowed;
+    opacity: $opacity-xs;
+    pointer-events: none;
+  }
+  
+  &.loading {
+    cursor: wait;
+    pointer-events: none;
+  }
+}
+
+/* Simplified BEM - Text element */
+.sisyphos-button-text {
+  display: inline-block;
+}
+
+/* Simplified BEM - Icon element */
+.sisyphos-button-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+}
+
+.sisyphos-button-icon--start {
+  margin-right: $spacing-xs;
+}
+
+.sisyphos-button-icon--end {
+  margin-left: $spacing-xs;
+}
+```
+
+**index.ts:**
+
+```typescript
+// Export component
+export { Button } from "./Button";
+export type { ButtonProps } from "./Button";
+
+// Import styles (will be bundled)
+import "./Button.scss";
+```
+
+---
+
+## 🎯 Creating Your Own Component
+
+### Step-by-Step Guide
+
+#### Step 1: Create Package Structure
+
+```bash
+cd packages
+mkdir my-component && cd my-component
+mkdir src
+touch package.json tsconfig.json tsup.config.ts
+touch src/MyComponent.tsx src/MyComponent.scss src/index.ts
+```
+
+#### Step 2: Setup package.json
+
+```json
+{
+  "name": "@sisyphos-ui/my-component",
+  "version": "0.1.0",
+  "description": "My Component description",
+  "main": "./dist/index.js",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
+  "sideEffects": ["**/*.css", "**/*.scss"],
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.js"
+    },
+    "./styles.css": "./dist/index.css"
+  },
+  "dependencies": {
+    "@sisyphos-ui/core": "workspace:*"
+  },
+  "peerDependencies": {
+    "react": "^17.0.0 || ^18.0.0",
+    "react-dom": "^17.0.0 || ^18.0.0"
+  },
+  "files": ["dist"],
+  "scripts": {
+    "build": "tsup",
+    "dev": "tsup --watch"
+  },
+  "devDependencies": {
+    "@types/react": "^18.2.0",
+    "@types/react-dom": "^18.2.0",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "tsup": "^8.0.1",
+    "typescript": "^5.3.3",
+    "sass": "^1.69.5"
+  }
+}
+```
+
+#### Step 3: Setup tsconfig.json
+
+```json
+{
+  "extends": "../../tsconfig.json",
+  "compilerOptions": {
+    "outDir": "dist",
+    "rootDir": "src",
+    "jsx": "react-jsx"
+  },
+  "include": ["src/**/*"],
+  "exclude": ["node_modules", "dist", "**/*.stories.tsx"]
+}
+```
+
+#### Step 4: Setup tsup.config.ts
+
+```typescript
+import { defineConfig } from "tsup";
+
+export default defineConfig({
+  entry: ["src/index.ts"],
+  format: ["cjs", "esm"],
+  dts: true,
+  splitting: false,
+  sourcemap: true,
+  clean: true,
+  treeshake: true,
+  external: ["react", "react-dom", "@sisyphos-ui/core"],
+  esbuildOptions(options) {
+    options.loader = {
+      ...options.loader,
+      ".scss": "css",
+    };
+  },
+});
+```
+
+#### Step 5: Implement Component
+
+**Follow Button component pattern (shown above)**
+
+#### Step 6: Add to UI Package
+
+```json
+// packages/ui/package.json
+{
+  "dependencies": {
+    "@sisyphos-ui/my-component": "workspace:*"
+  }
+}
+```
+
+```typescript
+// packages/ui/src/index.ts
+export * from "@sisyphos-ui/my-component";
+```
+
+---
+
+## 🎨 Component Style Patterns
+
+### Pattern 1: Base Component Styles
+
+```scss
+@use "@sisyphos-ui/core/tokens/variables" as *;
+
+.my-component {
+  /* Layout */
+  display: flex;
+  flex-direction: column;
+  
+  /* Spacing */
+  padding: $spacing-md;
+  margin: $spacing-s;
+  
+  /* Colors */
+  color: var(--sisyphos-color-neutral-dark, #212b36);
+  background: var(--sisyphos-color-neutral-lighter, #fff);
+  border: 1px solid var(--sisyphos-color-neutral-darker, #919eab33);
+  
+  /* Typography */
+  font-size: $base-size;
+  font-weight: $font-weight-regular;
+  line-height: $line-height;
+  
+  /* Border Radius */
+  border-radius: $radius-md;
+  
+  /* Transitions */
+  transition: all $duration-s;
+}
+```
+
+### Pattern 2: Variant Styles
+
+```scss
+.my-component {
+  /* Base styles */
+}
+
+/* Variants - Simplified BEM */
+.my-component--primary {
+  background: var(--sisyphos-color-primary, #ff7022);
+  color: var(--sisyphos-color-neutral-lighter, #fff);
+}
+
+.my-component--secondary {
+  background: transparent;
+  color: var(--sisyphos-color-primary, #ff7022);
+  border-color: var(--sisyphos-color-primary, #ff7022);
+}
+
+.my-component--outlined {
+  background: transparent;
+  border: 2px solid var(--sisyphos-color-primary, #ff7022);
+  color: var(--sisyphos-color-primary, #ff7022);
+}
+```
+
+### Pattern 3: Size Variants
+
+```scss
+.my-component {
+  /* Base styles */
+}
+
+/* Sizes - Simplified BEM */
+.my-component--small {
+  padding: $spacing-xs $spacing-s;
+  font-size: $size-sm;
+}
+
+.my-component--medium {
+  padding: $spacing-s $spacing-md;
+  font-size: $base-size;
+}
+
+.my-component--large {
+  padding: $spacing-md $spacing-lg;
+  font-size: $size-lg;
+}
+```
+
+### Pattern 4: State Styles
+
+```scss
+.my-component {
+  /* Base styles */
+  
+  /* Hover state */
+  &:hover {
+    background: var(--sisyphos-color-primary-light, #ff8637);
+  }
+  
+  /* Focus state */
+  &:focus-visible {
+    outline: 2px solid var(--sisyphos-color-primary, #ff7022);
+    outline-offset: 2px;
+  }
+  
+  /* Active state */
+  &:active {
+    transform: scale(0.98);
+  }
+  
+  /* Disabled state */
+  &:disabled,
+  &.disabled {
+    cursor: not-allowed;
+    opacity: $opacity-xs;
+    pointer-events: none;
+  }
+  
+  /* Loading state */
+  &.loading {
+    cursor: wait;
+    pointer-events: none;
+    opacity: $opacity-s;
+  }
+}
+```
+
+---
+
+## 📋 Component Checklist
+
+### TypeScript Checklist
+
+- [ ] Component has proper TypeScript types
+- [ ] Props are documented with JSDoc comments
+- [ ] `displayName` is set
+- [ ] Uses `useMemo` for class names (performance)
+- [ ] Extends native HTML props when applicable
+- [ ] Uses semantic prop names (`color="primary"` not `color="blue"`)
+
+### SCSS Checklist
+
+- [ ] Uses SCSS variables for spacing (`$spacing-md`)
+- [ ] Uses CSS variables for colors (`var(--sisyphos-color-primary)`)
+- [ ] Uses SCSS variables for typography (`$base-size`)
+- [ ] Uses SCSS variables for border-radius (`$radius-md`)
+- [ ] Uses SCSS variables for z-index (`$z-index-overlay`)
+- [ ] NO hard-coded values
+- [ ] Uses Simplified BEM naming convention
+- [ ] Uses `sisyphos-` prefix
+- [ ] Imports tokens from `@sisyphos-ui/core/tokens`
+
+### Functionality Checklist
+
+- [ ] Supports semantic colors (primary, success, error, warning, info)
+- [ ] Supports variants (contained, outlined, text, soft - where applicable)
+- [ ] Supports sizes (small, medium, large)
+- [ ] Handles disabled state
+- [ ] Has accessibility attributes (aria-*, role, tabIndex)
+- [ ] Supports keyboard navigation
+- [ ] Has focus states
+- [ ] Has hover states (where applicable)
+
+### Package Checklist
+
+- [ ] package.json is correctly configured
+- [ ] tsup.config.ts is correct
+- [ ] tsconfig.json extends root config
+- [ ] src/index.ts exports component and types
+- [ ] Added to `@sisyphos-ui/ui` package
+- [ ] Build successful
+
+---
+
+## 🔗 Related Documentation
+
+- [Best Practices](./?path=/docs/foundation-best-practices--docs) - Component best practices
+- [Core Package](./?path=/docs/foundation-core-package--docs) - Design tokens usage
+- [Theme System](./?path=/docs/foundation-theme-system--docs) - Theme integration

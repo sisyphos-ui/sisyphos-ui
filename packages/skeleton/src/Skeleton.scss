@@ -1,0 +1,60 @@
+@use "@sisyphos-ui/core/src/tokens/variables" as *;
+
+/**
+ * Token strategy:
+ *   Base placeholder color must be distinct from the surface (white/neutral-lighter).
+ *   --sisyphos-color-neutral-light (#f3f4f6) is the canonical "hover/subtle bg" token
+ *   which also reads correctly as a skeleton placeholder on white surfaces.
+ *   The shimmer sweep uses neutral-dark at low opacity so it works on any theme.
+ */
+$skeleton-base:  var(--sisyphos-color-neutral-light, #eef0f2);
+$skeleton-peak:  rgba(145, 158, 171, 0.24); /* neutral-dark @ ~24% — visible on both base and dark modes */
+
+.sisyphos-skeleton {
+  display: inline-block;
+  position: relative;
+  overflow: hidden;
+  background: $skeleton-base;
+  border-radius: $radius-xs;
+  line-height: 1;
+  vertical-align: middle;
+  min-height: 0.75em;
+
+  &.text { border-radius: $radius-xxs; }
+  &.circular { border-radius: 50%; }
+
+  /* Shimmer (default): sweep a slightly darker band across the base color. */
+  &.shimmer::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      90deg,
+      transparent 0%,
+      $skeleton-peak 50%,
+      transparent 100%
+    );
+    transform: translateX(-100%);
+    animation: sisyphos-skeleton-shimmer 1.4s infinite;
+  }
+
+  /* Pulse: opacity fade on the base color. */
+  &.pulse {
+    animation: sisyphos-skeleton-pulse 1.5s ease-in-out infinite;
+  }
+
+  &.none { /* no animation */ }
+}
+
+.sisyphos-skeleton-ghost {
+  visibility: hidden;
+}
+
+@keyframes sisyphos-skeleton-shimmer {
+  100% { transform: translateX(100%); }
+}
+
+@keyframes sisyphos-skeleton-pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.55; }
+}

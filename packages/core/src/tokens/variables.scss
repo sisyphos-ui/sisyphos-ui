@@ -1,0 +1,68 @@
+/**
+ * SCSS Variables - CSS Variables'dan referans alır
+ * Bu sayede hem SCSS hem CSS kullanımı desteklenir
+ */
+
+// Font Sizes
+$hero-xl: var(--sisyphos-font-size-hero-xl, 64px);
+$hero: var(--sisyphos-font-size-hero, 48px);
+$h1: var(--sisyphos-font-size-h1, 40px);
+$h2: var(--sisyphos-font-size-h2, 32px);
+$h3: var(--sisyphos-font-size-h3, 24px);
+$h4: var(--sisyphos-font-size-h4, 20px);
+$h5: var(--sisyphos-font-size-h5, 18px);
+$h6: var(--sisyphos-font-size-h6, 16px);
+$size-xl: var(--sisyphos-font-size-xl, 32px);
+$size-lg: var(--sisyphos-font-size-lg, 18px);
+$base-size: var(--sisyphos-font-size-base, 16px);
+$size-md: var(--sisyphos-font-size-md, 14px);
+$size-sm: var(--sisyphos-font-size-sm, 12px);
+$size-xs: var(--sisyphos-font-size-xs, 10px);
+
+// Font Weights  
+$font-weight-regular: var(--sisyphos-font-weight-regular, 400);
+$font-weight-medium: var(--sisyphos-font-weight-medium, 500);
+$font-weight-semibold: var(--sisyphos-font-weight-semibold, 600);
+$font-weight-bold: var(--sisyphos-font-weight-bold, 700);
+
+// Spacings
+$spacing-xxs: var(--sisyphos-spacing-xxs, 4px);
+$spacing-xs: var(--sisyphos-spacing-xs, 8px);
+$spacing-s: var(--sisyphos-spacing-s, 10px);
+$spacing-md: var(--sisyphos-spacing-md, 16px);
+$spacing-lg: var(--sisyphos-spacing-lg, 24px);
+$spacing-xl: var(--sisyphos-spacing-xl, 32px);
+$spacing-2xl: var(--sisyphos-spacing-2xl, 40px);
+$spacing-3xl: var(--sisyphos-spacing-3xl, 64px);
+
+// Line Heights
+$line-height-xs: var(--sisyphos-line-height-xs, 12px);
+$line-height-sm: var(--sisyphos-line-height-sm, 1rem);
+$line-height: var(--sisyphos-line-height, 1.5rem);
+
+// Z-Index
+$z-index-tooltip: var(--sisyphos-z-index-tooltip, 10000);
+$z-index-pickers: var(--sisyphos-z-index-pickers, 800);
+$z-index-overlay: var(--sisyphos-z-index-overlay, 900);
+
+// Opacitys
+$opacity-xs: var(--sisyphos-opacity-xs, 0.6);
+$opacity-s: var(--sisyphos-opacity-s, 0.8);
+$opacity-md: var(--sisyphos-opacity-md, 0.16);
+$opacity-lg: var(--sisyphos-opacity-lg, 0.24);
+
+// Border
+$border: var(--sisyphos-color-border, #c4cdd5);
+
+// Border Radius (component size mapping: x-small->xxs, small->s, medium->md, large->lg, x-large->xl)
+$radius-xxs: var(--sisyphos-radius-xxs, 4px);
+$radius-xs: var(--sisyphos-radius-xs, 6px);
+$radius-s: var(--sisyphos-radius-s, 8px);
+$radius-md: var(--sisyphos-radius-md, 12px);
+$radius-lg: var(--sisyphos-radius-lg, 16px);
+$radius-xl: var(--sisyphos-radius-xl, 24px);
+$radius-full: var(--sisyphos-radius-full, 9999px);
+
+// Durations
+$duration-s: var(--sisyphos-duration-s, 250ms);
+$duration-m: var(--sisyphos-duration-m, 350ms);

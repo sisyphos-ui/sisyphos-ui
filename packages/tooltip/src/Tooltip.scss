@@ -1,0 +1,63 @@
+@use "@sisyphos-ui/core/src/tokens/variables" as *;
+
+$tooltip-bg: var(--sisyphos-color-neutral-dark, #212b36);
+$tooltip-fg: var(--sisyphos-color-neutral-lighter, #fff);
+$arrow-size: 6px;
+
+.sisyphos-tooltip {
+  pointer-events: auto;
+  background: $tooltip-bg;
+  color: $tooltip-fg;
+  font-size: $size-sm;
+  line-height: 1.4;
+  padding: $spacing-xxs $spacing-xs;
+  border-radius: $radius-xs;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+  max-width: 280px;
+  z-index: $z-index-tooltip;
+  transition: opacity $duration-s ease;
+  will-change: transform, left, top;
+}
+
+.sisyphos-tooltip-arrow {
+  position: absolute;
+  width: 0;
+  height: 0;
+  border: $arrow-size solid transparent;
+}
+
+/* Arrow positioning per resolved placement */
+.sisyphos-tooltip.top .sisyphos-tooltip-arrow,
+.sisyphos-tooltip.top-start .sisyphos-tooltip-arrow,
+.sisyphos-tooltip.top-end .sisyphos-tooltip-arrow {
+  bottom: -#{$arrow-size * 2};
+  left: 50%;
+  transform: translateX(-50%);
+  border-top-color: $tooltip-bg;
+}
+.sisyphos-tooltip.top-start .sisyphos-tooltip-arrow { left: $spacing-md; transform: none; }
+.sisyphos-tooltip.top-end   .sisyphos-tooltip-arrow { left: auto; right: $spacing-md; transform: none; }
+
+.sisyphos-tooltip.bottom .sisyphos-tooltip-arrow,
+.sisyphos-tooltip.bottom-start .sisyphos-tooltip-arrow,
+.sisyphos-tooltip.bottom-end .sisyphos-tooltip-arrow {
+  top: -#{$arrow-size * 2};
+  left: 50%;
+  transform: translateX(-50%);
+  border-bottom-color: $tooltip-bg;
+}
+.sisyphos-tooltip.bottom-start .sisyphos-tooltip-arrow { left: $spacing-md; transform: none; }
+.sisyphos-tooltip.bottom-end   .sisyphos-tooltip-arrow { left: auto; right: $spacing-md; transform: none; }
+
+.sisyphos-tooltip.left .sisyphos-tooltip-arrow {
+  right: -#{$arrow-size * 2};
+  top: 50%;
+  transform: translateY(-50%);
+  border-left-color: $tooltip-bg;
+}
+.sisyphos-tooltip.right .sisyphos-tooltip-arrow {
+  left: -#{$arrow-size * 2};
+  top: 50%;
+  transform: translateY(-50%);
+  border-right-color: $tooltip-bg;
+}

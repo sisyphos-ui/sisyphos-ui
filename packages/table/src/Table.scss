@@ -1,0 +1,168 @@
+@use "@sisyphos-ui/core/src/tokens/variables" as *;
+
+.sisyphos-table-wrapper {
+  width: 100%;
+  overflow-x: auto;
+}
+
+.sisyphos-table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  font-size: $size-md;
+  color: var(--sisyphos-color-neutral-dark, #212b36);
+  background: var(--sisyphos-color-neutral-lighter, #fff);
+
+  &.sm { font-size: $size-sm; }
+  &.lg { font-size: $size-lg; }
+
+  &.bordered {
+    border: 1px solid var(--sisyphos-color-border, #eef0f2);
+    border-radius: $radius-md;
+
+    th, td { border-bottom: 1px solid var(--sisyphos-color-border, #eef0f2); }
+    tr:last-child td { border-bottom: 0; }
+  }
+
+  th, td {
+    padding: $spacing-s $spacing-md;
+    vertical-align: middle;
+  }
+
+  &.sm th, &.sm td { padding: $spacing-xs $spacing-s; }
+  &.lg th, &.lg td { padding: $spacing-md $spacing-lg; }
+
+  thead {
+    background: var(--sisyphos-color-neutral-lighter, #f9fafb);
+    color: var(--sisyphos-color-neutral-dark, #637381);
+    text-align: left;
+    font-weight: $font-weight-semibold;
+    font-size: $size-sm;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+  }
+
+  &.sticky-header thead th {
+    position: sticky;
+    top: 0;
+    z-index: 1;
+  }
+
+  th.sortable {
+    cursor: pointer;
+    user-select: none;
+  }
+
+  .sisyphos-table-header-content {
+    display: inline-flex;
+    align-items: center;
+    gap: $spacing-xxs;
+  }
+
+  .align-left   { text-align: left; }
+  .align-center { text-align: center; }
+  .align-right  { text-align: right; }
+
+  tbody tr {
+    border-top: 1px solid var(--sisyphos-color-border, #eef0f2);
+    transition: background $duration-s;
+
+    &.clickable { cursor: pointer; }
+    &.selected { background: var(--sisyphos-color-primary-lighter, #ffede0); }
+  }
+
+  &.hoverable tbody tr:hover:not(.selected) {
+    background: var(--sisyphos-color-neutral-lighter, #f4f6f8);
+  }
+
+  &.striped tbody tr:nth-child(even):not(.selected) {
+    background: var(--sisyphos-color-neutral-lighter, #f9fafb);
+  }
+}
+
+.sisyphos-table-empty {
+  text-align: center;
+  padding: $spacing-2xl !important;
+  color: var(--sisyphos-color-neutral-dark, #919eab);
+}
+
+.sisyphos-table-select-cell,
+.sisyphos-table-actions-cell {
+  width: 1%;
+  white-space: nowrap;
+}
+
+.sisyphos-table-skeleton {
+  display: inline-block;
+  width: 100%;
+  height: 14px;
+  border-radius: $radius-xs;
+  background: linear-gradient(
+    90deg,
+    var(--sisyphos-color-neutral-lighter, #f0f1f3) 0,
+    var(--sisyphos-color-border, #e4e7eb) 50%,
+    var(--sisyphos-color-neutral-lighter, #f0f1f3) 100%
+  );
+  background-size: 200% 100%;
+  animation: sisyphos-table-skeleton-shimmer 1.4s infinite;
+}
+
+@keyframes sisyphos-table-skeleton-shimmer {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+/* ── PAGINATION ───────────────────────────────────────────────────────── */
+.sisyphos-pagination {
+  display: inline-flex;
+  align-items: center;
+  gap: $spacing-xxs;
+}
+
+.sisyphos-pagination-list {
+  display: inline-flex;
+  align-items: center;
+  gap: $spacing-xxs;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.sisyphos-pagination-arrow,
+.sisyphos-pagination-page {
+  appearance: none;
+  background: transparent;
+  border: 1px solid transparent;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 32px;
+  height: 32px;
+  padding: 0 $spacing-xs;
+  border-radius: $radius-xs;
+  font: inherit;
+  color: var(--sisyphos-color-neutral-dark, #212b36);
+  transition: background $duration-s, color $duration-s, border-color $duration-s;
+
+  &:hover:not(:disabled):not(.active) {
+    background: var(--sisyphos-color-neutral-lighter, #f4f6f8);
+  }
+  &:disabled { opacity: $opacity-xs; cursor: not-allowed; }
+
+  .sisyphos-pagination.sm & { min-width: 28px; height: 28px; font-size: $size-sm; }
+  .sisyphos-pagination.lg & { min-width: 40px; height: 40px; font-size: $size-lg; }
+}
+
+.sisyphos-pagination-page.active {
+  background: var(--sisyphos-color-primary, #ff7022);
+  color: #fff;
+}
+
+.sisyphos-pagination-ellipsis {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 28px;
+  color: var(--sisyphos-color-neutral-dark, #919eab);
+}

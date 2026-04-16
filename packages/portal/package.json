@@ -1,0 +1,71 @@
+{
+  "name": "@sisyphos-ui/portal",
+  "version": "0.2.0",
+  "description": "Portal + overlay primitives (focus trap, scroll lock) for Sisyphos UI",
+  "keywords": [
+    "design-system",
+    "focus-trap",
+    "overlay",
+    "portal",
+    "react",
+    "scroll-lock",
+    "sisyphos-ui",
+    "typescript",
+    "ui"
+  ],
+  "homepage": "https://github.com/sisyphos-ui/sisyphos-ui#readme",
+  "bugs": {
+    "url": "https://github.com/sisyphos-ui/sisyphos-ui/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sisyphos-ui/sisyphos-ui.git",
+    "directory": "packages/portal"
+  },
+  "license": "MIT",
+  "author": "Sisyphos UI Contributors",
+  "sideEffects": false,
+  "main": "./dist/index.js",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.js"
+    }
+  },
+  "files": [
+    "CHANGELOG.md",
+    "LICENSE",
+    "README.md",
+    "dist"
+  ],
+  "scripts": {
+    "build": "tsup",
+    "dev": "tsup --watch",
+    "lint": "eslint .",
+    "clean": "rm -rf .turbo && rm -rf node_modules && rm -rf dist",
+    "type-check": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@sisyphos-ui/core": "workspace:*"
+  },
+  "peerDependencies": {
+    "react": "^17.0.0 || ^18.0.0 || ^19.0.0",
+    "react-dom": "^17.0.0 || ^18.0.0 || ^19.0.0"
+  },
+  "devDependencies": {
+    "@sisyphos-ui/eslint-config": "workspace:*",
+    "@types/react": "^18.2.48",
+    "@types/react-dom": "^18.2.18",
+    "tsup": "^8.0.1",
+    "typescript": "^5.3.3"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}

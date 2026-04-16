@@ -1,0 +1,189 @@
+@use "@sisyphos-ui/core/src/tokens/variables" as *;
+@use "sass:map";
+
+/* ── VARIANT × COLOR MATRIX (single source of truth) ───────────────────── */
+$chip-colors: (
+  primary: (
+    main: var(--sisyphos-color-primary, #ff7022),
+    lighter: var(--sisyphos-color-primary-lighter, #ffede0),
+    contained: var(--sisyphos-color-primary-contained, #f04906),
+    on-contained: #fff,
+  ),
+  success: (
+    main: var(--sisyphos-color-success, #22c55e),
+    lighter: var(--sisyphos-color-success-lighter, #dcfce7),
+    contained: var(--sisyphos-color-success-contained, #16a34a),
+    on-contained: #fff,
+  ),
+  error: (
+    main: var(--sisyphos-color-error, #fb3748),
+    lighter: var(--sisyphos-color-error-lighter, #fee2e2),
+    contained: var(--sisyphos-color-error-contained, #dc2626),
+    on-contained: #fff,
+  ),
+  warning: (
+    main: var(--sisyphos-color-warning, #ffab00),
+    lighter: var(--sisyphos-color-warning-lighter, #fef3c7),
+    contained: var(--sisyphos-color-warning-contained, #f59e0b),
+    on-contained: #fff,
+  ),
+  info: (
+    main: var(--sisyphos-color-info, #00b8d9),
+    lighter: var(--sisyphos-color-info-lighter, #cffafe),
+    contained: var(--sisyphos-color-info-contained, #0891b2),
+    on-contained: #fff,
+  ),
+);
+
+/* ── BASE ──────────────────────────────────────────────────────────────── */
+.sisyphos-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: $spacing-xs;
+  padding: $spacing-xxs $spacing-s;
+  font-weight: $font-weight-medium;
+  line-height: $line-height;
+  white-space: nowrap;
+  transition:
+    background-color $duration-s ease,
+    border-color $duration-s ease,
+    color $duration-s ease,
+    opacity $duration-s ease;
+  border: 1px solid transparent;
+  box-sizing: border-box;
+  user-select: none;
+
+  /* Sizes */
+  &.xs {
+    font-size: $size-xs;
+    padding: 0 $spacing-xs;
+    min-height: 20px;
+  }
+  &.sm {
+    font-size: $size-sm;
+    padding: $spacing-xxs $spacing-xs;
+    min-height: 24px;
+  }
+  &.md {
+    font-size: $size-md;
+    min-height: 28px;
+  }
+  &.lg {
+    font-size: $size-md;
+    padding: $spacing-xs $spacing-md;
+    min-height: 32px;
+  }
+  &.xl {
+    font-size: $size-lg;
+    padding: $spacing-xs $spacing-md;
+    min-height: 40px;
+  }
+
+  /* Radius */
+  &.radius-xxs { border-radius: $radius-xxs; }
+  &.radius-xs  { border-radius: $radius-xs; }
+  &.radius-sm  { border-radius: $radius-s; }
+  &.radius-md  { border-radius: $radius-md; }
+  &.radius-lg  { border-radius: $radius-lg; }
+  &.radius-xl  { border-radius: $radius-xl; }
+  &.radius-full { border-radius: $radius-full; }
+
+  /* Variant × Color matrix */
+  @each $name, $config in $chip-colors {
+    &.#{$name} {
+      &.contained {
+        background: map.get($config, contained);
+        color: map.get($config, on-contained);
+      }
+      &.outlined {
+        background: transparent;
+        border-color: map.get($config, main);
+        color: map.get($config, main);
+      }
+      &.soft {
+        background: map.get($config, lighter);
+        color: map.get($config, main);
+      }
+    }
+  }
+
+  /* Interactive */
+  &.clickable {
+    cursor: pointer;
+
+    &:hover:not(.disabled) { opacity: $opacity-s; }
+    &:active:not(.disabled) { opacity: $opacity-md; }
+    &:focus-visible {
+      outline: 2px solid var(--sisyphos-color-primary, #ff7022);
+      outline-offset: 2px;
+    }
+  }
+
+  &.disabled {
+    opacity: $opacity-xs;
+    pointer-events: none;
+  }
+}
+
+/* ── SLOTS ─────────────────────────────────────────────────────────────── */
+.sisyphos-chip-avatar {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.5em;
+  height: 1.5em;
+  border-radius: 50%;
+  overflow: hidden;
+  margin-left: calc(#{$spacing-s} * -0.5);
+
+  img, svg { width: 100%; height: 100%; object-fit: cover; }
+}
+
+.sisyphos-chip-icon {
+  display: inline-flex;
+  align-items: center;
+  font-size: 1em;
+
+  svg { width: 1em; height: 1em; }
+}
+
+.sisyphos-chip-label {
+  display: inline-block;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.sisyphos-chip-delete {
+  appearance: none;
+  background: transparent;
+  border: 0;
+  padding: 0;
+  margin: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  color: currentColor;
+  opacity: 0.7;
+  border-radius: $radius-full;
+  width: 1.25em;
+  height: 1.25em;
+
+  svg { width: 0.9em; height: 0.9em; }
+
+  &:hover:not(:disabled) {
+    opacity: 1;
+    background: rgba(0, 0, 0, 0.08);
+  }
+
+  &:focus-visible {
+    outline: 2px solid currentColor;
+    outline-offset: 2px;
+  }
+
+  &:disabled {
+    cursor: not-allowed;
+    opacity: $opacity-xs;
+  }
+}

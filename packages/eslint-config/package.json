@@ -1,0 +1,47 @@
+{
+  "name": "@sisyphos-ui/eslint-config",
+  "version": "0.2.0",
+  "description": "Shared ESLint config for Sisyphos UI packages",
+  "keywords": [
+    "design-system",
+    "react",
+    "sisyphos-ui",
+    "typescript",
+    "ui"
+  ],
+  "homepage": "https://github.com/sisyphos-ui/sisyphos-ui#readme",
+  "bugs": {
+    "url": "https://github.com/sisyphos-ui/sisyphos-ui/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sisyphos-ui/sisyphos-ui.git",
+    "directory": "packages/eslint-config"
+  },
+  "license": "MIT",
+  "author": "Sisyphos UI Contributors",
+  "main": "index.cjs",
+  "files": [
+    "CHANGELOG.md",
+    "LICENSE",
+    "README.md",
+    "dist",
+    "index.cjs"
+  ],
+  "dependencies": {
+    "@typescript-eslint/eslint-plugin": "^7.13.0",
+    "@typescript-eslint/parser": "^7.13.0",
+    "eslint-plugin-react": "^7.34.0",
+    "eslint-plugin-react-hooks": "^4.6.0"
+  },
+  "peerDependencies": {
+    "eslint": "^8.57.0"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "private": false
+}

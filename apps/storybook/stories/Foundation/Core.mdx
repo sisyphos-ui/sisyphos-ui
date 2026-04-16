@@ -1,0 +1,703 @@
+import { Meta } from "@storybook/blocks";
+
+<Meta title="Foundation/Core Package" />
+
+# Core Package
+
+`@sisyphos-ui/core` paketi, Sisyphos UI design system'in temelini oluşturur. Tema sistemi ve design tokens bu pakette bulunur.
+
+## 📦 Paket İçeriği
+
+### 1. Theme System
+Runtime tema customizasyonu için fonksiyonlar:
+
+- `applyTheme()` - Tema uygula
+- `setThemeMode()` - Light/Dark mode
+- `createTheme()` - Type-safe tema oluştur
+- `mergeThemes()` - Temaları birleştir
+
+### 2. Design Tokens
+
+#### CSS Variables
+Tüm tasarım değerleri CSS Variables olarak tanımlanmıştır:
+
+```css
+:root {
+  --sisyphos-color-primary: #ff7022;
+  --sisyphos-spacing-md: 16px;
+  --sisyphos-radius-s: 8px;
+  --sisyphos-font-size-base: 16px;
+}
+```
+
+#### SCSS Variables
+SCSS kullanıcıları için SCSS variables:
+
+```scss
+@use "@sisyphos-ui/core/tokens/variables" as *;
+
+.my-component {
+  padding: $spacing-md;      // → var(--sisyphos-spacing-md, 16px)
+  border-radius: $radius-s;  // → var(--sisyphos-radius-s, 8px)
+  font-size: $base-size;     // → var(--sisyphos-font-size-base, 16px)
+}
+```
+
+### 3. Mixins
+
+Reusable SCSS mixins:
+
+```scss
+@use "@sisyphos-ui/core/tokens/mixins" as *;
+
+// Button variants
+@include button-variant($variant, $color, $bg-color);
+
+// Responsive breakpoints
+@include mobile { }
+@include tablet { }
+@include desktop { }
+```
+
+---
+
+## 🎯 Kullanım
+
+### Installation
+
+```bash
+npm install @sisyphos-ui/core
+# veya
+pnpm add @sisyphos-ui/core
+# veya
+yarn add @sisyphos-ui/core
+```
+
+### Import Styles
+
+```tsx
+// main.tsx veya App.tsx
+import '@sisyphos-ui/core/styles.scss';
+```
+
+### Use Theme Functions
+
+```tsx
+import { applyTheme, setThemeMode } from '@sisyphos-ui/core';
+
+// Tema uygula
+applyTheme({
+  colors: { primary: '#007bff' },
+});
+
+// Dark mode
+setThemeMode('dark');
+```
+
+### Use SCSS Tokens
+
+```scss
+@use "@sisyphos-ui/core/tokens/variables" as *;
+@use "@sisyphos-ui/core/tokens/mixins" as *;
+
+.my-component {
+  padding: $spacing-md;
+  color: var(--sisyphos-color-primary);
+}
+```
+
+---
+
+## 📁 Paket Yapısı
+
+```
+@sisyphos-ui/core/
+├── src/
+│   ├── theme/
+│   │   ├── default-theme.scss  # CSS Variables definitions
+│   │   └── theme.ts            # Theme functions (applyTheme, etc.)
+│   ├── tokens/
+│   │   ├── variables.scss      # SCSS variables (references CSS vars)
+│   │   ├── colors.scss         # Color maps & utilities
+│   │   └── mixins.scss         # Reusable SCSS mixins
+│   ├── styles.scss             # Main stylesheet (imports default-theme)
+│   └── index.ts                # Exports
+└── package.json
+```
+
+---
+
+## 🔗 Exports
+
+### Main Export
+
+```tsx
+import {
+  applyTheme,
+  setThemeMode,
+  getThemeMode,
+  toggleThemeMode,
+  createTheme,
+  mergeThemes,
+  generateThemeCSS,
+} from '@sisyphos-ui/core';
+```
+
+### Style Imports
+
+```scss
+// SCSS variables
+@use "@sisyphos-ui/core/tokens/variables" as *;
+
+// SCSS mixins
+@use "@sisyphos-ui/core/tokens/mixins" as *;
+
+// Colors utilities
+/* Colors are defined in default-theme.scss as CSS variables */
+/* Use CSS variables directly: var(--sisyphos-color-primary) */
+```
+
+### Theme SCSS
+
+```scss
+// Default theme CSS variables
+@import "@sisyphos-ui/core/theme";
+```
+
+---
+
+## 🎨 Design Tokens Overview
+
+### Colors
+
+- **Primary**: `#ff7022` (Orange)
+- **Success**: `#22c55e` (Green)
+- **Error**: `#fb3748` (Red)
+- **Warning**: `#ffab00` (Amber)
+- **Info**: `#00b8d9` (Cyan)
+
+Her renk için `light`, `lighter`, `dark`, `darker`, `contained` varyantları mevcuttur.
+
+### Spacing Scale
+
+```
+xxs: 4px
+xs:  8px
+s:   10px
+md:  16px
+lg:  24px
+xl:  32px
+2xl: 40px
+3xl: 64px
+```
+
+### Typography
+
+- **Font Family**: `"Manrope", sans-serif`
+- **Base Size**: `16px`
+- **Weights**: `400` (regular), `500` (medium), `600` (semibold), `700` (bold)
+
+### Border Radius
+
+```
+xxs: 4px
+xs:  6px
+s:   8px
+md:  12px
+lg:  16px
+full: 9999px
+```
+
+---
+
+---
+
+## 🎯 SCSS Implementation Examples
+
+### Example 1: Custom Component (Using SCSS Tokens)
+
+**Senaryo:** Kendi component'inizi oluşturuyorsunuz ve design tokens kullanmak istiyorsunuz.
+
+**File Structure:**
+
+```
+src/
+├── components/
+│   ├── MyButton/
+│   │   ├── MyButton.tsx
+│   │   └── MyButton.scss
+```
+
+**Implementation:**
+
+```scss
+// src/components/MyButton/MyButton.scss
+/* ✅ CORRECT - Use SCSS tokens */
+@use "@sisyphos-ui/core/tokens/variables" as *;
+@use "@sisyphos-ui/core/tokens/mixins" as *;
+
+.my-button {
+  /* Spacing - Use SCSS variables */
+  padding: $spacing-s $spacing-md;
+  margin: $spacing-xs;
+
+  /* Typography - Use SCSS variables */
+  font-size: $base-size;
+  font-weight: $font-weight-medium;
+  line-height: $line-height;
+  font-family: $font-family;
+
+  /* Colors - Use CSS variables (theme-aware) */
+  color: var(--sisyphos-color-neutral-dark, #212b36);
+  background: var(--sisyphos-color-primary, #ff7022);
+  border-color: var(--sisyphos-color-primary-dark, #007867);
+
+  /* Border Radius - Use SCSS variables */
+  border-radius: $radius-md;
+  border: 1px solid transparent;
+
+  /* Transitions - Use SCSS variables */
+  transition: all $duration-s;
+
+  /* Z-Index - Use SCSS variables */
+  z-index: $z-index-overlay;
+
+  /* Hover state */
+  &:hover {
+    background: var(--sisyphos-color-primary-light, #ff8637);
+  }
+
+  /* Focus state */
+  &:focus-visible {
+    outline: 2px solid var(--sisyphos-color-primary, #ff7022);
+    outline-offset: 2px;
+  }
+
+  /* Disabled state */
+  &:disabled {
+    opacity: $opacity-xs;
+    cursor: not-allowed;
+    pointer-events: none;
+  }
+}
+
+/* ❌ WRONG - Hard-coded values */
+.my-button-wrong {
+  padding: 16px 24px;        /* ❌ Use $spacing-md $spacing-lg */
+  color: #212b36;            /* ❌ Use var(--sisyphos-color-neutral-dark) */
+  background: #ff7022;       /* ❌ Use var(--sisyphos-color-primary) */
+  border-radius: 12px;       /* ❌ Use $radius-md */
+  font-size: 16px;           /* ❌ Use $base-size */
+  z-index: 1000;             /* ❌ Use $z-index-overlay */
+}
+```
+
+**TypeScript Component:**
+
+```tsx
+// src/components/MyButton/MyButton.tsx
+import React from 'react';
+import './MyButton.scss';
+
+interface MyButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+  variant?: 'primary' | 'secondary';
+  size?: 'small' | 'medium' | 'large';
+}
+
+export const MyButton: React.FC<MyButtonProps> = ({
+  variant = 'primary',
+  size = 'medium',
+  className = '',
+  children,
+  ...props
+}) => {
+  const classes = [
+    'my-button',
+    `my-button--${variant}`,
+    `my-button--${size}`,
+    className,
+  ]
+    .filter(Boolean)
+    .join(' ');
+
+  return (
+    <button className={classes} {...props}>
+      {children}
+    </button>
+  );
+};
+```
+
+**Best Practice:**
+- ✅ SCSS variables kullan (spacing, typography, etc.)
+- ✅ CSS variables kullan (colors - theme-aware)
+- ✅ Hard-coded değerler YOK
+- ✅ Simplified BEM naming convention
+
+---
+
+### Example 2: Using SCSS Mixins
+
+**Senaryo:** Reusable button variant mixin kullanmak istiyorsunuz.
+
+**Implementation:**
+
+```scss
+// src/components/CustomButton/CustomButton.scss
+@use "@sisyphos-ui/core/tokens/variables" as *;
+@use "@sisyphos-ui/core/tokens/mixins" as *;
+
+.custom-button {
+  /* Base styles */
+  padding: $spacing-s $spacing-md;
+  border-radius: $radius-md;
+  font-size: $base-size;
+  font-weight: $font-weight-medium;
+  cursor: pointer;
+  transition: all $duration-s;
+
+  /* Use mixin for variants */
+  @include button-variant(
+    "contained.primary",
+    var(--sisyphos-color-neutral-lighter, #fff),
+    var(--sisyphos-color-primary-contained, #ff7022),
+    var(--sisyphos-color-primary-contained, #ff7022),
+    $radius-md
+  );
+
+  /* Custom variants */
+  &.custom-primary {
+    background: var(--sisyphos-color-primary, #ff7022);
+    color: var(--sisyphos-color-neutral-lighter, #fff);
+
+    &:hover {
+      background: var(--sisyphos-color-primary-light, #ff8637);
+    }
+  }
+
+  &.custom-secondary {
+    background: transparent;
+    color: var(--sisyphos-color-primary, #ff7022);
+    border: 1px solid var(--sisyphos-color-primary, #ff7022);
+
+    &:hover {
+      background: var(--sisyphos-color-primary-lighter, #c8fad6);
+    }
+  }
+}
+```
+
+**Available Mixins:**
+
+```scss
+// Responsive breakpoints
+@include mobile {
+  /* Mobile styles */
+  font-size: $size-sm;
+}
+
+@include tablet {
+  /* Tablet styles */
+  font-size: $base-size;
+}
+
+@include desktop {
+  /* Desktop styles */
+  font-size: $size-lg;
+}
+
+// Box styling
+@include box-style(
+  $border-color: var(--sisyphos-color-neutral-darker, #919eab33),
+  $border-radius: $radius-md,
+  $box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1),
+  $bg-color: var(--sisyphos-color-neutral-lighter, #fff)
+);
+```
+
+---
+
+### Example 3: Using CSS Variables Directly
+
+**Senaryo:** CSS Variables'ı direkt kullanmak istiyorsunuz (SCSS olmadan).
+
+**Implementation:**
+
+```css
+/* src/styles/my-component.css */
+.my-component {
+  /* Colors - Use CSS variables */
+  color: var(--sisyphos-color-neutral-dark, #212b36);
+  background: var(--sisyphos-color-primary, #ff7022);
+  border-color: var(--sisyphos-color-neutral-darker, #919eab33);
+
+  /* Spacing - Use CSS variables (with fallback) */
+  padding: var(--sisyphos-spacing-md, 16px);
+  margin: var(--sisyphos-spacing-s, 10px);
+
+  /* Typography - Use CSS variables */
+  font-size: var(--sisyphos-font-size-base, 16px);
+  font-weight: var(--sisyphos-font-weight-medium, 500);
+  font-family: var(--sisyphos-font-family, "Manrope", sans-serif);
+  line-height: var(--sisyphos-line-height, 1.5rem);
+
+  /* Border Radius - Use CSS variables */
+  border-radius: var(--sisyphos-radius-md, 12px);
+
+  /* Opacity - Use CSS variables */
+  opacity: var(--sisyphos-opacity-xs, 0.6);
+
+  /* Duration - Use CSS variables */
+  transition: all var(--sisyphos-duration-s, 250ms);
+
+  /* Z-Index - Use CSS variables */
+  z-index: var(--sisyphos-z-index-overlay, 900);
+}
+```
+
+**TypeScript Component (CSS):**
+
+```tsx
+// src/components/MyComponent/MyComponent.tsx
+import React from 'react';
+import './MyComponent.css'; // CSS import
+
+export const MyComponent: React.FC = () => {
+  return <div className="my-component">Hello</div>;
+};
+```
+
+**Best Practice:**
+- ✅ CSS variables direkt kullanılabilir (SCSS gerekmez)
+- ✅ Fallback değerleri ekle (`var(--sisyphos-color-primary, #ff7022)`)
+- ✅ Hem SCSS hem CSS kullanımı desteklenir
+
+---
+
+## 📁 Core Package File Structure
+
+### Complete File Structure
+
+```
+packages/core/
+├── src/
+│   ├── index.ts                      # Main exports
+│   ├── styles.scss                   # Main stylesheet (imports default-theme)
+│   │
+│   ├── theme/
+│   │   ├── default-theme.scss        # CSS Variables definitions
+│   │   └── theme.ts                  # Theme functions (applyTheme, etc.)
+│   │
+│   └── tokens/
+│       ├── _index.scss               # Token exports
+│       ├── variables.scss            # SCSS variables (references CSS vars)
+│       ├── colors.scss               # Color maps & utilities
+│       ├── mixins.scss               # Reusable SCSS mixins
+│       ├── breakpoints.scss          # Responsive breakpoints
+│       └── functions.scss            # SCSS functions (if any)
+│
+├── package.json
+├── tsconfig.json
+└── tsup.config.ts
+```
+
+### File Content Examples
+
+**src/index.ts:**
+
+```typescript
+// Core exports
+export * from "./tokens";
+export * from "./theme/theme";
+
+// Types
+export type { ThemeConfig, ThemeMode, ColorShade } from "./theme/theme";
+```
+
+**src/theme/theme.ts:**
+
+```typescript
+// Theme functions
+export function applyTheme(config: ThemeConfig): void {
+  const root = document.documentElement;
+  
+  // Colors
+  if (config.colors) {
+    if (typeof config.colors.primary === 'string') {
+      root.style.setProperty('--sisyphos-color-primary', config.colors.primary);
+    }
+    // ... other colors
+  }
+  
+  // Spacing
+  if (config.spacing) {
+    Object.entries(config.spacing).forEach(([key, value]) => {
+      root.style.setProperty(`--sisyphos-spacing-${key}`, `${value}px`);
+    });
+  }
+  
+  // ... other tokens
+}
+
+export function setThemeMode(mode: 'light' | 'dark'): void {
+  const root = document.documentElement;
+  root.classList.remove('sisyphos-theme-light', 'sisyphos-theme-dark');
+  root.classList.add(`sisyphos-theme-${mode}`);
+}
+```
+
+**src/tokens/variables.scss:**
+
+```scss
+/* SCSS Variables - CSS Variables'dan referans alır */
+
+/* Spacing */
+$spacing-xxs: var(--sisyphos-spacing-xxs, 4px);
+$spacing-xs: var(--sisyphos-spacing-xs, 8px);
+$spacing-s: var(--sisyphos-spacing-s, 10px);
+$spacing-md: var(--sisyphos-spacing-md, 16px);
+$spacing-lg: var(--sisyphos-spacing-lg, 24px);
+$spacing-xl: var(--sisyphos-spacing-xl, 32px);
+$spacing-2xl: var(--sisyphos-spacing-2xl, 40px);
+$spacing-3xl: var(--sisyphos-spacing-3xl, 64px);
+
+/* Typography */
+$base-size: var(--sisyphos-font-size-base, 16px);
+$font-weight-medium: var(--sisyphos-font-weight-medium, 500);
+$font-family: var(--sisyphos-font-family, "Manrope", sans-serif);
+
+/* Border Radius */
+$radius-md: var(--sisyphos-radius-md, 12px);
+
+/* ... other tokens */
+```
+
+---
+
+## 🔗 Integration Patterns
+
+### Pattern 1: Next.js Integration
+
+```tsx
+// app/layout.tsx (Next.js App Router)
+import '@sisyphos-ui/core/styles.scss';
+import { applyTheme } from '@sisyphos-ui/core';
+
+// Apply theme at layout level
+applyTheme({
+  colors: { primary: '#007bff' },
+});
+
+export default function RootLayout({ children }) {
+  return (
+    <html lang="en">
+      <body>{children}</body>
+    </html>
+  );
+}
+```
+
+### Pattern 2: Vite + React Integration
+
+```tsx
+// src/main.tsx
+import React from 'react';
+import ReactDOM from 'react-dom/client';
+import '@sisyphos-ui/core/styles.scss';
+import { applyTheme } from '@sisyphos-ui/core';
+import App from './App';
+
+// Apply theme before rendering
+applyTheme({
+  colors: { primary: '#007bff' },
+});
+
+ReactDOM.createRoot(document.getElementById('root')!).render(
+  <React.StrictMode>
+    <App />
+  </React.StrictMode>
+);
+```
+
+### Pattern 3: Create React App Integration
+
+```tsx
+// src/index.tsx
+import React from 'react';
+import ReactDOM from 'react-dom/client';
+import '@sisyphos-ui/core/styles.scss';
+import { applyTheme } from '@sisyphos-ui/core';
+import './index.css';
+import App from './App';
+
+applyTheme({
+  colors: { primary: '#007bff' },
+});
+
+const root = ReactDOM.createRoot(
+  document.getElementById('root') as HTMLElement
+);
+
+root.render(
+  <React.StrictMode>
+    <App />
+  </React.StrictMode>
+);
+```
+
+---
+
+## 🐛 Troubleshooting
+
+### Problem 1: SCSS Variables Çalışmıyor
+
+**Çözüm:**
+
+```scss
+/* ✅ Doğru: @use ile import et */
+@use "@sisyphos-ui/core/tokens/variables" as *;
+
+.my-component {
+  padding: $spacing-md; /* ✅ Çalışır */
+}
+
+/* ❌ Yanlış: @import kullanma (deprecated) */
+@import "@sisyphos-ui/core/tokens/variables"; /* ❌ Çalışmaz */
+```
+
+### Problem 2: CSS Variables Çalışmıyor
+
+**Çözüm:**
+
+```tsx
+// ✅ Styles'i import ettiniz mi?
+import '@sisyphos-ui/core/styles.scss'; // En önce!
+
+// ✅ CSS variables tanımlı mı? (default-theme.scss yüklendi mi?)
+// Browser DevTools'da kontrol edin: :root elementinde --sisyphos-color-primary var mı?
+```
+
+### Problem 3: Mixins Çalışmıyor
+
+**Çözüm:**
+
+```scss
+/* ✅ Doğru: @use ile import et */
+@use "@sisyphos-ui/core/tokens/mixins" as *;
+
+.my-button {
+  @include button-variant(...); /* ✅ Çalışır */
+}
+
+/* ❌ Yanlış: @import kullanma */
+@import "@sisyphos-ui/core/tokens/mixins"; /* ❌ Çalışmaz */
+```
+
+---
+
+## 🚀 Next Steps
+
+- [Design Tokens Showcase](./?path=/story/foundation-design-tokens--colors) - Detaylı token showcase için Design Tokens sayfasına bakın
+- [Theme System](./?path=/docs/foundation-theme-system--docs) - Tema sistemi kullanımı için Theme System sayfasına bakın
+- [UI Package](./?path=/docs/foundation-ui-package--docs) - Component kullanımı için UI Package sayfasına bakın
+- [Best Practices](./?path=/docs/foundation-best-practices--docs) - Best practices ve common patterns için Best Practices sayfasına bakın

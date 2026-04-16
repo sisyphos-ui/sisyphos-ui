@@ -1,0 +1,52 @@
+import { Meta } from "@storybook/blocks";
+
+<Meta title="Foundation/Introduction" />
+
+# Sisyphos UI
+
+**A modern, accessible, themeable React component library.**
+
+Thirty-plus components that ship as independent, tree-shakable packages — built on CSS variables, strict TypeScript, and zero runtime dependencies beyond React.
+
+## What's in the box
+
+- **Inputs** — Button, Input, Textarea, Checkbox, Switch, Radio, Select, TreeSelect, NumberInput, Slider, DatePicker, FileUpload
+- **Display** — Chip, Avatar, Spinner, Skeleton, EmptyState, Alert, Breadcrumb, Card, Accordion, Tabs, Table, Carousel
+- **Overlay** — Tooltip, Popover, DropdownMenu, Dialog, Toast
+- **Foundation** — Core (theme + tokens), Portal, FormControl
+
+Use the sidebar to explore every component interactively. Each story exposes its full props panel under **Controls** and a copyable snippet under **Show code**.
+
+## Install
+
+```bash
+# Everything
+pnpm add @sisyphos-ui/ui
+
+# Or just what you need
+pnpm add @sisyphos-ui/button @sisyphos-ui/core
+```
+
+```tsx
+import "@sisyphos-ui/ui/styles.css";
+import { Button, Dialog, toast, Toaster } from "@sisyphos-ui/ui";
+```
+
+Works with React 17/18/19 and any bundler that speaks ES modules.
+
+## Design principles
+
+1. **Accessibility is not optional.** Every overlay traps focus. Every form control is WAI-ARIA compliant. Every test includes keyboard expectations.
+2. **CSS variables first.** Runtime theming is a two-line call (`applyTheme({ colors: { primary: "#0284c7" } })`). No Sass recompile. No re-render.
+3. **Independent packages.** Install only what you ship. The umbrella exists for convenience, not as a gate.
+4. **Compound APIs.** Dialogs, Tabs, Accordions, and Cards expose subcomponents so markup reads like the thing you're building.
+5. **Controlled *and* uncontrolled.** Pass `value`+`onChange` when you need control, or `defaultValue` when you don't. No `useFormControl()` ceremony.
+
+## Where to next
+
+- [**Theme System**](./?path=/docs/foundation-theme-system--docs) — runtime theming API, dark mode, multi-brand.
+- [**Color Palette**](./?path=/docs/foundation-color-palette--docs) — every token, every shade.
+- [**Design Tokens**](./?path=/story/foundation-design-tokens--colors) — interactive showcase.
+- [**Real-World Examples**](./?path=/docs/foundation-real-world-examples--docs) — five full-page patterns.
+- [**Component Structure**](./?path=/docs/foundation-component-structure--docs) — author a new component that fits the system.
+- Or just jump into **Components** in the sidebar.

@@ -1,0 +1,102 @@
+{
+  "name": "@sisyphos-ui/ui",
+  "version": "0.2.0",
+  "description": "Complete Sisyphos UI design system - all components in one package",
+  "keywords": [
+    "components",
+    "design-system",
+    "react",
+    "sisyphos-ui",
+    "typescript",
+    "ui"
+  ],
+  "homepage": "https://github.com/sisyphos-ui/sisyphos-ui#readme",
+  "bugs": {
+    "url": "https://github.com/sisyphos-ui/sisyphos-ui/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sisyphos-ui/sisyphos-ui.git",
+    "directory": "packages/ui"
+  },
+  "license": "MIT",
+  "author": "Sisyphos UI Contributors",
+  "sideEffects": [
+    "**/*.css",
+    "**/*.scss"
+  ],
+  "main": "./dist/index.js",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.js"
+    },
+    "./styles.css": "./dist/styles.css",
+    "./styles": "./dist/styles.css"
+  },
+  "files": [
+    "CHANGELOG.md",
+    "LICENSE",
+    "README.md",
+    "dist"
+  ],
+  "scripts": {
+    "build": "tsup && node scripts/bundle-css.mjs",
+    "dev": "tsup --watch",
+    "lint": "eslint .",
+    "clean": "rm -rf .turbo && rm -rf node_modules && rm -rf dist",
+    "type-check": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@sisyphos-ui/button": "workspace:*",
+    "@sisyphos-ui/core": "workspace:*",
+    "@sisyphos-ui/input": "workspace:*",
+    "@sisyphos-ui/switch": "workspace:*",
+    "@sisyphos-ui/checkbox": "workspace:*",
+    "@sisyphos-ui/form-control": "workspace:*",
+    "@sisyphos-ui/portal": "workspace:*",
+    "@sisyphos-ui/chip": "workspace:*",
+    "@sisyphos-ui/avatar": "workspace:*",
+    "@sisyphos-ui/spinner": "workspace:*",
+    "@sisyphos-ui/skeleton": "workspace:*",
+    "@sisyphos-ui/empty-state": "workspace:*",
+    "@sisyphos-ui/textarea": "workspace:*",
+    "@sisyphos-ui/radio": "workspace:*",
+    "@sisyphos-ui/breadcrumb": "workspace:*",
+    "@sisyphos-ui/alert": "workspace:*",
+    "@sisyphos-ui/tooltip": "workspace:*",
+    "@sisyphos-ui/popover": "workspace:*",
+    "@sisyphos-ui/select": "workspace:*",
+    "@sisyphos-ui/dropdown-menu": "workspace:*",
+    "@sisyphos-ui/dialog": "workspace:*",
+    "@sisyphos-ui/toast": "workspace:*",
+    "@sisyphos-ui/datepicker": "workspace:*",
+    "@sisyphos-ui/number-input": "workspace:*",
+    "@sisyphos-ui/slider": "workspace:*",
+    "@sisyphos-ui/tree-select": "workspace:*",
+    "@sisyphos-ui/file-upload": "workspace:*",
+    "@sisyphos-ui/tabs": "workspace:*",
+    "@sisyphos-ui/card": "workspace:*",
+    "@sisyphos-ui/accordion": "workspace:*",
+    "@sisyphos-ui/table": "workspace:*",
+    "@sisyphos-ui/carousel": "workspace:*"
+  },
+  "peerDependencies": {
+    "react": "^17.0.0 || ^18.0.0 || ^19.0.0",
+    "react-dom": "^17.0.0 || ^18.0.0 || ^19.0.0"
+  },
+  "devDependencies": {
+    "@types/node": "^20.11.5",
+    "tsup": "^8.0.1",
+    "typescript": "^5.3.3"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}

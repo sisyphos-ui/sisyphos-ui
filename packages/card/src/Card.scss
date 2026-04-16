@@ -1,0 +1,64 @@
+@use "@sisyphos-ui/core/src/tokens/variables" as *;
+
+.sisyphos-card {
+  display: flex;
+  flex-direction: column;
+  background: var(--sisyphos-color-neutral-lighter, #fff);
+  color: var(--sisyphos-color-neutral-dark, #212b36);
+  border-radius: $radius-md;
+  overflow: hidden;
+  box-sizing: border-box;
+  transition: box-shadow $duration-s, transform $duration-s, border-color $duration-s;
+
+  &.elevated {
+    border: 1px solid transparent;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.06), 0 4px 12px rgba(0, 0, 0, 0.04);
+  }
+
+  &.outlined {
+    border: 1px solid var(--sisyphos-color-border, #eef0f2);
+    box-shadow: none;
+  }
+
+  &.filled {
+    background: var(--sisyphos-color-neutral-lighter, #f9fafb);
+    border: 1px solid transparent;
+    box-shadow: none;
+  }
+
+  &.padding-none > .sisyphos-card-body { padding: 0; }
+  &.padding-sm   > .sisyphos-card-body { padding: $spacing-s; }
+  &.padding-md   > .sisyphos-card-body { padding: $spacing-md; }
+  &.padding-lg   > .sisyphos-card-body { padding: $spacing-lg; }
+
+  &.interactive {
+    cursor: pointer;
+    &:hover { box-shadow: 0 2px 4px rgba(0, 0, 0, 0.08), 0 8px 24px rgba(0, 0, 0, 0.08); transform: translateY(-1px); }
+    &:focus-visible {
+      outline: 2px solid var(--sisyphos-color-primary, #ff7022);
+      outline-offset: 2px;
+    }
+  }
+}
+
+.sisyphos-card-header {
+  display: flex;
+  align-items: center;
+  gap: $spacing-md;
+  padding: $spacing-md $spacing-lg;
+  border-bottom: 1px solid var(--sisyphos-color-border, #eef0f2);
+  font-weight: $font-weight-semibold;
+}
+
+.sisyphos-card-body {
+  flex: 1;
+  min-width: 0;
+}
+
+.sisyphos-card-footer {
+  display: flex;
+  align-items: center;
+  gap: $spacing-xs;
+  padding: $spacing-s $spacing-lg;
+  border-top: 1px solid var(--sisyphos-color-border, #eef0f2);
+}

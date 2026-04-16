@@ -1,0 +1,8 @@
+/* Import SCSS tokens FIRST (references CSS Variables) */
+/* NOTE: @forward must come before @import in SCSS */
+@forward "tokens/variables";
+@forward "tokens/main";
+@forward "tokens/mixins";
+
+/* Import default theme CSS variables (defines all CSS variables) */
+@import "theme/default-theme";

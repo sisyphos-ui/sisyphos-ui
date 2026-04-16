@@ -1,0 +1,94 @@
+.app {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+
+.app-header {
+  background: rgba(255, 255, 255, 0.95);
+  padding: 2rem;
+  text-align: center;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.app-header h1 {
+  color: #1f2937;
+  margin-bottom: 0.5rem;
+}
+
+.app-header p {
+  color: #6b7280;
+}
+
+.app-main {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+.component-showcase,
+.tokens-showcase {
+  background: white;
+  border-radius: 0.5rem;
+  padding: 2rem;
+  margin-bottom: 2rem;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.component-showcase h2,
+.tokens-showcase h2 {
+  color: #1f2937;
+  margin-bottom: 1.5rem;
+}
+
+.button-group {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 1rem;
+  flex-wrap: wrap;
+}
+
+.color-palette {
+  margin-top: 1rem;
+}
+
+.color-palette h3 {
+  color: #374151;
+  margin-bottom: 1rem;
+}
+
+.color-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  gap: 1rem;
+}
+
+.color-item {
+  border: 1px solid #e5e7eb;
+  border-radius: 0.375rem;
+  overflow: hidden;
+}
+
+.color-swatch {
+  height: 80px;
+  width: 100%;
+}
+
+.color-info {
+  padding: 0.75rem;
+  background: #f9fafb;
+}
+
+.color-name {
+  display: block;
+  font-weight: 600;
+  color: #1f2937;
+  margin-bottom: 0.25rem;
+}
+
+.color-value {
+  display: block;
+  font-size: 0.875rem;
+  color: #6b7280;
+  font-family: monospace;
+}
+

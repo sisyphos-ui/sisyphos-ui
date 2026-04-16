@@ -1,0 +1,401 @@
+@use "@sisyphos-ui/core/src/tokens/variables" as *;
+@use "@sisyphos-ui/core/src/tokens/mixins" as *;
+
+/* ─── VARIANT CONFIG (single source of truth) ─────────────────────────────── */
+
+$button-contained-colors: (
+  primary: (
+    bg: linear-gradient(to bottom, var(--sisyphos-color-primary-light, #ff8637), var(--sisyphos-color-primary, #ff7022)),
+    border: var(--sisyphos-color-primary-contained, #f04906),
+    hover-border: var(--sisyphos-color-primary-dark, #e5631c),
+    radius: $radius-md
+  ),
+  success: (
+    bg: var(--sisyphos-color-success-contained, #16a34a),
+    border: var(--sisyphos-color-success-contained, #16a34a),
+    hover-border: var(--sisyphos-color-success-dark, #16a34a),
+    radius: $radius-md
+  ),
+  error: (
+    bg: var(--sisyphos-color-error-contained, #dc2626),
+    border: var(--sisyphos-color-error-contained, #dc2626),
+    hover-border: var(--sisyphos-color-error-dark, #dc2626),
+    radius: $radius-md
+  ),
+  warning: (
+    bg: var(--sisyphos-color-warning-contained, #f59e0b),
+    border: var(--sisyphos-color-warning-contained, #f59e0b),
+    hover-border: var(--sisyphos-color-warning-dark, #f59e0b),
+    radius: $radius-md
+  ),
+  info: (
+    bg: var(--sisyphos-color-info-contained, #0891b2),
+    border: var(--sisyphos-color-info-contained, #0891b2),
+    hover-border: var(--sisyphos-color-info-dark, #0891b2),
+    radius: $radius-md
+  )
+);
+
+$button-soft-colors: (
+  primary: (
+    color: var(--sisyphos-color-primary, #ff7022),
+    bg: var(--sisyphos-color-primary-lighter, #ffede0)
+  ),
+  success: (
+    color: var(--sisyphos-color-success, #22c55e),
+    bg: var(--sisyphos-color-success-lighter, #dcfce7)
+  ),
+  error: (
+    color: var(--sisyphos-color-error, #fb3748),
+    bg: var(--sisyphos-color-error-lighter, #fee2e2)
+  ),
+  warning: (
+    color: var(--sisyphos-color-warning, #ffab00),
+    bg: var(--sisyphos-color-warning-lighter, #fef3c7)
+  ),
+  info: (
+    color: var(--sisyphos-color-info, #00b8d9),
+    bg: var(--sisyphos-color-info-lighter, #cffafe)
+  )
+);
+
+/* ─── LOADING SPINNER ────────────────────────────────────────────────────── */
+
+.sisyphos-button-loading-spinner {
+  display: none;
+  flex-shrink: 0;
+  color: currentColor;
+}
+
+.sisyphos-button-loading-spinner-svg {
+  width: 1em;
+  height: 1em;
+  animation: sisyphos-button-spin $duration-m linear infinite;
+}
+
+.sisyphos-button-loading-spinner--start {
+  margin-right: $spacing-xs;
+}
+
+.sisyphos-button-loading-spinner--end {
+  margin-left: $spacing-xs;
+}
+
+@keyframes sisyphos-button-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* ─── BASE BUTTON ────────────────────────────────────────────────────────── */
+
+.sisyphos-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: $radius-s;
+  font-weight: $font-weight-medium;
+  cursor: pointer;
+  text-decoration: none;
+  transition:
+    background-color $duration-s,
+    color $duration-s,
+    box-shadow $duration-s;
+  user-select: none;
+  text-align: center;
+  padding: $spacing-s;
+  border: 1px solid transparent;
+
+  /* Contained - neutral */
+  &.contained {
+    color: var(--sisyphos-color-neutral-lighter, #fff);
+    background: var(--sisyphos-color-neutral-dark, #212b36);
+    border-color: var(--sisyphos-color-neutral-dark, #212b36);
+
+    &:hover:not(.disabled) {
+      background: var(--sisyphos-color-neutral-dark, #212b36);
+      border-color: var(--sisyphos-color-neutral-dark, #212b36);
+    }
+  }
+
+  /* Contained - semantic colors (from config) */
+  @each $name, $config in $button-contained-colors {
+    &.contained.#{$name} {
+      color: var(--sisyphos-color-neutral-lighter, #fff);
+      background: map-get($config, bg);
+      border: 1px solid map-get($config, border);
+      border-radius: map-get($config, radius);
+
+      &:hover:not(.disabled) {
+        background: map-get($config, bg);
+        border-color: map-get($config, hover-border);
+      }
+    }
+  }
+
+  /* Outlined & Text - from mixin */
+  @include button-variant(
+    "outlined",
+    var(--sisyphos-color-neutral-dark, #212b36),
+    transparent,
+    var(--sisyphos-color-neutral-dark, #212b36)
+  );
+  @include button-variant(
+    "outlined.primary",
+    var(--sisyphos-color-neutral-dark, #212b36),
+    var(--sisyphos-color-neutral-lighter, #fff),
+    var(--sisyphos-color-neutral-darker, #919eab33),
+    $radius-md,
+    var(--sisyphos-color-primary, #ff7022)
+  );
+  @include button-variant(
+    "outlined.info",
+    var(--sisyphos-color-info, #00b8d9),
+    transparent,
+    var(--sisyphos-color-info, #00b8d9)
+  );
+  @include button-variant(
+    "outlined.success",
+    var(--sisyphos-color-success, #22c55e),
+    transparent,
+    var(--sisyphos-color-success, #22c55e)
+  );
+  @include button-variant(
+    "outlined.warning",
+    var(--sisyphos-color-warning, #ffab00),
+    transparent,
+    var(--sisyphos-color-warning, #ffab00)
+  );
+  @include button-variant(
+    "outlined.error",
+    var(--sisyphos-color-error-dark, #dc2626),
+    transparent,
+    var(--sisyphos-color-error-dark, #dc2626)
+  );
+
+  @include button-variant("text", var(--sisyphos-color-neutral-dark, #212b36));
+  @include button-variant("text.primary", var(--sisyphos-color-primary, #ff7022));
+  @include button-variant("text.info", var(--sisyphos-color-info, #00b8d9));
+  @include button-variant("text.success", var(--sisyphos-color-success, #22c55e));
+  @include button-variant("text.warning", var(--sisyphos-color-warning, #ffab00));
+  @include button-variant("text.error", var(--sisyphos-color-error-dark, #dc2626));
+
+  /* Soft - base (neutral) + semantic colors (from config) */
+  &.soft {
+    font-size: $base-size;
+    color: var(--sisyphos-color-neutral-dark, #212b36);
+    background: var(--sisyphos-color-neutral-lighter, #fff);
+
+    &:hover:not(.disabled) {
+      background: var(--sisyphos-color-neutral-light, #f3f4f6);
+    }
+  }
+
+  @each $name, $config in $button-soft-colors {
+    &.soft.#{$name} {
+      color: map-get($config, color);
+      background: map-get($config, bg);
+
+      &:hover:not(.disabled) {
+        background: map-get($config, bg);
+      }
+    }
+  }
+
+  /* States */
+  &:focus-visible {
+    outline: 2px solid var(--sisyphos-color-primary, #ff7022);
+    outline-offset: 2px;
+  }
+
+  &.disabled,
+  &:disabled {
+    cursor: not-allowed;
+    opacity: $opacity-xs;
+    pointer-events: none;
+  }
+
+  &.loading {
+    pointer-events: none;
+    cursor: wait;
+
+    .sisyphos-button-loading-spinner {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+    }
+  }
+
+  &.full-width {
+    width: 100%;
+  }
+
+  /* Sizes */
+  &.xs {
+    padding: $spacing-xxs $spacing-xs;
+    font-size: $size-xs;
+    min-height: 28px;
+  }
+
+  &.sm {
+    padding: $spacing-xs $spacing-s;
+    font-size: $size-sm;
+    min-height: 32px;
+  }
+
+  &.md {
+    padding: $spacing-s $spacing-md;
+    font-size: $base-size;
+    min-height: 40px;
+  }
+
+  &.lg {
+    padding: $spacing-md $spacing-lg;
+    font-size: $size-lg;
+    min-height: 52px;
+  }
+
+  &.xl {
+    padding: $spacing-lg $spacing-xl;
+    font-size: $size-lg;
+    min-height: 60px;
+  }
+
+  /* Radius overrides (ortak modifier class) */
+  &.radius-xs {
+    border-radius: $radius-xxs !important;
+  }
+
+  &.radius-sm {
+    border-radius: $radius-s !important;
+  }
+
+  &.radius-md {
+    border-radius: $radius-md !important;
+  }
+
+  &.radius-lg {
+    border-radius: $radius-lg !important;
+  }
+
+  &.radius-xl {
+    border-radius: $radius-xl !important;
+  }
+}
+
+/* ─── ELEMENTS ───────────────────────────────────────────────────────────── */
+
+.sisyphos-button-text {
+  display: inline-block;
+}
+
+.sisyphos-button-icon {
+  display: inline-block;
+  vertical-align: middle;
+  height: 24px;
+  width: 24px;
+}
+
+.sisyphos-button-icon--start {
+  margin-right: $spacing-xs;
+}
+
+.sisyphos-button-icon--end {
+  margin-left: $spacing-xs;
+}
+
+.sisyphos-button-icon--dropdown {
+  margin-left: $spacing-xs;
+  transition: transform $duration-s;
+
+  svg path {
+    fill: var(--sisyphos-color-neutral-lighter, #fff);
+  }
+}
+
+.sisyphos-button-icon--dropdown.open {
+  transform: rotate(180deg);
+
+  svg path {
+    fill: var(--sisyphos-color-neutral-darker, #919eab);
+  }
+}
+
+/* ─── DROPDOWN WRAPPER ───────────────────────────────────────────────────── */
+
+.sisyphos-button-wrapper.has-dropdown .sisyphos-button {
+  &.with-dropdown {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  &.dropdown-open {
+    background: transparent !important;
+    border: 1px solid var(--sisyphos-color-neutral-darker, #919eab33) !important;
+    color: var(--sisyphos-color-neutral-dark, #212b36) !important;
+
+    .sisyphos-button-icon--start svg path {
+      fill: var(--sisyphos-color-primary, #ff7022);
+    }
+
+    &:hover {
+      background: transparent !important;
+      border-color: var(--sisyphos-color-neutral-darker, #919eab33) !important;
+      color: var(--sisyphos-color-neutral-dark, #212b36) !important;
+    }
+  }
+}
+
+.sisyphos-button-wrapper {
+  position: relative;
+  display: inline-block;
+}
+
+/* ─── DROPDOWN MENU ──────────────────────────────────────────────────────── */
+
+.sisyphos-button-dropdown {
+  position: absolute;
+  top: calc(100% + $spacing-xs);
+  left: 0;
+  right: 0;
+  background: var(--sisyphos-color-neutral-lighter, #fff);
+  border-radius: $radius-md;
+  box-shadow: 0 $spacing-xxs $spacing-md rgba(0, 0, 0, 0.1);
+  list-style: none;
+  border: 1px solid var(--sisyphos-color-neutral-darker, #919eab33);
+  margin: 0;
+  padding: $spacing-xs;
+  z-index: $z-index-overlay;
+  min-width: 150px;
+
+  &.top {
+    top: auto;
+    bottom: calc(100% + #{$spacing-xs});
+  }
+}
+
+.sisyphos-button-dropdown-item {
+  padding: $spacing-s $spacing-md;
+  cursor: pointer;
+  transition: all $duration-s;
+  font-size: $base-size;
+  color: var(--sisyphos-color-neutral-dark, #212b36);
+  font-weight: $font-weight-medium;
+  border-radius: $radius-md;
+
+  &:first-child {
+    color: var(--sisyphos-color-primary, #ff7022);
+  }
+
+  &:hover {
+    background-color: var(--sisyphos-color-neutral-light, #f1f1f1);
+  }
+
+  &:active {
+    background-color: var(--sisyphos-color-neutral, #f9fafb);
+  }
+}

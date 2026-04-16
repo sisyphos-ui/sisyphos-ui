@@ -1,0 +1,84 @@
+@use "@sisyphos-ui/core/src/tokens/variables" as *;
+@use "sass:map";
+
+$slider-colors: (
+  primary: var(--sisyphos-color-primary, #ff7022),
+  success: var(--sisyphos-color-success, #22c55e),
+  error:   var(--sisyphos-color-error, #fb3748),
+  warning: var(--sisyphos-color-warning, #ffab00),
+  info:    var(--sisyphos-color-info, #00b8d9),
+);
+
+.sisyphos-slider {
+  position: relative;
+  width: 100%;
+  user-select: none;
+  padding: $spacing-s 0;
+
+  &.disabled { opacity: $opacity-s; pointer-events: none; }
+}
+
+.sisyphos-slider-values {
+  display: flex;
+  justify-content: space-between;
+  font-size: $size-sm;
+  color: var(--sisyphos-color-neutral-dark, #637381);
+  margin-bottom: $spacing-xxs;
+
+  &.single {
+    justify-content: flex-start;
+  }
+}
+
+.sisyphos-slider-track {
+  position: relative;
+  height: 6px;
+  background: var(--sisyphos-color-neutral-lighter, #f0f1f3);
+  border-radius: $radius-full;
+  cursor: pointer;
+
+  .sisyphos-slider.sm & { height: 4px; }
+  .sisyphos-slider.lg & { height: 8px; }
+}
+
+.sisyphos-slider-progress {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  border-radius: $radius-full;
+
+  @each $name, $col in $slider-colors {
+    .sisyphos-slider.#{$name} & { background: $col; }
+  }
+}
+
+.sisyphos-slider-thumb {
+  appearance: none;
+  position: absolute;
+  top: 50%;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: var(--sisyphos-color-neutral-lighter, #fff);
+  border: 2px solid currentColor;
+  cursor: grab;
+  transform: translate(-50%, -50%);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transition: box-shadow $duration-s, transform $duration-s;
+  padding: 0;
+
+  @each $name, $col in $slider-colors {
+    .sisyphos-slider.#{$name} & { color: $col; }
+  }
+
+  .sisyphos-slider.sm & { width: 14px; height: 14px; }
+  .sisyphos-slider.lg & { width: 22px; height: 22px; }
+
+  &:hover { box-shadow: 0 0 0 6px rgba(0, 0, 0, 0.06); }
+  &:active { cursor: grabbing; box-shadow: 0 0 0 8px rgba(0, 0, 0, 0.1); }
+
+  &:focus-visible {
+    outline: none;
+    box-shadow: 0 0 0 4px currentColor;
+  }
+}

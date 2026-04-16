@@ -1,0 +1,127 @@
+@use "@sisyphos-ui/core/src/tokens/variables" as *;
+@use "sass:map";
+
+$spinner-colors: (
+  primary: var(--sisyphos-color-primary, #ff7022),
+  success: var(--sisyphos-color-success, #22c55e),
+  error: var(--sisyphos-color-error, #fb3748),
+  warning: var(--sisyphos-color-warning, #ffab00),
+  info: var(--sisyphos-color-info, #00b8d9),
+  neutral: var(--sisyphos-color-neutral-dark, #637381),
+);
+
+/* ── SPINNER ──────────────────────────────────────────────────────────── */
+.sisyphos-spinner {
+  display: inline-block;
+  box-sizing: border-box;
+  border-style: solid;
+  border-radius: 50%;
+  border-color: transparent;
+  animation: sisyphos-spin 0.9s linear infinite;
+  position: relative;
+
+  &.xs { width: 14px; height: 14px; }
+  &.sm { width: 18px; height: 18px; }
+  &.md { width: 24px; height: 24px; }
+  &.lg { width: 40px; height: 40px; }
+  &.xl { width: 64px; height: 64px; }
+
+  @each $name, $col in $spinner-colors {
+    &.#{$name} {
+      border-top-color: $col;
+      border-right-color: $col;
+    }
+  }
+
+  &.inherit {
+    border-top-color: currentColor;
+    border-right-color: currentColor;
+  }
+
+  /* Double-ring: counter-rotating inner ring at 70% */
+  &.double::after {
+    content: "";
+    position: absolute;
+    top: 12%;
+    left: 12%;
+    width: 76%;
+    height: 76%;
+    border-style: solid;
+    border-width: inherit;
+    border-color: transparent;
+    border-radius: 50%;
+    animation: sisyphos-spin-reverse 0.7s linear infinite;
+  }
+
+  @each $name, $col in $spinner-colors {
+    &.#{$name}.double::after {
+      border-bottom-color: $col;
+      border-left-color: $col;
+      opacity: 0.7;
+    }
+  }
+
+  &.inherit.double::after {
+    border-bottom-color: currentColor;
+    border-left-color: currentColor;
+    opacity: 0.7;
+  }
+}
+
+@keyframes sisyphos-spin {
+  to { transform: rotate(360deg); }
+}
+
+@keyframes sisyphos-spin-reverse {
+  to { transform: rotate(-360deg); }
+}
+
+/* ── LOADING OVERLAY ──────────────────────────────────────────────────── */
+.sisyphos-loading-overlay {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  &.fullscreen {
+    position: fixed;
+    inset: 0;
+    z-index: $z-index-overlay;
+  }
+
+  &.overlay {
+    position: absolute;
+    inset: 0;
+    z-index: 100;
+  }
+
+  &.inline {
+    padding: $spacing-lg;
+  }
+}
+
+.sisyphos-loading-overlay-backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(255, 255, 255, 0.6);
+
+  .sisyphos-loading-overlay.blur & {
+    backdrop-filter: blur(4px);
+  }
+}
+
+.sisyphos-loading-overlay-content {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: $spacing-md;
+}
+
+.sisyphos-loading-overlay-text {
+  margin: 0;
+  font-size: $size-md;
+  font-weight: $font-weight-medium;
+  color: var(--sisyphos-color-neutral-dark, #212b36);
+  text-align: center;
+}

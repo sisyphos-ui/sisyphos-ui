@@ -1,0 +1,157 @@
+@use "@sisyphos-ui/core/src/tokens/variables" as *;
+
+/* ─── BASE CHECKBOX (wrapper) ────────────────────────────────────────────── */
+
+.sisyphos-checkbox {
+  display: inline-flex;
+  align-items: center;
+
+  &.disabled .sisyphos-checkbox-label {
+    cursor: not-allowed;
+    opacity: $opacity-xs;
+  }
+}
+
+/* ─── LABEL ───────────────────────────────────────────────────────────────── */
+
+.sisyphos-checkbox-label {
+  display: inline-flex;
+  align-items: center;
+  gap: $spacing-s;
+  cursor: pointer;
+  font-size: $size-md;
+  font-weight: $font-weight-medium;
+  line-height: $line-height;
+  color: var(--sisyphos-color-neutral-dark, #212b36);
+  text-align: left;
+}
+
+/* ─── BOX (wrapper for input + mark) ─────────────────────────────────────── */
+
+.sisyphos-checkbox-box {
+  position: relative;
+  display: inline-flex;
+  flex-shrink: 0;
+}
+
+/* ─── INPUT (visual box) ──────────────────────────────────────────────────── */
+
+.sisyphos-checkbox-input {
+  appearance: none;
+  margin: 0;
+  border: 2px solid var(--sisyphos-color-border, #c4cdd5);
+  background-color: var(--sisyphos-color-neutral-lighter, #fff);
+  transition: border-color $duration-s, background-color $duration-s;
+  cursor: pointer;
+
+  &:hover:not(:disabled):not(:checked) {
+    border-color: var(--sisyphos-color-neutral-dark, #212b36);
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--sisyphos-color-primary, #ff7022);
+    outline-offset: 2px;
+  }
+
+  &:disabled {
+    cursor: not-allowed;
+  }
+}
+
+/* Checked - semantic colors */
+.sisyphos-checkbox-input.primary:checked {
+  background-color: var(--sisyphos-color-primary, #ff7022);
+  border-color: var(--sisyphos-color-primary, #ff7022);
+}
+
+.sisyphos-checkbox-input.neutral:checked {
+  background-color: var(--sisyphos-color-neutral-dark, #212b36);
+  border-color: var(--sisyphos-color-neutral-dark, #212b36);
+}
+
+.sisyphos-checkbox-input.success:checked {
+  background-color: var(--sisyphos-color-success, #22c55e);
+  border-color: var(--sisyphos-color-success, #22c55e);
+}
+
+.sisyphos-checkbox-input.error:checked {
+  background-color: var(--sisyphos-color-error, #fb3748);
+  border-color: var(--sisyphos-color-error, #fb3748);
+}
+
+.sisyphos-checkbox-input.warning:checked {
+  background-color: var(--sisyphos-color-warning, #ffab00);
+  border-color: var(--sisyphos-color-warning, #ffab00);
+}
+
+.sisyphos-checkbox-input.info:checked {
+  background-color: var(--sisyphos-color-info, #00b8d9);
+  border-color: var(--sisyphos-color-info, #00b8d9);
+}
+
+/* ─── MARK (check icon) ────────────────────────────────────────────────────── */
+
+.sisyphos-checkbox-mark {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+  color: var(--sisyphos-color-neutral-lighter, #fff);
+  opacity: 0;
+  transition: opacity $duration-s;
+}
+
+.sisyphos-checkbox-input:checked ~ .sisyphos-checkbox-mark {
+  opacity: 1;
+}
+
+/* ─── SIZES (styling on input = element that has the visual) ──────────────── */
+
+.sisyphos-checkbox-input.xs {
+  width: 12px;
+  height: 12px;
+}
+
+.sisyphos-checkbox-input.sm {
+  width: 14px;
+  height: 14px;
+}
+
+.sisyphos-checkbox-input.md {
+  width: 16px;
+  height: 16px;
+}
+
+.sisyphos-checkbox-input.lg {
+  width: 20px;
+  height: 20px;
+}
+
+.sisyphos-checkbox-input.xl {
+  width: 24px;
+  height: 24px;
+}
+
+/* ─── RADIUS (flat BEM modifiers on input) ───────────────────────────────── */
+
+.sisyphos-checkbox-input.radius-xs {
+  border-radius: $radius-xs;
+}
+
+.sisyphos-checkbox-input.radius-sm {
+  border-radius: $radius-s;
+}
+
+.sisyphos-checkbox-input.radius-md {
+  border-radius: $radius-md;
+}
+
+.sisyphos-checkbox-input.radius-lg {
+  border-radius: $radius-lg;
+}
+
+.sisyphos-checkbox-input.radius-xl {
+  border-radius: $radius-xl;
+}

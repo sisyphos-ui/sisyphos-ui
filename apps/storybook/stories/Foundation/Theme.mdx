@@ -1,0 +1,824 @@
+import { Meta } from "@storybook/blocks";
+import * as ThemeStories from "../Theme.stories";
+
+<Meta of={ThemeStories} />
+
+# Theme System
+
+Sisyphos UI'nin tema sistemi, runtime'da CSS Variables üzerinden çalışır. Bu sayede herhangi bir build step'e gerek kalmadan tema değişiklikleri yapılabilir.
+
+## 🎯 Özellikler
+
+### ✅ Zero Config
+Hiçbir şey yapmadan çalışır. Default tema otomatik olarak yüklenir.
+
+### ✅ Runtime Customization
+`applyTheme()` fonksiyonu ile runtime'da tema değişiklikleri yapılabilir.
+
+### ✅ Partial Override
+Sadece değiştirmek istediğiniz değerleri override edebilirsiniz. Diğerleri default kalır.
+
+### ✅ Dark Mode Support
+`setThemeMode()` fonksiyonu ile light/dark mode arasında geçiş yapılabilir.
+
+### ✅ Type-Safe
+TypeScript ile tam type safety sağlanır.
+
+---
+
+## 📦 Core Package
+
+Theme sistemi `@sisyphos-ui/core` paketinde bulunur:
+
+```tsx
+import { applyTheme, setThemeMode, createTheme } from '@sisyphos-ui/core';
+```
+
+---
+
+## 🎨 Kullanım Senaryoları
+
+### Senaryo 1: Zero Config (En Yaygın)
+Hiçbir şey yapmadan çalışır:
+
+```tsx
+import { Button } from '@sisyphos-ui/ui';
+
+// Default tema otomatik yüklenir
+<Button color="primary">Click Me</Button>
+```
+
+### Senaryo 2: Brand Color Only (80% Use Case)
+Sadece brand color'unuzu override edin:
+
+```tsx
+import { applyTheme } from '@sisyphos-ui/core';
+import { Button } from '@sisyphos-ui/ui';
+
+applyTheme({
+  colors: {
+    primary: '#007bff', // Sadece bu
+  },
+});
+```
+
+### Senaryo 3: Full Customization
+Tüm tema değerlerini override edin:
+
+```tsx
+applyTheme({
+  colors: {
+    primary: '#7c3aed',
+    success: '#10b981',
+    error: '#ef4444',
+  },
+  spacing: {
+    md: 20,
+    lg: 30,
+  },
+  typography: {
+    fontFamily: 'Poppins, sans-serif',
+  },
+  borderRadius: {
+    md: 8,
+  },
+});
+```
+
+---
+
+## 🔧 API Reference
+
+### `applyTheme(config: ThemeConfig)`
+
+Tema değişikliklerini uygular:
+
+```tsx
+applyTheme({
+  colors: { primary: '#007bff' },
+  spacing: { md: 20 },
+});
+```
+
+### `setThemeMode(mode: 'light' | 'dark')`
+
+Light/dark mode arasında geçiş yapar:
+
+```tsx
+setThemeMode('dark');
+setThemeMode('light');
+```
+
+### `getThemeMode(): 'light' | 'dark'`
+
+Mevcut tema modunu döndürür:
+
+```tsx
+const currentMode = getThemeMode(); // 'light' | 'dark'
+```
+
+### `toggleThemeMode()`
+
+Tema modunu toggle eder:
+
+```tsx
+toggleThemeMode(); // light -> dark veya dark -> light
+```
+
+### `createTheme(config: ThemeConfig): ThemeConfig`
+
+Type-safe tema oluşturur:
+
+```tsx
+const myTheme = createTheme({
+  colors: { primary: '#007bff' },
+});
+```
+
+### `mergeThemes(...themes: ThemeConfig[]): ThemeConfig`
+
+Birden fazla temayı birleştirir:
+
+```tsx
+const baseTheme = createTheme({ colors: { primary: '#007bff' } });
+const spacingTheme = createTheme({ spacing: { md: 20 } });
+const mergedTheme = mergeThemes(baseTheme, spacingTheme);
+```
+
+---
+
+## 🎯 Tema Yapısı
+
+### Colors
+
+```tsx
+{
+  colors: {
+    primary: string | ColorShade;
+    success: string | ColorShade;
+    error: string | ColorShade;
+    warning: string | ColorShade;
+    info: string | ColorShade;
+    neutral: {
+      main: string;
+      lighter: string;
+      light: string;
+      dark: string;
+      darker: string;
+    };
+  };
+}
+```
+
+### Spacing
+
+```tsx
+{
+  spacing: {
+    xxs?: number; // 4px
+    xs?: number;  // 8px
+    s?: number;   // 10px
+    md?: number;  // 16px
+    lg?: number;  // 24px
+    xl?: number;  // 32px
+    '2xl'?: number; // 40px
+    '3xl'?: number; // 64px
+  };
+}
+```
+
+### Typography
+
+```tsx
+{
+  typography: {
+    fontFamily?: string;
+    sizes?: {
+      base?: number; // 16px
+      xs?: number;
+      sm?: number;
+      md?: number;
+      lg?: number;
+      xl?: number;
+      h1?: number;
+      h2?: number;
+      h3?: number;
+      h4?: number;
+      h5?: number;
+      h6?: number;
+    };
+    weights?: {
+      regular?: number; // 400
+      medium?: number;  // 500
+      semibold?: number; // 600
+      bold?: number;    // 700
+    };
+    lineHeights?: {
+      xs?: number;
+      sm?: number;
+      base?: number; // 1.5rem
+    };
+  };
+}
+```
+
+### Border Radius
+
+```tsx
+{
+  borderRadius: {
+    xxs?: number; // 4px
+    xs?: number;  // 6px
+    s?: number;   // 8px
+    md?: number;  // 12px
+    lg?: number;  // 16px
+    full?: number; // 9999px
+  };
+}
+```
+
+---
+
+---
+
+## 🎯 Real-World Examples
+
+### Example 1: E-Commerce Site (Brand Color Only)
+
+**Senaryo:** E-ticaret sitesi, sadece brand color'unu override etmek istiyor.
+
+**Implementation:**
+
+```tsx
+// src/main.tsx
+import React from 'react';
+import ReactDOM from 'react-dom/client';
+import '@sisyphos-ui/core/styles.scss';
+import { applyTheme } from '@sisyphos-ui/core';
+import App from './App';
+
+// Step 1: Styles import et
+// Step 2: Tema uygula (app başlangıcında bir kere)
+applyTheme({
+  colors: {
+    primary: '#007bff', // Brand color (Mavi)
+  },
+});
+
+// Step 3: Component'leri kullan
+ReactDOM.createRoot(document.getElementById('root')!).render(
+  <React.StrictMode>
+    <App />
+  </React.StrictMode>
+);
+```
+
+```tsx
+// src/App.tsx
+import { Button } from '@sisyphos-ui/ui';
+
+function App() {
+  return (
+    <div>
+      <Button color="primary">Sepete Ekle</Button>
+      <Button color="primary" variant="outlined">Favorilere Ekle</Button>
+    </div>
+  );
+}
+```
+
+**Sonuç:**
+- ✅ Tüm primary button'lar mavi olur
+- ✅ Diğer renkler (success, error) default kalır
+- ✅ Sadece 1 satır tema kodu
+- ✅ %80 use case
+
+---
+
+### Example 2: SaaS Dashboard (Full Semantic Colors)
+
+**Senaryo:** SaaS dashboard, tüm semantic color'ları override etmek istiyor.
+
+**Implementation:**
+
+```tsx
+// src/theme.ts
+import { ThemeConfig, createTheme } from '@sisyphos-ui/core';
+
+export const saasTheme: ThemeConfig = createTheme({
+  colors: {
+    primary: '#7c3aed',    // Purple - Main actions
+    success: '#10b981',    // Emerald - Success states
+    error: '#ef4444',      // Red - Error states
+    warning: '#f59e0b',    // Amber - Warning states
+    info: '#3b82f6',       // Blue - Info messages
+  },
+  spacing: {
+    md: 16,
+    lg: 24,
+  },
+  borderRadius: {
+    md: 8,
+  },
+});
+
+// src/main.tsx
+import { applyTheme } from '@sisyphos-ui/core';
+import { saasTheme } from './theme';
+
+applyTheme(saasTheme);
+```
+
+**Kullanım:**
+
+```tsx
+// src/components/Dashboard.tsx
+import { Button, Alert } from '@sisyphos-ui/ui';
+
+function Dashboard() {
+  return (
+    <div>
+      <Button color="primary">Create Project</Button>
+      <Alert color="success">Project created successfully!</Alert>
+      <Alert color="error">Failed to delete project</Alert>
+      <Alert color="warning">Low disk space</Alert>
+      <Alert color="info">New feature available</Alert>
+    </div>
+  );
+}
+```
+
+**Best Practice:**
+- ✅ Theme'i ayrı dosyada tanımla (`theme.ts`)
+- ✅ `createTheme()` ile type-safe tema oluştur
+- ✅ Tek yerden yönet (main.tsx'te uygula)
+
+---
+
+### Example 3: Multi-Brand Application (Dynamic Theme)
+
+**Senaryo:** White-label SaaS, her müşteri için farklı tema.
+
+**Implementation:**
+
+```tsx
+// src/utils/theme-manager.ts
+import { ThemeConfig, applyTheme } from '@sisyphos-ui/core';
+
+const brandThemes: Record<string, ThemeConfig> = {
+  brandA: {
+    colors: { primary: '#007bff' }, // Mavi
+  },
+  brandB: {
+    colors: { primary: '#10b981' }, // Yeşil
+  },
+  brandC: {
+    colors: { primary: '#f59e0b' }, // Turuncu
+  },
+};
+
+export function applyBrandTheme(brandId: string) {
+  const theme = brandThemes[brandId];
+  if (theme) {
+    applyTheme(theme);
+  }
+}
+
+// src/main.tsx
+import { applyBrandTheme } from './utils/theme-manager';
+
+// Kullanıcı login olduğunda veya brand değiştiğinde
+const userBrand = getUserBrand(); // API'den veya localStorage'dan
+applyBrandTheme(userBrand);
+```
+
+**API Integration Example:**
+
+```tsx
+// src/hooks/useBrandTheme.ts
+import { useEffect } from 'react';
+import { ThemeConfig, applyTheme } from '@sisyphos-ui/core';
+import { fetchBrandTheme } from './api';
+
+export function useBrandTheme(brandId: string) {
+  useEffect(() => {
+    async function loadTheme() {
+      try {
+        const themeConfig: ThemeConfig = await fetchBrandTheme(brandId);
+        applyTheme(themeConfig);
+      } catch (error) {
+        console.error('Failed to load brand theme', error);
+        // Fallback to default theme
+      }
+    }
+
+    if (brandId) {
+      loadTheme();
+    }
+  }, [brandId]);
+}
+
+// src/App.tsx
+import { useBrandTheme } from './hooks/useBrandTheme';
+
+function App() {
+  const { brandId } = useAuth();
+  useBrandTheme(brandId); // Theme otomatik yüklenir
+
+  return <Dashboard />;
+}
+```
+
+**Best Practice:**
+- ✅ Theme'i dinamik yükle (API'den)
+- ✅ Error handling ekle (fallback theme)
+- ✅ Hook pattern kullan (useBrandTheme)
+
+---
+
+### Example 4: Dark Mode Toggle (User Preference)
+
+**Senaryo:** Kullanıcı light/dark mode arasında geçiş yapabilsin.
+
+**Implementation:**
+
+```tsx
+// src/hooks/useThemeMode.ts
+import { useState, useEffect } from 'react';
+import { setThemeMode, getThemeMode, type ThemeMode } from '@sisyphos-ui/core';
+
+export function useThemeMode() {
+  const [mode, setMode] = useState<ThemeMode>(() => {
+    // LocalStorage'dan oku veya system preference'ı kontrol et
+    const saved = localStorage.getItem('theme-mode') as ThemeMode;
+    return saved || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+  });
+
+  useEffect(() => {
+    setThemeMode(mode);
+    localStorage.setItem('theme-mode', mode);
+  }, [mode]);
+
+  const toggleMode = () => {
+    setMode((prev) => (prev === 'light' ? 'dark' : 'light'));
+  };
+
+  return { mode, toggleMode, setMode };
+}
+
+// src/components/ThemeToggle.tsx
+import { useThemeMode } from '../hooks/useThemeMode';
+import { Button } from '@sisyphos-ui/ui';
+
+export function ThemeToggle() {
+  const { mode, toggleMode } = useThemeMode();
+
+  return (
+    <Button onClick={toggleMode} variant="outlined">
+      {mode === 'light' ? '🌙 Dark Mode' : '☀️ Light Mode'}
+    </Button>
+  );
+}
+```
+
+**Advanced: System Preference Detection:**
+
+```tsx
+// src/utils/theme-preference.ts
+import { useEffect } from 'react';
+import { setThemeMode, type ThemeMode } from '@sisyphos-ui/core';
+
+export function useSystemThemePreference() {
+  useEffect(() => {
+    const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
+    
+    const handleChange = (e: MediaQueryListEvent) => {
+      setThemeMode(e.matches ? 'dark' : 'light');
+    };
+
+    // Initial theme
+    setThemeMode(mediaQuery.matches ? 'dark' : 'light');
+
+    // Listen for changes
+    mediaQuery.addEventListener('change', handleChange);
+    
+    return () => {
+      mediaQuery.removeEventListener('change', handleChange);
+    };
+  }, []);
+}
+```
+
+**Best Practice:**
+- ✅ LocalStorage'da sakla (persistence)
+- ✅ System preference'ı kontrol et
+- ✅ Reusable hook pattern kullan
+
+---
+
+## 📁 File Structure Best Practices
+
+### Recommended Project Structure
+
+```
+your-project/
+├── src/
+│   ├── main.tsx                    # App entry - applyTheme here
+│   ├── App.tsx
+│   ├── theme/
+│   │   ├── index.ts                # Theme exports
+│   │   ├── brand-theme.ts          # Brand-specific theme
+│   │   ├── themes.ts               # All theme presets
+│   │   └── default.ts              # Default theme fallback
+│   ├── hooks/
+│   │   ├── useThemeMode.ts         # Dark mode hook
+│   │   └── useBrandTheme.ts        # Brand theme hook
+│   ├── utils/
+│   │   └── theme-manager.ts        # Theme utilities
+│   └── components/
+│       └── ThemeToggle.tsx         # Theme toggle component
+```
+
+### Example: theme/brand-theme.ts
+
+```tsx
+// src/theme/brand-theme.ts
+import { createTheme, type ThemeConfig } from '@sisyphos-ui/core';
+
+export const brandTheme: ThemeConfig = createTheme({
+  colors: {
+    primary: '#007bff',
+    success: '#28a745',
+    error: '#dc3545',
+  },
+  spacing: {
+    md: 20,
+    lg: 30,
+  },
+  typography: {
+    fontFamily: 'Poppins, sans-serif',
+  },
+  borderRadius: {
+    md: 8,
+  },
+});
+
+// src/theme/index.ts
+export { brandTheme } from './brand-theme';
+export type { ThemeConfig } from '@sisyphos-ui/core';
+```
+
+### Example: main.tsx Structure
+
+```tsx
+// src/main.tsx
+import React from 'react';
+import ReactDOM from 'react-dom/client';
+
+// 1. Import styles FIRST
+import '@sisyphos-ui/core/styles.scss';
+
+// 2. Import theme functions
+import { applyTheme } from '@sisyphos-ui/core';
+
+// 3. Import your theme config
+import { brandTheme } from './theme';
+
+// 4. Apply theme BEFORE rendering app
+applyTheme(brandTheme);
+
+// 5. Import app component
+import App from './App';
+
+// 6. Render app
+ReactDOM.createRoot(document.getElementById('root')!).render(
+  <React.StrictMode>
+    <App />
+  </React.StrictMode>
+);
+```
+
+**Best Practice:**
+- ✅ Styles'i en önce import et
+- ✅ Theme'i app render'dan ÖNCE uygula
+- ✅ Theme config'i ayrı dosyada tut
+- ✅ Type-safe theme oluştur (`createTheme`)
+
+---
+
+## ✅ Best Practices
+
+### DO ✅
+
+```tsx
+// ✅ Theme'i app başlangıcında bir kere uygula
+applyTheme({
+  colors: { primary: '#007bff' },
+});
+
+// ✅ createTheme ile type-safe tema oluştur
+const myTheme = createTheme({
+  colors: { primary: '#007bff' },
+});
+
+// ✅ Partial override - sadece değiştirmek istediğinizi ver
+applyTheme({
+  colors: { primary: '#007bff' }, // Diğerleri default kalır
+});
+
+// ✅ Theme'i ayrı dosyada tanımla
+// theme/brand-theme.ts
+export const brandTheme = createTheme({ ... });
+```
+
+### DON'T ❌
+
+```tsx
+// ❌ Her render'da applyTheme çağırma
+function Component() {
+  applyTheme({ colors: { primary: '#007bff' } }); // ❌ YANLIŞ!
+  return <Button />;
+}
+
+// ❌ Hard-coded değerler kullanma (CSS variables kullan)
+.sisyphos-button {
+  background: #007bff; // ❌ YANLIŞ!
+  // ✅ Doğru: background: var(--sisyphos-color-primary);
+}
+
+// ❌ Theme state management ekleme (external package kullan)
+import { ThemeProvider } from '@sisyphos-ui/core'; // ❌ YOK!
+// ✅ Doğru: Zustand, Redux, Context kullan
+```
+
+---
+
+## 🔧 Common Patterns
+
+### Pattern 1: Theme Provider (External State)
+
+```tsx
+// src/store/theme-store.ts (Zustand example)
+import { create } from 'zustand';
+import { applyTheme, type ThemeConfig } from '@sisyphos-ui/core';
+
+interface ThemeStore {
+  theme: ThemeConfig;
+  setTheme: (theme: ThemeConfig) => void;
+}
+
+export const useThemeStore = create<ThemeStore>((set) => ({
+  theme: { colors: { primary: '#007bff' } },
+  setTheme: (theme) => {
+    set({ theme });
+    applyTheme(theme); // CSS variables'ı güncelle
+  },
+}));
+
+// src/components/ThemeSelector.tsx
+import { useThemeStore } from '../store/theme-store';
+
+export function ThemeSelector() {
+  const { setTheme } = useThemeStore();
+
+  return (
+    <select onChange={(e) => setTheme({ colors: { primary: e.target.value } })}>
+      <option value="#007bff">Blue</option>
+      <option value="#10b981">Green</option>
+      <option value="#f59e0b">Orange</option>
+    </select>
+  );
+}
+```
+
+### Pattern 2: Theme Persistence (localStorage)
+
+```tsx
+// src/utils/theme-storage.ts
+import { ThemeConfig } from '@sisyphos-ui/core';
+
+const THEME_STORAGE_KEY = 'app-theme';
+
+export function saveTheme(theme: ThemeConfig) {
+  localStorage.setItem(THEME_STORAGE_KEY, JSON.stringify(theme));
+}
+
+export function loadTheme(): ThemeConfig | null {
+  const stored = localStorage.getItem(THEME_STORAGE_KEY);
+  return stored ? JSON.parse(stored) : null;
+}
+
+// src/main.tsx
+import { applyTheme } from '@sisyphos-ui/core';
+import { loadTheme } from './utils/theme-storage';
+
+const savedTheme = loadTheme();
+if (savedTheme) {
+  applyTheme(savedTheme);
+} else {
+  // Default theme
+  applyTheme({ colors: { primary: '#007bff' } });
+}
+```
+
+### Pattern 3: Multiple Theme Presets
+
+```tsx
+// src/theme/presets.ts
+import { createTheme, type ThemeConfig } from '@sisyphos-ui/core';
+
+export const themePresets = {
+  default: createTheme({
+    colors: { primary: '#ff7022' },
+  }),
+  blue: createTheme({
+    colors: { primary: '#007bff' },
+  }),
+  green: createTheme({
+    colors: { primary: '#10b981' },
+  }),
+  purple: createTheme({
+    colors: { primary: '#7c3aed' },
+  }),
+} as const;
+
+export type ThemePreset = keyof typeof themePresets;
+
+// src/components/ThemePresetSelector.tsx
+import { themePresets, type ThemePreset } from '../theme/presets';
+import { applyTheme } from '@sisyphos-ui/core';
+import { Button } from '@sisyphos-ui/ui';
+
+export function ThemePresetSelector() {
+  const handlePresetChange = (preset: ThemePreset) => {
+    applyTheme(themePresets[preset]);
+  };
+
+  return (
+    <div>
+      {(Object.keys(themePresets) as ThemePreset[]).map((preset) => (
+        <Button key={preset} onClick={() => handlePresetChange(preset)}>
+          {preset}
+        </Button>
+      ))}
+    </div>
+  );
+}
+```
+
+---
+
+## 🐛 Troubleshooting
+
+### Problem 1: Theme Değişiklikleri Uygulanmıyor
+
+**Çözüm:**
+
+```tsx
+// ✅ Doğru: Styles'i import ettiniz mi?
+import '@sisyphos-ui/core/styles.scss'; // En önce!
+
+// ✅ Doğru: Theme'i app render'dan ÖNCE uyguladınız mı?
+applyTheme({ colors: { primary: '#007bff' } }); // main.tsx'te, render'dan önce
+
+// ✅ Doğru: Component'ler CSS variables kullanıyor mu?
+// Button.scss'te: background: var(--sisyphos-color-primary);
+```
+
+### Problem 2: TypeScript Hataları
+
+**Çözüm:**
+
+```tsx
+// ✅ createTheme kullan - type-safe
+import { createTheme } from '@sisyphos-ui/core';
+
+const myTheme = createTheme({
+  colors: { primary: '#007bff' }, // ✅ Type-checked
+});
+
+// ❌ Direkt object - type errors olabilir
+const badTheme = {
+  colors: { primary: '#007bff' }, // ❌ Type errors
+};
+```
+
+### Problem 3: Dark Mode Çalışmıyor
+
+**Çözüm:**
+
+```tsx
+// ✅ setThemeMode kullan
+import { setThemeMode } from '@sisyphos-ui/core';
+
+setThemeMode('dark'); // ✅ Doğru
+
+// ❌ Class ekleme/çıkarma
+document.documentElement.classList.add('sisyphos-theme-dark'); // ❌ YANLIŞ!
+```
+
+---
+
+## 🌈 Live Examples
+
+Aşağıdaki story'lerde farklı tema kullanım senaryolarını görebilirsiniz:

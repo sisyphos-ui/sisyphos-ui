@@ -1,0 +1,127 @@
+@use "@sisyphos-ui/core/src/tokens/variables" as *;
+@use "sass:map";
+
+$alert-colors: (
+  primary: (
+    main: var(--sisyphos-color-primary, #ff7022),
+    lighter: var(--sisyphos-color-primary-lighter, #ffede0),
+    dark: var(--sisyphos-color-primary-dark, #e5631c),
+    contained: var(--sisyphos-color-primary-contained, #f04906),
+  ),
+  success: (
+    main: var(--sisyphos-color-success, #22c55e),
+    lighter: var(--sisyphos-color-success-lighter, #dcfce7),
+    dark: var(--sisyphos-color-success-dark, #16a34a),
+    contained: var(--sisyphos-color-success-contained, #16a34a),
+  ),
+  error: (
+    main: var(--sisyphos-color-error, #fb3748),
+    lighter: var(--sisyphos-color-error-lighter, #fee2e2),
+    dark: var(--sisyphos-color-error-dark, #dc2626),
+    contained: var(--sisyphos-color-error-contained, #dc2626),
+  ),
+  warning: (
+    main: var(--sisyphos-color-warning, #ffab00),
+    lighter: var(--sisyphos-color-warning-lighter, #fef3c7),
+    dark: var(--sisyphos-color-warning-dark, #f59e0b),
+    contained: var(--sisyphos-color-warning-contained, #f59e0b),
+  ),
+  info: (
+    main: var(--sisyphos-color-info, #00b8d9),
+    lighter: var(--sisyphos-color-info-lighter, #cffafe),
+    dark: var(--sisyphos-color-info-dark, #0891b2),
+    contained: var(--sisyphos-color-info-contained, #0891b2),
+  ),
+);
+
+.sisyphos-alert {
+  display: flex;
+  align-items: flex-start;
+  gap: $spacing-s;
+  padding: $spacing-s $spacing-md;
+  border: 1px solid transparent;
+  border-radius: $radius-md;
+  box-sizing: border-box;
+  width: 100%;
+
+  @each $name, $cfg in $alert-colors {
+    &.#{$name} {
+      &.contained {
+        background: map.get($cfg, contained);
+        color: #fff;
+
+        .sisyphos-alert-close { color: #fff; }
+      }
+      &.outlined {
+        background: transparent;
+        border-color: map.get($cfg, main);
+        color: map.get($cfg, dark);
+      }
+      &.soft {
+        background: map.get($cfg, lighter);
+        color: map.get($cfg, dark);
+      }
+    }
+  }
+}
+
+.sisyphos-alert-icon {
+  flex-shrink: 0;
+  margin-top: 2px;
+  display: inline-flex;
+
+  svg { width: 20px; height: 20px; display: block; }
+}
+
+.sisyphos-alert-body {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-xxs;
+}
+
+.sisyphos-alert-title {
+  font-weight: $font-weight-semibold;
+  font-size: $size-md;
+  line-height: $line-height;
+}
+
+.sisyphos-alert-description {
+  font-size: $size-md;
+  line-height: $line-height;
+  opacity: 0.9;
+}
+
+.sisyphos-alert-actions {
+  display: flex;
+  gap: $spacing-xs;
+  margin-top: $spacing-xs;
+  flex-wrap: wrap;
+}
+
+.sisyphos-alert-close {
+  appearance: none;
+  background: transparent;
+  border: 0;
+  padding: 0;
+  margin: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  color: currentColor;
+  opacity: 0.7;
+  border-radius: $radius-xxs;
+  width: 1.5em;
+  height: 1.5em;
+
+  svg { width: 1em; height: 1em; }
+
+  &:hover { opacity: 1; background: rgba(0, 0, 0, 0.06); }
+
+  &:focus-visible {
+    outline: 2px solid currentColor;
+    outline-offset: 2px;
+  }
+}

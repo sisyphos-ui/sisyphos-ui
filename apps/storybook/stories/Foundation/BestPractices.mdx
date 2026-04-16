@@ -1,0 +1,568 @@
+import { Meta } from "@storybook/blocks";
+
+<Meta title="Foundation/Best Practices" />
+
+# Best Practices
+
+Sisyphos UI kullanırken takip edilmesi gereken best practices ve common patterns.
+
+---
+
+## ✅ DO - Yapılması Gerekenler
+
+### 1. Theme Application
+
+**✅ DO: Theme'i app başlangıcında bir kere uygula**
+
+```tsx
+// ✅ Doğru: main.tsx veya App.tsx
+import '@sisyphos-ui/core/styles.scss';
+import { applyTheme } from '@sisyphos-ui/core';
+
+applyTheme({
+  colors: { primary: '#007bff' },
+});
+
+// App render...
+```
+
+**✅ DO: Theme config'i ayrı dosyada tut**
+
+```tsx
+// ✅ Doğru: theme/brand-theme.ts
+import { createTheme, type ThemeConfig } from '@sisyphos-ui/core';
+
+export const brandTheme: ThemeConfig = createTheme({
+  colors: { primary: '#007bff' },
+  spacing: { md: 20 },
+});
+
+// main.tsx
+import { applyTheme } from '@sisyphos-ui/core';
+import { brandTheme } from './theme/brand-theme';
+
+applyTheme(brandTheme);
+```
+
+**✅ DO: Partial override kullan**
+
+```tsx
+// ✅ Doğru: Sadece değiştirmek istediğiniz değerleri override edin
+applyTheme({
+  colors: { primary: '#007bff' }, // Diğerleri default kalır
+});
+```
+
+**✅ DO: createTheme ile type-safe tema oluştur**
+
+```tsx
+// ✅ Doğru: Type-safe tema
+import { createTheme, type ThemeConfig } from '@sisyphos-ui/core';
+
+const myTheme: ThemeConfig = createTheme({
+  colors: { primary: '#007bff' }, // ✅ Type-checked
+  spacing: { md: 20 }, // ✅ Type-checked
+});
+```
+
+---
+
+### 2. Component Usage
+
+**✅ DO: UI Package üzerinden import et**
+
+```tsx
+// ✅ Doğru: Umbrella package kullan
+import { Button, Input, Modal } from '@sisyphos-ui/ui';
+```
+
+**✅ DO: Semantic color names kullan**
+
+```tsx
+// ✅ Doğru: Semantic colors
+<Button color="primary">Primary</Button>
+<Button color="success">Success</Button>
+<Button color="error">Error</Button>
+
+// ❌ Yanlış: Visual color names
+<Button color="blue">Blue</Button>  // ❌
+<Button color="red">Red</Button>    // ❌
+```
+
+**✅ DO: Variant prop'ları doğru kullan**
+
+```tsx
+// ✅ Doğru: Variant kullanımı
+<Button variant="contained" color="primary">Contained</Button>
+<Button variant="outlined" color="primary">Outlined</Button>
+<Button variant="text" color="primary">Text</Button>
+<Button variant="soft" color="primary">Soft</Button>
+```
+
+**✅ DO: Size prop'ları doğru kullan**
+
+```tsx
+// ✅ Doğru: Size kullanımı
+<Button size="small">Small</Button>
+<Button size="medium">Medium</Button>
+<Button size="large">Large</Button>
+```
+
+**✅ DO: Disabled state'i handle et**
+
+```tsx
+// ✅ Doğru: Disabled state
+<Button disabled={isLoading}>
+  {isLoading ? 'Loading...' : 'Submit'}
+</Button>
+```
+
+---
+
+### 3. SCSS Usage
+
+**✅ DO: SCSS variables kullan (spacing, typography, etc.)**
+
+```scss
+// ✅ Doğru: SCSS variables
+@use "@sisyphos-ui/core/tokens/variables" as *;
+
+.my-component {
+  padding: $spacing-md;      /* ✅ */
+  font-size: $base-size;     /* ✅ */
+  border-radius: $radius-md; /* ✅ */
+  z-index: $z-index-overlay; /* ✅ */
+}
+```
+
+**✅ DO: CSS variables kullan (colors - theme-aware)**
+
+```scss
+// ✅ Doğru: CSS variables (theme-aware)
+.my-component {
+  color: var(--sisyphos-color-neutral-dark, #212b36);
+  background: var(--sisyphos-color-primary, #ff7022);
+  border-color: var(--sisyphos-color-neutral-darker, #919eab33);
+}
+```
+
+**✅ DO: @use ile import et**
+
+```scss
+// ✅ Doğru: @use ile import
+@use "@sisyphos-ui/core/tokens/variables" as *;
+@use "@sisyphos-ui/core/tokens/mixins" as *;
+```
+
+**✅ DO: Simplified BEM naming convention kullan**
+
+```scss
+// ✅ Doğru: Simplified BEM (flat structure)
+.my-component { }
+.my-component-header { }
+.my-component-body { }
+.my-component-footer { }
+.my-component-button { }
+.my-component-button--primary { }
+```
+
+**✅ DO: Prefix kullan (`sisyphos-` veya kendi prefix'iniz)**
+
+```scss
+// ✅ Doğru: Prefix ile namespace
+.sisyphos-button { }
+.sisyphos-input { }
+.sisyphos-modal { }
+
+// Veya kendi prefix'iniz
+.myapp-button { }
+.myapp-input { }
+```
+
+---
+
+### 4. File Structure
+
+**✅ DO: Organized file structure kullan**
+
+```
+src/
+├── main.tsx              # App entry - applyTheme here
+├── App.tsx
+├── theme/
+│   ├── index.ts          # Theme exports
+│   └── brand-theme.ts    # Brand-specific theme
+├── components/
+│   ├── MyButton/
+│   │   ├── MyButton.tsx
+│   │   └── MyButton.scss
+│   └── MyInput/
+│       ├── MyInput.tsx
+│       └── MyInput.scss
+└── styles/
+    └── global.scss       # Global styles (uses tokens)
+```
+
+**✅ DO: Component dosyalarını organize et**
+
+```
+components/MyComponent/
+├── MyComponent.tsx       # Component logic
+├── MyComponent.scss      # Component styles (uses tokens)
+├── MyComponent.test.tsx  # Tests (optional)
+└── index.ts              # Exports
+```
+
+---
+
+## ❌ DON'T - Yapılmaması Gerekenler
+
+### 1. Theme Application
+
+**❌ DON'T: Her render'da applyTheme çağırma**
+
+```tsx
+// ❌ Yanlış: Her render'da çağırma
+function Component() {
+  applyTheme({ colors: { primary: '#007bff' } }); // ❌ YANLIŞ!
+  return <Button />;
+}
+
+// ✅ Doğru: main.tsx'te bir kere
+applyTheme({ colors: { primary: '#007bff' } });
+```
+
+**❌ DON'T: Hard-coded theme değerleri**
+
+```tsx
+// ❌ Yanlış: Hard-coded values
+const theme = {
+  colors: {
+    primary: '#007bff', // ❌ String literal
+  },
+};
+
+// ✅ Doğru: createTheme kullan
+const theme = createTheme({
+  colors: { primary: '#007bff' }, // ✅ Type-safe
+});
+```
+
+**❌ DON'T: Theme'i component içinde yönetme**
+
+```tsx
+// ❌ Yanlış: Component içinde theme state
+function Component() {
+  const [theme, setTheme] = useState({ colors: { primary: '#007bff' } });
+  useEffect(() => {
+    applyTheme(theme); // ❌ Her state değişiminde çağrılıyor
+  }, [theme]);
+  return <Button />;
+}
+
+// ✅ Doğru: External state management kullan (Zustand, Redux, Context)
+```
+
+---
+
+### 2. Component Usage
+
+**❌ DON'T: Visual color names kullan**
+
+```tsx
+// ❌ Yanlış: Visual colors
+<Button color="blue">Blue</Button>
+<Button color="red">Red</Button>
+<Button color="green">Green</Button>
+
+// ✅ Doğru: Semantic colors
+<Button color="primary">Primary</Button>
+<Button color="error">Error</Button>
+<Button color="success">Success</Button>
+```
+
+**❌ DON'T: Hard-coded style values**
+
+```tsx
+// ❌ Yanlış: Inline styles
+<Button style={{ padding: '16px', fontSize: '16px' }}>Click</Button>
+
+// ✅ Doğru: Props kullan
+<Button size="medium">Click</Button>
+```
+
+**❌ DON'T: Utility functions ekleme**
+
+```tsx
+// ❌ Yanlış: Design system'de utility function arama
+import { cn, debounce } from '@sisyphos-ui/core'; // ❌ YOK!
+
+// ✅ Doğru: External packages kullan
+import { cn } from 'clsx';
+import { debounce } from 'lodash';
+```
+
+---
+
+### 3. SCSS Usage
+
+**❌ DON'T: Hard-coded değerler**
+
+```scss
+// ❌ Yanlış: Hard-coded values
+.my-component {
+  padding: 16px;           /* ❌ Use $spacing-md */
+  color: #212b36;          /* ❌ Use var(--sisyphos-color-neutral-dark) */
+  background: #ff7022;     /* ❌ Use var(--sisyphos-color-primary) */
+  border-radius: 12px;     /* ❌ Use $radius-md */
+  font-size: 16px;         /* ❌ Use $base-size */
+  z-index: 1000;           /* ❌ Use $z-index-overlay */
+}
+
+// ✅ Doğru: Tokens kullan
+.my-component {
+  padding: $spacing-md;
+  color: var(--sisyphos-color-neutral-dark, #212b36);
+  background: var(--sisyphos-color-primary, #ff7022);
+  border-radius: $radius-md;
+  font-size: $base-size;
+  z-index: $z-index-overlay;
+}
+```
+
+**❌ DON'T: @import kullanma (deprecated)**
+
+```scss
+// ❌ Yanlış: @import (deprecated)
+@import "@sisyphos-ui/core/tokens/variables"; // ❌
+
+// ✅ Doğru: @use kullan
+@use "@sisyphos-ui/core/tokens/variables" as *;
+```
+
+**❌ DON'T: Nested BEM kullanma (warnings veriyor)**
+
+```scss
+// ❌ Yanlış: Nested BEM (causes warnings)
+.my-component {
+  &__element {
+    &--modifier { } // ❌ SCSS nesting warnings
+  }
+}
+
+// ✅ Doğru: Simplified BEM (flat structure)
+.my-component { }
+.my-component-element { }
+.my-component-element--modifier { }
+```
+
+**❌ DON'T: // comment formatı kullanma (warnings veriyor)**
+
+```scss
+// ❌ Yanlış: SCSS comment format (causes warnings)
+// My component styles
+
+// ✅ Doğru: CSS comment format
+/* My component styles */
+```
+
+**❌ DON'T: Global CSS classes (namespace yok)**
+
+```scss
+// ❌ Yanlış: Global classes
+.button { } // ❌ Collision riski var
+.input { }
+
+// ✅ Doğru: Prefixed classes
+.sisyphos-button { } // ✅ Namespace ile korunuyor
+.sisyphos-input { }
+```
+
+---
+
+### 4. File Structure
+
+**❌ DON'T: Düzensiz file structure**
+
+```
+// ❌ Yanlış: Her şey bir yerde
+src/
+├── components.tsx  // ❌ Tüm componentler bir dosyada
+├── styles.scss     // ❌ Tüm styles bir dosyada
+└── theme.ts        // ❌ Theme ve logic karışık
+```
+
+**❌ DON'T: SCSS ve TSX aynı dosyada**
+
+```tsx
+// ❌ Yanlış: Inline styles veya CSS-in-JS
+function Component() {
+  return <div style={{ padding: '16px' }}>Content</div>;
+}
+
+// ✅ Doğru: Separate SCSS file
+// Component.tsx
+import './Component.scss';
+// Component.scss
+.component { padding: $spacing-md; }
+```
+
+---
+
+## 🎯 Common Patterns
+
+### Pattern 1: Theme Provider (External State)
+
+```tsx
+// ✅ Recommended: Zustand ile theme management
+// store/theme-store.ts
+import { create } from 'zustand';
+import { applyTheme, type ThemeConfig } from '@sisyphos-ui/core';
+
+interface ThemeStore {
+  theme: ThemeConfig;
+  setTheme: (theme: ThemeConfig) => void;
+}
+
+export const useThemeStore = create<ThemeStore>((set) => ({
+  theme: { colors: { primary: '#007bff' } },
+  setTheme: (theme) => {
+    set({ theme });
+    applyTheme(theme); // CSS variables'ı güncelle
+  },
+}));
+
+// Component'te kullanım
+import { useThemeStore } from './store/theme-store';
+
+function ThemeSelector() {
+  const { setTheme } = useThemeStore();
+
+  return (
+    <select onChange={(e) => setTheme({ colors: { primary: e.target.value } })}>
+      <option value="#007bff">Blue</option>
+      <option value="#10b981">Green</option>
+    </select>
+  );
+}
+```
+
+### Pattern 2: Theme Persistence
+
+```tsx
+// ✅ Recommended: localStorage ile persistence
+// utils/theme-storage.ts
+import { ThemeConfig } from '@sisyphos-ui/core';
+
+const THEME_KEY = 'app-theme';
+
+export function saveTheme(theme: ThemeConfig) {
+  localStorage.setItem(THEME_KEY, JSON.stringify(theme));
+}
+
+export function loadTheme(): ThemeConfig | null {
+  const stored = localStorage.getItem(THEME_KEY);
+  return stored ? JSON.parse(stored) : null;
+}
+
+// main.tsx
+import { applyTheme } from '@sisyphos-ui/core';
+import { loadTheme } from './utils/theme-storage';
+
+const savedTheme = loadTheme();
+if (savedTheme) {
+  applyTheme(savedTheme);
+} else {
+  // Default theme
+  applyTheme({ colors: { primary: '#007bff' } });
+}
+```
+
+### Pattern 3: Custom Component (Using Tokens)
+
+```tsx
+// ✅ Recommended: Custom component with design tokens
+// components/CustomCard/CustomCard.tsx
+import React from 'react';
+import './CustomCard.scss';
+
+interface CustomCardProps {
+  title: string;
+  children: React.ReactNode;
+}
+
+export const CustomCard: React.FC<CustomCardProps> = ({ title, children }) => {
+  return (
+    <div className="custom-card">
+      <div className="custom-card-header">
+        <h3 className="custom-card-title">{title}</h3>
+      </div>
+      <div className="custom-card-body">{children}</div>
+    </div>
+  );
+};
+
+// components/CustomCard/CustomCard.scss
+@use "@sisyphos-ui/core/tokens/variables" as *;
+
+.custom-card {
+  padding: $spacing-lg;
+  border-radius: $radius-md;
+  background: var(--sisyphos-color-neutral-lighter, #fff);
+  border: 1px solid var(--sisyphos-color-neutral-darker, #919eab33);
+  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.custom-card-header {
+  margin-bottom: $spacing-md;
+  padding-bottom: $spacing-s;
+  border-bottom: 1px solid var(--sisyphos-color-neutral-darker, #919eab33);
+}
+
+.custom-card-title {
+  font-size: $h4;
+  font-weight: $font-weight-semibold;
+  color: var(--sisyphos-color-neutral-dark, #212b36);
+}
+
+.custom-card-body {
+  color: var(--sisyphos-color-neutral-dark, #212b36);
+  line-height: $line-height;
+}
+```
+
+### Pattern 4: Responsive Design
+
+```scss
+// ✅ Recommended: Responsive design with mixins
+@use "@sisyphos-ui/core/tokens/variables" as *;
+@use "@sisyphos-ui/core/tokens/mixins" as *;
+
+.responsive-component {
+  padding: $spacing-md;
+
+  @include mobile {
+    padding: $spacing-s;
+    font-size: $size-sm;
+  }
+
+  @include tablet {
+    padding: $spacing-md;
+    font-size: $base-size;
+  }
+
+  @include desktop {
+    padding: $spacing-lg;
+    font-size: $size-lg;
+  }
+}
+```
+
+---
+
+## 📚 Related Documentation
+
+- [Theme System](./?path=/docs/foundation-theme-system--docs) - Tema sistemi best practices
+- [Core Package](./?path=/docs/foundation-core-package--docs) - SCSS usage patterns
+- [Component Structure](./?path=/docs/foundation-component-structure--docs) - Component best practices
+- [Troubleshooting](./?path=/docs/foundation-troubleshooting--docs) - Common mistakes ve çözümleri

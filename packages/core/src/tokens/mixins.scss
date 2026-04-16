@@ -1,0 +1,98 @@
+@use "sass:string";
+@use "variables" as *;
+
+@mixin button-variant(
+  $variant,
+  $color,
+  $bg-color: null,
+  $border-color: null,
+  $border-radius: null,
+  $hover-icon-color: null
+) {
+  &.#{$variant} {
+    color: $color;
+    font-size: $size-md;
+    background-color: transparent;
+    border-color: $border-color;
+    border-radius: $border-radius;
+
+    @if string.index($variant, "contained") {
+      background: linear-gradient(
+        to bottom,
+        var(--sisyphos-color-primary-light, #ff8637),
+        var(--sisyphos-color-primary, #ff7022)
+      );
+      border: 1px solid var(--sisyphos-color-primary-contained, #f04906);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    @if string.index($variant, "contained.error") {
+      background: var(--sisyphos-color-error-dark, #dc2626);
+      border: 1px solid var(--sisyphos-color-error-dark, #dc2626);
+      border-radius: var(--sisyphos-radius-md, 12px);
+    }
+
+    @if string.index($variant, "soft") {
+      font-size: $base-size;
+      color: $color;
+    }
+
+    @if string.index($variant, "outlined") {
+      border: 1px solid $border-color;
+    }
+
+    &:hover:not(.disabled) {
+      @if string.index($variant, "contained.error") {
+        background: var(--sisyphos-color-error-dark, #dc2626);
+        border: 1px solid var(--sisyphos-color-error-dark, #dc2626);
+        color: var(--sisyphos-color-neutral-lighter, #fff);
+      } @else if string.index($variant, "contained") {
+        background: linear-gradient(
+          to bottom,
+          var(--sisyphos-color-primary-light, #ff8637),
+          var(--sisyphos-color-primary-contained, #f04906)
+        );
+        border: 1px solid var(--sisyphos-color-primary-dark, #e5631c);
+        color: var(--sisyphos-color-neutral-lighter, #fff);
+      } @else if string.index($variant, "outlined") {
+        background-color: $bg-color;
+        color: $color;
+        border: 1px solid $bg-color;
+      } @else if string.index($variant, "text") {
+        background-color: rgba($color, 0.1);
+        color: $color;
+      } @else if string.index($variant, "soft") {
+        background-color: rgba($bg-color, 5%);
+        color: $color;
+      }
+    }
+  }
+}
+
+@mixin box-style($border-color, $border-radius, $box-shadow, $bg-color) {
+  border: 1px solid $border-color;
+  border-radius: $border-radius;
+  background-color: $bg-color;
+}
+
+// Responsive breakpoints
+@mixin mobile {
+  @media (max-width: 768px) {
+    @content;
+  }
+}
+
+@mixin tablet {
+  @media (max-width: 1024px) {
+    @content;
+  }
+}
+
+@mixin desktop {
+  @media (min-width: 1025px) {
+    @content;
+  }
+}
+

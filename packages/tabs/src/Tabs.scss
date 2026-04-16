@@ -1,0 +1,128 @@
+@use "@sisyphos-ui/core/src/tokens/variables" as *;
+
+.sisyphos-tabs {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-md;
+
+  &.vertical {
+    flex-direction: row;
+    align-items: stretch;
+    gap: $spacing-lg;
+  }
+
+  &.full-width .sisyphos-tabs-list { width: 100%; }
+}
+
+.sisyphos-tabs-list {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: $spacing-xxs;
+  border-bottom: 1px solid var(--sisyphos-color-border, #eef0f2);
+
+  .sisyphos-tabs.vertical & {
+    flex-direction: column;
+    align-items: stretch;
+    border-bottom: 0;
+    border-right: 1px solid var(--sisyphos-color-border, #eef0f2);
+    min-width: 180px;
+  }
+
+  .sisyphos-tabs.full-width.horizontal & .sisyphos-tabs-trigger {
+    flex: 1;
+  }
+
+  .sisyphos-tabs.pill &,
+  .sisyphos-tabs.soft & {
+    border: 0;
+    background: var(--sisyphos-color-neutral-lighter, #f4f6f8);
+    padding: $spacing-xxs;
+    border-radius: $radius-md;
+    width: fit-content;
+  }
+}
+
+.sisyphos-tabs-indicator {
+  position: absolute;
+  top: 0;
+  left: 0;
+  pointer-events: none;
+  transition:
+    transform $duration-s ease,
+    width $duration-s ease,
+    height $duration-s ease;
+  z-index: 0;
+
+  .sisyphos-tabs.underline & {
+    background: transparent;
+    border-bottom: 2px solid var(--sisyphos-color-primary, #ff7022);
+  }
+
+  .sisyphos-tabs.pill & {
+    background: var(--sisyphos-color-primary, #ff7022);
+    border-radius: $radius-s;
+  }
+
+  .sisyphos-tabs.soft & {
+    background: var(--sisyphos-color-neutral-lighter, #fff);
+    border-radius: $radius-s;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.06);
+  }
+
+  .sisyphos-tabs.vertical.underline & {
+    border-bottom: 0;
+    border-right: 2px solid var(--sisyphos-color-primary, #ff7022);
+  }
+}
+
+.sisyphos-tabs-trigger {
+  position: relative;
+  z-index: 1;
+  appearance: none;
+  background: transparent;
+  border: 0;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: $spacing-xs;
+  padding: $spacing-xs $spacing-md;
+  font: inherit;
+  font-weight: $font-weight-medium;
+  color: var(--sisyphos-color-neutral-dark, #637381);
+  transition: color $duration-s;
+  border-radius: $radius-xs;
+  white-space: nowrap;
+
+  &.active { color: var(--sisyphos-color-primary, #ff7022); }
+  &.disabled { opacity: $opacity-xs; cursor: not-allowed; }
+
+  &:hover:not(.active):not(.disabled) {
+    color: var(--sisyphos-color-neutral-dark, #212b36);
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--sisyphos-color-primary, #ff7022);
+    outline-offset: 2px;
+  }
+
+  .sisyphos-tabs.sm & { padding: $spacing-xxs $spacing-s; font-size: $size-sm; }
+  .sisyphos-tabs.lg & { padding: $spacing-s $spacing-lg; font-size: $size-lg; }
+
+  /* Pill: active label sits ON the colored indicator → switch to white. */
+  .sisyphos-tabs.pill &.active { color: #fff; }
+}
+
+.sisyphos-tabs-trigger-icon {
+  display: inline-flex;
+  align-items: center;
+
+  svg { width: 1em; height: 1em; }
+}
+
+.sisyphos-tabs-panel {
+  outline: none;
+
+  &[hidden] { display: none; }
+}

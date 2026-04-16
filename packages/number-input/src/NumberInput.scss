@@ -1,0 +1,120 @@
+@use "@sisyphos-ui/core/src/tokens/variables" as *;
+
+.sisyphos-number-input {
+  display: inline-flex;
+  flex-direction: column;
+  gap: $spacing-xxs;
+  min-width: 200px;
+
+  &.full-width { width: 100%; }
+  &.disabled   { opacity: $opacity-s; pointer-events: none; }
+}
+
+.sisyphos-number-input-label {
+  font-size: $size-md;
+  font-weight: $font-weight-medium;
+  color: var(--sisyphos-color-neutral-dark, #212b36);
+
+  &.error { color: var(--sisyphos-color-error, #fb3748); }
+  &.required::after { content: " *"; color: var(--sisyphos-color-error, #fb3748); }
+}
+
+.sisyphos-number-input-wrapper {
+  display: flex;
+  align-items: stretch;
+  background: var(--sisyphos-color-neutral-lighter, #fff);
+  border: 1px solid var(--sisyphos-color-border, #c4cdd5);
+  border-radius: $radius-s;
+  overflow: hidden;
+  transition: border-color $duration-s, box-shadow $duration-s;
+
+  .sisyphos-number-input.focused & {
+    border-color: var(--sisyphos-color-primary, #ff7022);
+    box-shadow: 0 0 0 3px var(--sisyphos-color-primary-lighter, #ffede0);
+  }
+  .sisyphos-number-input.error & {
+    border-color: var(--sisyphos-color-error, #fb3748);
+  }
+}
+
+.sisyphos-number-input.standard .sisyphos-number-input-wrapper {
+  border: 0;
+  border-bottom: 1px solid var(--sisyphos-color-border, #c4cdd5);
+  border-radius: 0;
+  background: transparent;
+
+  .sisyphos-number-input.focused & {
+    border-bottom-color: var(--sisyphos-color-primary, #ff7022);
+    box-shadow: none;
+  }
+}
+
+.sisyphos-number-input.underline .sisyphos-number-input-wrapper {
+  background: var(--sisyphos-color-neutral-lighter, #f9fafb);
+  border-radius: 0;
+  border: 0;
+  border-bottom: 2px solid var(--sisyphos-color-border, #c4cdd5);
+  box-shadow: none;
+}
+
+.sisyphos-number-input-field {
+  flex: 1;
+  min-width: 0;
+  border: 0;
+  outline: none;
+  background: transparent;
+  font: inherit;
+  color: var(--sisyphos-color-neutral-dark, #212b36);
+  text-align: left;
+  padding: $spacing-xxs $spacing-xs;
+
+  .sisyphos-number-input.sm & { font-size: $size-sm; padding: $spacing-xxs $spacing-xs; }
+  .sisyphos-number-input.md & { font-size: $size-md; padding: $spacing-xxs $spacing-s; }
+  .sisyphos-number-input.lg & { font-size: $size-lg; padding: $spacing-xs $spacing-md; }
+
+  /* Right-align numerals when a suffix (currency/unit) is rendered. */
+  .sisyphos-number-input-wrapper.has-suffix & { text-align: right; }
+  /* Stepper buttons frame the field — center the value for symmetry. */
+  .sisyphos-number-input-wrapper.has-stepper:not(.has-suffix) & { text-align: center; }
+
+  &::placeholder { color: var(--sisyphos-color-neutral-dark, #919eab); opacity: 0.7; }
+}
+
+.sisyphos-number-input-prefix,
+.sisyphos-number-input-suffix {
+  display: inline-flex;
+  align-items: center;
+  padding: 0 $spacing-xs;
+  color: var(--sisyphos-color-neutral-dark, #637381);
+  font-size: $size-sm;
+  user-select: none;
+  background: var(--sisyphos-color-neutral-lighter, #f4f6f8);
+}
+
+.sisyphos-number-input-step {
+  appearance: none;
+  background: var(--sisyphos-color-neutral-lighter, #f4f6f8);
+  border: 0;
+  cursor: pointer;
+  padding: 0 $spacing-xs;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--sisyphos-color-neutral-dark, #212b36);
+  transition: background $duration-s;
+
+  &:hover:not(:disabled) {
+    background: var(--sisyphos-color-primary-lighter, #ffede0);
+    color: var(--sisyphos-color-primary, #ff7022);
+  }
+
+  &:disabled {
+    opacity: $opacity-xs;
+    cursor: not-allowed;
+  }
+}
+
+.sisyphos-number-input-error {
+  font-size: $size-sm;
+  color: var(--sisyphos-color-error, #fb3748);
+}

@@ -1,0 +1,74 @@
+@use "@sisyphos-ui/core/src/tokens/variables" as *;
+
+.sisyphos-empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  color: var(--sisyphos-color-neutral-dark, #212b36);
+  box-sizing: border-box;
+
+  &.bordered {
+    border: 1px dashed var(--sisyphos-color-border, #c4cdd5);
+    background: var(--sisyphos-color-neutral-lighter, #f9fafb);
+    border-radius: $radius-md;
+  }
+
+  /* Sizes */
+  &.sm {
+    padding: $spacing-md;
+    gap: $spacing-xs;
+
+    .sisyphos-empty-state-icon { font-size: 32px; }
+    .sisyphos-empty-state-title { font-size: $size-md; }
+    .sisyphos-empty-state-description { font-size: $size-sm; }
+  }
+  &.md {
+    padding: $spacing-lg $spacing-md;
+    gap: $spacing-s;
+
+    .sisyphos-empty-state-icon { font-size: 48px; }
+    .sisyphos-empty-state-title { font-size: $h5; }
+    .sisyphos-empty-state-description { font-size: $size-md; }
+  }
+  &.lg {
+    padding: $spacing-2xl $spacing-lg;
+    gap: $spacing-md;
+
+    .sisyphos-empty-state-icon { font-size: 64px; }
+    .sisyphos-empty-state-title { font-size: $h4; }
+    .sisyphos-empty-state-description { font-size: $size-md; }
+  }
+}
+
+.sisyphos-empty-state-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--sisyphos-color-neutral-dark, #637381);
+  opacity: 0.6;
+
+  svg { width: 1em; height: 1em; }
+}
+
+.sisyphos-empty-state-title {
+  margin: 0;
+  font-weight: $font-weight-semibold;
+  color: var(--sisyphos-color-neutral-dark, #212b36);
+}
+
+.sisyphos-empty-state-description {
+  margin: 0;
+  max-width: 480px;
+  color: var(--sisyphos-color-neutral-dark, #637381);
+  line-height: $line-height;
+}
+
+.sisyphos-empty-state-actions {
+  display: flex;
+  gap: $spacing-xs;
+  margin-top: $spacing-xs;
+  flex-wrap: wrap;
+  justify-content: center;
+}

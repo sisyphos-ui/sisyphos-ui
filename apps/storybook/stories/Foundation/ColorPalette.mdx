@@ -1,0 +1,586 @@
+import { Meta } from "@storybook/blocks";
+import * as DesignTokensStories from "./DesignTokens.stories";
+
+<Meta of={DesignTokensStories} />
+
+# Color Palette
+
+Sisyphos UI design system'in default renk paleti ve kullanım rehberi.
+
+---
+
+## 🎨 Renk Sistemi
+
+Sisyphos UI, **semantic color system** kullanır. Her renk, kullanım amacına göre semantic bir isim taşır.
+
+### Semantic Colors
+
+| Color | Default Value | Usage | CSS Variable |
+|-------|---------------|-------|--------------|
+| **Primary** | `#ff7022` (Orange) | Brand color, main actions | `--sisyphos-color-primary` |
+| **Success** | `#22c55e` (Green) | Success states, positive actions | `--sisyphos-color-success` |
+| **Error** | `#fb3748` (Red) | Error states, destructive actions | `--sisyphos-color-error` |
+| **Warning** | `#ffab00` (Amber) | Warning states, caution actions | `--sisyphos-color-warning` |
+| **Info** | `#00b8d9` (Cyan) | Info states, informational messages | `--sisyphos-color-info` |
+| **Neutral** | `#f9fafb` (Gray) | Backgrounds, borders, text, dividers | `--sisyphos-color-neutral` |
+
+---
+
+## 🎯 Color Shades
+
+Her semantic color için 6 farklı shade mevcuttur:
+
+### Shade Naming Convention
+
+| Shade | Description | Usage | Example |
+|-------|-------------|-------|---------|
+| **main** | Ana renk | Default state, main actions | `--sisyphos-color-primary` |
+| **light** | Açık ton | Hover states | `--sisyphos-color-primary-light` |
+| **lighter** | Çok açık ton | Backgrounds, soft variant | `--sisyphos-color-primary-lighter` |
+| **dark** | Koyu ton | Pressed states | `--sisyphos-color-primary-dark` |
+| **darker** | Çok koyu ton | Borders, dividers | `--sisyphos-color-primary-darker` |
+| **contained** | Özel ton | Contained button background | `--sisyphos-color-primary-contained` |
+
+---
+
+## 🌈 Complete Color Palette
+
+### Primary Color (`#ff7022` - Orange)
+
+**Usage:** Brand color, main actions, primary buttons, links
+
+```css
+/* CSS Variables */
+--sisyphos-color-primary: #ff7022;                      /* Main */
+--sisyphos-color-primary-light: #ff8637;                /* Light - Hover */
+--sisyphos-color-primary-lighter: #ffede0;              /* Lighter - Backgrounds */
+--sisyphos-color-primary-dark: #e5631c;                 /* Dark - Pressed */
+--sisyphos-color-primary-darker: #b84d16;               /* Darker - Borders */
+--sisyphos-color-primary-contained: #f04906;            /* Contained - Button bg */
+```
+
+**Usage Examples:**
+
+```scss
+/* Primary button */
+.primary-button {
+  background: var(--sisyphos-color-primary);
+  color: var(--sisyphos-color-neutral-lighter);
+  
+  &:hover {
+    background: var(--sisyphos-color-primary-light);
+  }
+  
+  &:active {
+    background: var(--sisyphos-color-primary-dark);
+  }
+}
+
+/* Soft variant */
+.soft-primary {
+  background: var(--sisyphos-color-primary-lighter);
+  color: var(--sisyphos-color-primary);
+  border: 1px solid var(--sisyphos-color-primary-darker);
+}
+
+/* Contained variant */
+.contained-primary {
+  background: var(--sisyphos-color-primary-contained);
+  color: var(--sisyphos-color-neutral-lighter);
+}
+```
+
+**Customization:**
+
+```tsx
+import { applyTheme } from '@sisyphos-ui/core';
+
+// String olarak (sadece main color)
+applyTheme({
+  colors: { primary: '#007bff' } // ✅ Otomatik shade'ler generate edilir
+});
+
+// Object olarak (tüm shade'ler)
+applyTheme({
+  colors: {
+    primary: {
+      main: '#007bff',
+      light: '#3395ff',
+      lighter: '#e6f3ff',
+      dark: '#0056b3',
+      darker: '#003d80',
+      contained: '#004085',
+    }
+  }
+});
+```
+
+---
+
+### Success Color (`#22c55e` - Green)
+
+**Usage:** Success states, positive actions, success messages
+
+```css
+--sisyphos-color-success: #22c55e;                      /* Main */
+--sisyphos-color-success-light: #4ade80;                /* Light */
+--sisyphos-color-success-lighter: #dcfce7;              /* Lighter */
+--sisyphos-color-success-dark: #16a34a;                 /* Dark */
+--sisyphos-color-success-darker: #15803d;               /* Darker */
+--sisyphos-color-success-contained: #16a34a;            /* Contained */
+```
+
+**Usage Examples:**
+
+```scss
+/* Success button */
+.success-button {
+  background: var(--sisyphos-color-success);
+  color: var(--sisyphos-color-neutral-lighter);
+}
+
+/* Success alert */
+.success-alert {
+  background: var(--sisyphos-color-success-lighter);
+  color: var(--sisyphos-color-success-dark);
+  border-left: 4px solid var(--sisyphos-color-success);
+}
+```
+
+---
+
+### Error Color (`#fb3748` - Red)
+
+**Usage:** Error states, destructive actions, error messages
+
+```css
+--sisyphos-color-error: #fb3748;                        /* Main */
+--sisyphos-color-error-light: #fc5a67;                  /* Light */
+--sisyphos-color-error-lighter: #fee2e2;                /* Lighter */
+--sisyphos-color-error-dark: #dc2626;                   /* Dark */
+--sisyphos-color-error-darker: #b91c1c;                 /* Darker */
+--sisyphos-color-error-contained: #dc2626;              /* Contained */
+```
+
+**Usage Examples:**
+
+```scss
+/* Error button */
+.error-button {
+  background: var(--sisyphos-color-error);
+  color: var(--sisyphos-color-neutral-lighter);
+}
+
+/* Error alert */
+.error-alert {
+  background: var(--sisyphos-color-error-lighter);
+  color: var(--sisyphos-color-error-dark);
+  border-left: 4px solid var(--sisyphos-color-error);
+}
+```
+
+---
+
+### Warning Color (`#ffab00` - Amber)
+
+**Usage:** Warning states, caution actions, warning messages
+
+```css
+--sisyphos-color-warning: #ffab00;                      /* Main */
+--sisyphos-color-warning-light: #ffc107;                /* Light */
+--sisyphos-color-warning-lighter: #fef3c7;              /* Lighter */
+--sisyphos-color-warning-dark: #f59e0b;                 /* Dark */
+--sisyphos-color-warning-darker: #d97706;               /* Darker */
+--sisyphos-color-warning-contained: #f59e0b;            /* Contained */
+```
+
+**Usage Examples:**
+
+```scss
+/* Warning button */
+.warning-button {
+  background: var(--sisyphos-color-warning);
+  color: var(--sisyphos-color-neutral-lighter);
+}
+
+/* Warning alert */
+.warning-alert {
+  background: var(--sisyphos-color-warning-lighter);
+  color: var(--sisyphos-color-warning-dark);
+  border-left: 4px solid var(--sisyphos-color-warning);
+}
+```
+
+---
+
+### Info Color (`#00b8d9` - Cyan)
+
+**Usage:** Info states, informational messages
+
+```css
+--sisyphos-color-info: #00b8d9;                         /* Main */
+--sisyphos-color-info-light: #06b6d4;                   /* Light */
+--sisyphos-color-info-lighter: #cffafe;                 /* Lighter */
+--sisyphos-color-info-dark: #0891b2;                    /* Dark */
+--sisyphos-color-info-darker: #0e7490;                  /* Darker */
+--sisyphos-color-info-contained: #0891b2;               /* Contained */
+```
+
+**Usage Examples:**
+
+```scss
+/* Info button */
+.info-button {
+  background: var(--sisyphos-color-info);
+  color: var(--sisyphos-color-neutral-lighter);
+}
+
+/* Info alert */
+.info-alert {
+  background: var(--sisyphos-color-info-lighter);
+  color: var(--sisyphos-color-info-dark);
+  border-left: 4px solid var(--sisyphos-color-info);
+}
+```
+
+---
+
+### Neutral Colors (`#f9fafb` - Gray Scale)
+
+**Usage:** Backgrounds, borders, text, dividers, surfaces
+
+**Why Neutral Colors?**
+
+Neutral colors are essential for:
+- Creating visual hierarchy
+- Ensuring readability
+- Providing contrast
+- Building structure in the UI
+
+```css
+--sisyphos-color-neutral: #f9fafb;                      /* Main: Light gray background */
+--sisyphos-color-neutral-lighter: #ffffff;              /* Lighter: White, card backgrounds */
+--sisyphos-color-neutral-light: #f3f4f6;                /* Light: Subtle backgrounds, hover */
+--sisyphos-color-neutral-dark: #212b36;                 /* Dark: Text color, headings */
+--sisyphos-color-neutral-darker: rgba(145, 158, 171, 0.2); /* Darker: Borders, dividers (20% opacity) */
+```
+
+**Usage Examples:**
+
+```scss
+/* Backgrounds */
+.card {
+  background: var(--sisyphos-color-neutral-lighter); /* White */
+}
+
+.section {
+  background: var(--sisyphos-color-neutral);         /* Light gray */
+}
+
+.hover-state:hover {
+  background: var(--sisyphos-color-neutral-light);   /* Subtle hover */
+}
+
+/* Text */
+.heading {
+  color: var(--sisyphos-color-neutral-dark);         /* Dark text */
+}
+
+.body-text {
+  color: var(--sisyphos-color-neutral-dark);
+}
+
+/* Borders & Dividers */
+.border {
+  border: 1px solid var(--sisyphos-color-neutral-darker); /* Subtle border */
+}
+
+.divider {
+  border-top: 1px solid var(--sisyphos-color-neutral-darker);
+}
+```
+
+**Dark Mode:**
+
+Neutral colors automatically adapt in dark mode:
+
+```css
+/* Light Mode */
+--sisyphos-color-neutral: #f9fafb;
+--sisyphos-color-neutral-lighter: #ffffff;
+--sisyphos-color-neutral-dark: #212b36;
+
+/* Dark Mode (applied via .sisyphos-theme-dark class) */
+.sisyphos-theme-dark {
+  --sisyphos-color-neutral: #1c1c1c;
+  --sisyphos-color-neutral-lighter: #2c2c2c;
+  --sisyphos-color-neutral-dark: #e5e7eb; /* Light text on dark bg */
+}
+```
+
+**Note:** Semantic colors (primary, success, error, warning, info) **stay the same** in dark mode. Only neutral colors change.
+
+---
+
+## 🔧 Customization
+
+### Level 1: Brand Color Only (80% Use Case)
+
+Sadece brand primary color'unu override edin:
+
+```tsx
+import { applyTheme } from '@sisyphos-ui/core';
+
+applyTheme({
+  colors: {
+    primary: '#007bff', // ✅ Sadece bu - otomatik shade'ler generate edilir
+  },
+});
+```
+
+**Result:**
+- ✅ Tüm primary button'lar mavi olur
+- ✅ Primary shade'ler otomatik generate edilir
+- ✅ Diğer renkler (success, error) default kalır
+
+---
+
+### Level 2: Full Semantic Colors
+
+Tüm semantic color'ları override edin:
+
+```tsx
+import { applyTheme } from '@sisyphos-ui/core';
+
+applyTheme({
+  colors: {
+    primary: '#007bff',   // Brand color
+    success: '#28a745',   // Success states
+    error: '#dc3545',     // Error states
+    warning: '#ffc107',   // Warning states
+    info: '#17a2b8',      // Info messages
+  },
+});
+```
+
+---
+
+### Level 3: Full Color Shades (Advanced)
+
+Her semantic color için tüm shade'leri override edin:
+
+```tsx
+import { applyTheme, createTheme } from '@sisyphos-ui/core';
+
+const customTheme = createTheme({
+  colors: {
+    primary: {
+      main: '#007bff',        // Ana renk
+      light: '#3395ff',       // Hover states
+      lighter: '#e6f3ff',     // Backgrounds, soft variant
+      dark: '#0056b3',        // Pressed states
+      darker: '#003d80',      // Borders, dividers
+      contained: '#004085',   // Contained button background
+    },
+    success: {
+      main: '#28a745',
+      light: '#48c964',
+      lighter: '#d4edda',
+      dark: '#1e7e34',
+      darker: '#155724',
+      contained: '#1e7e34',
+    },
+    // ... diğer renkler
+  },
+  neutral: {
+    main: '#f8f9fa',
+    lighter: '#ffffff',
+    light: '#e9ecef',
+    dark: '#343a40',
+    darker: 'rgba(0, 0, 0, 0.15)',
+  },
+});
+
+applyTheme(customTheme);
+```
+
+---
+
+## 📋 Color Usage Guidelines
+
+### ✅ DO - Yapılması Gerekenler
+
+**✅ DO: Semantic color names kullan**
+
+```tsx
+// ✅ Doğru: Semantic colors
+<Button color="primary">Primary</Button>
+<Button color="success">Success</Button>
+<Button color="error">Error</Button>
+
+// CSS Variables
+color: var(--sisyphos-color-primary);
+background: var(--sisyphos-color-success);
+```
+
+**✅ DO: Shade'leri doğru kullan**
+
+```scss
+/* ✅ Doğru: Hover state için light */
+.button:hover {
+  background: var(--sisyphos-color-primary-light);
+}
+
+/* ✅ Doğru: Soft variant için lighter */
+.soft-button {
+  background: var(--sisyphos-color-primary-lighter);
+  color: var(--sisyphos-color-primary);
+}
+
+/* ✅ Doğru: Border için darker */
+.card {
+  border: 1px solid var(--sisyphos-color-primary-darker);
+}
+```
+
+**✅ DO: Neutral colors için doğru shade kullan**
+
+```scss
+/* ✅ Doğru: Background için neutral */
+.page-background {
+  background: var(--sisyphos-color-neutral);
+}
+
+/* ✅ Doğru: Text için neutral-dark */
+.text {
+  color: var(--sisyphos-color-neutral-dark);
+}
+
+/* ✅ Doğru: Border için neutral-darker */
+.border {
+  border: 1px solid var(--sisyphos-color-neutral-darker);
+}
+```
+
+---
+
+### ❌ DON'T - Yapılmaması Gerekenler
+
+**❌ DON'T: Visual color names kullan**
+
+```tsx
+// ❌ Yanlış: Visual colors
+<Button color="blue">Blue</Button>
+<Button color="red">Red</Button>
+<Button color="green">Green</Button>
+
+// ✅ Doğru: Semantic colors
+<Button color="primary">Primary</Button>
+<Button color="error">Error</Button>
+<Button color="success">Success</Button>
+```
+
+**❌ DON'T: Hard-coded color values**
+
+```scss
+/* ❌ Yanlış: Hard-coded colors */
+.button {
+  background: #007bff;
+  color: #ffffff;
+  border: 1px solid #0056b3;
+}
+
+/* ✅ Doğru: CSS variables */
+.button {
+  background: var(--sisyphos-color-primary);
+  color: var(--sisyphos-color-neutral-lighter);
+  border: 1px solid var(--sisyphos-color-primary-darker);
+}
+```
+
+**❌ DON'T: Yanlış shade kullan**
+
+```scss
+/* ❌ Yanlış: Hover için dark kullanma */
+.button:hover {
+  background: var(--sisyphos-color-primary-dark); /* ❌ YANLIŞ! */
+}
+
+/* ✅ Doğru: Hover için light kullan */
+.button:hover {
+  background: var(--sisyphos-color-primary-light); /* ✅ */
+}
+```
+
+---
+
+## 🎨 Color Palette Reference
+
+### All Available CSS Variables
+
+**Primary:**
+- `--sisyphos-color-primary` (main)
+- `--sisyphos-color-primary-light`
+- `--sisyphos-color-primary-lighter`
+- `--sisyphos-color-primary-dark`
+- `--sisyphos-color-primary-darker`
+- `--sisyphos-color-primary-contained`
+
+**Success:**
+- `--sisyphos-color-success` (main)
+- `--sisyphos-color-success-light`
+- `--sisyphos-color-success-lighter`
+- `--sisyphos-color-success-dark`
+- `--sisyphos-color-success-darker`
+- `--sisyphos-color-success-contained`
+
+**Error:**
+- `--sisyphos-color-error` (main)
+- `--sisyphos-color-error-light`
+- `--sisyphos-color-error-lighter`
+- `--sisyphos-color-error-dark`
+- `--sisyphos-color-error-darker`
+- `--sisyphos-color-error-contained`
+
+**Warning:**
+- `--sisyphos-color-warning` (main)
+- `--sisyphos-color-warning-light`
+- `--sisyphos-color-warning-lighter`
+- `--sisyphos-color-warning-dark`
+- `--sisyphos-color-warning-darker`
+- `--sisyphos-color-warning-contained`
+
+**Info:**
+- `--sisyphos-color-info` (main)
+- `--sisyphos-color-info-light`
+- `--sisyphos-color-info-lighter`
+- `--sisyphos-color-info-dark`
+- `--sisyphos-color-info-darker`
+- `--sisyphos-color-info-contained`
+
+**Neutral:**
+- `--sisyphos-color-neutral` (main)
+- `--sisyphos-color-neutral-lighter`
+- `--sisyphos-color-neutral-light`
+- `--sisyphos-color-neutral-dark`
+- `--sisyphos-color-neutral-darker`
+
+**Total:** 31 CSS color variables (5 semantic colors × 6 shades + 5 neutral colors = 35, but `main` is counted once)
+
+---
+
+## 🌈 Interactive Showcase
+
+Aşağıdaki story'lerde tüm renkleri ve shade'lerini görebilirsiniz:
+
+- **[Colors Story](./?path=/story/foundation-design-tokens--colors)** - Main semantic colors
+- **[Color Shades Story](./?path=/story/foundation-design-tokens--color-shades)** - Complete color shade palette
+- **[Neutral Colors Story](./?path=/story/foundation-design-tokens--neutral-colors)** - Neutral color palette
+
+---
+
+## 📚 Related Documentation
+
+- [Theme System](./?path=/docs/foundation-theme-system--docs) - Theme customization guide
+- [Best Practices](./?path=/docs/foundation-best-practices--docs) - Color usage best practices
+- [Design Tokens](./?path=/story/foundation-design-tokens--colors) - Interactive design tokens showcase
