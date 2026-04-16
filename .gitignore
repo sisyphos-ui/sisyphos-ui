@@ -44,3 +44,6 @@ lerna-debug.log*
 .changeset/*.md
 !.changeset/README.md
 
+# npm auth (safety net — never commit tokens)
+.npmrc
+
