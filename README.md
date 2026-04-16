@@ -12,37 +12,36 @@ Thirty-plus components that ship as independent, tree-shakable packages — buil
 [![React](https://img.shields.io/badge/React-17%20%7C%2018%20%7C%2019-61dafb?style=flat-square&logo=react)](https://react.dev/)
 [![bundlephobia](https://img.shields.io/bundlephobia/minzip/@sisyphos-ui/ui?style=flat-square&color=0891b2&label=min+gzip)](https://bundlephobia.com/package/@sisyphos-ui/ui)
 
-[Installation](#installation) · [Components](#components) · [Theming](#theming) · [Accessibility](#accessibility) · [Contributing](./CONTRIBUTING.md)
+[npm](https://www.npmjs.com/package/@sisyphos-ui/ui) · [Changelog](./packages/ui/CHANGELOG.md) · [Discussions](https://github.com/sisyphos-ui/sisyphos-ui/discussions) · [Contributing](./CONTRIBUTING.md)
+
+[Installation](#installation) · [Features](#features) · [Components](#components) · [Theming](#theming) · [Accessibility](#accessibility)
 
 </div>
 
 ---
 
-## Why Sisyphos UI?
+## Features
 
-- **Accessible by default.** Every overlay wires up a focus trap, scroll lock, and keyboard shortcuts. Every form control is WAI-ARIA compliant. Tests include keyboard and screen-reader expectations.
-- **Themeable at runtime.** Colors, spacing, typography, and radii are emitted as CSS custom properties under `--sisyphos-*`. Call `applyTheme({ colors: { primary: "#0284c7" } })` and the whole library flips.
-- **Independent packages.** Install the full umbrella (`@sisyphos-ui/ui`) or just the one component you need — no barrel imports, no hidden dependencies.
-- **Compound APIs where it counts.** `Dialog`, `Tabs`, `Accordion`, `Card`, `Radio`, and more ship the composable subcomponent pattern so your markup stays readable.
-- **Controlled *and* uncontrolled.** Every interactive component supports both modes through standard `value` / `defaultValue` / `onChange` props.
-- **First-class TypeScript.** Strict types, `forwardRef` + `displayName`, full prop JSDoc. IntelliSense knows more than the docs.
+- **Accessible by default** — focus trap, scroll lock, keyboard navigation, WAI-ARIA roles built in. Tested against keyboard and screen-reader expectations.
+- **Themeable at runtime** — CSS custom properties under `--sisyphos-*`. `applyTheme()` flips colors, spacing, typography, and radii for the whole library.
+- **Light + dark mode** out of the box. `setThemeMode()` / `toggleThemeMode()` — no wrapper required.
+- **Tree-shakable** — install the umbrella for DX or individual packages for minimum footprint. Zero runtime deps beyond React.
+- **Compound APIs** — `Dialog`, `Tabs`, `Accordion`, `Card`, and friends ship composable subcomponents so markup stays readable.
+- **Controlled + uncontrolled** — every interactive component supports both modes through standard `value` / `defaultValue` / `onChange`.
+- **Strict TypeScript** — full types, `forwardRef` + `displayName`, prop JSDoc. IntelliSense knows the API.
 
 ---
 
 ## Installation
 
 ```bash
-# The umbrella package — every component in one install
 pnpm add @sisyphos-ui/ui
-
-# Or install only what you need
-pnpm add @sisyphos-ui/button @sisyphos-ui/core
+# or: npm install @sisyphos-ui/ui
+# or: yarn add @sisyphos-ui/ui
 ```
 
 ```tsx
-// Import the bundled stylesheet once, at the root of your app
 import "@sisyphos-ui/ui/styles.css";
-
 import { Button, Dialog, toast, Toaster } from "@sisyphos-ui/ui";
 
 export function App() {
@@ -56,6 +55,27 @@ export function App() {
 ```
 
 Works with **React 17, 18, and 19**, Node **≥ 18**, and any bundler that supports ES modules.
+
+<details>
+<summary><strong>Advanced — install individual components</strong></summary>
+
+<br />
+
+Every component also ships as a standalone package. Install only what you need:
+
+```bash
+pnpm add @sisyphos-ui/button @sisyphos-ui/core
+```
+
+```tsx
+import "@sisyphos-ui/core/styles.css";
+import "@sisyphos-ui/button/styles.css";
+import { Button } from "@sisyphos-ui/button";
+```
+
+See the [Components](#components) table below for the full list of 33 individual packages.
+
+</details>
 
 ---
 
