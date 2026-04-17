@@ -1,0 +1,18 @@
+{
+  "name": "@sisyphos-ui/eslint-plugin-single-line-guard",
+  "version": "0.2.0",
+  "description": "Custom ESLint rules for guard clauses and unused cleanup",
+  "license": "MIT",
+  "author": "Sisyphos UI Contributors",
+  "main": "index.cjs",
+  "scripts": {
+    "lint": "eslint index.cjs"
+  },
+  "files": [
+    "index.cjs",
+    "README.md"
+  ],
+  "peerDependencies": {
+    "eslint": "^8.57.0"
+  }
+}
