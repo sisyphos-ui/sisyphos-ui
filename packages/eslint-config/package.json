@@ -29,6 +29,7 @@
     "index.cjs"
   ],
   "dependencies": {
+    "@sisyphos-ui/eslint-plugin-single-line-guard": "workspace:*",
     "@typescript-eslint/eslint-plugin": "^7.13.0",
     "@typescript-eslint/parser": "^7.13.0",
     "eslint-plugin-react": "^7.34.0",
