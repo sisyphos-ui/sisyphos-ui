@@ -21,6 +21,7 @@
 
 .sisyphos-accordion-item {
   background: var(--sisyphos-color-neutral-lighter, #fff);
+  overflow: hidden;
 
   .sisyphos-accordion.ghost & {
     border-radius: $radius-s;
@@ -72,15 +73,38 @@
 }
 
 .sisyphos-accordion-content {
-  padding: 0 $spacing-lg;
   overflow: hidden;
-  transition: opacity $duration-s;
+  padding: 0 $spacing-lg;
+  max-height: 0;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition:
+    max-height $duration-s ease,
+    opacity $duration-s ease;
 
-  &[hidden] { display: none; }
+  &[data-state="open"] {
+    max-height: var(--sisyphos-accordion-content-height, 0px);
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+  }
+
+  &[data-state="closed"] {
+    max-height: 0;
+    opacity: 0;
+    pointer-events: none;
+  }
 }
 
 .sisyphos-accordion-content-inner {
   padding: 0 0 $spacing-md;
   color: var(--sisyphos-color-neutral-dark, #637381);
   line-height: $line-height;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sisyphos-accordion-content {
+    transition: none;
+  }
 }
