@@ -5,14 +5,10 @@
  * `Accordion.Content`. Works as controlled (via `value`) or uncontrolled
  * (via `defaultValue`).
  */
-import React, { useCallback, useId, useMemo, useState } from "react";
+import type React from "react";
+import { useCallback, useId, useMemo, useState } from "react";
 import { cx } from "@sisyphos-ui/core/internal";
-import {
-  AccordionContext,
-  AccordionItemContext,
-  useAccordion,
-  useAccordionItem,
-} from "./context";
+import { AccordionContext, AccordionItemContext, useAccordion, useAccordionItem } from "./context";
 import "./Accordion.scss";
 
 type SingleProps = {
@@ -59,7 +55,9 @@ const AccordionRoot: React.FC<AccordionProps> = (props) => {
         const list = isControlled ? ((props as MultiProps).value as string[]) : internalMulti;
         return list.includes(v);
       }
-      const single = isControlled ? ((props as SingleProps).value as string | null) : internalSingle;
+      const single = isControlled
+        ? ((props as SingleProps).value as string | null)
+        : internalSingle;
       return single === v;
     },
     [multiple, isControlled, props, internalMulti, internalSingle]
@@ -73,7 +71,9 @@ const AccordionRoot: React.FC<AccordionProps> = (props) => {
         if (!isControlled) setInternalMulti(next);
         (props as MultiProps).onValueChange?.(next);
       } else {
-        const curr = isControlled ? ((props as SingleProps).value as string | null) : internalSingle;
+        const curr = isControlled
+          ? ((props as SingleProps).value as string | null)
+          : internalSingle;
         const next = curr === v ? null : v;
         if (!isControlled) setInternalSingle(next);
         (props as SingleProps).onValueChange?.(next);
@@ -82,7 +82,10 @@ const AccordionRoot: React.FC<AccordionProps> = (props) => {
     [multiple, isControlled, props, internalMulti, internalSingle]
   );
 
-  const ctx = useMemo(() => ({ baseId, isOpen, toggle, multiple: !!multiple }), [baseId, isOpen, toggle, multiple]);
+  const ctx = useMemo(
+    () => ({ baseId, isOpen, toggle, multiple: !!multiple }),
+    [baseId, isOpen, toggle, multiple]
+  );
 
   return (
     <div className={cx("sisyphos-accordion", variant, className)}>
@@ -97,11 +100,22 @@ export interface AccordionItemProps extends Omit<React.HTMLAttributes<HTMLDivEle
   disabled?: boolean;
 }
 
-const AccordionItem: React.FC<AccordionItemProps> = ({ value, disabled = false, className, children, ...rest }) => {
+const AccordionItem: React.FC<AccordionItemProps> = ({
+  value,
+  disabled = false,
+  className,
+  children,
+  ...rest
+}) => {
   const { baseId, isOpen } = useAccordion();
   const open = isOpen(value);
   const ctx = useMemo(
-    () => ({ value, open, triggerId: `${baseId}-${value}-trigger`, contentId: `${baseId}-${value}-content` }),
+    () => ({
+      value,
+      open,
+      triggerId: `${baseId}-${value}-trigger`,
+      contentId: `${baseId}-${value}-content`,
+    }),
     [value, open, baseId]
   );
   return (
@@ -115,7 +129,10 @@ const AccordionItem: React.FC<AccordionItemProps> = ({ value, disabled = false, 
   );
 };
 
-export interface AccordionTriggerProps extends Omit<React.ButtonHTMLAttributes<HTMLButtonElement>, "type"> {
+export interface AccordionTriggerProps extends Omit<
+  React.ButtonHTMLAttributes<HTMLButtonElement>,
+  "type"
+> {
   /** Override default chevron icon. */
   icon?: React.ReactNode;
 }
@@ -126,7 +143,14 @@ const ChevronDown = () => (
   </svg>
 );
 
-const AccordionTrigger: React.FC<AccordionTriggerProps> = ({ className, children, icon, onClick, disabled, ...rest }) => {
+const AccordionTrigger: React.FC<AccordionTriggerProps> = ({
+  className,
+  children,
+  icon,
+  onClick,
+  disabled,
+  ...rest
+}) => {
   const { toggle } = useAccordion();
   const item = useAccordionItem();
   return (
@@ -145,7 +169,10 @@ const AccordionTrigger: React.FC<AccordionTriggerProps> = ({ className, children
         {...rest}
       >
         <span className="sisyphos-accordion-trigger-label">{children}</span>
-        <span className={cx("sisyphos-accordion-trigger-icon", item.open && "rotated")} aria-hidden="true">
+        <span
+          className={cx("sisyphos-accordion-trigger-icon", item.open && "rotated")}
+          aria-hidden="true"
+        >
           {icon ?? <ChevronDown />}
         </span>
       </button>
@@ -158,7 +185,12 @@ export interface AccordionContentProps extends React.HTMLAttributes<HTMLDivEleme
   forceMount?: boolean;
 }
 
-const AccordionContent: React.FC<AccordionContentProps> = ({ className, children, forceMount = true, ...rest }) => {
+const AccordionContent: React.FC<AccordionContentProps> = ({
+  className,
+  children,
+  forceMount = true,
+  ...rest
+}) => {
   const item = useAccordionItem();
   if (!item.open && !forceMount) return null;
   return (

@@ -68,4 +68,39 @@ describe("Radio + RadioGroup", () => {
     expect(screen.getByRole("alert")).toHaveTextContent("Required");
     expect(screen.getByRole("radiogroup")).toHaveAttribute("aria-invalid", "true");
   });
+
+  it("renders radios from the flat `options` prop", async () => {
+    const onChange = vi.fn();
+    render(
+      <RadioGroup
+        label="Plan"
+        onChange={onChange}
+        options={[
+          { value: "free", label: "Free" },
+          { value: "pro", label: "Pro", description: "$12/mo" },
+          { value: "ent", label: "Enterprise", disabled: true },
+        ]}
+      />
+    );
+    expect(screen.getAllByRole("radio")).toHaveLength(3);
+    expect(screen.getByText("$12/mo")).toBeInTheDocument();
+    expect(screen.getByRole("radio", { name: /Enterprise/ })).toBeDisabled();
+    await userEvent.click(screen.getByRole("radio", { name: "Free" }));
+    expect(onChange).toHaveBeenCalledWith("free");
+  });
+
+  it("allowAddOption renders a button that fires onAddOption", async () => {
+    const onAddOption = vi.fn();
+    render(
+      <RadioGroup
+        label="Plan"
+        options={[{ value: "a", label: "A" }]}
+        allowAddOption
+        onAddOption={onAddOption}
+        addOptionLabel="Add plan"
+      />
+    );
+    await userEvent.click(screen.getByRole("button", { name: /Add plan/i }));
+    expect(onAddOption).toHaveBeenCalledTimes(1);
+  });
 });

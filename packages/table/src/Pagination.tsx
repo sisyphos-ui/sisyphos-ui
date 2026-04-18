@@ -2,7 +2,7 @@
  * Pagination — prev/next + numeric pages with ellipsis elision. Designed as a
  * companion to `Table` but usable anywhere a pager is needed.
  */
-import React from "react";
+import type React from "react";
 import { cx } from "@sisyphos-ui/core/internal";
 import "./Table.scss";
 
@@ -21,7 +21,12 @@ export interface PaginationProps {
   className?: string;
 }
 
-export function getPageItems(page: number, pageCount: number, siblings = 1, boundaries = 1): Array<number | "ellipsis"> {
+export function getPageItems(
+  page: number,
+  pageCount: number,
+  siblings = 1,
+  boundaries = 1
+): Array<number | "ellipsis"> {
   const total = pageCount;
   if (total <= 1) return [1];
   const totalNumbers = boundaries * 2 + siblings * 2 + 3;
@@ -43,7 +48,14 @@ export function getPageItems(page: number, pageCount: number, siblings = 1, boun
 
 const Chevron: React.FC<{ direction: "left" | "right" }> = ({ direction }) => (
   <svg viewBox="0 0 16 16" width="14" height="14" aria-hidden="true">
-    <path d={direction === "left" ? "M10 4l-4 4 4 4" : "M6 4l4 4-4 4"} fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+    <path
+      d={direction === "left" ? "M10 4l-4 4 4 4" : "M6 4l4 4-4 4"}
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.5"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
   </svg>
 );
 
@@ -71,7 +83,9 @@ export const Pagination: React.FC<PaginationProps> = ({
       <ul className="sisyphos-pagination-list">
         {items.map((it, i) =>
           it === "ellipsis" ? (
-            <li key={`e-${i}`} className="sisyphos-pagination-ellipsis" aria-hidden="true">…</li>
+            <li key={`e-${i}`} className="sisyphos-pagination-ellipsis" aria-hidden="true">
+              …
+            </li>
           ) : (
             <li key={it}>
               <button

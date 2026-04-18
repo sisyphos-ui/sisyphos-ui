@@ -1,6 +1,6 @@
 {
   "name": "@sisyphos-ui/toast",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "Imperative toast notifications with semantic variants, auto-dismiss, stacking, and actions",
   "keywords": [
     "design-system",

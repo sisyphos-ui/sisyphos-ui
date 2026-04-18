@@ -5,7 +5,8 @@
  * by default. Works controlled (`open`) or uncontrolled (`defaultOpen`). Wraps
  * a single focusable child as the trigger; use `Tooltip` for read-only hints.
  */
-import React, {
+import type React from "react";
+import {
   cloneElement,
   isValidElement,
   useCallback,
@@ -17,12 +18,7 @@ import React, {
   type ReactElement,
 } from "react";
 import { Portal } from "@sisyphos-ui/portal";
-import {
-  cx,
-  computePosition,
-  useEscapeKey,
-  type Placement,
-} from "@sisyphos-ui/core/internal";
+import { cx, computePosition, useEscapeKey, type Placement } from "@sisyphos-ui/core/internal";
 import "./Popover.scss";
 
 export interface PopoverProps {
@@ -132,7 +128,12 @@ export const Popover: React.FC<PopoverProps> = ({
       const tooltip = floatingRef.current;
       if (!anchor || !tooltip) return;
       const a = anchor.getBoundingClientRect();
-      const p = computePosition(a, { width: tooltip.offsetWidth, height: tooltip.offsetHeight }, placement, offset);
+      const p = computePosition(
+        a,
+        { width: tooltip.offsetWidth, height: tooltip.offsetHeight },
+        placement,
+        offset
+      );
       setPos(p);
     };
     raf = requestAnimationFrame(() => requestAnimationFrame(update));

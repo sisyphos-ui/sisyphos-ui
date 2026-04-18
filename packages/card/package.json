@@ -1,6 +1,6 @@
 {
   "name": "@sisyphos-ui/card",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "Card surface with compound Header/Body/Footer slots",
   "keywords": [
     "card",

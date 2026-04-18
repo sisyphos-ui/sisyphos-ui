@@ -1,0 +1,22 @@
+{
+  "name": "sisyphos-install-test-consumer",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "tsc --noEmit && vite build",
+    "tsc": "tsc --noEmit"
+  },
+  "dependencies": {
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1"
+  },
+  "devDependencies": {
+    "@types/react": "^18.3.3",
+    "@types/react-dom": "^18.3.0",
+    "@vitejs/plugin-react": "^4.3.0",
+    "sass": "^1.77.0",
+    "typescript": "^5.3.3",
+    "vite": "^5.3.0"
+  }
+}

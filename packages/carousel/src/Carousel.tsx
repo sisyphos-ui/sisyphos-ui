@@ -4,13 +4,8 @@
  *
  * Works controlled (`index`) or uncontrolled (`defaultIndex`).
  */
-import React, {
-  Children,
-  useCallback,
-  useEffect,
-  useRef,
-  useState,
-} from "react";
+import type React from "react";
+import { Children, useCallback, useEffect, useRef, useState } from "react";
 import { cx } from "@sisyphos-ui/core/internal";
 import "./Carousel.scss";
 

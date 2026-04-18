@@ -5,21 +5,10 @@
  * Dropdown is portal-mounted with auto-flip placement and full keyboard
  * navigation (Arrow Up/Down, Enter, Escape, Home/End).
  */
-import React, {
-  useCallback,
-  useEffect,
-  useId,
-  useMemo,
-  useRef,
-  useState,
-} from "react";
+import type React from "react";
+import { useCallback, useEffect, useId, useMemo, useRef, useState } from "react";
 import { Portal } from "@sisyphos-ui/portal";
-import {
-  cx,
-  computePosition,
-  useEscapeKey,
-  type Placement,
-} from "@sisyphos-ui/core/internal";
+import { cx, computePosition, useEscapeKey, type Placement } from "@sisyphos-ui/core/internal";
 import type { Scale, SelectOption, SelectValue } from "./types";
 import "./Select.scss";
 
@@ -69,14 +58,23 @@ export type SelectProps = {
 } & (SingleProps | MultiProps);
 
 const ChevronIcon = ({ open }: { open: boolean }) => (
-  <svg viewBox="0 0 24 24" width={18} height={18} aria-hidden="true" style={{ transform: open ? "rotate(180deg)" : undefined, transition: "transform 150ms" }}>
+  <svg
+    viewBox="0 0 24 24"
+    width={18}
+    height={18}
+    aria-hidden="true"
+    style={{ transform: open ? "rotate(180deg)" : undefined, transition: "transform 150ms" }}
+  >
     <path d="M7 10l5 5 5-5z" fill="currentColor" />
   </svg>
 );
 
 const ClearIcon = () => (
   <svg viewBox="0 0 24 24" width={14} height={14} aria-hidden="true">
-    <path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z" fill="currentColor" />
+    <path
+      d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"
+      fill="currentColor"
+    />
   </svg>
 );
 
@@ -115,9 +113,9 @@ export const Select: React.FC<SelectProps> = (props) => {
   const listboxId = `sisyphos-select-${reactId}`;
 
   const isControlled = "value" in props && props.value !== undefined;
-  const [internalValue, setInternalValue] = useState<SelectValue | null | SelectValue[] | undefined>(
-    props.defaultValue
-  );
+  const [internalValue, setInternalValue] = useState<
+    SelectValue | null | SelectValue[] | undefined
+  >(props.defaultValue);
   const rawValue = isControlled ? (props as { value: unknown }).value : internalValue;
 
   const selectedValues = useMemo<SelectValue[]>(() => {
@@ -128,7 +126,12 @@ export const Select: React.FC<SelectProps> = (props) => {
   const [open, setOpen] = useState(false);
   const [search, setSearch] = useState("");
   const [activeIndex, setActiveIndex] = useState(-1);
-  const [pos, setPos] = useState<{ left: number; top: number; placement: Placement; width: number } | null>(null);
+  const [pos, setPos] = useState<{
+    left: number;
+    top: number;
+    placement: Placement;
+    width: number;
+  } | null>(null);
 
   const triggerRef = useRef<HTMLDivElement | null>(null);
   const listRef = useRef<HTMLUListElement | null>(null);
@@ -201,9 +204,13 @@ export const Select: React.FC<SelectProps> = (props) => {
         setInternalValue(next as SelectValue[] | SelectValue | null);
       }
       if (multiple) {
-        (props.onChange as ((v: SelectValue[]) => void) | undefined)?.((next as SelectValue[]) ?? []);
+        (props.onChange as ((v: SelectValue[]) => void) | undefined)?.(
+          (next as SelectValue[]) ?? []
+        );
       } else {
-        (props.onChange as ((v: SelectValue | null) => void) | undefined)?.(next as SelectValue | null);
+        (props.onChange as ((v: SelectValue | null) => void) | undefined)?.(
+          next as SelectValue | null
+        );
       }
     },
     [isControlled, multiple, props]
@@ -355,7 +362,9 @@ export const Select: React.FC<SelectProps> = (props) => {
             <ClearIcon />
           </button>
         )}
-        <span className="sisyphos-select-chevron"><ChevronIcon open={open} /></span>
+        <span className="sisyphos-select-chevron">
+          <ChevronIcon open={open} />
+        </span>
       </div>
       {open && (
         <Portal>
@@ -418,7 +427,11 @@ export const Select: React.FC<SelectProps> = (props) => {
                       <span className="sisyphos-select-option-description">{opt.description}</span>
                     )}
                   </span>
-                  {checked && <span className="sisyphos-select-option-check" aria-hidden="true">✓</span>}
+                  {checked && (
+                    <span className="sisyphos-select-option-check" aria-hidden="true">
+                      ✓
+                    </span>
+                  )}
                 </li>
               );
             })}
@@ -432,7 +445,9 @@ export const Select: React.FC<SelectProps> = (props) => {
         </Portal>
       )}
       {error && errorMessage ? (
-        <span className="sisyphos-select-error" role="alert">{errorMessage}</span>
+        <span className="sisyphos-select-error" role="alert">
+          {errorMessage}
+        </span>
       ) : helperText ? (
         <span className="sisyphos-select-helper">{helperText}</span>
       ) : null}

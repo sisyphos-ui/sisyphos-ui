@@ -8,11 +8,16 @@
   border-radius: $radius-md;
   overflow: hidden;
   box-sizing: border-box;
-  transition: box-shadow $duration-s, transform $duration-s, border-color $duration-s;
+  transition:
+    box-shadow $duration-s,
+    transform $duration-s,
+    border-color $duration-s;
 
   &.elevated {
     border: 1px solid transparent;
-    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.06), 0 4px 12px rgba(0, 0, 0, 0.04);
+    box-shadow:
+      0 1px 2px rgba(0, 0, 0, 0.06),
+      0 4px 12px rgba(0, 0, 0, 0.04);
   }
 
   &.outlined {
@@ -26,14 +31,31 @@
     box-shadow: none;
   }
 
-  &.padding-none > .sisyphos-card-body { padding: 0; }
-  &.padding-sm   > .sisyphos-card-body { padding: $spacing-s; }
-  &.padding-md   > .sisyphos-card-body { padding: $spacing-md; }
-  &.padding-lg   > .sisyphos-card-body { padding: $spacing-lg; }
+  /* `padding` modifiers cascade to header/body/footer so variants stay consistent. */
+  &.padding-none > .sisyphos-card-header { padding: 0; }
+  &.padding-none > .sisyphos-card-body   { padding: 0; }
+  &.padding-none > .sisyphos-card-footer { padding: 0; }
+
+  &.padding-sm > .sisyphos-card-header { padding: $spacing-s $spacing-md; }
+  &.padding-sm > .sisyphos-card-body   { padding: $spacing-s $spacing-md; }
+  &.padding-sm > .sisyphos-card-footer { padding: $spacing-xs $spacing-md; }
+
+  &.padding-md > .sisyphos-card-header { padding: $spacing-md $spacing-lg; }
+  &.padding-md > .sisyphos-card-body   { padding: $spacing-md $spacing-lg; }
+  &.padding-md > .sisyphos-card-footer { padding: $spacing-s $spacing-lg; }
+
+  &.padding-lg > .sisyphos-card-header { padding: $spacing-lg $spacing-xl; }
+  &.padding-lg > .sisyphos-card-body   { padding: $spacing-lg $spacing-xl; }
+  &.padding-lg > .sisyphos-card-footer { padding: $spacing-md $spacing-xl; }
 
   &.interactive {
     cursor: pointer;
-    &:hover { box-shadow: 0 2px 4px rgba(0, 0, 0, 0.08), 0 8px 24px rgba(0, 0, 0, 0.08); transform: translateY(-1px); }
+    &:hover {
+      box-shadow:
+        0 2px 4px rgba(0, 0, 0, 0.08),
+        0 8px 24px rgba(0, 0, 0, 0.08);
+      transform: translateY(-1px);
+    }
     &:focus-visible {
       outline: 2px solid var(--sisyphos-color-primary, #ff7022);
       outline-offset: 2px;
@@ -43,21 +65,30 @@
 
 .sisyphos-card-header {
   display: flex;
-  align-items: center;
+  align-items: flex-start;
+  justify-content: space-between;
   gap: $spacing-md;
   padding: $spacing-md $spacing-lg;
   border-bottom: 1px solid var(--sisyphos-color-border, #eef0f2);
-  font-weight: $font-weight-semibold;
+}
+
+/* Remove the separator when the immediate next sibling is already a body with
+ * matching padding so we avoid a "double line" look. */
+.sisyphos-card.padding-none > .sisyphos-card-header,
+.sisyphos-card.padding-none > .sisyphos-card-footer {
+  border: 0;
 }
 
 .sisyphos-card-body {
   flex: 1;
   min-width: 0;
+  padding: $spacing-md $spacing-lg;
 }
 
 .sisyphos-card-footer {
   display: flex;
   align-items: center;
+  justify-content: flex-end;
   gap: $spacing-xs;
   padding: $spacing-s $spacing-lg;
   border-top: 1px solid var(--sisyphos-color-border, #eef0f2);

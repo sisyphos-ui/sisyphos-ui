@@ -6,7 +6,8 @@
  * with Arrow keys, activate with Enter/Space, close with Escape or outside
  * click.
  */
-import React, {
+import type React from "react";
+import {
   cloneElement,
   isValidElement,
   useCallback,
@@ -18,12 +19,7 @@ import React, {
   type ReactElement,
 } from "react";
 import { Portal } from "@sisyphos-ui/portal";
-import {
-  cx,
-  computePosition,
-  useEscapeKey,
-  type Placement,
-} from "@sisyphos-ui/core/internal";
+import { cx, computePosition, useEscapeKey, type Placement } from "@sisyphos-ui/core/internal";
 import type { DropdownMenuItem, DropdownMenuAction } from "./types";
 import "./DropdownMenu.scss";
 
@@ -36,6 +32,21 @@ export interface DropdownMenuProps {
   onOpenChange?: (open: boolean) => void;
   disabled?: boolean;
   className?: string;
+  /** Header slot rendered above items (for "Notifications · 3" style labels). */
+  header?: React.ReactNode;
+  /** Footer slot rendered below items (for "View all" links). */
+  footer?: React.ReactNode;
+  /** Rendered when `items` is empty. */
+  emptyState?: React.ReactNode;
+  /**
+   * Fires when the menu content scrolls within `scrollEndThreshold` px of the
+   * bottom. Use to load more items for infinite notification/alert lists.
+   */
+  onScrollEnd?: () => void;
+  /** Pixel distance from bottom that triggers `onScrollEnd`. Default 48. */
+  scrollEndThreshold?: number;
+  /** Cap the menu height so long item lists become scrollable. */
+  maxHeight?: number | string;
   /** Single focusable element — the trigger. */
   children: ReactElement;
 }
@@ -53,6 +64,12 @@ export const DropdownMenu: React.FC<DropdownMenuProps> = ({
   onOpenChange,
   disabled = false,
   className,
+  header,
+  footer,
+  emptyState,
+  onScrollEnd,
+  scrollEndThreshold = 48,
+  maxHeight,
   children,
 }) => {
   const reactId = useId();
@@ -60,6 +77,7 @@ export const DropdownMenu: React.FC<DropdownMenuProps> = ({
 
   const anchorRef = useRef<HTMLElement | null>(null);
   const menuRef = useRef<HTMLUListElement | null>(null);
+  const containerRef = useRef<HTMLDivElement | null>(null);
   const itemRefs = useRef<Array<HTMLLIElement | null>>([]);
 
   const isControlled = openProp !== undefined;
@@ -111,6 +129,7 @@ export const DropdownMenu: React.FC<DropdownMenuProps> = ({
       const tgt = e.target as Node | null;
       if (!tgt) return;
       if (anchorRef.current?.contains(tgt)) return;
+      if (containerRef.current?.contains(tgt)) return;
       if (menuRef.current?.contains(tgt)) return;
       setOpen(false);
     };
@@ -127,10 +146,10 @@ export const DropdownMenu: React.FC<DropdownMenuProps> = ({
     let raf = 0;
     const update = () => {
       const anchor = anchorRef.current;
-      const menu = menuRef.current;
-      if (!anchor || !menu) return;
+      const box = containerRef.current ?? menuRef.current;
+      if (!anchor || !box) return;
       const a = anchor.getBoundingClientRect();
-      const size = { width: menu.offsetWidth, height: menu.offsetHeight };
+      const size = { width: box.offsetWidth, height: box.offsetHeight };
       const p = computePosition(a, size, placement, offset);
       setPos(p);
     };
@@ -222,66 +241,111 @@ export const DropdownMenu: React.FC<DropdownMenuProps> = ({
     },
   });
 
+  const handleScroll = useCallback(
+    (e: React.UIEvent<HTMLDivElement>) => {
+      if (!onScrollEnd) return;
+      const el = e.currentTarget;
+      const distance = el.scrollHeight - el.scrollTop - el.clientHeight;
+      if (distance <= scrollEndThreshold) onScrollEnd();
+    },
+    [onScrollEnd, scrollEndThreshold]
+  );
+
+  const renderItems = () =>
+    items.length === 0 && emptyState ? (
+      <div className="sisyphos-dropdown-menu-empty" role="note">
+        {emptyState}
+      </div>
+    ) : (
+      <ul
+        ref={menuRef}
+        id={menuId}
+        role="menu"
+        className="sisyphos-dropdown-menu-list"
+        onKeyDown={handleKeyDown}
+      >
+        {items.map((item, i) => {
+          if (item.type === "separator") {
+            return (
+              <li
+                key={item.key ?? `sep-${i}`}
+                className="sisyphos-dropdown-menu-separator"
+                role="separator"
+              />
+            );
+          }
+          if (item.type === "label") {
+            return (
+              <li
+                key={item.key ?? `label-${i}`}
+                className="sisyphos-dropdown-menu-label"
+                role="presentation"
+              >
+                {item.label}
+              </li>
+            );
+          }
+          const action = item;
+          return (
+            <li
+              ref={(el) => {
+                itemRefs.current[i] = el;
+              }}
+              key={action.key ?? `item-${i}`}
+              role="menuitem"
+              tabIndex={activeIndex === i ? 0 : -1}
+              aria-disabled={action.disabled || undefined}
+              className={cx(
+                "sisyphos-dropdown-menu-item",
+                action.destructive && "destructive",
+                action.disabled && "disabled"
+              )}
+              onMouseEnter={() => setActiveIndex(i)}
+              onClick={(e) => handleSelect(action, e)}
+            >
+              {action.icon && (
+                <span className="sisyphos-dropdown-menu-item-icon">{action.icon}</span>
+              )}
+              <span className="sisyphos-dropdown-menu-item-label">{action.label}</span>
+              {action.shortcut && (
+                <span className="sisyphos-dropdown-menu-item-shortcut">{action.shortcut}</span>
+              )}
+            </li>
+          );
+        })}
+      </ul>
+    );
+
   return (
     <>
       {triggerEl}
       {open && (
         <Portal>
-          <ul
-            ref={menuRef}
-            id={menuId}
-            role="menu"
-            className={cx("sisyphos-dropdown-menu", pos?.placement ?? placement, className)}
+          <div
+            ref={containerRef}
+            className={cx(
+              "sisyphos-dropdown-menu",
+              pos?.placement ?? placement,
+              (header || footer) && "rich",
+              className
+            )}
             style={{
               position: "fixed",
               left: pos?.left ?? 0,
               top: pos?.top ?? 0,
               opacity: pos ? 1 : 0,
+              maxHeight,
             }}
-            onKeyDown={handleKeyDown}
+            onScroll={handleScroll}
           >
-            {items.map((item, i) => {
-              if (item.type === "separator") {
-                return <li key={item.key ?? `sep-${i}`} className="sisyphos-dropdown-menu-separator" role="separator" />;
-              }
-              if (item.type === "label") {
-                return (
-                  <li
-                    key={item.key ?? `label-${i}`}
-                    className="sisyphos-dropdown-menu-label"
-                    role="presentation"
-                  >
-                    {item.label}
-                  </li>
-                );
-              }
-              const action = item;
-              return (
-                <li
-                  ref={(el) => {
-                    itemRefs.current[i] = el;
-                  }}
-                  key={action.key ?? `item-${i}`}
-                  role="menuitem"
-                  tabIndex={activeIndex === i ? 0 : -1}
-                  aria-disabled={action.disabled || undefined}
-                  className={cx(
-                    "sisyphos-dropdown-menu-item",
-                    action.destructive && "destructive",
-                    action.disabled && "disabled"
-                  )}
-                  onMouseEnter={() => setActiveIndex(i)}
-                  onClick={(e) => handleSelect(action, e)}
-                >
-                  {action.icon && <span className="sisyphos-dropdown-menu-item-icon">{action.icon}</span>}
-                  <span className="sisyphos-dropdown-menu-item-label">{action.label}</span>
-                  {action.shortcut && (
-                    <span className="sisyphos-dropdown-menu-item-shortcut">{action.shortcut}</span>
-                  )}
-                </li>
-              );
-            })}
-          </ul>
+            {header && (
+              <div className="sisyphos-dropdown-menu-header">{header}</div>
+            )}
+            {renderItems()}
+            {footer && (
+              <div className="sisyphos-dropdown-menu-footer">{footer}</div>
+            )}
+          </div>
         </Portal>
       )}
     </>

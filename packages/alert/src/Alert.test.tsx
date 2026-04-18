@@ -1,5 +1,5 @@
-import { describe, it, expect, vi } from "vitest";
-import { render, screen } from "@testing-library/react";
+import { describe, it, expect, vi, beforeEach, afterEach } from "vitest";
+import { render, screen, act } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { Alert } from "./Alert";
 
@@ -30,5 +30,30 @@ describe("Alert", () => {
   it("icon=null hides default icon", () => {
     const { container } = render(<Alert color="success" title="x" icon={null} />);
     expect(container.querySelector(".sisyphos-alert-icon")).toBeNull();
+  });
+
+  describe("autoCloseDuration", () => {
+    beforeEach(() => vi.useFakeTimers());
+    afterEach(() => vi.useRealTimers());
+
+    it("fires onClose after the duration elapses", () => {
+      const onClose = vi.fn();
+      render(<Alert title="x" onClose={onClose} autoCloseDuration={1000} />);
+      expect(onClose).not.toHaveBeenCalled();
+      act(() => {
+        vi.advanceTimersByTime(1000);
+      });
+      expect(onClose).toHaveBeenCalledTimes(1);
+    });
+
+    it("no-op when onClose is missing", () => {
+      // Should just render without scheduling a timer — no crash.
+      render(<Alert title="x" autoCloseDuration={500} />);
+      act(() => {
+        vi.advanceTimersByTime(500);
+      });
+      // If we got here without throwing, the effect correctly short-circuited.
+      expect(screen.getByText("x")).toBeInTheDocument();
+    });
   });
 });

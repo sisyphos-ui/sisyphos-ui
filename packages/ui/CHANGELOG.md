@@ -1,5 +1,57 @@
 # Changelog
 
+## 0.3.0
+
+### Minor Changes
+
+- Component and tooling improvements across the library.
+  - **Input**: input mask support (`mask` prop + new `mask.ts` helpers), expanded variants, refreshed styles, more test coverage.
+  - **Table**: richer data-table features — sorting, selection, loading skeleton, empty state, refined pagination, broader test coverage.
+  - **DropdownMenu**: improved keyboard navigation, submenus, and styling.
+  - **DatePicker**: UX and styling refinements, better edge-case handling.
+  - **Checkbox / Radio / RadioGroup**: a11y polish and consistent styling.
+  - **Skeleton**: new `PageSkeleton` component and richer skeleton primitives.
+  - **FileUpload**: drag-and-drop and file-type filtering polish.
+  - **Slider / Carousel / Tabs / Tooltip / Popover / Toast / EmptyState / Alert / Accordion / Card / Dialog / Spinner / Select / TreeSelect**: behavioural fixes and styling refinements.
+  - **ui**: `bundle-css.mjs` build tweaks for aggregated stylesheet output.
+  - **eslint-config**: ruleset tuning.
+
+### Patch Changes
+
+- Updated dependencies
+  - @sisyphos-ui/accordion@0.3.0
+  - @sisyphos-ui/alert@0.3.0
+  - @sisyphos-ui/card@0.3.0
+  - @sisyphos-ui/carousel@0.3.0
+  - @sisyphos-ui/checkbox@0.3.0
+  - @sisyphos-ui/datepicker@0.3.0
+  - @sisyphos-ui/dialog@0.3.0
+  - @sisyphos-ui/dropdown-menu@0.3.0
+  - @sisyphos-ui/empty-state@0.3.0
+  - @sisyphos-ui/file-upload@0.3.0
+  - @sisyphos-ui/input@0.3.0
+  - @sisyphos-ui/popover@0.3.0
+  - @sisyphos-ui/radio@0.3.0
+  - @sisyphos-ui/select@0.3.0
+  - @sisyphos-ui/skeleton@0.3.0
+  - @sisyphos-ui/slider@0.3.0
+  - @sisyphos-ui/spinner@0.3.0
+  - @sisyphos-ui/table@0.3.0
+  - @sisyphos-ui/tabs@0.3.0
+  - @sisyphos-ui/toast@0.3.0
+  - @sisyphos-ui/tooltip@0.3.0
+  - @sisyphos-ui/tree-select@0.3.0
+  - @sisyphos-ui/avatar@0.2.0
+  - @sisyphos-ui/breadcrumb@0.2.0
+  - @sisyphos-ui/button@0.2.0
+  - @sisyphos-ui/chip@0.2.0
+  - @sisyphos-ui/core@0.2.0
+  - @sisyphos-ui/form-control@0.2.0
+  - @sisyphos-ui/number-input@0.2.0
+  - @sisyphos-ui/portal@0.2.0
+  - @sisyphos-ui/switch@0.2.0
+  - @sisyphos-ui/textarea@0.2.0
+
 ## 0.2.0
 
 ### Minor Changes

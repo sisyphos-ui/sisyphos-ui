@@ -1,6 +1,6 @@
 {
   "name": "@sisyphos-ui/table",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "Data table with sorting, selection, loading skeleton, empty state, and optional Pagination",
   "keywords": [
     "data-table",

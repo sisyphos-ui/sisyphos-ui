@@ -4,14 +4,8 @@
  *
  * Pass `range` for two-thumb mode; then `value`/`defaultValue` become tuples.
  */
-import React, {
-  useCallback,
-  useEffect,
-  useId,
-  useMemo,
-  useRef,
-  useState,
-} from "react";
+import type React from "react";
+import { useCallback, useEffect, useId, useMemo, useRef, useState } from "react";
 import { cx } from "@sisyphos-ui/core/internal";
 import type { SemanticColor } from "@sisyphos-ui/core/internal";
 import "./Slider.scss";
@@ -45,6 +39,15 @@ export type SliderProps = {
   ariaLabel?: string | [string, string];
   className?: string;
   range?: boolean;
+  /**
+   * In range mode, render two editable number inputs alongside the track for
+   * precise value entry.
+   */
+  withInputs?: boolean;
+  /** Placeholder/label for the lower-bound input. */
+  minInputLabel?: React.ReactNode;
+  /** Placeholder/label for the upper-bound input. */
+  maxInputLabel?: React.ReactNode;
 } & (SingleProps | RangeProps);
 
 function clamp(n: number, lo: number, hi: number) {
@@ -68,6 +71,9 @@ export const Slider: React.FC<SliderProps> = (props) => {
     ariaLabel,
     className,
     range,
+    withInputs = false,
+    minInputLabel = "Min",
+    maxInputLabel = "Max",
   } = props;
 
   const reactId = useId();
@@ -95,7 +101,7 @@ export const Slider: React.FC<SliderProps> = (props) => {
     return [v, v];
   }, [range, externalRange, externalSingle, internal]);
 
-  const minGap = range ? (props as RangeProps).minGap ?? 0 : 0;
+  const minGap = range ? ((props as RangeProps).minGap ?? 0) : 0;
 
   const trackRef = useRef<HTMLDivElement | null>(null);
   const dragRef = useRef<0 | 1 | null>(null);
@@ -141,7 +147,7 @@ export const Slider: React.FC<SliderProps> = (props) => {
     if (dragRef.current === null) return;
     const onMove = (e: MouseEvent | TouchEvent) => {
       if (dragRef.current === null) return;
-      const clientX = "touches" in e ? e.touches[0]?.clientX ?? 0 : e.clientX;
+      const clientX = "touches" in e ? (e.touches[0]?.clientX ?? 0) : e.clientX;
       const v = valueFromClientX(clientX);
       updateThumb(dragRef.current, v);
     };
@@ -233,11 +239,7 @@ export const Slider: React.FC<SliderProps> = (props) => {
           <span style={{ marginLeft: `calc(${startPct}% - 16px)` }}>{formatValue(current[0])}</span>
         </div>
       )}
-      <div
-        ref={trackRef}
-        className="sisyphos-slider-track"
-        onMouseDown={handleTrackClick}
-      >
+      <div ref={trackRef} className="sisyphos-slider-track" onMouseDown={handleTrackClick}>
         <div
           className="sisyphos-slider-progress"
           style={{
@@ -302,6 +304,43 @@ export const Slider: React.FC<SliderProps> = (props) => {
           </>
         )}
       </div>
+      {range && withInputs && (
+        <div className="sisyphos-slider-inputs">
+          <label className="sisyphos-slider-input-field">
+            <span className="sisyphos-slider-input-label">{minInputLabel}</span>
+            <input
+              type="number"
+              min={min}
+              max={current[1] - minGap}
+              step={step}
+              value={current[0]}
+              disabled={disabled}
+              onChange={(e) => {
+                const v = Number(e.target.value);
+                if (!Number.isNaN(v)) updateThumb(0, v);
+              }}
+            />
+          </label>
+          <span className="sisyphos-slider-input-divider" aria-hidden="true">
+            –
+          </span>
+          <label className="sisyphos-slider-input-field">
+            <span className="sisyphos-slider-input-label">{maxInputLabel}</span>
+            <input
+              type="number"
+              min={current[0] + minGap}
+              max={max}
+              step={step}
+              value={current[1]}
+              disabled={disabled}
+              onChange={(e) => {
+                const v = Number(e.target.value);
+                if (!Number.isNaN(v)) updateThumb(1, v);
+              }}
+            />
+          </label>
+        </div>
+      )}
     </div>
   );
 };

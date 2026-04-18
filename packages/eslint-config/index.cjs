@@ -25,7 +25,28 @@ module.exports = {
   rules: {
     "react/prop-types": "off",
     "@typescript-eslint/no-unused-vars": ["warn", { argsIgnorePattern: "^_", varsIgnorePattern: "^_" }],
-    "@typescript-eslint/consistent-type-imports": "warn",
+    "@typescript-eslint/consistent-type-imports": [
+      "error",
+      { prefer: "type-imports", fixStyle: "separate-type-imports" },
+    ],
     "@typescript-eslint/no-explicit-any": "warn",
   },
+  overrides: [
+    {
+      // Storybook CSF renders components via a `render` function. It is a
+      // component factory in practice, but the eslint-plugin-react-hooks
+      // heuristic (must start with uppercase) does not recognize it.
+      files: ["**/*.stories.tsx", "**/*.stories.ts"],
+      rules: {
+        "react-hooks/rules-of-hooks": "off",
+      },
+    },
+    {
+      // Test files sometimes use the `act` helper conditionally.
+      files: ["**/*.test.tsx", "**/*.test.ts"],
+      rules: {
+        "@typescript-eslint/no-unused-vars": "off",
+      },
+    },
+  ],
 };

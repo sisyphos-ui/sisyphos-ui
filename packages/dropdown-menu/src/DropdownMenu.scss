@@ -1,9 +1,10 @@
 @use "@sisyphos-ui/core/src/tokens/variables" as *;
 
 .sisyphos-dropdown-menu {
-  list-style: none;
+  display: flex;
+  flex-direction: column;
   margin: 0;
-  padding: $spacing-xxs;
+  padding: 0;
   background: var(--sisyphos-color-neutral-lighter, #fff);
   border: 1px solid var(--sisyphos-color-border, #e4e7eb);
   border-radius: $radius-md;
@@ -14,6 +15,44 @@
   z-index: $z-index-pickers;
   transition: opacity $duration-s ease;
   outline: none;
+
+  &.rich { min-width: 280px; }
+}
+
+.sisyphos-dropdown-menu-list {
+  list-style: none;
+  margin: 0;
+  padding: $spacing-xxs;
+}
+
+.sisyphos-dropdown-menu-header {
+  padding: $spacing-s $spacing-md;
+  border-bottom: 1px solid var(--sisyphos-color-border, #eef0f2);
+  background: var(--sisyphos-color-neutral-lighter, #f9fafb);
+  font-size: $size-sm;
+  font-weight: $font-weight-semibold;
+  color: var(--sisyphos-color-neutral-dark, #212b36);
+  position: sticky;
+  top: 0;
+  z-index: 1;
+}
+
+.sisyphos-dropdown-menu-footer {
+  padding: $spacing-xs $spacing-md;
+  border-top: 1px solid var(--sisyphos-color-border, #eef0f2);
+  background: var(--sisyphos-color-neutral-lighter, #f9fafb);
+  font-size: $size-sm;
+  position: sticky;
+  bottom: 0;
+  z-index: 1;
+  text-align: center;
+}
+
+.sisyphos-dropdown-menu-empty {
+  padding: $spacing-xl $spacing-md;
+  text-align: center;
+  color: var(--sisyphos-color-neutral-dark, #637381);
+  font-size: $size-sm;
 }
 
 .sisyphos-dropdown-menu-label {

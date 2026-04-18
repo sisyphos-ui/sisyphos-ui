@@ -38,9 +38,79 @@ describe("Input", () => {
   });
 
   it("renders the character count when maxLength + showCharacterCount", () => {
-    render(
-      <Input label="Bio" maxLength={20} showCharacterCount defaultValue="hello" />
-    );
+    render(<Input label="Bio" maxLength={20} showCharacterCount defaultValue="hello" />);
     expect(screen.getByText("5 / 20")).toBeInTheDocument();
+  });
+
+  it("renders a label tooltip marker when labelTooltip is set", () => {
+    render(<Input label="Team email" labelTooltip="Goes to all admins" />);
+    expect(screen.getByLabelText("Goes to all admins")).toBeInTheDocument();
+  });
+
+  it("copy button fires onCopy with the current value", async () => {
+    const writeText = vi.fn().mockResolvedValue(undefined);
+    Object.assign(navigator, { clipboard: { writeText } });
+    const onCopy = vi.fn();
+    render(
+      <Input
+        label="Invite link"
+        defaultValue="https://example.com/i/abc"
+        copyable
+        onCopy={onCopy}
+      />
+    );
+    await userEvent.click(screen.getByRole("button", { name: /copy to clipboard/i }));
+    expect(writeText).toHaveBeenCalledWith("https://example.com/i/abc");
+    expect(onCopy).toHaveBeenCalledWith("https://example.com/i/abc");
+  });
+
+  it("renders an endIcon when provided and not in password/copy mode", () => {
+    render(<Input label="URL" endIcon={<span data-testid="end">✓</span>} />);
+    expect(screen.getByTestId("end")).toBeInTheDocument();
+  });
+
+  it("labelTooltipPosition adds a class to the popover", () => {
+    const { container } = render(
+      <Input
+        label="x"
+        labelTooltip={<span data-testid="tip">Hello</span>}
+        labelTooltipPosition="right"
+      />
+    );
+    const popover = container.querySelector(".sisyphos-input-label-tooltip-popover");
+    expect(popover?.className).toContain("right");
+  });
+
+  describe("mask", () => {
+    it("formats typed digits against a custom mask", async () => {
+      const onChange = vi.fn();
+      const onUnmasked = vi.fn();
+      render(
+        <Input
+          label="Phone"
+          mask="+90 (###) ### ####"
+          onChange={onChange}
+          onUnmaskedChange={onUnmasked}
+        />
+      );
+      const input = screen.getByLabelText("Phone") as HTMLInputElement;
+      await userEvent.type(input, "5551112233");
+      expect(input.value).toBe("+90 (555) 111 2233");
+      expect(onUnmasked).toHaveBeenLastCalledWith("5551112233");
+    });
+
+    it("resolves `tel-tr` preset to Turkish phone format", async () => {
+      render(<Input label="Phone" mask="tel-tr" />);
+      const input = screen.getByLabelText("Phone") as HTMLInputElement;
+      await userEvent.type(input, "5321112233");
+      expect(input.value).toBe("+90 (532) 111 22 33");
+    });
+
+    it("ignores non-matching characters on typed input", async () => {
+      render(<Input label="Card" mask="#### #### #### ####" />);
+      const input = screen.getByLabelText("Card") as HTMLInputElement;
+      await userEvent.type(input, "4111abc1111-2222 3333");
+      expect(input.value).toBe("4111 1111 2222 3333");
+    });
   });
 });

@@ -5,7 +5,8 @@
  * Wraps a single focusable child and wires `aria-describedby` to the tooltip.
  * Use for short transient hints; for rich interactive content prefer `Popover`.
  */
-import React, {
+import type React from "react";
+import {
   cloneElement,
   isValidElement,
   useCallback,

@@ -4,7 +4,8 @@
  * Mount once near the app root. Subscribes to the toast store and renders the
  * active queue inside a portal with auto-dismiss, pause-on-hover, and stacking.
  */
-import React, { useEffect, useMemo, useRef, useState } from "react";
+import type React from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { Portal } from "@sisyphos-ui/portal";
 import { cx } from "@sisyphos-ui/core/internal";
 import { toastStore, type ToastRecord } from "./store";
@@ -30,7 +31,10 @@ export interface ToasterProps {
 
 const CloseIcon = () => (
   <svg viewBox="0 0 24 24" width="1em" height="1em" aria-hidden="true">
-    <path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z" fill="currentColor" />
+    <path
+      d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"
+      fill="currentColor"
+    />
   </svg>
 );
 
@@ -53,7 +57,7 @@ function ToastItem({
     };
   }, [record.id, record.duration, onDismiss, paused]);
 
-  const icon = record.icon === null ? null : record.icon ?? DEFAULT_ICONS[record.type];
+  const icon = record.icon === null ? null : (record.icon ?? DEFAULT_ICONS[record.type]);
 
   return (
     <div
@@ -66,7 +70,9 @@ function ToastItem({
       {icon && <div className="sisyphos-toast-icon">{icon}</div>}
       <div className="sisyphos-toast-body">
         {record.title && <div className="sisyphos-toast-title">{record.title}</div>}
-        {record.description && <div className="sisyphos-toast-description">{record.description}</div>}
+        {record.description && (
+          <div className="sisyphos-toast-description">{record.description}</div>
+        )}
       </div>
       {record.action && <div className="sisyphos-toast-action">{record.action}</div>}
       {record.dismissible && (

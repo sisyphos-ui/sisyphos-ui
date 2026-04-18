@@ -9,8 +9,10 @@ import "./Checkbox.scss";
 import { CN, DEFAULTS } from "./constants";
 import { mergeRefs } from "@sisyphos-ui/core/internal";
 
-export interface CheckboxProps
-  extends Omit<React.InputHTMLAttributes<HTMLInputElement>, "size" | "onChange"> {
+export interface CheckboxProps extends Omit<
+  React.InputHTMLAttributes<HTMLInputElement>,
+  "size" | "onChange"
+> {
   /** Current checked state. */
   checked: boolean;
   /** Called with the new checked value when the user toggles the box. */
@@ -43,77 +45,70 @@ const CheckMarkSvg = () => (
   </svg>
 );
 
-export const Checkbox = React.forwardRef<HTMLInputElement, CheckboxProps>(
-  function Checkbox(
-    {
-      checked,
-      onChange,
-      label,
-      color = DEFAULTS.color,
-      size = DEFAULTS.size,
-      radius = DEFAULTS.radius,
-      disabled = false,
-      className = "",
-      id: idProp,
-      ...props
+export const Checkbox = React.forwardRef<HTMLInputElement, CheckboxProps>(function Checkbox(
+  {
+    checked,
+    onChange,
+    label,
+    color = DEFAULTS.color,
+    size = DEFAULTS.size,
+    radius = DEFAULTS.radius,
+    disabled = false,
+    className = "",
+    id: idProp,
+    ...props
+  },
+  ref
+) {
+  const inputRef = React.useRef<HTMLInputElement>(null);
+  const reactId = React.useId();
+  const id = idProp ?? reactId;
+
+  const rootClasses = useMemo(
+    () => [CN.checkbox, disabled && "disabled", className].filter(Boolean).join(" "),
+    [disabled, className]
+  );
+
+  const inputClasses = useMemo(
+    () =>
+      [CN.input, color, CN.size(size), CN.radius(radius), disabled && "disabled"]
+        .filter(Boolean)
+        .join(" "),
+    [color, size, radius, disabled]
+  );
+
+  const handleChange = useCallback(
+    (e: React.ChangeEvent<HTMLInputElement>) => {
+      if (disabled) return;
+      onChange?.(e.target.checked);
     },
-    ref
-  ) {
-    const inputRef = React.useRef<HTMLInputElement>(null);
-    const id = idProp ?? React.useId();
+    [disabled, onChange]
+  );
 
-    const rootClasses = useMemo(
-      () => [CN.checkbox, disabled && "disabled", className].filter(Boolean).join(" "),
-      [disabled, className]
-    );
-
-    const inputClasses = useMemo(
-      () =>
-        [
-          CN.input,
-          color,
-          CN.size(size),
-          CN.radius(radius),
-          disabled && "disabled",
-        ]
-          .filter(Boolean)
-          .join(" "),
-      [color, size, radius, disabled]
-    );
-
-    const handleChange = useCallback(
-      (e: React.ChangeEvent<HTMLInputElement>) => {
-        if (disabled) return;
-        onChange?.(e.target.checked);
-      },
-      [disabled, onChange]
-    );
-
-    return (
-      <div className={rootClasses}>
-        <label className={CN.label} htmlFor={id}>
-          <span className={CN.box}>
-            <input
-              ref={mergeRefs(inputRef, ref)}
-              id={id}
-              type="checkbox"
-              className={inputClasses}
-              checked={checked}
-              disabled={disabled}
-              onChange={handleChange}
-              aria-checked={checked}
-              aria-disabled={disabled || undefined}
-              {...props}
-            />
-            <span className={CN.mark} aria-hidden>
-              <CheckMarkSvg />
-            </span>
+  return (
+    <div className={rootClasses}>
+      <label className={CN.label} htmlFor={id}>
+        <span className={CN.box}>
+          <input
+            ref={mergeRefs(inputRef, ref)}
+            id={id}
+            type="checkbox"
+            className={inputClasses}
+            checked={checked}
+            disabled={disabled}
+            onChange={handleChange}
+            aria-checked={checked}
+            aria-disabled={disabled || undefined}
+            {...props}
+          />
+          <span className={CN.mark} aria-hidden>
+            <CheckMarkSvg />
           </span>
-          {label != null && <span className={CN.labelText}>{label}</span>}
-        </label>
-      </div>
-    );
-  }
-);
+        </span>
+        {label != null && <span className={CN.labelText}>{label}</span>}
+      </label>
+    </div>
+  );
+});
 
 Checkbox.displayName = "Checkbox";

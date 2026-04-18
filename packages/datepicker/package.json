@@ -1,6 +1,6 @@
 {
   "name": "@sisyphos-ui/datepicker",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "Date/date-range picker with optional time, min/max constraints, and localized calendar",
   "keywords": [
     "calendar",

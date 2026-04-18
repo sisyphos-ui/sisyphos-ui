@@ -45,12 +45,19 @@ const sources = [
   "packages/carousel/dist/index.css",
 ];
 
+const stripNoise = (css) =>
+  css
+    .replace(/^\uFEFF/, "")
+    .replace(/@charset\s+"[^"]*"\s*;?\s*/gi, "")
+    .replace(/\/\*#\s*sourceMappingURL=[^*]+\*\/\s*/g, "")
+    .trim();
+
 const chunks = sources.map((s) => {
   const p = resolve(monorepo, s);
-  return `/* ── ${s} ── */\n` + readFileSync(p, "utf8");
+  return `/* ── ${s} ── */\n` + stripNoise(readFileSync(p, "utf8"));
 });
 
 const outPath = resolve(root, "dist/styles.css");
 mkdirSync(dirname(outPath), { recursive: true });
-writeFileSync(outPath, chunks.join("\n\n"));
+writeFileSync(outPath, `@charset "UTF-8";\n\n` + chunks.join("\n\n") + "\n");
 console.log(`[ui] bundled styles.css (${chunks.length} sources)`);

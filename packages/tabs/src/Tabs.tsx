@@ -5,15 +5,8 @@
  * Compound API: compose with `Tabs.List`, `Tabs.Trigger`, and `Tabs.Panel`.
  * Works as controlled (`value`) or uncontrolled (`defaultValue`).
  */
-import React, {
-  useCallback,
-  useEffect,
-  useId,
-  useLayoutEffect,
-  useMemo,
-  useRef,
-  useState,
-} from "react";
+import type React from "react";
+import { useCallback, useEffect, useId, useLayoutEffect, useMemo, useRef, useState } from "react";
 import { cx } from "@sisyphos-ui/core/internal";
 import { TabsContext, useTabs, type TabsOrientation } from "./context";
 import "./Tabs.scss";
@@ -111,7 +104,12 @@ export interface TabsListProps extends React.HTMLAttributes<HTMLDivElement> {}
 const TabsList: React.FC<TabsListProps> = ({ className, children, ...rest }) => {
   const ctx = useTabs();
   const listRef = useRef<HTMLDivElement | null>(null);
-  const [indicator, setIndicator] = useState<{ x: number; y: number; width: number; height: number } | null>(null);
+  const [indicator, setIndicator] = useState<{
+    x: number;
+    y: number;
+    width: number;
+    height: number;
+  } | null>(null);
 
   useLayoutEffect(() => {
     const update = () => {
@@ -187,7 +185,10 @@ const TabsList: React.FC<TabsListProps> = ({ className, children, ...rest }) => 
   );
 };
 
-export interface TabsTriggerProps extends Omit<React.ButtonHTMLAttributes<HTMLButtonElement>, "value" | "onSelect"> {
+export interface TabsTriggerProps extends Omit<
+  React.ButtonHTMLAttributes<HTMLButtonElement>,
+  "value" | "onSelect"
+> {
   /** Identifier matching a sibling `Tabs.Panel`. */
   value: string;
   /** Optional icon rendered before the label. */
@@ -224,14 +225,23 @@ const TabsTrigger: React.FC<TabsTriggerProps> = ({
       tabIndex={selected ? 0 : -1}
       disabled={disabled}
       data-sisyphos-tab-value={value}
-      className={cx("sisyphos-tabs-trigger", selected && "active", disabled && "disabled", className)}
+      className={cx(
+        "sisyphos-tabs-trigger",
+        selected && "active",
+        disabled && "disabled",
+        className
+      )}
       onClick={(e) => {
         onClick?.(e);
         if (!disabled) ctx.setValue(value);
       }}
       {...rest}
     >
-      {icon && <span className="sisyphos-tabs-trigger-icon" aria-hidden="true">{icon}</span>}
+      {icon && (
+        <span className="sisyphos-tabs-trigger-icon" aria-hidden="true">
+          {icon}
+        </span>
+      )}
       <span className="sisyphos-tabs-trigger-label">{children}</span>
     </button>
   );
@@ -244,7 +254,13 @@ export interface TabsPanelProps extends Omit<React.HTMLAttributes<HTMLDivElement
   forceMount?: boolean;
 }
 
-const TabsPanel: React.FC<TabsPanelProps> = ({ value, forceMount = true, className, children, ...rest }) => {
+const TabsPanel: React.FC<TabsPanelProps> = ({
+  value,
+  forceMount = true,
+  className,
+  children,
+  ...rest
+}) => {
   const ctx = useTabs();
   const selected = ctx.value === value;
   if (!selected && !forceMount) return null;

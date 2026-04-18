@@ -15,6 +15,21 @@
     border-radius: $radius-md;
   }
 
+  /* Inline — icon beside text for use inside modals, cards, filter bars. */
+  &.inline {
+    flex-direction: row;
+    text-align: start;
+    align-items: center;
+    justify-content: flex-start;
+    padding: $spacing-s $spacing-md;
+    gap: $spacing-s;
+
+    .sisyphos-empty-state-icon { font-size: 24px; }
+    .sisyphos-empty-state-title { font-size: $size-md; }
+    .sisyphos-empty-state-description { font-size: $size-sm; max-width: none; }
+    .sisyphos-empty-state-actions { margin-top: 0; margin-inline-start: auto; justify-content: flex-end; }
+  }
+
   /* Sizes */
   &.sm {
     padding: $spacing-md;

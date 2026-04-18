@@ -1,6 +1,6 @@
 {
   "name": "@sisyphos-ui/carousel",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "Carousel/slideshow with autoplay, dots, arrows, and pause-on-hover",
   "keywords": [
     "carousel",

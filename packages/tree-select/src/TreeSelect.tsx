@@ -5,14 +5,8 @@
  * The dropdown is portal-mounted with auto-flip placement. Works controlled
  * (`value`) or uncontrolled (`defaultValue`).
  */
-import React, {
-  useCallback,
-  useEffect,
-  useId,
-  useMemo,
-  useRef,
-  useState,
-} from "react";
+import type React from "react";
+import { useCallback, useEffect, useId, useMemo, useRef, useState } from "react";
 import { Portal } from "@sisyphos-ui/portal";
 import { cx, computePosition, useEscapeKey, type Placement } from "@sisyphos-ui/core/internal";
 import type { TreeNode, TreeNodeId } from "./types";
@@ -56,23 +50,46 @@ export interface TreeSelectProps {
 }
 
 const ChevronIcon = ({ rotated }: { rotated?: boolean }) => (
-  <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" style={{ transform: rotated ? "rotate(180deg)" : undefined, transition: "transform 150ms" }}>
+  <svg
+    viewBox="0 0 24 24"
+    width="18"
+    height="18"
+    aria-hidden="true"
+    style={{ transform: rotated ? "rotate(180deg)" : undefined, transition: "transform 150ms" }}
+  >
     <path d="M7 10l5 5 5-5z" fill="currentColor" />
   </svg>
 );
 const ChevronRight = () => (
   <svg viewBox="0 0 24 24" width="14" height="14" aria-hidden="true">
-    <path d="M9 6l6 6-6 6" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+    <path
+      d="M9 6l6 6-6 6"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
   </svg>
 );
 const ChevronDown = () => (
   <svg viewBox="0 0 24 24" width="14" height="14" aria-hidden="true">
-    <path d="M6 9l6 6 6-6" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+    <path
+      d="M6 9l6 6 6-6"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
   </svg>
 );
 const ClearIcon = () => (
   <svg viewBox="0 0 24 24" width="14" height="14" aria-hidden="true">
-    <path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z" fill="currentColor" />
+    <path
+      d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"
+      fill="currentColor"
+    />
   </svg>
 );
 
@@ -109,7 +126,12 @@ export const TreeSelect: React.FC<TreeSelectProps> = ({
   const [open, setOpen] = useState(false);
   const [search, setSearch] = useState("");
   const [expanded, setExpanded] = useState<Record<string, boolean>>({});
-  const [pos, setPos] = useState<{ left: number; top: number; placement: Placement; width: number } | null>(null);
+  const [pos, setPos] = useState<{
+    left: number;
+    top: number;
+    placement: Placement;
+    width: number;
+  } | null>(null);
 
   const triggerRef = useRef<HTMLDivElement | null>(null);
   const listRef = useRef<HTMLDivElement | null>(null);
@@ -187,9 +209,7 @@ export const TreeSelect: React.FC<TreeSelectProps> = ({
   };
 
   const selectedItems = useMemo(() => {
-    return selectedIds
-      .map((id) => findNode(nodes, id))
-      .filter((n): n is TreeNode => Boolean(n));
+    return selectedIds.map((id) => findNode(nodes, id)).filter((n): n is TreeNode => Boolean(n));
   }, [selectedIds, nodes]);
 
   const renderNode = (node: TreeNode, level: number): React.ReactNode => {
@@ -232,12 +252,21 @@ export const TreeSelect: React.FC<TreeSelectProps> = ({
             <span className={cx("sisyphos-tree-checkbox", state)}>
               {state === "checked" && (
                 <svg viewBox="0 0 16 16" width="10" height="10" aria-hidden="true">
-                  <path d="M2 8l4 4 8-8" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
+                  <path
+                    d="M2 8l4 4 8-8"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2.5"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
                 </svg>
               )}
               {state === "partial" && <span className="sisyphos-tree-partial" />}
             </span>
-            <span className="sisyphos-tree-label" title={node.label}>{node.label}</span>
+            <span className="sisyphos-tree-label" title={node.label}>
+              {node.label}
+            </span>
           </button>
         </div>
         {hasChildren && isOpenNode && (
@@ -269,7 +298,9 @@ export const TreeSelect: React.FC<TreeSelectProps> = ({
       )}
     >
       {label && (
-        <label className={cx("sisyphos-tree-select-label", error && "error", required && "required")}>
+        <label
+          className={cx("sisyphos-tree-select-label", error && "error", required && "required")}
+        >
           {label}
         </label>
       )}
@@ -307,7 +338,9 @@ export const TreeSelect: React.FC<TreeSelectProps> = ({
             <ClearIcon />
           </button>
         )}
-        <span className="sisyphos-tree-select-chevron"><ChevronIcon rotated={open} /></span>
+        <span className="sisyphos-tree-select-chevron">
+          <ChevronIcon rotated={open} />
+        </span>
       </div>
 
       {open && (
@@ -348,7 +381,9 @@ export const TreeSelect: React.FC<TreeSelectProps> = ({
       )}
 
       {error && errorMessage && (
-        <span className="sisyphos-tree-select-error" role="alert">{errorMessage}</span>
+        <span className="sisyphos-tree-select-error" role="alert">
+          {errorMessage}
+        </span>
       )}
     </div>
   );

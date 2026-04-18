@@ -195,3 +195,37 @@ $radio-colors: (
   font-size: $size-sm;
   color: var(--sisyphos-color-neutral-dark, #637381);
 }
+
+.sisyphos-radio-add-option {
+  appearance: none;
+  align-self: flex-start;
+  margin-top: $spacing-xs;
+  display: inline-flex;
+  align-items: center;
+  gap: $spacing-xxs;
+  padding: $spacing-xs $spacing-s;
+  border: 1px dashed var(--sisyphos-color-border, #eef0f2);
+  border-radius: $radius-s;
+  background: transparent;
+  color: var(--sisyphos-color-primary, #ff7022);
+  font: inherit;
+  font-size: $size-sm;
+  font-weight: $font-weight-medium;
+  cursor: pointer;
+  transition: background $duration-s, border-color $duration-s;
+
+  &:hover:not(:disabled) {
+    background: var(--sisyphos-color-primary-lighter, #ffede0);
+    border-color: var(--sisyphos-color-primary, #ff7022);
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--sisyphos-color-primary, #ff7022);
+    outline-offset: 2px;
+  }
+
+  &:disabled {
+    opacity: $opacity-xs;
+    cursor: not-allowed;
+  }
+}

@@ -64,6 +64,108 @@ describe("Table", () => {
     await userEvent.click(screen.getByText("Ada"));
     expect(onRowClick).toHaveBeenCalledWith(rows[0], 0);
   });
+
+  it("searchable renders a search input and emits onSearchChange", async () => {
+    const onSearchChange = vi.fn();
+    render(
+      <Table
+        data={rows}
+        columns={columns}
+        rowKey={(r) => r.id}
+        searchable
+        onSearchChange={onSearchChange}
+      />
+    );
+    const input = screen.getByRole("searchbox");
+    await userEvent.type(input, "Ada");
+    expect(onSearchChange).toHaveBeenLastCalledWith("Ada");
+  });
+
+  it("toolbar slot renders arbitrary content", () => {
+    render(
+      <Table
+        data={rows}
+        columns={columns}
+        rowKey={(r) => r.id}
+        toolbar={<button data-testid="filter-btn">Filter</button>}
+      />
+    );
+    expect(screen.getByTestId("filter-btn")).toBeInTheDocument();
+  });
+
+  it("expandable shows chevron, reveals content on click", async () => {
+    render(
+      <Table
+        data={rows}
+        columns={columns}
+        rowKey={(r) => r.id}
+        expandable
+        renderExpanded={(r) => <div data-testid={`details-${r.id}`}>Details for {r.name}</div>}
+      />
+    );
+    expect(screen.queryByTestId("details-1")).not.toBeInTheDocument();
+    const buttons = screen.getAllByRole("button", { name: /expand row/i });
+    await userEvent.click(buttons[0]);
+    expect(screen.getByTestId("details-1")).toBeInTheDocument();
+    expect(screen.getByText("Details for Ada")).toBeInTheDocument();
+  });
+
+  it("rowExpandable lets the caller hide the chevron for some rows", () => {
+    render(
+      <Table
+        data={rows}
+        columns={columns}
+        rowKey={(r) => r.id}
+        expandable
+        rowExpandable={(r) => r.id === 1}
+        renderExpanded={() => <div>x</div>}
+      />
+    );
+    const buttons = screen.queryAllByRole("button", { name: /expand row/i });
+    expect(buttons).toHaveLength(1);
+  });
+
+  it("pagination config renders Pagination footer + summary", () => {
+    render(
+      <Table
+        data={rows}
+        columns={columns}
+        rowKey={(r) => r.id}
+        pagination={{
+          page: 1,
+          pageCount: 3,
+          onPageChange: () => {},
+          pageSize: 10,
+          total: 23,
+        }}
+      />
+    );
+    expect(screen.getByText(/Showing 1–10 of 23/)).toBeInTheDocument();
+    expect(screen.getByRole("navigation", { name: "Pagination" })).toBeInTheDocument();
+  });
+
+  it("pagination pageSizeOptions renders a page-size selector", async () => {
+    const onPageSizeChange = vi.fn();
+    render(
+      <Table
+        data={rows}
+        columns={columns}
+        rowKey={(r) => r.id}
+        pagination={{
+          page: 1,
+          pageCount: 10,
+          onPageChange: () => {},
+          pageSize: 10,
+          pageSizeOptions: [10, 25, 50],
+          onPageSizeChange,
+          total: 100,
+        }}
+      />
+    );
+    const select = screen.getByRole("combobox");
+    await userEvent.selectOptions(select, "25");
+    expect(onPageSizeChange).toHaveBeenCalledWith(25);
+  });
 });
 
 describe("Pagination", () => {

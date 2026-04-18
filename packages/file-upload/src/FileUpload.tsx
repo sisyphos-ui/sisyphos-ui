@@ -5,7 +5,8 @@
  *
  * Always controlled: parent owns the list of files via `value`/`onChange`.
  */
-import React, { useCallback, useId, useRef, useState } from "react";
+import type React from "react";
+import { useCallback, useId, useRef, useState } from "react";
 import { cx } from "@sisyphos-ui/core/internal";
 import type { UploadedFile, RejectReason } from "./types";
 import { createId, formatBytes, imagePreview, matchesAccept } from "./utils";
@@ -56,21 +57,46 @@ const DEFAULT_LABELS: Required<FileUploadLabels> = {
 };
 
 const UploadIcon = () => (
-  <svg viewBox="0 0 24 24" width="32" height="32" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+  <svg
+    viewBox="0 0 24 24"
+    width="32"
+    height="32"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="1.5"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+    aria-hidden="true"
+  >
     <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
-    <polyline points="17 8 12 3 7 8" /><line x1="12" y1="3" x2="12" y2="15" />
+    <polyline points="17 8 12 3 7 8" />
+    <line x1="12" y1="3" x2="12" y2="15" />
   </svg>
 );
 
 const FileGeneric = () => (
-  <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-    <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" /><polyline points="14 2 14 8 20 8" />
+  <svg
+    viewBox="0 0 24 24"
+    width="20"
+    height="20"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="1.5"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+    aria-hidden="true"
+  >
+    <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+    <polyline points="14 2 14 8 20 8" />
   </svg>
 );
 
 const RemoveIcon = () => (
   <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true">
-    <path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z" fill="currentColor" />
+    <path
+      d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"
+      fill="currentColor"
+    />
   </svg>
 );
 
@@ -101,10 +127,7 @@ export const FileUpload: React.FC<FileUploadProps> = ({
   // `maxFiles=1` always allows replacement; multi-mode gates on remaining slots.
   const canAddMore = !disabled && (maxFiles === 1 || value.length < maxFiles);
 
-  const commit = useCallback(
-    (next: UploadedFile[]) => onChange(next),
-    [onChange]
-  );
+  const commit = useCallback((next: UploadedFile[]) => onChange(next), [onChange]);
 
   const processFiles = useCallback(
     (fileList: FileList | File[]) => {
@@ -180,8 +203,14 @@ export const FileUpload: React.FC<FileUploadProps> = ({
   };
 
   return (
-    <div className={cx("sisyphos-file-upload", error && "error", disabled && "disabled", className)}>
-      {label && <label className="sisyphos-file-upload-label" htmlFor={inputId}>{label}</label>}
+    <div
+      className={cx("sisyphos-file-upload", error && "error", disabled && "disabled", className)}
+    >
+      {label && (
+        <label className="sisyphos-file-upload-label" htmlFor={inputId}>
+          {label}
+        </label>
+      )}
 
       <div
         className={cx(
@@ -228,7 +257,9 @@ export const FileUpload: React.FC<FileUploadProps> = ({
       {(supportedFormats?.length || maxSize) && (
         <div className="sisyphos-file-upload-hints">
           {supportedFormats?.length ? (
-            <span><strong>{L.supportedFormats}</strong> {supportedFormats.join(", ")}</span>
+            <span>
+              <strong>{L.supportedFormats}</strong> {supportedFormats.join(", ")}
+            </span>
           ) : null}
           <span>{L.maxSize(maxSize)}</span>
         </div>
@@ -237,7 +268,8 @@ export const FileUpload: React.FC<FileUploadProps> = ({
       {value.length > 0 && (
         <ul className="sisyphos-file-upload-list">
           {value.map((f) => {
-            if (renderFile) return <li key={f.id}>{renderFile(f, { remove: () => remove(f.id) })}</li>;
+            if (renderFile)
+              return <li key={f.id}>{renderFile(f, { remove: () => remove(f.id) })}</li>;
             const uploading = f.status === "uploading";
             const success = f.status === "success";
             const err = f.status === "error";
@@ -248,10 +280,14 @@ export const FileUpload: React.FC<FileUploadProps> = ({
                     {f.preview ? <img src={f.preview} alt="" /> : <FileGeneric />}
                   </div>
                   <div className="sisyphos-file-upload-item-info">
-                    <span className="sisyphos-file-upload-item-name" title={f.name}>{f.name}</span>
+                    <span className="sisyphos-file-upload-item-name" title={f.name}>
+                      {f.name}
+                    </span>
                     <span className="sisyphos-file-upload-item-meta">
                       {f.size ? formatBytes(f.size) : null}
-                      {uploading && f.progress !== undefined ? ` · ${L.uploading} ${f.progress}%` : null}
+                      {uploading && f.progress !== undefined
+                        ? ` · ${L.uploading} ${f.progress}%`
+                        : null}
                       {success ? ` · ${L.completed}` : null}
                       {err ? ` · ${f.error ?? "Upload failed"}` : null}
                     </span>
@@ -268,7 +304,10 @@ export const FileUpload: React.FC<FileUploadProps> = ({
                 </div>
                 {uploading && f.progress !== undefined && (
                   <div className="sisyphos-file-upload-progress">
-                    <div className="sisyphos-file-upload-progress-bar" style={{ width: `${f.progress}%` }} />
+                    <div
+                      className="sisyphos-file-upload-progress-bar"
+                      style={{ width: `${f.progress}%` }}
+                    />
                   </div>
                 )}
               </li>
@@ -278,7 +317,9 @@ export const FileUpload: React.FC<FileUploadProps> = ({
       )}
 
       {error && errorMessage && (
-        <span className="sisyphos-file-upload-error" role="alert">{errorMessage}</span>
+        <span className="sisyphos-file-upload-error" role="alert">
+          {errorMessage}
+        </span>
       )}
     </div>
   );

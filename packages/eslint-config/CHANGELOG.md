@@ -1,5 +1,21 @@
 # Changelog
 
+## 0.2.1
+
+### Patch Changes
+
+- Component and tooling improvements across the library.
+  - **Input**: input mask support (`mask` prop + new `mask.ts` helpers), expanded variants, refreshed styles, more test coverage.
+  - **Table**: richer data-table features — sorting, selection, loading skeleton, empty state, refined pagination, broader test coverage.
+  - **DropdownMenu**: improved keyboard navigation, submenus, and styling.
+  - **DatePicker**: UX and styling refinements, better edge-case handling.
+  - **Checkbox / Radio / RadioGroup**: a11y polish and consistent styling.
+  - **Skeleton**: new `PageSkeleton` component and richer skeleton primitives.
+  - **FileUpload**: drag-and-drop and file-type filtering polish.
+  - **Slider / Carousel / Tabs / Tooltip / Popover / Toast / EmptyState / Alert / Accordion / Card / Dialog / Spinner / Select / TreeSelect**: behavioural fixes and styling refinements.
+  - **ui**: `bundle-css.mjs` build tweaks for aggregated stylesheet output.
+  - **eslint-config**: ruleset tuning.
+
 ## 0.2.0
 
 ### Minor Changes

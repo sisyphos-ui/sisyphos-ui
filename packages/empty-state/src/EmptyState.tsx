@@ -16,6 +16,12 @@ export interface EmptyStateProps extends Omit<React.HTMLAttributes<HTMLDivElemen
   size?: "sm" | "md" | "lg";
   /** Dashed border + subtle background. Defaults to `false` (bare). */
   bordered?: boolean;
+  /**
+   * Layout mode.
+   *   `block`  — vertical full-bleed (default) — icon above title + description.
+   *   `inline` — compact horizontal row — icon next to text; fits inside modals, cards, filter rows.
+   */
+  variant?: "block" | "inline";
 }
 
 export const EmptyState = React.forwardRef<HTMLDivElement, EmptyStateProps>(
@@ -27,6 +33,7 @@ export const EmptyState = React.forwardRef<HTMLDivElement, EmptyStateProps>(
       actions,
       size = "md",
       bordered = false,
+      variant = "block",
       className,
       children,
       ...rest
@@ -37,7 +44,7 @@ export const EmptyState = React.forwardRef<HTMLDivElement, EmptyStateProps>(
       <div
         ref={ref}
         role="status"
-        className={cx("sisyphos-empty-state", size, bordered && "bordered", className)}
+        className={cx("sisyphos-empty-state", size, variant, bordered && "bordered", className)}
         {...rest}
       >
         {icon && <div className="sisyphos-empty-state-icon" aria-hidden="true">{icon}</div>}

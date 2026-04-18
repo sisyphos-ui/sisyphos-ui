@@ -5,7 +5,7 @@
  * Provides slots for title, description, icon (defaulted per `color`), actions,
  * and an optional close button when `onClose` is supplied.
  */
-import React from "react";
+import React, { useEffect } from "react";
 import { cx } from "@sisyphos-ui/core/internal";
 import type { SemanticColor } from "@sisyphos-ui/core/internal";
 import "./Alert.scss";
@@ -23,9 +23,14 @@ export interface AlertProps extends Omit<React.HTMLAttributes<HTMLDivElement>, "
   /** Action slot (typically a Button). */
   actions?: React.ReactNode;
   /** When provided, renders a close button. */
-  onClose?: (event: React.MouseEvent<HTMLButtonElement>) => void;
+  onClose?: (event?: React.MouseEvent<HTMLButtonElement>) => void;
   /** aria-label for the close button. Defaults to "Close". */
   closeAriaLabel?: string;
+  /**
+   * When set, auto-dismiss the alert after this many ms. `onClose` fires when
+   * the timer elapses. Requires `onClose` to also unmount the alert.
+   */
+  autoCloseDuration?: number;
 }
 
 // Default icons per semantic color.
@@ -79,6 +84,7 @@ export const Alert = React.forwardRef<HTMLDivElement, AlertProps>(function Alert
     actions,
     onClose,
     closeAriaLabel = "Close",
+    autoCloseDuration,
     className,
     children,
     role,
@@ -88,6 +94,12 @@ export const Alert = React.forwardRef<HTMLDivElement, AlertProps>(function Alert
 ) {
   const iconNode = icon === null ? null : icon ?? DEFAULT_ICONS[color];
   const inferredRole = role ?? (color === "error" ? "alert" : "status");
+
+  useEffect(() => {
+    if (!autoCloseDuration || !onClose) return;
+    const t = setTimeout(() => onClose(), autoCloseDuration);
+    return () => clearTimeout(t);
+  }, [autoCloseDuration, onClose]);
 
   return (
     <div

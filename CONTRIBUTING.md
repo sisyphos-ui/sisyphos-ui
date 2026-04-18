@@ -96,7 +96,8 @@ Maintainers: do not publish manually unless you are recovering from a failed rel
 
 ## Code style
 
-- **Prettier** and **ESLint** run in CI. `pnpm format` fixes style before you commit.
+- **Prettier** and **ESLint** run in CI. Use `pnpm format` to fix style before you commit — it only touches files you've changed (staged → working tree → branch diff).
+- If you want to re-format the entire repo intentionally, run `pnpm format:all`. Don't do this inside a feature PR; it balloons the diff and churns unrelated files.
 - Follow the component patterns in existing packages (e.g. [`packages/button`](./packages/button)) — `forwardRef` default export, `Component.scss` co-located, tests in `Component.test.tsx`, stories in `Component.stories.tsx`.
 - Keep public APIs small. If you're adding a prop, check whether the behavior belongs under an existing one first.
 

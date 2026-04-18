@@ -16,6 +16,10 @@ $spinner-colors: (
   box-sizing: border-box;
   border-style: solid;
   border-radius: 50%;
+  // Tailwind v4 preflight sets `* { border-color: currentColor }` — we force
+  // every side to transparent up front and per-color rules re-color top/right.
+  // Each rule must be explicit so the per-color selector beats the reset on
+  // any side it does not re-set.
   border-color: transparent;
   animation: sisyphos-spin 0.9s linear infinite;
   position: relative;
@@ -30,12 +34,16 @@ $spinner-colors: (
     &.#{$name} {
       border-top-color: $col;
       border-right-color: $col;
+      border-bottom-color: transparent;
+      border-left-color: transparent;
     }
   }
 
   &.inherit {
     border-top-color: currentColor;
     border-right-color: currentColor;
+    border-bottom-color: transparent;
+    border-left-color: transparent;
   }
 
   /* Double-ring: counter-rotating inner ring at 70% */
@@ -55,6 +63,8 @@ $spinner-colors: (
 
   @each $name, $col in $spinner-colors {
     &.#{$name}.double::after {
+      border-top-color: transparent;
+      border-right-color: transparent;
       border-bottom-color: $col;
       border-left-color: $col;
       opacity: 0.7;
@@ -62,6 +72,8 @@ $spinner-colors: (
   }
 
   &.inherit.double::after {
+    border-top-color: transparent;
+    border-right-color: transparent;
     border-bottom-color: currentColor;
     border-left-color: currentColor;
     opacity: 0.7;
