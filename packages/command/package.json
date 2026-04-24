@@ -1,6 +1,6 @@
 {
   "name": "@sisyphos-ui/command",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Command palette component for Sisyphos UI design system",
   "keywords": [
     "command-palette",
