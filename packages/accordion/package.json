@@ -1,6 +1,6 @@
 {
   "name": "@sisyphos-ui/accordion",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "description": "Accessible accordion (single or multi-expand) with compound Item/Trigger/Content",
   "keywords": [
     "accordion",

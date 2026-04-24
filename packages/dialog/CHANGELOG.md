@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.4.0
+
+### Minor Changes
+
+- 3252749: Added `showCloseButton` and `closeButtonLabel` props to `<Dialog>`. When `showCloseButton` is true, a `Dialog.Close` is auto-rendered in the top-right of the dialog — no manual `<Dialog.Close />` composition needed. Default is `false` to preserve existing behavior for callers who compose the close button themselves (e.g. inside a custom header).
+
 ## 0.3.0
 
 ### Minor Changes
