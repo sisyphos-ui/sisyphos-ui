@@ -220,8 +220,7 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(function Inp
   const isControlled = props.value !== undefined;
 
   const [internalValue, setInternalValue] = useState(() => {
-    const initial =
-      props.value !== undefined ? String(props.value) : String(defaultValue ?? "");
+    const initial = props.value !== undefined ? String(props.value) : String(defaultValue ?? "");
     return mask ? applyMask(initial, mask) : initial;
   });
 

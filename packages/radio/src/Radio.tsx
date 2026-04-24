@@ -6,7 +6,10 @@ import React, { useCallback } from "react";
 import { cx } from "@sisyphos-ui/core/internal";
 import { useRadioGroup } from "./context";
 
-export interface RadioProps extends Omit<React.InputHTMLAttributes<HTMLInputElement>, "size" | "type" | "value" | "onChange"> {
+export interface RadioProps extends Omit<
+  React.InputHTMLAttributes<HTMLInputElement>,
+  "size" | "type" | "value" | "onChange"
+> {
   /** Value submitted when this option is selected. */
   value: string | number;
   /** Primary label rendered next to the control. */
@@ -84,10 +87,7 @@ export const Radio = React.forwardRef<HTMLInputElement, RadioProps>(function Rad
         )}
       </span>
       {checked && children && (
-        <span
-          className="sisyphos-radio-nested"
-          onClick={(e) => e.stopPropagation()}
-        >
+        <span className="sisyphos-radio-nested" onClick={(e) => e.stopPropagation()}>
           {children}
         </span>
       )}

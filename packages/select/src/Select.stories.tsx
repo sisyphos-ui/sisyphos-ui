@@ -43,23 +43,16 @@ export const Searchable: Story = {
 export const MultipleWithSearch: Story = {
   render: (args) => {
     const [v, setV] = useState<SelectValue[]>([]);
-    return (
-      <Select
-        {...args}
-        multiple
-        searchable
-        label="Countries"
-        value={v}
-        onChange={setV}
-      />
-    );
+    return <Select {...args} multiple searchable label="Countries" value={v} onChange={setV} />;
   },
 };
 
 export const Creatable: Story = {
   render: (args) => {
     const [v, setV] = useState<SelectValue[]>([]);
-    return <Select {...args} multiple creatable label="Tags" value={v} onChange={setV} options={[]} />;
+    return (
+      <Select {...args} multiple creatable label="Tags" value={v} onChange={setV} options={[]} />
+    );
   },
 };
 

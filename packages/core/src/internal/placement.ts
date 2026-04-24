@@ -50,7 +50,12 @@ export function computePosition(
     );
   };
 
-  const opposite: Record<string, string> = { top: "bottom", bottom: "top", left: "right", right: "left" };
+  const opposite: Record<string, string> = {
+    top: "bottom",
+    bottom: "top",
+    left: "right",
+    right: "left",
+  };
   let resolved = placement;
   if (!fits(resolved)) {
     const flipped = `${opposite[main]}${align === "center" ? "" : `-${align}`}` as Placement;

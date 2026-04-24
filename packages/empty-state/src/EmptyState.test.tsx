@@ -10,20 +10,13 @@ describe("EmptyState", () => {
   });
 
   it("renders icon slot aria-hidden", () => {
-    const { container } = render(
-      <EmptyState icon={<svg data-testid="i" />} title="x" />
-    );
+    const { container } = render(<EmptyState icon={<svg data-testid="i" />} title="x" />);
     const iconWrap = container.querySelector(".sisyphos-empty-state-icon");
     expect(iconWrap).toHaveAttribute("aria-hidden", "true");
   });
 
   it("renders actions", () => {
-    render(
-      <EmptyState
-        title="x"
-        actions={<button>Reset</button>}
-      />
-    );
+    render(<EmptyState title="x" actions={<button>Reset</button>} />);
     expect(screen.getByRole("button", { name: "Reset" })).toBeInTheDocument();
   });
 

@@ -4,13 +4,23 @@ import { EmptyState } from "./EmptyState";
 
 const InboxIcon = () => (
   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
-    <path d="M3 7h18M5 7l1-3h12l1 3M5 7v11a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V7M9 11h6" strokeLinecap="round" strokeLinejoin="round" />
+    <path
+      d="M3 7h18M5 7l1-3h12l1 3M5 7v11a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V7M9 11h6"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
   </svg>
 );
 
 const PlusIcon = () => (
   <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true">
-    <path d="M12 5v14M5 12h14" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
+    <path
+      d="M12 5v14M5 12h14"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+    />
   </svg>
 );
 

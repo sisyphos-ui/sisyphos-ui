@@ -58,6 +58,15 @@ export const MinMax: Story = {
     const today = new Date();
     const min = new Date(today.getFullYear(), today.getMonth(), today.getDate() - 7);
     const max = new Date(today.getFullYear(), today.getMonth(), today.getDate() + 7);
-    return <DatePicker {...args} label="Within 2 weeks" value={v} onChange={setV} minDate={min} maxDate={max} />;
+    return (
+      <DatePicker
+        {...args}
+        label="Within 2 weeks"
+        value={v}
+        onChange={setV}
+        minDate={min}
+        maxDate={max}
+      />
+    );
   },
 };

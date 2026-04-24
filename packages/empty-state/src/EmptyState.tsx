@@ -24,37 +24,39 @@ export interface EmptyStateProps extends Omit<React.HTMLAttributes<HTMLDivElemen
   variant?: "block" | "inline";
 }
 
-export const EmptyState = React.forwardRef<HTMLDivElement, EmptyStateProps>(
-  function EmptyState(
-    {
-      icon,
-      title,
-      description,
-      actions,
-      size = "md",
-      bordered = false,
-      variant = "block",
-      className,
-      children,
-      ...rest
-    },
-    ref
-  ) {
-    return (
-      <div
-        ref={ref}
-        role="status"
-        className={cx("sisyphos-empty-state", size, variant, bordered && "bordered", className)}
-        {...rest}
-      >
-        {icon && <div className="sisyphos-empty-state-icon" aria-hidden="true">{icon}</div>}
-        {title && <h3 className="sisyphos-empty-state-title">{title}</h3>}
-        {description && <p className="sisyphos-empty-state-description">{description}</p>}
-        {children}
-        {actions && <div className="sisyphos-empty-state-actions">{actions}</div>}
-      </div>
-    );
-  }
-);
+export const EmptyState = React.forwardRef<HTMLDivElement, EmptyStateProps>(function EmptyState(
+  {
+    icon,
+    title,
+    description,
+    actions,
+    size = "md",
+    bordered = false,
+    variant = "block",
+    className,
+    children,
+    ...rest
+  },
+  ref
+) {
+  return (
+    <div
+      ref={ref}
+      role="status"
+      className={cx("sisyphos-empty-state", size, variant, bordered && "bordered", className)}
+      {...rest}
+    >
+      {icon && (
+        <div className="sisyphos-empty-state-icon" aria-hidden="true">
+          {icon}
+        </div>
+      )}
+      {title && <h3 className="sisyphos-empty-state-title">{title}</h3>}
+      {description && <p className="sisyphos-empty-state-description">{description}</p>}
+      {children}
+      {actions && <div className="sisyphos-empty-state-actions">{actions}</div>}
+    </div>
+  );
+});
 
 EmptyState.displayName = "EmptyState";

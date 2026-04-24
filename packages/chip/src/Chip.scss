@@ -80,13 +80,27 @@ $chip-colors: (
   }
 
   /* Radius */
-  &.radius-xxs { border-radius: $radius-xxs; }
-  &.radius-xs  { border-radius: $radius-xs; }
-  &.radius-sm  { border-radius: $radius-s; }
-  &.radius-md  { border-radius: $radius-md; }
-  &.radius-lg  { border-radius: $radius-lg; }
-  &.radius-xl  { border-radius: $radius-xl; }
-  &.radius-full { border-radius: $radius-full; }
+  &.radius-xxs {
+    border-radius: $radius-xxs;
+  }
+  &.radius-xs {
+    border-radius: $radius-xs;
+  }
+  &.radius-sm {
+    border-radius: $radius-s;
+  }
+  &.radius-md {
+    border-radius: $radius-md;
+  }
+  &.radius-lg {
+    border-radius: $radius-lg;
+  }
+  &.radius-xl {
+    border-radius: $radius-xl;
+  }
+  &.radius-full {
+    border-radius: $radius-full;
+  }
 
   /* Variant × Color matrix */
   @each $name, $config in $chip-colors {
@@ -111,8 +125,12 @@ $chip-colors: (
   &.clickable {
     cursor: pointer;
 
-    &:hover:not(.disabled) { opacity: $opacity-s; }
-    &:active:not(.disabled) { opacity: $opacity-md; }
+    &:hover:not(.disabled) {
+      opacity: $opacity-s;
+    }
+    &:active:not(.disabled) {
+      opacity: $opacity-md;
+    }
     &:focus-visible {
       outline: 2px solid var(--sisyphos-color-primary, #ff7022);
       outline-offset: 2px;
@@ -136,7 +154,12 @@ $chip-colors: (
   overflow: hidden;
   margin-left: calc(#{$spacing-s} * -0.5);
 
-  img, svg { width: 100%; height: 100%; object-fit: cover; }
+  img,
+  svg {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
 }
 
 .sisyphos-chip-icon {
@@ -144,7 +167,10 @@ $chip-colors: (
   align-items: center;
   font-size: 1em;
 
-  svg { width: 1em; height: 1em; }
+  svg {
+    width: 1em;
+    height: 1em;
+  }
 }
 
 .sisyphos-chip-label {
@@ -170,7 +196,10 @@ $chip-colors: (
   width: 1.25em;
   height: 1.25em;
 
-  svg { width: 0.9em; height: 0.9em; }
+  svg {
+    width: 0.9em;
+    height: 0.9em;
+  }
 
   &:hover:not(:disabled) {
     opacity: 1;

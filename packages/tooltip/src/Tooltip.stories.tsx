@@ -9,7 +9,16 @@ const meta: Meta<typeof Tooltip> = {
   argTypes: {
     placement: {
       control: "radio",
-      options: ["top", "bottom", "left", "right", "top-start", "top-end", "bottom-start", "bottom-end"],
+      options: [
+        "top",
+        "bottom",
+        "left",
+        "right",
+        "top-start",
+        "top-end",
+        "bottom-start",
+        "bottom-end",
+      ],
     },
   },
   args: { content: "I'm a tooltip", placement: "top", arrow: true },
@@ -43,7 +52,14 @@ export const AllPlacements: Story = {
 export const RichContent: Story = {
   render: (args) => (
     <div style={{ padding: 80 }}>
-      <Tooltip {...args} content={<><strong>Shortcut:</strong> ⌘K</>}>
+      <Tooltip
+        {...args}
+        content={
+          <>
+            <strong>Shortcut:</strong> ⌘K
+          </>
+        }
+      >
         <Button variant="soft">Search</Button>
       </Tooltip>
     </div>
@@ -66,7 +82,9 @@ export const InToolbar: Story = {
     <div style={{ padding: 80, display: "flex", gap: 4 }}>
       {(["Bold", "Italic", "Underline", "Strikethrough"] as const).map((label) => (
         <Tooltip key={label} content={label} placement="top">
-          <Button variant="text" size="sm">{label[0]}</Button>
+          <Button variant="text" size="sm">
+            {label[0]}
+          </Button>
         </Tooltip>
       ))}
     </div>

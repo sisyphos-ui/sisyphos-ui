@@ -28,9 +28,15 @@ export const Default: Story = {};
 export const AllVariants: Story = {
   render: (args) => (
     <div style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
-      <Chip {...args} variant="contained">contained</Chip>
-      <Chip {...args} variant="outlined">outlined</Chip>
-      <Chip {...args} variant="soft">soft</Chip>
+      <Chip {...args} variant="contained">
+        contained
+      </Chip>
+      <Chip {...args} variant="outlined">
+        outlined
+      </Chip>
+      <Chip {...args} variant="soft">
+        soft
+      </Chip>
     </div>
   ),
 };
@@ -39,7 +45,9 @@ export const AllColors: Story = {
   render: (args) => (
     <div style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
       {(["primary", "success", "error", "warning", "info"] as const).map((c) => (
-        <Chip key={c} {...args} color={c}>{c}</Chip>
+        <Chip key={c} {...args} color={c}>
+          {c}
+        </Chip>
       ))}
     </div>
   ),
@@ -49,7 +57,9 @@ export const AllSizes: Story = {
   render: (args) => (
     <div style={{ display: "flex", gap: 8, alignItems: "center", flexWrap: "wrap" }}>
       {(["xs", "sm", "md", "lg", "xl"] as const).map((s) => (
-        <Chip key={s} {...args} size={s}>{s}</Chip>
+        <Chip key={s} {...args} size={s}>
+          {s}
+        </Chip>
       ))}
     </div>
   ),

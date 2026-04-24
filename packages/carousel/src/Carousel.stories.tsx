@@ -12,7 +12,16 @@ export default meta;
 type Story = StoryObj<typeof Carousel>;
 
 const Slide: React.FC<{ bg: string; label: string }> = ({ bg, label }) => (
-  <div style={{ background: bg, height: 200, display: "grid", placeItems: "center", color: "#fff", fontSize: 32 }}>
+  <div
+    style={{
+      background: bg,
+      height: 200,
+      display: "grid",
+      placeItems: "center",
+      color: "#fff",
+      fontSize: 32,
+    }}
+  >
     {label}
   </div>
 );

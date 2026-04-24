@@ -51,7 +51,9 @@ export const WithLabelsAndShortcuts: Story = {
           { label: "Redo", shortcut: "⇧⌘Z", onSelect: () => {}, disabled: true },
         ]}
       >
-        <Button variant="outlined" endIcon={<ChevronDown />}>Menu</Button>
+        <Button variant="outlined" endIcon={<ChevronDown />}>
+          Menu
+        </Button>
       </DropdownMenu>
     </div>
   ),
@@ -60,8 +62,12 @@ export const WithLabelsAndShortcuts: Story = {
 export const InToolbar: Story = {
   render: () => (
     <div style={{ padding: 80, display: "flex", gap: 8, alignItems: "center" }}>
-      <Button variant="outlined" size="sm">Save</Button>
-      <Button variant="outlined" size="sm">Share</Button>
+      <Button variant="outlined" size="sm">
+        Save
+      </Button>
+      <Button variant="outlined" size="sm">
+        Share
+      </Button>
       <DropdownMenu
         items={[
           { label: "Export as PDF", onSelect: () => {} },
@@ -70,7 +76,9 @@ export const InToolbar: Story = {
           { label: "Print", shortcut: "⌘P", onSelect: () => {} },
         ]}
       >
-        <Button variant="outlined" size="sm" endIcon={<ChevronDown />}>More</Button>
+        <Button variant="outlined" size="sm" endIcon={<ChevronDown />}>
+          More
+        </Button>
       </DropdownMenu>
     </div>
   ),

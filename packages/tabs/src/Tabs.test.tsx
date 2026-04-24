@@ -70,7 +70,9 @@ describe("Tabs", () => {
       <Tabs defaultValue="a" onValueChange={onValueChange}>
         <Tabs.List>
           <Tabs.Trigger value="a">A</Tabs.Trigger>
-          <Tabs.Trigger value="b" disabled>B</Tabs.Trigger>
+          <Tabs.Trigger value="b" disabled>
+            B
+          </Tabs.Trigger>
         </Tabs.List>
         <Tabs.Panel value="a">Panel A</Tabs.Panel>
         <Tabs.Panel value="b">Panel B</Tabs.Panel>

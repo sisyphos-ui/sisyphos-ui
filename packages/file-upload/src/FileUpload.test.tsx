@@ -51,11 +51,7 @@ describe("FileUpload", () => {
   it("remove button removes a file", async () => {
     const onChange = vi.fn();
     render(
-      <FileUpload
-        label="x"
-        value={[{ id: "a", name: "a.pdf", size: 100 }]}
-        onChange={onChange}
-      />
+      <FileUpload label="x" value={[{ id: "a", name: "a.pdf", size: 100 }]} onChange={onChange} />
     );
     await userEvent.click(screen.getByRole("button", { name: "Remove file" }));
     expect(onChange).toHaveBeenCalledWith([]);

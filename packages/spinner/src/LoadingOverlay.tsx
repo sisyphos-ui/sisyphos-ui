@@ -31,16 +31,7 @@ export interface LoadingOverlayProps extends React.HTMLAttributes<HTMLDivElement
 
 export const LoadingOverlay = React.forwardRef<HTMLDivElement, LoadingOverlayProps>(
   function LoadingOverlay(
-    {
-      variant = "inline",
-      open = true,
-      text,
-      icon,
-      spinnerProps,
-      blur = true,
-      className,
-      ...rest
-    },
+    { variant = "inline", open = true, text, icon, spinnerProps, blur = true, className, ...rest },
     ref
   ) {
     if (!open) return null;

@@ -24,10 +24,21 @@
     padding: $spacing-s $spacing-md;
     gap: $spacing-s;
 
-    .sisyphos-empty-state-icon { font-size: 24px; }
-    .sisyphos-empty-state-title { font-size: $size-md; }
-    .sisyphos-empty-state-description { font-size: $size-sm; max-width: none; }
-    .sisyphos-empty-state-actions { margin-top: 0; margin-inline-start: auto; justify-content: flex-end; }
+    .sisyphos-empty-state-icon {
+      font-size: 24px;
+    }
+    .sisyphos-empty-state-title {
+      font-size: $size-md;
+    }
+    .sisyphos-empty-state-description {
+      font-size: $size-sm;
+      max-width: none;
+    }
+    .sisyphos-empty-state-actions {
+      margin-top: 0;
+      margin-inline-start: auto;
+      justify-content: flex-end;
+    }
   }
 
   /* Sizes */
@@ -35,25 +46,43 @@
     padding: $spacing-md;
     gap: $spacing-xs;
 
-    .sisyphos-empty-state-icon { font-size: 32px; }
-    .sisyphos-empty-state-title { font-size: $size-md; }
-    .sisyphos-empty-state-description { font-size: $size-sm; }
+    .sisyphos-empty-state-icon {
+      font-size: 32px;
+    }
+    .sisyphos-empty-state-title {
+      font-size: $size-md;
+    }
+    .sisyphos-empty-state-description {
+      font-size: $size-sm;
+    }
   }
   &.md {
     padding: $spacing-lg $spacing-md;
     gap: $spacing-s;
 
-    .sisyphos-empty-state-icon { font-size: 48px; }
-    .sisyphos-empty-state-title { font-size: $h5; }
-    .sisyphos-empty-state-description { font-size: $size-md; }
+    .sisyphos-empty-state-icon {
+      font-size: 48px;
+    }
+    .sisyphos-empty-state-title {
+      font-size: $h5;
+    }
+    .sisyphos-empty-state-description {
+      font-size: $size-md;
+    }
   }
   &.lg {
     padding: $spacing-2xl $spacing-lg;
     gap: $spacing-md;
 
-    .sisyphos-empty-state-icon { font-size: 64px; }
-    .sisyphos-empty-state-title { font-size: $h4; }
-    .sisyphos-empty-state-description { font-size: $size-md; }
+    .sisyphos-empty-state-icon {
+      font-size: 64px;
+    }
+    .sisyphos-empty-state-title {
+      font-size: $h4;
+    }
+    .sisyphos-empty-state-description {
+      font-size: $size-md;
+    }
   }
 }
 
@@ -64,7 +93,10 @@
   color: var(--sisyphos-color-neutral-dark, #637381);
   opacity: 0.6;
 
-  svg { width: 1em; height: 1em; }
+  svg {
+    width: 1em;
+    height: 1em;
+  }
 }
 
 .sisyphos-empty-state-title {

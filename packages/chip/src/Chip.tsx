@@ -11,8 +11,7 @@ import { CN, DEFAULTS, type Scale, type SemanticColor } from "./constants";
 
 type Radius = Scale | "full";
 
-export interface ChipProps
-  extends Omit<React.HTMLAttributes<HTMLDivElement>, "color"> {
+export interface ChipProps extends Omit<React.HTMLAttributes<HTMLDivElement>, "color"> {
   /** Visual variant. */
   variant?: "contained" | "outlined" | "soft";
   /** Semantic color. */

@@ -32,13 +32,7 @@ describe("Breadcrumb", () => {
     render(
       <Breadcrumb
         maxItems={3}
-        items={[
-          { label: "a" },
-          { label: "b" },
-          { label: "c" },
-          { label: "d" },
-          { label: "e" },
-        ]}
+        items={[{ label: "a" }, { label: "b" }, { label: "c" }, { label: "d" }, { label: "e" }]}
       />
     );
     expect(screen.getByText("…")).toBeInTheDocument();

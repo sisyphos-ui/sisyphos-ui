@@ -5,7 +5,10 @@ import { Accordion } from "./Accordion";
 
 function setup(overrides: { multiple?: boolean } = {}) {
   return render(
-    <Accordion defaultValue={overrides.multiple ? ["a"] : "a"} multiple={overrides.multiple as true}>
+    <Accordion
+      defaultValue={overrides.multiple ? ["a"] : "a"}
+      multiple={overrides.multiple as true}
+    >
       <Accordion.Item value="a">
         <Accordion.Trigger>A</Accordion.Trigger>
         <Accordion.Content>Body A</Accordion.Content>

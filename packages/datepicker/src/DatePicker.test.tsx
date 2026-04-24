@@ -28,7 +28,9 @@ describe("DatePicker (single)", () => {
 
   it("clear button resets value", async () => {
     const onChange = vi.fn();
-    render(<DatePicker label="Date" allowClear value={new Date(2025, 0, 15)} onChange={onChange} />);
+    render(
+      <DatePicker label="Date" allowClear value={new Date(2025, 0, 15)} onChange={onChange} />
+    );
     await userEvent.click(screen.getByRole("button", { name: "Clear date" }));
     expect(onChange).toHaveBeenCalledWith(null);
   });

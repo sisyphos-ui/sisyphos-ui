@@ -27,9 +27,7 @@ describe("Button", () => {
   });
 
   it("toggles dropdown menu", async () => {
-    render(
-      <Button dropdownItems={[{ label: "First", onClick: () => {} }]}>Menu</Button>
-    );
+    render(<Button dropdownItems={[{ label: "First", onClick: () => {} }]}>Menu</Button>);
     const btn = screen.getByRole("button", { name: /menu/i });
     expect(btn).toHaveAttribute("aria-expanded", "false");
     await userEvent.click(btn);

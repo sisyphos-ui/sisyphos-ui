@@ -22,7 +22,9 @@ export const Default: Story = {
       <Tabs.List>
         <Tabs.Trigger value="overview">Overview</Tabs.Trigger>
         <Tabs.Trigger value="settings">Settings</Tabs.Trigger>
-        <Tabs.Trigger value="logs" disabled>Logs</Tabs.Trigger>
+        <Tabs.Trigger value="logs" disabled>
+          Logs
+        </Tabs.Trigger>
       </Tabs.List>
       <Tabs.Panel value="overview">Overview content</Tabs.Panel>
       <Tabs.Panel value="settings">Settings content</Tabs.Panel>

@@ -17,7 +17,9 @@ export interface CardProps extends React.HTMLAttributes<HTMLDivElement> {
   interactive?: boolean;
 }
 
-interface CardComponent extends React.ForwardRefExoticComponent<CardProps & React.RefAttributes<HTMLDivElement>> {
+interface CardComponent extends React.ForwardRefExoticComponent<
+  CardProps & React.RefAttributes<HTMLDivElement>
+> {
   Header: typeof CardHeader;
   Body: typeof CardBody;
   Footer: typeof CardFooter;
@@ -30,7 +32,13 @@ const CardRoot = React.forwardRef<HTMLDivElement, CardProps>(function Card(
   return (
     <div
       ref={ref}
-      className={cx("sisyphos-card", variant, `padding-${padding}`, interactive && "interactive", className)}
+      className={cx(
+        "sisyphos-card",
+        variant,
+        `padding-${padding}`,
+        interactive && "interactive",
+        className
+      )}
       tabIndex={interactive ? 0 : undefined}
       role={interactive ? "button" : undefined}
       {...rest}
@@ -40,38 +48,35 @@ const CardRoot = React.forwardRef<HTMLDivElement, CardProps>(function Card(
   );
 });
 
-const CardHeader = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivElement>>(function CardHeader(
-  { className, children, ...rest },
-  ref
-) {
-  return (
-    <header ref={ref} className={cx("sisyphos-card-header", className)} {...rest}>
-      {children}
-    </header>
-  );
-});
+const CardHeader = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivElement>>(
+  function CardHeader({ className, children, ...rest }, ref) {
+    return (
+      <header ref={ref} className={cx("sisyphos-card-header", className)} {...rest}>
+        {children}
+      </header>
+    );
+  }
+);
 
-const CardBody = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivElement>>(function CardBody(
-  { className, children, ...rest },
-  ref
-) {
-  return (
-    <div ref={ref} className={cx("sisyphos-card-body", className)} {...rest}>
-      {children}
-    </div>
-  );
-});
+const CardBody = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivElement>>(
+  function CardBody({ className, children, ...rest }, ref) {
+    return (
+      <div ref={ref} className={cx("sisyphos-card-body", className)} {...rest}>
+        {children}
+      </div>
+    );
+  }
+);
 
-const CardFooter = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivElement>>(function CardFooter(
-  { className, children, ...rest },
-  ref
-) {
-  return (
-    <footer ref={ref} className={cx("sisyphos-card-footer", className)} {...rest}>
-      {children}
-    </footer>
-  );
-});
+const CardFooter = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivElement>>(
+  function CardFooter({ className, children, ...rest }, ref) {
+    return (
+      <footer ref={ref} className={cx("sisyphos-card-footer", className)} {...rest}>
+        {children}
+      </footer>
+    );
+  }
+);
 
 CardRoot.displayName = "Card";
 CardHeader.displayName = "Card.Header";

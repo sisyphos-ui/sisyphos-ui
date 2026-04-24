@@ -58,16 +58,20 @@ export default function App() {
       <Toaster position="bottom-right" />
 
       <header className="hero">
-        <Chip variant="soft" color="primary" size="sm">v0.2.0 — initial public release</Chip>
+        <Chip variant="soft" color="primary" size="sm">
+          v0.2.0 — initial public release
+        </Chip>
         <h1>Sisyphos UI</h1>
         <p>
-          A modern, accessible, themeable React component library. Thirty-plus components that
-          ship as independent, tree-shakable packages — built on CSS variables, strict TypeScript,
-          and zero runtime dependencies beyond React.
+          A modern, accessible, themeable React component library. Thirty-plus components that ship
+          as independent, tree-shakable packages — built on CSS variables, strict TypeScript, and
+          zero runtime dependencies beyond React.
         </p>
         <div className="hero-actions">
           <Button onClick={() => toast.success("Welcome to Sisyphos UI")}>Try a toast</Button>
-          <Button variant="outlined" onClick={() => setDialogOpen(true)}>Open dialog</Button>
+          <Button variant="outlined" onClick={() => setDialogOpen(true)}>
+            Open dialog
+          </Button>
           <Button variant="text" href="https://github.com/sisyphos-ui/sisyphos-ui">
             GitHub →
           </Button>
@@ -103,7 +107,12 @@ export default function App() {
           <div className="grid-2">
             <Input label="Email" type="email" placeholder="name@example.com" />
             <Input label="Password" type="password" defaultValue="secret123" />
-            <Textarea label="Bio" placeholder="Tell us a bit about yourself…" maxLength={140} showCharacterCount />
+            <Textarea
+              label="Bio"
+              placeholder="Tell us a bit about yourself…"
+              maxLength={140}
+              showCharacterCount
+            />
             <Select
               label="Country"
               value={country}
@@ -133,12 +142,21 @@ export default function App() {
         <Section title="Feedback" description="Toasts, alerts, skeletons, empty states.">
           <div className="row">
             <Button onClick={() => toast.success("Saved")}>Success toast</Button>
-            <Button color="error" onClick={() => toast.error("Something went wrong")}>Error toast</Button>
-            <Button color="warning" onClick={() => toast.warning("Heads up")}>Warning toast</Button>
+            <Button color="error" onClick={() => toast.error("Something went wrong")}>
+              Error toast
+            </Button>
+            <Button color="warning" onClick={() => toast.warning("Heads up")}>
+              Warning toast
+            </Button>
           </div>
           <div className="grid-2">
             <Alert color="success" title="All set" description="Your settings have been saved." />
-            <Alert color="warning" title="Storage almost full" description="Upgrade or clean up." onClose={() => {}} />
+            <Alert
+              color="warning"
+              title="Storage almost full"
+              description="Upgrade or clean up."
+              onClose={() => {}}
+            />
           </div>
           <Card>
             <Card.Header>Loading state</Card.Header>
@@ -228,8 +246,8 @@ export default function App() {
             <Accordion.Item value="a11y">
               <Accordion.Trigger>Is it accessible?</Accordion.Trigger>
               <Accordion.Content>
-                Every component targets the WAI-ARIA Authoring Practices and is tested with
-                keyboard + screen-reader expectations.
+                Every component targets the WAI-ARIA Authoring Practices and is tested with keyboard
+                + screen-reader expectations.
               </Accordion.Content>
             </Accordion.Item>
           </Accordion>
@@ -249,13 +267,20 @@ export default function App() {
         </Dialog.Header>
         <Dialog.Body>
           <Dialog.Description>
-            Every Sisyphos dialog traps focus, locks body scroll, and restores focus on close.
-            No config needed.
+            Every Sisyphos dialog traps focus, locks body scroll, and restores focus on close. No
+            config needed.
           </Dialog.Description>
         </Dialog.Body>
         <Dialog.Footer>
-          <Button variant="outlined" onClick={() => setDialogOpen(false)}>Cancel</Button>
-          <Button onClick={() => { setDialogOpen(false); toast.success("Shipped"); }}>
+          <Button variant="outlined" onClick={() => setDialogOpen(false)}>
+            Cancel
+          </Button>
+          <Button
+            onClick={() => {
+              setDialogOpen(false);
+              toast.success("Shipped");
+            }}
+          >
             Ship
           </Button>
         </Dialog.Footer>

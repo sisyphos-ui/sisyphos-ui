@@ -33,8 +33,15 @@ $arrow-size: 8px;
   transform: translateX(-50%);
   border-top-color: $popover-bg;
 }
-.sisyphos-popover.top-start .sisyphos-popover-arrow { left: $spacing-md; transform: none; }
-.sisyphos-popover.top-end   .sisyphos-popover-arrow { left: auto; right: $spacing-md; transform: none; }
+.sisyphos-popover.top-start .sisyphos-popover-arrow {
+  left: $spacing-md;
+  transform: none;
+}
+.sisyphos-popover.top-end .sisyphos-popover-arrow {
+  left: auto;
+  right: $spacing-md;
+  transform: none;
+}
 
 .sisyphos-popover.bottom .sisyphos-popover-arrow,
 .sisyphos-popover.bottom-start .sisyphos-popover-arrow,
@@ -44,8 +51,15 @@ $arrow-size: 8px;
   transform: translateX(-50%);
   border-bottom-color: $popover-bg;
 }
-.sisyphos-popover.bottom-start .sisyphos-popover-arrow { left: $spacing-md; transform: none; }
-.sisyphos-popover.bottom-end   .sisyphos-popover-arrow { left: auto; right: $spacing-md; transform: none; }
+.sisyphos-popover.bottom-start .sisyphos-popover-arrow {
+  left: $spacing-md;
+  transform: none;
+}
+.sisyphos-popover.bottom-end .sisyphos-popover-arrow {
+  left: auto;
+  right: $spacing-md;
+  transform: none;
+}
 
 .sisyphos-popover.left .sisyphos-popover-arrow {
   right: -#{$arrow-size * 2};

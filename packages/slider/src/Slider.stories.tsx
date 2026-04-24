@@ -19,28 +19,44 @@ type Story = StoryObj<typeof Slider>;
 export const Default: Story = {
   render: (args) => {
     const [v, setV] = useState(40);
-    return <div style={{ width: 320 }}><Slider {...args} value={v} onChange={setV} /></div>;
+    return (
+      <div style={{ width: 320 }}>
+        <Slider {...args} value={v} onChange={setV} />
+      </div>
+    );
   },
 };
 
 export const Range: Story = {
   render: (args) => {
     const [v, setV] = useState<[number, number]>([20, 80]);
-    return <div style={{ width: 320 }}><Slider {...args} range value={v} onChange={setV} /></div>;
+    return (
+      <div style={{ width: 320 }}>
+        <Slider {...args} range value={v} onChange={setV} />
+      </div>
+    );
   },
 };
 
 export const RangeMinGap: Story = {
   render: (args) => {
     const [v, setV] = useState<[number, number]>([10, 60]);
-    return <div style={{ width: 320 }}><Slider {...args} range minGap={20} value={v} onChange={setV} /></div>;
+    return (
+      <div style={{ width: 320 }}>
+        <Slider {...args} range minGap={20} value={v} onChange={setV} />
+      </div>
+    );
   },
 };
 
 export const Steps: Story = {
   render: (args) => {
     const [v, setV] = useState(50);
-    return <div style={{ width: 320 }}><Slider {...args} step={10} value={v} onChange={setV} /></div>;
+    return (
+      <div style={{ width: 320 }}>
+        <Slider {...args} step={10} value={v} onChange={setV} />
+      </div>
+    );
   },
 };
 
@@ -57,5 +73,9 @@ export const FormattedValue: Story = {
 
 export const Disabled: Story = {
   args: { disabled: true },
-  render: (args) => <div style={{ width: 320 }}><Slider {...args} value={30} /></div>,
+  render: (args) => (
+    <div style={{ width: 320 }}>
+      <Slider {...args} value={30} />
+    </div>
+  ),
 };

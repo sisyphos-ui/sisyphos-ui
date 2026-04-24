@@ -27,7 +27,10 @@
   color: var(--sisyphos-color-border, #c4cdd5);
   user-select: none;
 
-  svg { width: 1em; height: 1em; }
+  svg {
+    width: 1em;
+    height: 1em;
+  }
 }
 
 .sisyphos-breadcrumb-ellipsis {
@@ -47,7 +50,10 @@
   border-radius: $radius-xxs;
   transition: color $duration-s;
 
-  &:hover { color: var(--sisyphos-color-primary, #ff7022); text-decoration: underline; }
+  &:hover {
+    color: var(--sisyphos-color-primary, #ff7022);
+    text-decoration: underline;
+  }
 
   &:focus-visible {
     outline: 2px solid var(--sisyphos-color-primary, #ff7022);
@@ -67,5 +73,8 @@
 .sisyphos-breadcrumb-icon {
   display: inline-flex;
   align-items: center;
-  svg { width: 1em; height: 1em; }
+  svg {
+    width: 1em;
+    height: 1em;
+  }
 }

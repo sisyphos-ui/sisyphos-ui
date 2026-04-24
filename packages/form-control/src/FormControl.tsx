@@ -26,57 +26,55 @@ export interface FormControlProps extends Omit<React.HTMLAttributes<HTMLDivEleme
   children: ReactNode;
 }
 
-export const FormControl = React.forwardRef<HTMLDivElement, FormControlProps>(
-  function FormControl(
-    {
-      id: idProp,
-      disabled = false,
-      required = false,
-      readOnly = false,
-      error = false,
-      fullWidth = false,
-      className,
-      children,
-      ...rest
-    },
-    ref
-  ) {
-    const reactId = useId();
-    const id = idProp ?? `sisyphos-field-${reactId}`;
+export const FormControl = React.forwardRef<HTMLDivElement, FormControlProps>(function FormControl(
+  {
+    id: idProp,
+    disabled = false,
+    required = false,
+    readOnly = false,
+    error = false,
+    fullWidth = false,
+    className,
+    children,
+    ...rest
+  },
+  ref
+) {
+  const reactId = useId();
+  const id = idProp ?? `sisyphos-field-${reactId}`;
 
-    const ctx = useMemo(
-      () => ({
-        id,
-        labelId: `${id}-label`,
-        helperId: `${id}-helper`,
-        errorId: `${id}-error`,
-        disabled,
-        required,
-        readOnly,
-        error,
-        describedBy: error ? `${id}-error` : `${id}-helper`,
-      }),
-      [id, disabled, required, readOnly, error]
-    );
+  const ctx = useMemo(
+    () => ({
+      id,
+      labelId: `${id}-label`,
+      helperId: `${id}-helper`,
+      errorId: `${id}-error`,
+      disabled,
+      required,
+      readOnly,
+      error,
+      describedBy: error ? `${id}-error` : `${id}-helper`,
+    }),
+    [id, disabled, required, readOnly, error]
+  );
 
-    return (
-      <FormControlContext.Provider value={ctx}>
-        <div
-          ref={ref}
-          className={cx(
-            "sisyphos-form-control",
-            error && "error",
-            disabled && "disabled",
-            fullWidth && "full-width",
-            className
-          )}
-          {...rest}
-        >
-          {children}
-        </div>
-      </FormControlContext.Provider>
-    );
-  }
-);
+  return (
+    <FormControlContext.Provider value={ctx}>
+      <div
+        ref={ref}
+        className={cx(
+          "sisyphos-form-control",
+          error && "error",
+          disabled && "disabled",
+          fullWidth && "full-width",
+          className
+        )}
+        {...rest}
+      >
+        {children}
+      </div>
+    </FormControlContext.Provider>
+  );
+});
 
 FormControl.displayName = "FormControl";

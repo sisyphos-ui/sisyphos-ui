@@ -46,12 +46,20 @@
   justify-content: center;
   cursor: pointer;
   z-index: 1;
-  transition: background $duration-s, opacity $duration-s;
+  transition:
+    background $duration-s,
+    opacity $duration-s;
 
-  &.prev { left: $spacing-s; }
-  &.next { right: $spacing-s; }
+  &.prev {
+    left: $spacing-s;
+  }
+  &.next {
+    right: $spacing-s;
+  }
 
-  &:hover:not(:disabled) { background: rgba(0, 0, 0, 0.6); }
+  &:hover:not(:disabled) {
+    background: rgba(0, 0, 0, 0.6);
+  }
   &:focus-visible {
     outline: 2px solid var(--sisyphos-color-primary, #ff7022);
     outline-offset: 2px;
@@ -78,9 +86,13 @@
   border-radius: 50%;
   cursor: pointer;
   padding: 0;
-  transition: background $duration-s, transform $duration-s;
+  transition:
+    background $duration-s,
+    transform $duration-s;
 
-  &:hover { background: var(--sisyphos-color-neutral-dark, #919eab); }
+  &:hover {
+    background: var(--sisyphos-color-neutral-dark, #919eab);
+  }
   &.active {
     background: var(--sisyphos-color-primary, #ff7022);
     transform: scale(1.25);

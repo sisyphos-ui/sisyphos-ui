@@ -10,7 +10,16 @@ const meta: Meta<typeof Popover> = {
   argTypes: {
     placement: {
       control: "radio",
-      options: ["top", "bottom", "left", "right", "top-start", "top-end", "bottom-start", "bottom-end"],
+      options: [
+        "top",
+        "bottom",
+        "left",
+        "right",
+        "top-start",
+        "top-end",
+        "bottom-start",
+        "bottom-end",
+      ],
     },
     trigger: { control: "radio", options: ["click", "hover", "manual"] },
   },
@@ -50,7 +59,9 @@ export const Controlled: Story = {
         <Popover {...args} open={open} onOpenChange={setOpen}>
           <Button color={open ? "success" : "primary"}>{open ? "Close" : "Open"}</Button>
         </Popover>
-        <Button variant="outlined" onClick={() => setOpen((o) => !o)}>External toggle</Button>
+        <Button variant="outlined" onClick={() => setOpen((o) => !o)}>
+          External toggle
+        </Button>
       </div>
     );
   },

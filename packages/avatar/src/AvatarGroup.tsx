@@ -20,47 +20,40 @@ export interface AvatarGroupProps extends React.HTMLAttributes<HTMLDivElement> {
   overflowColor?: AvatarColor;
 }
 
-export const AvatarGroup = React.forwardRef<HTMLDivElement, AvatarGroupProps>(
-  function AvatarGroup(
-    {
-      children,
-      className,
-      max,
-      renderOverflow,
-      size = DEFAULTS.size,
-      shape = DEFAULTS.shape,
-      overflowColor = "neutral",
-      ...rest
-    },
-    ref
-  ) {
-    const all = Children.toArray(children).filter(isValidElement);
-    const visible = typeof max === "number" ? all.slice(0, max) : all;
-    const hidden = all.length - visible.length;
+export const AvatarGroup = React.forwardRef<HTMLDivElement, AvatarGroupProps>(function AvatarGroup(
+  {
+    children,
+    className,
+    max,
+    renderOverflow,
+    size = DEFAULTS.size,
+    shape = DEFAULTS.shape,
+    overflowColor = "neutral",
+    ...rest
+  },
+  ref
+) {
+  const all = Children.toArray(children).filter(isValidElement);
+  const visible = typeof max === "number" ? all.slice(0, max) : all;
+  const hidden = all.length - visible.length;
 
-    return (
-      <div ref={ref} className={cx(CN.group, size, className)} {...rest}>
-        {visible.map((child, idx) => {
-          const el = child as React.ReactElement<AvatarProps>;
-          return cloneElement(el, {
-            key: el.key ?? idx,
-            size: el.props.size ?? size,
-            shape: el.props.shape ?? shape,
-          });
-        })}
-        {hidden > 0 && (
-          <Avatar
-            className={CN.groupOverflow}
-            size={size}
-            shape={shape}
-            color={overflowColor}
-          >
-            {renderOverflow ? renderOverflow(hidden) : `+${hidden}`}
-          </Avatar>
-        )}
-      </div>
-    );
-  }
-);
+  return (
+    <div ref={ref} className={cx(CN.group, size, className)} {...rest}>
+      {visible.map((child, idx) => {
+        const el = child as React.ReactElement<AvatarProps>;
+        return cloneElement(el, {
+          key: el.key ?? idx,
+          size: el.props.size ?? size,
+          shape: el.props.shape ?? shape,
+        });
+      })}
+      {hidden > 0 && (
+        <Avatar className={CN.groupOverflow} size={size} shape={shape} color={overflowColor}>
+          {renderOverflow ? renderOverflow(hidden) : `+${hidden}`}
+        </Avatar>
+      )}
+    </div>
+  );
+});
 
 AvatarGroup.displayName = "AvatarGroup";

@@ -91,13 +91,7 @@ type Story = StoryObj<typeof meta>;
 export const Playground: Story = {
   render: (args) => {
     const [checked, setChecked] = useState(args.checked ?? false);
-    return (
-      <Checkbox
-        {...args}
-        checked={checked}
-        onChange={(v) => setChecked(v)}
-      />
-    );
+    return <Checkbox {...args} checked={checked} onChange={(v) => setChecked(v)} />;
   },
   args: {
     color: "primary",
