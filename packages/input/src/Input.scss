@@ -204,9 +204,17 @@
   transform: translateY(-50%);
   display: flex;
   align-items: center;
+  justify-content: center;
   color: var(--sisyphos-color-neutral-darker, #919eab);
   pointer-events: none;
   transition: color $duration-s;
+
+  /* Clamp icon glyphs to text scale — prevents 24×24 lucide defaults from
+   * dominating small inputs and throwing off vertical centering. */
+  > svg, > img {
+    width: 1.15em;
+    height: 1.15em;
+  }
 }
 
 .sisyphos-input-container.focused .sisyphos-input-icon--start {
@@ -266,6 +274,11 @@
   justify-content: center;
   color: var(--sisyphos-color-neutral-darker, #919eab);
   pointer-events: none;
+
+  > svg, > img {
+    width: 1.15em;
+    height: 1.15em;
+  }
 }
 
 /* ─── LABEL TOOLTIP ───────────────────────────────────────────────────────── */
