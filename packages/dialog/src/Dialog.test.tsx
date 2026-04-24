@@ -66,4 +66,34 @@ describe("Dialog", () => {
     const title = screen.getByText("Hello");
     expect(labelledBy).toBe(title.getAttribute("id"));
   });
+
+  it("showCloseButton renders a close button without manual Dialog.Close", async () => {
+    const onOpenChange = vi.fn();
+    render(
+      <Dialog open showCloseButton onOpenChange={onOpenChange}>
+        <Dialog.Header><Dialog.Title>x</Dialog.Title></Dialog.Header>
+      </Dialog>
+    );
+    const btn = screen.getByRole("button", { name: "Close" });
+    await userEvent.click(btn);
+    expect(onOpenChange).toHaveBeenCalledWith(false);
+  });
+
+  it("showCloseButton is off by default (no close button rendered)", () => {
+    render(
+      <Dialog open onOpenChange={() => {}}>
+        <Dialog.Header><Dialog.Title>x</Dialog.Title></Dialog.Header>
+      </Dialog>
+    );
+    expect(screen.queryByRole("button", { name: "Close" })).not.toBeInTheDocument();
+  });
+
+  it("closeButtonLabel customizes the aria-label of the auto close", () => {
+    render(
+      <Dialog open showCloseButton closeButtonLabel="Kapat" onOpenChange={() => {}}>
+        <Dialog.Header><Dialog.Title>x</Dialog.Title></Dialog.Header>
+      </Dialog>
+    );
+    expect(screen.getByRole("button", { name: "Kapat" })).toBeInTheDocument();
+  });
 });
