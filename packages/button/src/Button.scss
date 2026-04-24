@@ -1,5 +1,6 @@
 @use "@sisyphos-ui/core/src/tokens/variables" as *;
 @use "@sisyphos-ui/core/src/tokens/mixins" as *;
+@use "sass:map";
 
 /* ─── VARIANT CONFIG (single source of truth) ─────────────────────────────── */
 
@@ -129,13 +130,13 @@ $button-soft-colors: (
   @each $name, $config in $button-contained-colors {
     &.contained.#{$name} {
       color: var(--sisyphos-color-neutral-lighter, #fff);
-      background: map-get($config, bg);
-      border: 1px solid map-get($config, border);
-      border-radius: map-get($config, radius);
+      background: map.get($config, bg);
+      border: 1px solid map.get($config, border);
+      border-radius: map.get($config, radius);
 
       &:hover:not(.disabled) {
-        background: map-get($config, bg);
-        border-color: map-get($config, hover-border);
+        background: map.get($config, bg);
+        border-color: map.get($config, hover-border);
       }
     }
   }
@@ -200,11 +201,11 @@ $button-soft-colors: (
 
   @each $name, $config in $button-soft-colors {
     &.soft.#{$name} {
-      color: map-get($config, color);
-      background: map-get($config, bg);
+      color: map.get($config, color);
+      background: map.get($config, bg);
 
       &:hover:not(.disabled) {
-        background: map-get($config, bg);
+        background: map.get($config, bg);
       }
     }
   }
