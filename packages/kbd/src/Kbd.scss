@@ -1,0 +1,68 @@
+@use "@sisyphos-ui/core/src/tokens/variables" as *;
+
+/* ── BASE ──────────────────────────────────────────────────────────────── */
+.sisyphos-kbd {
+  display: inline-flex;
+  align-items: center;
+  gap: $spacing-xxs;
+  font-family: var(--sisyphos-font-family-mono, ui-monospace, SFMono-Regular, Menlo, monospace);
+  font-weight: $font-weight-medium;
+  line-height: 1;
+  vertical-align: middle;
+  white-space: nowrap;
+  user-select: none;
+  color: var(--sisyphos-color-text-secondary, #4b5563);
+
+  /* Sizes — drive a single font-size var the nested <kbd> reads */
+  &.xs { font-size: calc(#{$size-xs} - 1px); }
+  &.sm { font-size: $size-xs; }
+  &.md { font-size: $size-sm; }
+  &.lg { font-size: $size-md; }
+  &.xl { font-size: $size-md; }
+
+  /* When Kbd itself IS the <kbd> (no keys array), style it directly. */
+  &:where(kbd) {
+    @extend %kbd-chip;
+  }
+
+  /* Multi-key: each inner <kbd> is the chip. */
+  .sisyphos-kbd-key {
+    @extend %kbd-chip;
+  }
+
+  /* Outlined */
+  &.outlined {
+    &:where(kbd),
+    .sisyphos-kbd-key {
+      background: var(--sisyphos-color-surface, #fff);
+      border: 1px solid var(--sisyphos-color-border, #e5e7eb);
+      box-shadow: 0 1px 0 0 var(--sisyphos-color-border, #e5e7eb);
+    }
+  }
+
+  /* Soft */
+  &.soft {
+    &:where(kbd),
+    .sisyphos-kbd-key {
+      background: var(--sisyphos-color-surface-muted, #f3f4f6);
+      border: 1px solid transparent;
+    }
+  }
+}
+
+%kbd-chip {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 1.5em;
+  padding: 0.15em 0.45em;
+  border-radius: $radius-xs;
+  font: inherit;
+  color: inherit;
+}
+
+.sisyphos-kbd-separator {
+  color: var(--sisyphos-color-text-tertiary, #9ca3af);
+  font-size: 0.9em;
+  padding: 0 0.1em;
+}

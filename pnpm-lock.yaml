@@ -717,6 +717,40 @@ importers:
         specifier: ^5.3.3
         version: 5.9.3
 
+  packages/kbd:
+    dependencies:
+      '@sisyphos-ui/core':
+        specifier: workspace:*
+        version: link:../core
+      react:
+        specifier: ^17.0.0 || ^18.0.0 || ^19.0.0
+        version: 18.3.1
+      react-dom:
+        specifier: ^17.0.0 || ^18.0.0 || ^19.0.0
+        version: 18.3.1(react@18.3.1)
+    devDependencies:
+      '@sisyphos-ui/eslint-config':
+        specifier: workspace:*
+        version: link:../eslint-config
+      '@types/react':
+        specifier: ^18.2.48
+        version: 18.3.26
+      '@types/react-dom':
+        specifier: ^18.2.18
+        version: 18.3.7(@types/react@18.3.26)
+      esbuild-sass-plugin:
+        specifier: ^3.3.1
+        version: 3.7.0(esbuild@0.28.0)(sass-embedded@1.99.0)
+      sass:
+        specifier: ^1.77.0
+        version: 1.99.0
+      tsup:
+        specifier: ^8.0.1
+        version: 8.5.0(typescript@5.9.3)
+      typescript:
+        specifier: ^5.3.3
+        version: 5.9.3
+
   packages/number-input:
     dependencies:
       '@sisyphos-ui/core':
@@ -1271,6 +1305,9 @@ importers:
       '@sisyphos-ui/input':
         specifier: workspace:*
         version: link:../input
+      '@sisyphos-ui/kbd':
+        specifier: workspace:*
+        version: link:../kbd
       '@sisyphos-ui/number-input':
         specifier: workspace:*
         version: link:../number-input
