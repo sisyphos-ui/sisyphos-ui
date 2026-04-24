@@ -166,6 +166,59 @@ describe("Table", () => {
     await userEvent.selectOptions(select, "25");
     expect(onPageSizeChange).toHaveBeenCalledWith(25);
   });
+
+  it("rowSelectionMode=click toggles selection on row click", async () => {
+    const onSelectionChange = vi.fn();
+    render(
+      <Table
+        data={rows}
+        columns={columns}
+        rowKey={(r) => r.id}
+        selectable
+        rowSelectionMode="click"
+        selectedIds={[]}
+        onSelectionChange={onSelectionChange}
+      />,
+    );
+    await userEvent.click(screen.getByText("Ada"));
+    expect(onSelectionChange).toHaveBeenCalledWith([1]);
+  });
+
+  it("rowSelectionMode=doubleClick toggles only on double-click", async () => {
+    const onSelectionChange = vi.fn();
+    render(
+      <Table
+        data={rows}
+        columns={columns}
+        rowKey={(r) => r.id}
+        selectable
+        rowSelectionMode="doubleClick"
+        selectedIds={[]}
+        onSelectionChange={onSelectionChange}
+      />,
+    );
+    await userEvent.click(screen.getByText("Ada"));
+    expect(onSelectionChange).not.toHaveBeenCalled();
+    await userEvent.dblClick(screen.getByText("Volkan"));
+    expect(onSelectionChange).toHaveBeenCalledWith([2]);
+  });
+
+  it("onRowContextMenu fires on right click with row + index", async () => {
+    const onRowContextMenu = vi.fn();
+    render(
+      <Table
+        data={rows}
+        columns={columns}
+        rowKey={(r) => r.id}
+        onRowContextMenu={onRowContextMenu}
+      />,
+    );
+    const user = userEvent.setup();
+    await user.pointer({ keys: "[MouseRight]", target: screen.getByText("Ada") });
+    expect(onRowContextMenu).toHaveBeenCalled();
+    expect(onRowContextMenu.mock.calls[0][1]).toEqual(rows[0]);
+    expect(onRowContextMenu.mock.calls[0][2]).toBe(0);
+  });
 });
 
 describe("Pagination", () => {
