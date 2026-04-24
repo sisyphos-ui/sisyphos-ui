@@ -10,74 +10,64 @@ $spinner-colors: (
   neutral: var(--sisyphos-color-neutral-dark, #637381),
 );
 
-/* ── SPINNER ──────────────────────────────────────────────────────────── */
+/* ── SPINNER ──────────────────────────────────────────────────────────────
+ * SVG-based so Firefox does not render an anti-aliasing seam on the
+ * `border-radius: 50%` + thin-border combo. Stroke width is driven by
+ * --sisyphos-spinner-thickness (set inline from the `thickness` prop) and
+ * scaled to the SVG viewBox (0..50) from the spinner's pixel size. */
 .sisyphos-spinner {
-  display: inline-block;
-  box-sizing: border-box;
-  border-style: solid;
-  border-radius: 50%;
-  // Tailwind v4 preflight sets `* { border-color: currentColor }` — we force
-  // every side to transparent up front and per-color rules re-color top/right.
-  // Each rule must be explicit so the per-color selector beats the reset on
-  // any side it does not re-set.
-  border-color: transparent;
-  animation: sisyphos-spin 0.9s linear infinite;
+  --sisyphos-spinner-stroke: var(--sisyphos-color-primary, #ff7022);
+  display: inline-flex;
   position: relative;
+  box-sizing: border-box;
+  line-height: 0;
 
-  &.xs { width: 14px; height: 14px; }
-  &.sm { width: 18px; height: 18px; }
-  &.md { width: 24px; height: 24px; }
-  &.lg { width: 40px; height: 40px; }
-  &.xl { width: 64px; height: 64px; }
+  &.xs { width: 14px;  height: 14px;  }
+  &.sm { width: 18px;  height: 18px;  }
+  &.md { width: 24px;  height: 24px;  }
+  &.lg { width: 40px;  height: 40px;  }
+  &.xl { width: 64px;  height: 64px;  }
 
+  /* Per-color rule — only sets the stroke var; actual stroke lives in .arc */
   @each $name, $col in $spinner-colors {
-    &.#{$name} {
-      border-top-color: $col;
-      border-right-color: $col;
-      border-bottom-color: transparent;
-      border-left-color: transparent;
-    }
+    &.#{$name} { --sisyphos-spinner-stroke: #{$col}; }
   }
 
-  &.inherit {
-    border-top-color: currentColor;
-    border-right-color: currentColor;
-    border-bottom-color: transparent;
-    border-left-color: transparent;
-  }
+  &.inherit { --sisyphos-spinner-stroke: currentColor; }
+}
 
-  /* Double-ring: counter-rotating inner ring at 70% */
-  &.double::after {
-    content: "";
+.sisyphos-spinner-svg {
+  width: 100%;
+  height: 100%;
+  animation: sisyphos-spin 0.9s linear infinite;
+  overflow: visible;
+
+  .sisyphos-spinner.double &--inner {
     position: absolute;
-    top: 12%;
-    left: 12%;
-    width: 76%;
-    height: 76%;
-    border-style: solid;
-    border-width: inherit;
-    border-color: transparent;
-    border-radius: 50%;
+    inset: 14%;
+    width: 72%;
+    height: 72%;
     animation: sisyphos-spin-reverse 0.7s linear infinite;
   }
+}
 
-  @each $name, $col in $spinner-colors {
-    &.#{$name}.double::after {
-      border-top-color: transparent;
-      border-right-color: transparent;
-      border-bottom-color: $col;
-      border-left-color: $col;
-      opacity: 0.7;
-    }
-  }
+/* Arc stroke-width is expressed in viewBox units — convert the px thickness
+ * to viewBox units using the spinner's current pixel size.
+ * 50 viewBox / current width (px) × thickness (px) = viewBox stroke.
+ * We read the parent width via element-level intrinsic sizing; CSS can't do
+ * that directly, so we approximate with `em` scaling: 1em = current pixel size
+ * via font-size trickery. Instead, rely on stroke-width being declared in px
+ * within the SVG — SVG accepts px and scales with the viewBox automatically. */
+.sisyphos-spinner-arc {
+  stroke: var(--sisyphos-spinner-stroke);
+  stroke-width: var(--sisyphos-spinner-thickness, 3px);
+  transform-origin: center;
+  /* Firefox renders stroke antialiasing cleanly for SVG — no seam. */
+  vector-effect: non-scaling-stroke;
+}
 
-  &.inherit.double::after {
-    border-top-color: transparent;
-    border-right-color: transparent;
-    border-bottom-color: currentColor;
-    border-left-color: currentColor;
-    opacity: 0.7;
-  }
+.sisyphos-spinner-arc--inner {
+  opacity: 0.7;
 }
 
 @keyframes sisyphos-spin {

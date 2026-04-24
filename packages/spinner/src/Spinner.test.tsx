@@ -15,9 +15,23 @@ describe("Spinner", () => {
     expect(screen.getByRole("status")).toHaveAccessibleName("Please wait");
   });
 
-  it("applies thickness via border-width", () => {
+  it("exposes thickness as a CSS custom property", () => {
     render(<Spinner thickness={5} />);
-    expect(screen.getByRole("status")).toHaveStyle({ borderWidth: "5px" });
+    const style = screen.getByRole("status").getAttribute("style") ?? "";
+    expect(style).toContain("--sisyphos-spinner-thickness: 5px");
+  });
+
+  it("renders an inline SVG arc (not a bordered div)", () => {
+    render(<Spinner />);
+    const el = screen.getByRole("status");
+    expect(el.querySelector("svg")).not.toBeNull();
+    expect(el.querySelector("circle")).not.toBeNull();
+  });
+
+  it("double variant renders two SVGs", () => {
+    render(<Spinner variant="double" />);
+    const el = screen.getByRole("status");
+    expect(el.querySelectorAll("svg")).toHaveLength(2);
   });
 });
 
