@@ -29,5 +29,6 @@ export * from "@sisyphos-ui/card";
 export * from "@sisyphos-ui/accordion";
 export * from "@sisyphos-ui/table";
 export * from "@sisyphos-ui/carousel";
+export * from "@sisyphos-ui/kbd";
 export * from "@sisyphos-ui/core";
 

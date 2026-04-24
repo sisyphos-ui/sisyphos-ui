@@ -82,7 +82,8 @@
     "@sisyphos-ui/card": "workspace:*",
     "@sisyphos-ui/accordion": "workspace:*",
     "@sisyphos-ui/table": "workspace:*",
-    "@sisyphos-ui/carousel": "workspace:*"
+    "@sisyphos-ui/carousel": "workspace:*",
+    "@sisyphos-ui/kbd": "workspace:*"
   },
   "peerDependencies": {
     "react": "^17.0.0 || ^18.0.0 || ^19.0.0",
