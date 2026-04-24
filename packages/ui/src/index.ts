@@ -31,5 +31,6 @@ export * from "@sisyphos-ui/table";
 export * from "@sisyphos-ui/carousel";
 export * from "@sisyphos-ui/kbd";
 export * from "@sisyphos-ui/context-menu";
+export * from "@sisyphos-ui/command";
 export * from "@sisyphos-ui/core";
 
