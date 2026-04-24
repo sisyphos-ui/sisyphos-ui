@@ -54,9 +54,7 @@ export const WithLabels: Story = {
         { label: "Delete", destructive: true, onSelect: () => {} },
       ]}
     >
-      <div style={{ padding: 24, background: "#f9fafb", borderRadius: 8 }}>
-        Right-click me
-      </div>
+      <div style={{ padding: 24, background: "#f9fafb", borderRadius: 8 }}>Right-click me</div>
     </ContextMenu>
   ),
 };

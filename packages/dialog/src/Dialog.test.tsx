@@ -7,13 +7,17 @@ describe("Dialog", () => {
   it("renders only when open=true", () => {
     const { rerender } = render(
       <Dialog open={false} onOpenChange={() => {}}>
-        <Dialog.Header><Dialog.Title>x</Dialog.Title></Dialog.Header>
+        <Dialog.Header>
+          <Dialog.Title>x</Dialog.Title>
+        </Dialog.Header>
       </Dialog>
     );
     expect(screen.queryByRole("dialog")).not.toBeInTheDocument();
     rerender(
       <Dialog open={true} onOpenChange={() => {}}>
-        <Dialog.Header><Dialog.Title>x</Dialog.Title></Dialog.Header>
+        <Dialog.Header>
+          <Dialog.Title>x</Dialog.Title>
+        </Dialog.Header>
       </Dialog>
     );
     expect(screen.getByRole("dialog")).toBeInTheDocument();
@@ -37,7 +41,9 @@ describe("Dialog", () => {
     const onOpenChange = vi.fn();
     render(
       <Dialog open onOpenChange={onOpenChange}>
-        <Dialog.Header><Dialog.Title>x</Dialog.Title></Dialog.Header>
+        <Dialog.Header>
+          <Dialog.Title>x</Dialog.Title>
+        </Dialog.Header>
       </Dialog>
     );
     await userEvent.keyboard("{Escape}");
@@ -48,7 +54,9 @@ describe("Dialog", () => {
     const onOpenChange = vi.fn();
     render(
       <Dialog open onOpenChange={onOpenChange} closeOnEscape={false}>
-        <Dialog.Header><Dialog.Title>x</Dialog.Title></Dialog.Header>
+        <Dialog.Header>
+          <Dialog.Title>x</Dialog.Title>
+        </Dialog.Header>
       </Dialog>
     );
     await userEvent.keyboard("{Escape}");
@@ -58,7 +66,9 @@ describe("Dialog", () => {
   it("aria-labelledby points to the Title id", () => {
     render(
       <Dialog open onOpenChange={() => {}}>
-        <Dialog.Header><Dialog.Title>Hello</Dialog.Title></Dialog.Header>
+        <Dialog.Header>
+          <Dialog.Title>Hello</Dialog.Title>
+        </Dialog.Header>
       </Dialog>
     );
     const dialog = screen.getByRole("dialog");
@@ -71,7 +81,9 @@ describe("Dialog", () => {
     const onOpenChange = vi.fn();
     render(
       <Dialog open showCloseButton onOpenChange={onOpenChange}>
-        <Dialog.Header><Dialog.Title>x</Dialog.Title></Dialog.Header>
+        <Dialog.Header>
+          <Dialog.Title>x</Dialog.Title>
+        </Dialog.Header>
       </Dialog>
     );
     const btn = screen.getByRole("button", { name: "Close" });
@@ -82,7 +94,9 @@ describe("Dialog", () => {
   it("showCloseButton is off by default (no close button rendered)", () => {
     render(
       <Dialog open onOpenChange={() => {}}>
-        <Dialog.Header><Dialog.Title>x</Dialog.Title></Dialog.Header>
+        <Dialog.Header>
+          <Dialog.Title>x</Dialog.Title>
+        </Dialog.Header>
       </Dialog>
     );
     expect(screen.queryByRole("button", { name: "Close" })).not.toBeInTheDocument();
@@ -91,7 +105,9 @@ describe("Dialog", () => {
   it("closeButtonLabel customizes the aria-label of the auto close", () => {
     render(
       <Dialog open showCloseButton closeButtonLabel="Kapat" onOpenChange={() => {}}>
-        <Dialog.Header><Dialog.Title>x</Dialog.Title></Dialog.Header>
+        <Dialog.Header>
+          <Dialog.Title>x</Dialog.Title>
+        </Dialog.Header>
       </Dialog>
     );
     expect(screen.getByRole("button", { name: "Kapat" })).toBeInTheDocument();

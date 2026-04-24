@@ -81,7 +81,10 @@ const DialogRoot: React.FC<DialogProps> = ({
     }
   }, [open, initialFocus]);
 
-  const ctx = useMemo(() => ({ titleId, descriptionId, onClose: close }), [titleId, descriptionId, close]);
+  const ctx = useMemo(
+    () => ({ titleId, descriptionId, onClose: close }),
+    [titleId, descriptionId, close]
+  );
 
   if (!open) return null;
 
@@ -105,10 +108,7 @@ const DialogRoot: React.FC<DialogProps> = ({
         >
           <DialogContext.Provider value={ctx}>
             {showCloseButton && (
-              <DialogClose
-                className="sisyphos-dialog-close--auto"
-                aria-label={closeButtonLabel}
-              />
+              <DialogClose className="sisyphos-dialog-close--auto" aria-label={closeButtonLabel} />
             )}
             {children}
           </DialogContext.Provider>
@@ -118,13 +118,21 @@ const DialogRoot: React.FC<DialogProps> = ({
   );
 };
 
-const DialogHeader: React.FC<React.HTMLAttributes<HTMLDivElement>> = ({ className, children, ...rest }) => (
+const DialogHeader: React.FC<React.HTMLAttributes<HTMLDivElement>> = ({
+  className,
+  children,
+  ...rest
+}) => (
   <header className={cx("sisyphos-dialog-header", className)} {...rest}>
     {children}
   </header>
 );
 
-const DialogTitle: React.FC<React.HTMLAttributes<HTMLHeadingElement>> = ({ className, children, ...rest }) => {
+const DialogTitle: React.FC<React.HTMLAttributes<HTMLHeadingElement>> = ({
+  className,
+  children,
+  ...rest
+}) => {
   const { titleId } = React.useContext(DialogContext)!;
   return (
     <h2 id={titleId} className={cx("sisyphos-dialog-title", className)} {...rest}>
@@ -133,7 +141,11 @@ const DialogTitle: React.FC<React.HTMLAttributes<HTMLHeadingElement>> = ({ class
   );
 };
 
-const DialogDescription: React.FC<React.HTMLAttributes<HTMLParagraphElement>> = ({ className, children, ...rest }) => {
+const DialogDescription: React.FC<React.HTMLAttributes<HTMLParagraphElement>> = ({
+  className,
+  children,
+  ...rest
+}) => {
   const { descriptionId } = React.useContext(DialogContext)!;
   return (
     <p id={descriptionId} className={cx("sisyphos-dialog-description", className)} {...rest}>
@@ -142,13 +154,21 @@ const DialogDescription: React.FC<React.HTMLAttributes<HTMLParagraphElement>> = 
   );
 };
 
-const DialogBody: React.FC<React.HTMLAttributes<HTMLDivElement>> = ({ className, children, ...rest }) => (
+const DialogBody: React.FC<React.HTMLAttributes<HTMLDivElement>> = ({
+  className,
+  children,
+  ...rest
+}) => (
   <div className={cx("sisyphos-dialog-body", className)} {...rest}>
     {children}
   </div>
 );
 
-const DialogFooter: React.FC<React.HTMLAttributes<HTMLDivElement>> = ({ className, children, ...rest }) => (
+const DialogFooter: React.FC<React.HTMLAttributes<HTMLDivElement>> = ({
+  className,
+  children,
+  ...rest
+}) => (
   <div className={cx("sisyphos-dialog-footer", className)} {...rest}>
     {children}
   </div>
@@ -175,7 +195,10 @@ const DialogClose: React.FC<Omit<React.ButtonHTMLAttributes<HTMLButtonElement>, 
     >
       {children ?? (
         <svg viewBox="0 0 24 24" width="1em" height="1em" aria-hidden="true">
-          <path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z" fill="currentColor" />
+          <path
+            d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"
+            fill="currentColor"
+          />
         </svg>
       )}
     </button>

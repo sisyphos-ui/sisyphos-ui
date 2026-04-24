@@ -7,5 +7,12 @@
     "lib": ["ES2020", "DOM", "DOM.Iterable"]
   },
   "include": ["src/**/*"],
-  "exclude": ["node_modules", "dist", "**/*.test.ts", "**/*.test.tsx", "**/*.stories.ts", "**/*.stories.tsx"]
+  "exclude": [
+    "node_modules",
+    "dist",
+    "**/*.test.ts",
+    "**/*.test.tsx",
+    "**/*.stories.ts",
+    "**/*.stories.tsx"
+  ]
 }

@@ -35,14 +35,14 @@ import "@sisyphos-ui/kbd/styles.css";
 
 ## Props
 
-| Prop        | Type                              | Default      | Description                                                      |
-| ----------- | --------------------------------- | ------------ | ---------------------------------------------------------------- |
-| `variant`   | `"outlined" \| "soft"`            | `"outlined"` | Chip style.                                                      |
-| `size`      | `"xs" \| "sm" \| "md" \| "lg" \| "xl"` | `"sm"`  | Size scale.                                                      |
-| `children`  | `ReactNode`                       | —            | Free-form content; rendered inside a single `<kbd>`.             |
-| `keys`      | `string[]`                        | —            | Explicit list of keys. Aliases normalized to glyphs.             |
-| `shortcut`  | `string`                          | —            | Shortcut string; split on `+` and whitespace.                    |
-| `separator` | `ReactNode`                       | —            | Node rendered between keys. Omit to join visually.               |
+| Prop        | Type                                   | Default      | Description                                          |
+| ----------- | -------------------------------------- | ------------ | ---------------------------------------------------- |
+| `variant`   | `"outlined" \| "soft"`                 | `"outlined"` | Chip style.                                          |
+| `size`      | `"xs" \| "sm" \| "md" \| "lg" \| "xl"` | `"sm"`       | Size scale.                                          |
+| `children`  | `ReactNode`                            | —            | Free-form content; rendered inside a single `<kbd>`. |
+| `keys`      | `string[]`                             | —            | Explicit list of keys. Aliases normalized to glyphs. |
+| `shortcut`  | `string`                               | —            | Shortcut string; split on `+` and whitespace.        |
+| `separator` | `ReactNode`                            | —            | Node rendered between keys. Omit to join visually.   |
 
 Pick one of `children`, `keys`, or `shortcut`.
 

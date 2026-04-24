@@ -5,7 +5,11 @@ import { Table } from "./Table";
 import { Pagination, getPageItems } from "./Pagination";
 import type { TableColumn } from "./types";
 
-interface Row { id: number; name: string; email: string }
+interface Row {
+  id: number;
+  name: string;
+  email: string;
+}
 const rows: Row[] = [
   { id: 1, name: "Ada", email: "ada@x.com" },
   { id: 2, name: "Volkan", email: "v@x.com" },
@@ -41,7 +45,9 @@ describe("Table", () => {
 
   it("clicking sortable header emits sort cycle", async () => {
     const onSortChange = vi.fn();
-    render(<Table data={rows} columns={columns} rowKey={(r) => r.id} onSortChange={onSortChange} />);
+    render(
+      <Table data={rows} columns={columns} rowKey={(r) => r.id} onSortChange={onSortChange} />
+    );
     const header = screen.getByRole("columnheader", { name: /Name/ });
     await userEvent.click(header);
     expect(onSortChange).toHaveBeenLastCalledWith({ key: "name", direction: "asc" });
@@ -178,7 +184,7 @@ describe("Table", () => {
         rowSelectionMode="click"
         selectedIds={[]}
         onSelectionChange={onSelectionChange}
-      />,
+      />
     );
     await userEvent.click(screen.getByText("Ada"));
     expect(onSelectionChange).toHaveBeenCalledWith([1]);
@@ -195,7 +201,7 @@ describe("Table", () => {
         rowSelectionMode="doubleClick"
         selectedIds={[]}
         onSelectionChange={onSelectionChange}
-      />,
+      />
     );
     await userEvent.click(screen.getByText("Ada"));
     expect(onSelectionChange).not.toHaveBeenCalled();
@@ -211,7 +217,7 @@ describe("Table", () => {
         columns={columns}
         rowKey={(r) => r.id}
         onRowContextMenu={onRowContextMenu}
-      />,
+      />
     );
     const user = userEvent.setup();
     await user.pointer({ keys: "[MouseRight]", target: screen.getByText("Ada") });

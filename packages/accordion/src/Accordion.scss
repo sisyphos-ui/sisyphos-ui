@@ -27,10 +27,15 @@
     background: var(--sisyphos-color-neutral-lighter, #f9fafb);
   }
 
-  &.disabled { opacity: $opacity-s; pointer-events: none; }
+  &.disabled {
+    opacity: $opacity-s;
+    pointer-events: none;
+  }
 }
 
-.sisyphos-accordion-heading { margin: 0; }
+.sisyphos-accordion-heading {
+  margin: 0;
+}
 
 .sisyphos-accordion-trigger {
   width: 100%;
@@ -49,7 +54,9 @@
   text-align: left;
   transition: background $duration-s;
 
-  &:hover { background: var(--sisyphos-color-neutral-lighter, #f4f6f8); }
+  &:hover {
+    background: var(--sisyphos-color-neutral-lighter, #f4f6f8);
+  }
   &:focus-visible {
     outline: 2px solid var(--sisyphos-color-primary, #ff7022);
     outline-offset: -2px;
@@ -67,8 +74,13 @@
   color: var(--sisyphos-color-neutral-dark, #637381);
   transition: transform $duration-s;
 
-  &.rotated { transform: rotate(180deg); }
-  svg { width: 1em; height: 1em; }
+  &.rotated {
+    transform: rotate(180deg);
+  }
+  svg {
+    width: 1em;
+    height: 1em;
+  }
 }
 
 .sisyphos-accordion-content {
@@ -76,7 +88,9 @@
   overflow: hidden;
   transition: opacity $duration-s;
 
-  &[hidden] { display: none; }
+  &[hidden] {
+    display: none;
+  }
 }
 
 .sisyphos-accordion-content-inner {

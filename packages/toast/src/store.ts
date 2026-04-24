@@ -21,7 +21,9 @@ export interface ToastOptions {
   id?: string;
 }
 
-export interface ToastRecord extends Required<Omit<ToastOptions, "icon" | "title" | "description" | "action" | "onDismiss">> {
+export interface ToastRecord extends Required<
+  Omit<ToastOptions, "icon" | "title" | "description" | "action" | "onDismiss">
+> {
   id: string;
   type: ToastType;
   title?: ReactNode;
@@ -42,9 +44,15 @@ function emit() {
   for (const l of listeners) l([...state]);
 }
 
-function add(type: ToastType, messageOrOptions: ReactNode | ToastOptions, maybeOpts?: ToastOptions): string {
+function add(
+  type: ToastType,
+  messageOrOptions: ReactNode | ToastOptions,
+  maybeOpts?: ToastOptions
+): string {
   const opts: ToastOptions =
-    typeof messageOrOptions === "object" && messageOrOptions !== null && "title" in (messageOrOptions as object)
+    typeof messageOrOptions === "object" &&
+    messageOrOptions !== null &&
+    "title" in (messageOrOptions as object)
       ? (messageOrOptions as ToastOptions)
       : { title: messageOrOptions as ReactNode, ...(maybeOpts ?? {}) };
   const id = opts.id ?? `t${Date.now()}-${++counter}`;
@@ -114,7 +122,7 @@ export type ToastFn = {
   promise: <T>(
     promise: Promise<T> | (() => Promise<T>),
     messages: PromiseMessages<T>,
-    options?: ToastOptions,
+    options?: ToastOptions
   ) => Promise<T>;
   custom: (options: ToastOptions) => string;
   dismiss: (id: string) => void;
@@ -139,7 +147,7 @@ toastFn.clear = () => toastStore.clear();
 toastFn.promise = function promise<T>(
   p: Promise<T> | (() => Promise<T>),
   messages: PromiseMessages<T>,
-  options: ToastOptions = {},
+  options: ToastOptions = {}
 ): Promise<T> {
   const id = options.id ?? `t${Date.now()}-${++counter}`;
   add("loading", messages.loading, {
@@ -152,15 +160,26 @@ toastFn.promise = function promise<T>(
   const actual = typeof p === "function" ? p() : p;
   return actual.then(
     (value) => {
-      const title = typeof messages.success === "function" ? messages.success(value) : messages.success;
-      add("success", title, { ...options, id, duration: options.duration ?? 4000, dismissible: options.dismissible ?? true });
+      const title =
+        typeof messages.success === "function" ? messages.success(value) : messages.success;
+      add("success", title, {
+        ...options,
+        id,
+        duration: options.duration ?? 4000,
+        dismissible: options.dismissible ?? true,
+      });
       return value;
     },
     (err) => {
       const title = typeof messages.error === "function" ? messages.error(err) : messages.error;
-      add("error", title, { ...options, id, duration: options.duration ?? 4000, dismissible: options.dismissible ?? true });
+      add("error", title, {
+        ...options,
+        id,
+        duration: options.duration ?? 4000,
+        dismissible: options.dismissible ?? true,
+      });
       throw err;
-    },
+    }
   );
 };
 

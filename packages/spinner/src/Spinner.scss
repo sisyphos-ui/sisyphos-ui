@@ -22,18 +22,37 @@ $spinner-colors: (
   box-sizing: border-box;
   line-height: 0;
 
-  &.xs { width: 14px;  height: 14px;  }
-  &.sm { width: 18px;  height: 18px;  }
-  &.md { width: 24px;  height: 24px;  }
-  &.lg { width: 40px;  height: 40px;  }
-  &.xl { width: 64px;  height: 64px;  }
+  &.xs {
+    width: 14px;
+    height: 14px;
+  }
+  &.sm {
+    width: 18px;
+    height: 18px;
+  }
+  &.md {
+    width: 24px;
+    height: 24px;
+  }
+  &.lg {
+    width: 40px;
+    height: 40px;
+  }
+  &.xl {
+    width: 64px;
+    height: 64px;
+  }
 
   /* Per-color rule — only sets the stroke var; actual stroke lives in .arc */
   @each $name, $col in $spinner-colors {
-    &.#{$name} { --sisyphos-spinner-stroke: #{$col}; }
+    &.#{$name} {
+      --sisyphos-spinner-stroke: #{$col};
+    }
   }
 
-  &.inherit { --sisyphos-spinner-stroke: currentColor; }
+  &.inherit {
+    --sisyphos-spinner-stroke: currentColor;
+  }
 }
 
 .sisyphos-spinner-svg {
@@ -71,11 +90,15 @@ $spinner-colors: (
 }
 
 @keyframes sisyphos-spin {
-  to { transform: rotate(360deg); }
+  to {
+    transform: rotate(360deg);
+  }
 }
 
 @keyframes sisyphos-spin-reverse {
-  to { transform: rotate(-360deg); }
+  to {
+    transform: rotate(-360deg);
+  }
 }
 
 /* ── LOADING OVERLAY ──────────────────────────────────────────────────── */

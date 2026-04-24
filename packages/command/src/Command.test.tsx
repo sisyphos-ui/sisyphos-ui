@@ -89,7 +89,7 @@ describe("Command", () => {
             <Command.Item value="preferences">Preferences</Command.Item>
           </Command.Group>
         </Command.List>
-      </Command>,
+      </Command>
     );
     await userEvent.type(screen.getByRole("searchbox"), "cal");
     // Settings group has no matches; heading should still be in the tree but
