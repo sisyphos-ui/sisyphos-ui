@@ -26,9 +26,7 @@ export const CommandContext = createContext<CommandContextValue | null>(null);
 export function useCommandContext(where: string): CommandContextValue {
   const ctx = useContext(CommandContext);
   if (!ctx) {
-    throw new Error(
-      `[@sisyphos-ui/command] ${where} must be used inside <Command>.`,
-    );
+    throw new Error(`[@sisyphos-ui/command] ${where} must be used inside <Command>.`);
   }
   return ctx;
 }

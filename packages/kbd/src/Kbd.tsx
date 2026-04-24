@@ -82,12 +82,7 @@ export const Kbd = React.forwardRef<HTMLElement, KbdProps>(function Kbd(
 
   // Multi-key: group with role="group"; each key is its own <kbd>.
   return (
-    <span
-      ref={ref as React.Ref<HTMLSpanElement>}
-      className={rootClass}
-      role="group"
-      {...rest}
-    >
+    <span ref={ref as React.Ref<HTMLSpanElement>} className={rootClass} role="group" {...rest}>
       {resolvedKeys.map((raw, i) => {
         const glyph = normalizeKey(raw, mac);
         return (

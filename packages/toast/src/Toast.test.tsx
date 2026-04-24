@@ -55,10 +55,9 @@ describe("toast store + Toaster", () => {
       toast("auto", { duration: 100 });
     });
     await screen.findByText("auto");
-    await waitFor(
-      () => expect(screen.queryByText("auto")).not.toBeInTheDocument(),
-      { timeout: 1500 }
-    );
+    await waitFor(() => expect(screen.queryByText("auto")).not.toBeInTheDocument(), {
+      timeout: 1500,
+    });
   });
 
   it("toast.dismiss(id) removes by id and fires onDismiss", () => {

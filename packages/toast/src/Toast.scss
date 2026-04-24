@@ -44,11 +44,29 @@ $toast-colors: (
   max-width: 420px;
   width: auto;
 
-  &.top-left,    &.bottom-left    { left: 0; }
-  &.top-right,   &.bottom-right   { right: 0; }
-  &.top-center,  &.bottom-center  { left: 50%; transform: translateX(-50%); }
-  &.top-left,    &.top-right,     &.top-center    { top: 0; }
-  &.bottom-left, &.bottom-right,  &.bottom-center { bottom: 0; }
+  &.top-left,
+  &.bottom-left {
+    left: 0;
+  }
+  &.top-right,
+  &.bottom-right {
+    right: 0;
+  }
+  &.top-center,
+  &.bottom-center {
+    left: 50%;
+    transform: translateX(-50%);
+  }
+  &.top-left,
+  &.top-right,
+  &.top-center {
+    top: 0;
+  }
+  &.bottom-left,
+  &.bottom-right,
+  &.bottom-center {
+    bottom: 0;
+  }
 }
 
 /* ── TOAST ────────────────────────────────────────────────────────────── */
@@ -70,14 +88,22 @@ $toast-colors: (
       color: map.get($cfg, fg);
       border: 1px solid map.get($cfg, accent);
 
-      .sisyphos-toast-icon { color: map.get($cfg, accent); }
+      .sisyphos-toast-icon {
+        color: map.get($cfg, accent);
+      }
     }
   }
 }
 
 @keyframes sisyphos-toast-enter {
-  from { opacity: 0; transform: translateY(8px); }
-  to   { opacity: 1; transform: none; }
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
 }
 
 .sisyphos-toast-icon {
@@ -85,7 +111,10 @@ $toast-colors: (
   margin-top: 2px;
   display: inline-flex;
 
-  svg { width: 18px; height: 18px; }
+  svg {
+    width: 18px;
+    height: 18px;
+  }
 }
 
 .sisyphos-toast-spinner {
@@ -94,7 +123,9 @@ $toast-colors: (
 }
 
 @keyframes sisyphos-toast-spin {
-  to { transform: rotate(360deg); }
+  to {
+    transform: rotate(360deg);
+  }
 }
 
 .sisyphos-toast-body {
@@ -143,9 +174,14 @@ $toast-colors: (
   flex-shrink: 0;
   align-self: center;
 
-  svg { width: 1em; height: 1em; }
+  svg {
+    width: 1em;
+    height: 1em;
+  }
 
-  &:hover { opacity: 1; }
+  &:hover {
+    opacity: 1;
+  }
   &:focus-visible {
     outline: 2px solid currentColor;
     outline-offset: 2px;

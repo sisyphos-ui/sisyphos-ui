@@ -7,7 +7,8 @@
  * Escape or outside-click close. Items are the same shape as DropdownMenu's
  * so the two feel interchangeable.
  */
-import React, {
+import type React from "react";
+import {
   cloneElement,
   isValidElement,
   useCallback,
@@ -67,12 +68,12 @@ export const ContextMenu: React.FC<ContextMenuProps> = ({
       setOpenState(next);
       onOpenChange?.(next);
     },
-    [onOpenChange],
+    [onOpenChange]
   );
 
   const actionIndexes = useMemo(
     () => items.map((item, i) => (isAction(item) && !item.disabled ? i : -1)).filter((i) => i >= 0),
-    [items],
+    [items]
   );
 
   const firstFocusable = actionIndexes[0] ?? -1;
@@ -89,7 +90,7 @@ export const ContextMenu: React.FC<ContextMenuProps> = ({
         return pool[(idx + direction + pool.length) % pool.length];
       });
     },
-    [actionIndexes],
+    [actionIndexes]
   );
 
   useEscapeKey(() => {
@@ -152,7 +153,7 @@ export const ContextMenu: React.FC<ContextMenuProps> = ({
         lastTriggerEl.current?.focus?.();
       }
     },
-    [setOpen],
+    [setOpen]
   );
 
   const handleKeyDown = (e: React.KeyboardEvent) => {
@@ -251,7 +252,7 @@ export const ContextMenu: React.FC<ContextMenuProps> = ({
                       className={cx(
                         "sisyphos-context-menu-item",
                         action.destructive && "destructive",
-                        action.disabled && "disabled",
+                        action.disabled && "disabled"
                       )}
                       onMouseEnter={() => setActiveIndex(i)}
                       onClick={(e) => handleSelect(action, e)}
@@ -261,7 +262,9 @@ export const ContextMenu: React.FC<ContextMenuProps> = ({
                       )}
                       <span className="sisyphos-context-menu-item-label">{action.label}</span>
                       {action.shortcut && (
-                        <span className="sisyphos-context-menu-item-shortcut">{action.shortcut}</span>
+                        <span className="sisyphos-context-menu-item-shortcut">
+                          {action.shortcut}
+                        </span>
                       )}
                     </li>
                   );

@@ -80,7 +80,7 @@ const CommandRoot: React.FC<CommandProps> = ({
       if (!isControlled) setInternalValue(next);
       onValueChange?.(next);
     },
-    [isControlled, onValueChange],
+    [isControlled, onValueChange]
   );
 
   // Items register themselves — we track a render-stable registry.
@@ -126,7 +126,7 @@ const CommandRoot: React.FC<CommandProps> = ({
       const getValue = registryRef.current.get(id);
       onSelect?.(getValue?.() ?? id);
     },
-    [onSelect],
+    [onSelect]
   );
 
   const ctx = useMemo(
@@ -141,7 +141,7 @@ const CommandRoot: React.FC<CommandProps> = ({
       inputId,
       listId,
     }),
-    [search, setSearch, registerItem, activeId, matchedIds, handleSelect, inputId, listId],
+    [search, setSearch, registerItem, activeId, matchedIds, handleSelect, inputId, listId]
   );
 
   return (
@@ -161,14 +161,16 @@ const CommandRoot: React.FC<CommandProps> = ({
 
 /* ── INPUT ───────────────────────────────────────────────────────────── */
 
-export interface CommandInputProps
-  extends Omit<React.InputHTMLAttributes<HTMLInputElement>, "value" | "defaultValue" | "onChange"> {
+export interface CommandInputProps extends Omit<
+  React.InputHTMLAttributes<HTMLInputElement>,
+  "value" | "defaultValue" | "onChange"
+> {
   placeholder?: string;
 }
 
 const CommandInput = React.forwardRef<HTMLInputElement, CommandInputProps>(function CommandInput(
   { placeholder = "Type a command or search…", className, onKeyDown, ...rest },
-  ref,
+  ref
 ) {
   const ctx = useCommandContext("Command.Input");
 
@@ -185,7 +187,7 @@ const CommandInput = React.forwardRef<HTMLInputElement, CommandInputProps>(funct
           : (idx + dir + matchedIds.length) % matchedIds.length;
       setActiveId(matchedIds[nextIdx]);
     },
-    [ctx],
+    [ctx]
   );
 
   return (
@@ -346,7 +348,7 @@ const CommandItem: React.FC<CommandItemProps> = ({
         "sisyphos-command-item",
         isActive && "active",
         disabled && "disabled",
-        className,
+        className
       )}
       onMouseEnter={() => setActiveId(id)}
       onClick={() => {
@@ -365,13 +367,7 @@ const CommandItem: React.FC<CommandItemProps> = ({
 const CommandSeparator: React.FC<React.HTMLAttributes<HTMLDivElement>> = ({
   className,
   ...rest
-}) => (
-  <div
-    role="separator"
-    className={cx("sisyphos-command-separator", className)}
-    {...rest}
-  />
-);
+}) => <div role="separator" className={cx("sisyphos-command-separator", className)} {...rest} />;
 
 /* ── COMPOUND EXPORT ─────────────────────────────────────────────────── */
 

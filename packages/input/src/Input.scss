@@ -211,7 +211,8 @@
 
   /* Clamp icon glyphs to text scale — prevents 24×24 lucide defaults from
    * dominating small inputs and throwing off vertical centering. */
-  > svg, > img {
+  > svg,
+  > img {
     width: 1.15em;
     height: 1.15em;
   }
@@ -275,7 +276,8 @@
   color: var(--sisyphos-color-neutral-darker, #919eab);
   pointer-events: none;
 
-  > svg, > img {
+  > svg,
+  > img {
     width: 1.15em;
     height: 1.15em;
   }
@@ -310,10 +312,18 @@
       opacity: 1;
       visibility: visible;
 
-      &.top    { transform: translate(-50%, 0); }
-      &.bottom { transform: translate(-50%, 0); }
-      &.left   { transform: translate(0, -50%); }
-      &.right  { transform: translate(0, -50%); }
+      &.top {
+        transform: translate(-50%, 0);
+      }
+      &.bottom {
+        transform: translate(-50%, 0);
+      }
+      &.left {
+        transform: translate(0, -50%);
+      }
+      &.right {
+        transform: translate(0, -50%);
+      }
     }
   }
 }

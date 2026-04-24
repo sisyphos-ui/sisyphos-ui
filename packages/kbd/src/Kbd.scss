@@ -14,11 +14,21 @@
   color: var(--sisyphos-color-text-secondary, #4b5563);
 
   /* Sizes — drive a single font-size var the nested <kbd> reads */
-  &.xs { font-size: calc(#{$size-xs} - 1px); }
-  &.sm { font-size: $size-xs; }
-  &.md { font-size: $size-sm; }
-  &.lg { font-size: $size-md; }
-  &.xl { font-size: $size-md; }
+  &.xs {
+    font-size: calc(#{$size-xs} - 1px);
+  }
+  &.sm {
+    font-size: $size-xs;
+  }
+  &.md {
+    font-size: $size-sm;
+  }
+  &.lg {
+    font-size: $size-md;
+  }
+  &.xl {
+    font-size: $size-md;
+  }
 
   /* When Kbd itself IS the <kbd> (no keys array), style it directly. */
   &:where(kbd) {

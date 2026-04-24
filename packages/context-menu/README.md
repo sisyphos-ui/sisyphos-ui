@@ -25,7 +25,7 @@ import "@sisyphos-ui/context-menu/styles.css";
   ]}
 >
   <div>Right-click me</div>
-</ContextMenu>
+</ContextMenu>;
 ```
 
 ### Pairing with `<Table>`

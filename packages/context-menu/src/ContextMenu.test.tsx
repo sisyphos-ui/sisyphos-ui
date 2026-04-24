@@ -14,7 +14,7 @@ describe("ContextMenu", () => {
     render(
       <ContextMenu items={items}>
         <div data-testid="target">hello</div>
-      </ContextMenu>,
+      </ContextMenu>
     );
     expect(screen.getByTestId("target")).toBeInTheDocument();
     expect(screen.queryByRole("menu")).not.toBeInTheDocument();
@@ -24,7 +24,7 @@ describe("ContextMenu", () => {
     render(
       <ContextMenu items={items}>
         <div data-testid="target">hello</div>
-      </ContextMenu>,
+      </ContextMenu>
     );
     const user = userEvent.setup();
     await user.pointer({ keys: "[MouseRight]", target: screen.getByTestId("target") });
@@ -38,7 +38,7 @@ describe("ContextMenu", () => {
     render(
       <ContextMenu items={[{ label: "Edit", onSelect }]}>
         <div data-testid="target">hello</div>
-      </ContextMenu>,
+      </ContextMenu>
     );
     const user = userEvent.setup();
     await user.pointer({ keys: "[MouseRight]", target: screen.getByTestId("target") });
@@ -51,7 +51,7 @@ describe("ContextMenu", () => {
     render(
       <ContextMenu items={items}>
         <div data-testid="target">hello</div>
-      </ContextMenu>,
+      </ContextMenu>
     );
     const user = userEvent.setup();
     await user.pointer({ keys: "[MouseRight]", target: screen.getByTestId("target") });
@@ -64,7 +64,7 @@ describe("ContextMenu", () => {
     render(
       <ContextMenu items={items}>
         <div data-testid="target">hello</div>
-      </ContextMenu>,
+      </ContextMenu>
     );
     const user = userEvent.setup();
     await user.pointer({ keys: "[MouseRight]", target: screen.getByTestId("target") });
@@ -76,7 +76,7 @@ describe("ContextMenu", () => {
     render(
       <ContextMenu items={[]} emptyState="Nothing to do">
         <div data-testid="target">hello</div>
-      </ContextMenu>,
+      </ContextMenu>
     );
     const user = userEvent.setup();
     await user.pointer({ keys: "[MouseRight]", target: screen.getByTestId("target") });
@@ -88,7 +88,7 @@ describe("ContextMenu", () => {
     render(
       <ContextMenu items={items} disabled>
         <div data-testid="target">hello</div>
-      </ContextMenu>,
+      </ContextMenu>
     );
     const user = userEvent.setup();
     await user.pointer({ keys: "[MouseRight]", target: screen.getByTestId("target") });

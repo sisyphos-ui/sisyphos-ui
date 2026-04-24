@@ -171,7 +171,14 @@ const ExpandChevron: React.FC<{ open: boolean }> = ({ open }) => (
     aria-hidden="true"
     className={cx("sisyphos-table-expand-chevron", open && "open")}
   >
-    <path d="M6 4l4 4-4 4" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+    <path
+      d="M6 4l4 4-4 4"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.5"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
   </svg>
 );
 
@@ -288,11 +295,7 @@ export function Table<T>(props: TableProps<T>) {
     if (headerCheckRef.current) headerCheckRef.current.indeterminate = someSelected;
   }, [someSelected]);
 
-  const colCount =
-    columns.length +
-    (selectable ? 1 : 0) +
-    (actions ? 1 : 0) +
-    (expandable ? 1 : 0);
+  const colCount = columns.length + (selectable ? 1 : 0) + (actions ? 1 : 0) + (expandable ? 1 : 0);
 
   const showToolbar = searchable || toolbar;
   const hasFilters = Boolean(filters && filters.length > 0);
@@ -326,18 +329,14 @@ export function Table<T>(props: TableProps<T>) {
         <div className="sisyphos-table-filters">
           {filters!.map((f) => (
             <div key={f.key} className={cx("sisyphos-table-filter", f.active && "active")}>
-              {f.label && (
-                <span className="sisyphos-table-filter-label">{f.label}</span>
-              )}
+              {f.label && <span className="sisyphos-table-filter-label">{f.label}</span>}
               <div className="sisyphos-table-filter-control">{f.control}</div>
               {f.active && onFilterClear && (
                 <button
                   type="button"
                   className="sisyphos-table-filter-clear"
                   onClick={() => onFilterClear(f.key)}
-                  aria-label={`Clear ${
-                    typeof f.label === "string" ? f.label : f.key
-                  }`}
+                  aria-label={`Clear ${typeof f.label === "string" ? f.label : f.key}`}
                 >
                   ×
                 </button>
@@ -396,14 +395,20 @@ export function Table<T>(props: TableProps<T>) {
                   <th
                     key={col.id}
                     scope="col"
-                    className={cx(`align-${col.align ?? "left"}`, col.sortable && "sortable", col.className)}
+                    className={cx(
+                      `align-${col.align ?? "left"}`,
+                      col.sortable && "sortable",
+                      col.className
+                    )}
                     style={col.style ? { ...col.style, width: col.width } : { width: col.width }}
                     aria-sort={ariaSort}
                     onClick={() => handleSort(col)}
                   >
                     <span className="sisyphos-table-header-content">
                       {col.header}
-                      {col.sortable && <SortIcon direction={isSorted ? sort!.direction : undefined} />}
+                      {col.sortable && (
+                        <SortIcon direction={isSorted ? sort!.direction : undefined} />
+                      )}
                     </span>
                   </th>
                 );
@@ -416,13 +421,21 @@ export function Table<T>(props: TableProps<T>) {
               Array.from({ length: skeletonRows }).map((_, i) => (
                 <tr key={`skeleton-${i}`} className="sisyphos-table-skeleton-row">
                   {expandable && <td className="sisyphos-table-expand-cell" />}
-                  {selectable && <td className="sisyphos-table-select-cell"><span className="sisyphos-table-skeleton" /></td>}
+                  {selectable && (
+                    <td className="sisyphos-table-select-cell">
+                      <span className="sisyphos-table-skeleton" />
+                    </td>
+                  )}
                   {columns.map((c) => (
                     <td key={c.id} className={cx(`align-${c.align ?? "left"}`)}>
                       <span className="sisyphos-table-skeleton" />
                     </td>
                   ))}
-                  {actions && <td><span className="sisyphos-table-skeleton" /></td>}
+                  {actions && (
+                    <td>
+                      <span className="sisyphos-table-skeleton" />
+                    </td>
+                  )}
                 </tr>
               ))
             ) : data.length === 0 ? (
@@ -436,14 +449,17 @@ export function Table<T>(props: TableProps<T>) {
                 const id = getId(row, i);
                 const selected = selectedIds.includes(id);
                 const canExpand =
-                  expandable && renderExpanded !== undefined && (rowExpandable ? rowExpandable(row, i) : true);
+                  expandable &&
+                  renderExpanded !== undefined &&
+                  (rowExpandable ? rowExpandable(row, i) : true);
                 const isExpanded = canExpand && expandedIds.includes(id);
                 return (
                   <React.Fragment key={String(id)}>
                     <tr
                       className={cx(
                         selected && "selected",
-                        (onRowClick || (selectable && rowSelectionMode !== "checkbox")) && "clickable",
+                        (onRowClick || (selectable && rowSelectionMode !== "checkbox")) &&
+                          "clickable"
                       )}
                       onClick={(() => {
                         const selectOnClick = selectable && rowSelectionMode === "click";
@@ -458,11 +474,16 @@ export function Table<T>(props: TableProps<T>) {
                           ? () => toggleRow(row, i)
                           : undefined
                       }
-                      onContextMenu={onRowContextMenu ? (e) => onRowContextMenu(e, row, i) : undefined}
+                      onContextMenu={
+                        onRowContextMenu ? (e) => onRowContextMenu(e, row, i) : undefined
+                      }
                       aria-selected={selected || undefined}
                     >
                       {expandable && (
-                        <td className="sisyphos-table-expand-cell" onClick={(e) => e.stopPropagation()}>
+                        <td
+                          className="sisyphos-table-expand-cell"
+                          onClick={(e) => e.stopPropagation()}
+                        >
                           {canExpand ? (
                             <button
                               type="button"
@@ -477,7 +498,10 @@ export function Table<T>(props: TableProps<T>) {
                         </td>
                       )}
                       {selectable && (
-                        <td className="sisyphos-table-select-cell" onClick={(e) => e.stopPropagation()}>
+                        <td
+                          className="sisyphos-table-select-cell"
+                          onClick={(e) => e.stopPropagation()}
+                        >
                           <input
                             type="checkbox"
                             aria-label={`Select row ${i + 1}`}
@@ -503,7 +527,10 @@ export function Table<T>(props: TableProps<T>) {
                         );
                       })}
                       {actions && (
-                        <td className="sisyphos-table-actions-cell" onClick={(e) => e.stopPropagation()}>
+                        <td
+                          className="sisyphos-table-actions-cell"
+                          onClick={(e) => e.stopPropagation()}
+                        >
                           {actions(row, i)}
                         </td>
                       )}
@@ -521,9 +548,7 @@ export function Table<T>(props: TableProps<T>) {
         </table>
       </div>
 
-      {pagination && (
-        <TableFooter config={pagination} paginationSummary={paginationSummary} />
-      )}
+      {pagination && <TableFooter config={pagination} paginationSummary={paginationSummary} />}
     </div>
   );
 }
@@ -535,8 +560,17 @@ function TableFooter({
   config: TablePaginationConfig;
   paginationSummary?: (range: { from: number; to: number; total: number }) => React.ReactNode;
 }) {
-  const { page, pageCount, onPageChange, pageSize, pageSizeOptions, onPageSizeChange, total, siblings, boundaries } =
-    config;
+  const {
+    page,
+    pageCount,
+    onPageChange,
+    pageSize,
+    pageSizeOptions,
+    onPageSizeChange,
+    total,
+    siblings,
+    boundaries,
+  } = config;
 
   const showSummary = typeof total === "number" && typeof pageSize === "number";
   const from = showSummary ? (page - 1) * (pageSize as number) + 1 : 0;
@@ -545,11 +579,10 @@ function TableFooter({
   return (
     <div className="sisyphos-table-footer">
       <div className="sisyphos-table-footer-summary">
-        {showSummary && (
-          paginationSummary
+        {showSummary &&
+          (paginationSummary
             ? paginationSummary({ from, to, total: total as number })
-            : `Showing ${from}–${to} of ${total}`
-        )}
+            : `Showing ${from}–${to} of ${total}`)}
       </div>
       <Pagination
         page={page}
