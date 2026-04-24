@@ -35,8 +35,15 @@ $arrow-size: 6px;
   transform: translateX(-50%);
   border-top-color: $tooltip-bg;
 }
-.sisyphos-tooltip.top-start .sisyphos-tooltip-arrow { left: $spacing-md; transform: none; }
-.sisyphos-tooltip.top-end   .sisyphos-tooltip-arrow { left: auto; right: $spacing-md; transform: none; }
+.sisyphos-tooltip.top-start .sisyphos-tooltip-arrow {
+  left: $spacing-md;
+  transform: none;
+}
+.sisyphos-tooltip.top-end .sisyphos-tooltip-arrow {
+  left: auto;
+  right: $spacing-md;
+  transform: none;
+}
 
 .sisyphos-tooltip.bottom .sisyphos-tooltip-arrow,
 .sisyphos-tooltip.bottom-start .sisyphos-tooltip-arrow,
@@ -46,8 +53,15 @@ $arrow-size: 6px;
   transform: translateX(-50%);
   border-bottom-color: $tooltip-bg;
 }
-.sisyphos-tooltip.bottom-start .sisyphos-tooltip-arrow { left: $spacing-md; transform: none; }
-.sisyphos-tooltip.bottom-end   .sisyphos-tooltip-arrow { left: auto; right: $spacing-md; transform: none; }
+.sisyphos-tooltip.bottom-start .sisyphos-tooltip-arrow {
+  left: $spacing-md;
+  transform: none;
+}
+.sisyphos-tooltip.bottom-end .sisyphos-tooltip-arrow {
+  left: auto;
+  right: $spacing-md;
+  transform: none;
+}
 
 .sisyphos-tooltip.left .sisyphos-tooltip-arrow {
   right: -#{$arrow-size * 2};

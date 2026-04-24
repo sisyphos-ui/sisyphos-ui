@@ -11,7 +11,9 @@
     gap: $spacing-lg;
   }
 
-  &.full-width .sisyphos-tabs-list { width: 100%; }
+  &.full-width .sisyphos-tabs-list {
+    width: 100%;
+  }
 }
 
 .sisyphos-tabs-list {
@@ -95,8 +97,13 @@
   border-radius: $radius-xs;
   white-space: nowrap;
 
-  &.active { color: var(--sisyphos-color-primary, #ff7022); }
-  &.disabled { opacity: $opacity-xs; cursor: not-allowed; }
+  &.active {
+    color: var(--sisyphos-color-primary, #ff7022);
+  }
+  &.disabled {
+    opacity: $opacity-xs;
+    cursor: not-allowed;
+  }
 
   &:hover:not(.active):not(.disabled) {
     color: var(--sisyphos-color-neutral-dark, #212b36);
@@ -107,22 +114,35 @@
     outline-offset: 2px;
   }
 
-  .sisyphos-tabs.sm & { padding: $spacing-xxs $spacing-s; font-size: $size-sm; }
-  .sisyphos-tabs.lg & { padding: $spacing-s $spacing-lg; font-size: $size-lg; }
+  .sisyphos-tabs.sm & {
+    padding: $spacing-xxs $spacing-s;
+    font-size: $size-sm;
+  }
+  .sisyphos-tabs.lg & {
+    padding: $spacing-s $spacing-lg;
+    font-size: $size-lg;
+  }
 
   /* Pill: active label sits ON the colored indicator → switch to white. */
-  .sisyphos-tabs.pill &.active { color: #fff; }
+  .sisyphos-tabs.pill &.active {
+    color: #fff;
+  }
 }
 
 .sisyphos-tabs-trigger-icon {
   display: inline-flex;
   align-items: center;
 
-  svg { width: 1em; height: 1em; }
+  svg {
+    width: 1em;
+    height: 1em;
+  }
 }
 
 .sisyphos-tabs-panel {
   outline: none;
 
-  &[hidden] { display: none; }
+  &[hidden] {
+    display: none;
+  }
 }

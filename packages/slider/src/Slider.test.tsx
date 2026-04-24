@@ -45,7 +45,14 @@ describe("Slider (range)", () => {
   it("respects minGap when moving thumbs", async () => {
     const onChange = vi.fn();
     render(
-      <Slider range value={[40, 50]} minGap={10} step={1} onChange={onChange} ariaLabel={["A", "B"]} />
+      <Slider
+        range
+        value={[40, 50]}
+        minGap={10}
+        step={1}
+        onChange={onChange}
+        ariaLabel={["A", "B"]}
+      />
     );
     const left = screen.getByRole("slider", { name: "A" });
     left.focus();

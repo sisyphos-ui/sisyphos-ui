@@ -6,8 +6,13 @@
   gap: $spacing-xxs;
   min-width: 240px;
 
-  &.full-width { width: 100%; }
-  &.disabled   { opacity: $opacity-s; pointer-events: none; }
+  &.full-width {
+    width: 100%;
+  }
+  &.disabled {
+    opacity: $opacity-s;
+    pointer-events: none;
+  }
 }
 
 .sisyphos-datepicker-label {
@@ -15,8 +20,13 @@
   font-weight: $font-weight-medium;
   color: var(--sisyphos-color-neutral-dark, #212b36);
 
-  &.error { color: var(--sisyphos-color-error, #fb3748); }
-  &.required::after { content: " *"; color: var(--sisyphos-color-error, #fb3748); }
+  &.error {
+    color: var(--sisyphos-color-error, #fb3748);
+  }
+  &.required::after {
+    content: " *";
+    color: var(--sisyphos-color-error, #fb3748);
+  }
 }
 
 .sisyphos-datepicker-trigger {
@@ -28,17 +38,30 @@
   border: 1px solid var(--sisyphos-color-border, #c4cdd5);
   border-radius: $radius-s;
   cursor: pointer;
-  transition: border-color $duration-s, box-shadow $duration-s;
+  transition:
+    border-color $duration-s,
+    box-shadow $duration-s;
 
-  &:hover { border-color: var(--sisyphos-color-neutral-dark, #919eab); }
+  &:hover {
+    border-color: var(--sisyphos-color-neutral-dark, #919eab);
+  }
   &.focused {
     border-color: var(--sisyphos-color-primary, #ff7022);
     box-shadow: 0 0 0 3px var(--sisyphos-color-primary-lighter, #ffede0);
   }
 
-  .sisyphos-datepicker.sm & { min-height: 32px; font-size: $size-sm; }
-  .sisyphos-datepicker.md & { min-height: 40px; font-size: $size-md; }
-  .sisyphos-datepicker.lg & { min-height: 48px; font-size: $size-lg; }
+  .sisyphos-datepicker.sm & {
+    min-height: 32px;
+    font-size: $size-sm;
+  }
+  .sisyphos-datepicker.md & {
+    min-height: 40px;
+    font-size: $size-md;
+  }
+  .sisyphos-datepicker.lg & {
+    min-height: 48px;
+    font-size: $size-lg;
+  }
 
   .sisyphos-datepicker.error & {
     border-color: var(--sisyphos-color-error, #fb3748);
@@ -51,7 +74,10 @@
   align-items: center;
   color: var(--sisyphos-color-neutral-dark, #637381);
 
-  svg { width: 1em; height: 1em; }
+  svg {
+    width: 1em;
+    height: 1em;
+  }
 }
 
 .sisyphos-datepicker-input {
@@ -63,7 +89,10 @@
   color: var(--sisyphos-color-neutral-dark, #212b36);
   cursor: inherit;
 
-  &::placeholder { color: var(--sisyphos-color-neutral-dark, #919eab); opacity: 0.7; }
+  &::placeholder {
+    color: var(--sisyphos-color-neutral-dark, #919eab);
+    opacity: 0.7;
+  }
 }
 
 .sisyphos-datepicker-end-icons {
@@ -82,7 +111,9 @@
   display: inline-flex;
   align-items: center;
 
-  &:hover { color: var(--sisyphos-color-neutral-dark, #212b36); }
+  &:hover {
+    color: var(--sisyphos-color-neutral-dark, #212b36);
+  }
 }
 
 .sisyphos-datepicker-error {
@@ -120,7 +151,9 @@
   border-radius: $radius-xs;
   color: var(--sisyphos-color-neutral-dark, #637381);
 
-  &:hover { background: var(--sisyphos-color-neutral-lighter, #f4f6f8); }
+  &:hover {
+    background: var(--sisyphos-color-neutral-lighter, #f4f6f8);
+  }
 }
 
 .sisyphos-datepicker-header-title {
@@ -133,7 +166,9 @@
   padding: $spacing-xxs $spacing-xs;
   border-radius: $radius-xs;
 
-  &:hover { background: var(--sisyphos-color-neutral-lighter, #f4f6f8); }
+  &:hover {
+    background: var(--sisyphos-color-neutral-lighter, #f4f6f8);
+  }
 }
 
 .sisyphos-datepicker-weekdays,
@@ -166,9 +201,15 @@
     background: var(--sisyphos-color-neutral-lighter, #f4f6f8);
   }
 
-  &.other-month { color: var(--sisyphos-color-neutral-dark, #c4cdd5); cursor: default; }
+  &.other-month {
+    color: var(--sisyphos-color-neutral-dark, #c4cdd5);
+    cursor: default;
+  }
 
-  &.today { box-shadow: inset 0 0 0 1px var(--sisyphos-color-primary, #ff7022); color: var(--sisyphos-color-primary, #ff7022); }
+  &.today {
+    box-shadow: inset 0 0 0 1px var(--sisyphos-color-primary, #ff7022);
+    color: var(--sisyphos-color-primary, #ff7022);
+  }
 
   &.selected {
     background: var(--sisyphos-color-primary, #ff7022);
@@ -205,7 +246,9 @@
   font-size: $size-sm;
   color: var(--sisyphos-color-neutral-dark, #212b36);
 
-  &:hover { background: var(--sisyphos-color-neutral-lighter, #f4f6f8); }
+  &:hover {
+    background: var(--sisyphos-color-neutral-lighter, #f4f6f8);
+  }
   &.selected {
     background: var(--sisyphos-color-primary, #ff7022);
     color: #fff;
@@ -261,6 +304,8 @@
       outline: none;
       border-color: var(--sisyphos-color-primary, #ff7022);
     }
-    &:disabled { opacity: $opacity-xs; }
+    &:disabled {
+      opacity: $opacity-xs;
+    }
   }
 }

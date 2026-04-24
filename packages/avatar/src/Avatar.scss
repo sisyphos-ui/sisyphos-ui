@@ -23,16 +23,42 @@ $avatar-colors: (
   flex-shrink: 0;
 
   /* Sizes */
-  &.xs { width: 24px; height: 24px; font-size: 10px; }
-  &.sm { width: 32px; height: 32px; font-size: 12px; }
-  &.md { width: 40px; height: 40px; font-size: $size-md; }
-  &.lg { width: 56px; height: 56px; font-size: $size-lg; }
-  &.xl { width: 72px; height: 72px; font-size: $size-xl; }
+  &.xs {
+    width: 24px;
+    height: 24px;
+    font-size: 10px;
+  }
+  &.sm {
+    width: 32px;
+    height: 32px;
+    font-size: 12px;
+  }
+  &.md {
+    width: 40px;
+    height: 40px;
+    font-size: $size-md;
+  }
+  &.lg {
+    width: 56px;
+    height: 56px;
+    font-size: $size-lg;
+  }
+  &.xl {
+    width: 72px;
+    height: 72px;
+    font-size: $size-xl;
+  }
 
   /* Shapes */
-  &.circular { border-radius: $radius-full; }
-  &.rounded  { border-radius: $radius-md; }
-  &.square   { border-radius: 0; }
+  &.circular {
+    border-radius: $radius-full;
+  }
+  &.rounded {
+    border-radius: $radius-md;
+  }
+  &.square {
+    border-radius: 0;
+  }
 
   /* Colors (applied to fallback) */
   @each $name, $bg in $avatar-colors {
@@ -73,7 +99,13 @@ $avatar-colors: (
     }
   }
 
-  &.xs > .sisyphos-avatar { margin-left: -6px; }
-  &.lg > .sisyphos-avatar { margin-left: -12px; }
-  &.xl > .sisyphos-avatar { margin-left: -16px; }
+  &.xs > .sisyphos-avatar {
+    margin-left: -6px;
+  }
+  &.lg > .sisyphos-avatar {
+    margin-left: -12px;
+  }
+  &.xl > .sisyphos-avatar {
+    margin-left: -16px;
+  }
 }

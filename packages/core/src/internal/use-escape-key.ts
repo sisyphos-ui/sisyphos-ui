@@ -3,10 +3,7 @@ import { useEffect } from "react";
 /**
  * Fires `onEscape` when the Escape key is pressed. Skipped when `enabled` is false.
  */
-export function useEscapeKey(
-  onEscape: (event: KeyboardEvent) => void,
-  enabled = true
-): void {
+export function useEscapeKey(onEscape: (event: KeyboardEvent) => void, enabled = true): void {
   useEffect(() => {
     if (!enabled) return;
     const handler = (e: KeyboardEvent) => {

@@ -24,122 +24,129 @@
 
 :root {
   /* ===== COLORS ===== */
-  
+
   /* Primary Color - Brand color, main actions */
-  --sisyphos-color-primary: #ff7022;                      /* Main: Orange */
-  --sisyphos-color-primary-light: #ff8637;                /* Light: Hover states */
-  --sisyphos-color-primary-lighter: #ffede0;              /* Lighter: Backgrounds, soft variant */
-  --sisyphos-color-primary-dark: #e5631c;                 /* Dark: Pressed states */
-  --sisyphos-color-primary-darker: #b84d16;               /* Darker: Borders, dividers */
-  --sisyphos-color-primary-contained: #f04906;            /* Contained: Contained button background */
-  
+  --sisyphos-color-primary: #ff7022; /* Main: Orange */
+  --sisyphos-color-primary-light: #ff8637; /* Light: Hover states */
+  --sisyphos-color-primary-lighter: #ffede0; /* Lighter: Backgrounds, soft variant */
+  --sisyphos-color-primary-dark: #e5631c; /* Dark: Pressed states */
+  --sisyphos-color-primary-darker: #b84d16; /* Darker: Borders, dividers */
+  --sisyphos-color-primary-contained: #f04906; /* Contained: Contained button background */
+
   /* Success Color - Success states, positive actions */
-  --sisyphos-color-success: #22c55e;                      /* Main: Green */
-  --sisyphos-color-success-light: #4ade80;                /* Light: Hover states */
-  --sisyphos-color-success-lighter: #dcfce7;              /* Lighter: Backgrounds, soft variant */
-  --sisyphos-color-success-dark: #16a34a;                 /* Dark: Pressed states */
-  --sisyphos-color-success-darker: #15803d;               /* Darker: Borders, dividers */
-  --sisyphos-color-success-contained: #16a34a;            /* Contained: Contained button background */
-  
+  --sisyphos-color-success: #22c55e; /* Main: Green */
+  --sisyphos-color-success-light: #4ade80; /* Light: Hover states */
+  --sisyphos-color-success-lighter: #dcfce7; /* Lighter: Backgrounds, soft variant */
+  --sisyphos-color-success-dark: #16a34a; /* Dark: Pressed states */
+  --sisyphos-color-success-darker: #15803d; /* Darker: Borders, dividers */
+  --sisyphos-color-success-contained: #16a34a; /* Contained: Contained button background */
+
   /* Error Color - Error states, destructive actions */
-  --sisyphos-color-error: #fb3748;                        /* Main: Red */
-  --sisyphos-color-error-light: #fc5a67;                  /* Light: Hover states */
-  --sisyphos-color-error-lighter: #fee2e2;                /* Lighter: Backgrounds, soft variant */
-  --sisyphos-color-error-dark: #dc2626;                   /* Dark: Pressed states */
-  --sisyphos-color-error-darker: #b91c1c;                 /* Darker: Borders, dividers */
-  --sisyphos-color-error-contained: #dc2626;              /* Contained: Contained button background */
-  
+  --sisyphos-color-error: #fb3748; /* Main: Red */
+  --sisyphos-color-error-light: #fc5a67; /* Light: Hover states */
+  --sisyphos-color-error-lighter: #fee2e2; /* Lighter: Backgrounds, soft variant */
+  --sisyphos-color-error-dark: #dc2626; /* Dark: Pressed states */
+  --sisyphos-color-error-darker: #b91c1c; /* Darker: Borders, dividers */
+  --sisyphos-color-error-contained: #dc2626; /* Contained: Contained button background */
+
   /* Warning Color - Warning states, caution actions */
-  --sisyphos-color-warning: #ffab00;                      /* Main: Amber */
-  --sisyphos-color-warning-light: #ffc107;                /* Light: Hover states */
-  --sisyphos-color-warning-lighter: #fef3c7;              /* Lighter: Backgrounds, soft variant */
-  --sisyphos-color-warning-dark: #f59e0b;                 /* Dark: Pressed states */
-  --sisyphos-color-warning-darker: #d97706;               /* Darker: Borders, dividers */
-  --sisyphos-color-warning-contained: #f59e0b;            /* Contained: Contained button background */
-  
+  --sisyphos-color-warning: #ffab00; /* Main: Amber */
+  --sisyphos-color-warning-light: #ffc107; /* Light: Hover states */
+  --sisyphos-color-warning-lighter: #fef3c7; /* Lighter: Backgrounds, soft variant */
+  --sisyphos-color-warning-dark: #f59e0b; /* Dark: Pressed states */
+  --sisyphos-color-warning-darker: #d97706; /* Darker: Borders, dividers */
+  --sisyphos-color-warning-contained: #f59e0b; /* Contained: Contained button background */
+
   /* Info Color - Info states, informational messages */
-  --sisyphos-color-info: #00b8d9;                         /* Main: Cyan */
-  --sisyphos-color-info-light: #06b6d4;                   /* Light: Hover states */
-  --sisyphos-color-info-lighter: #cffafe;                 /* Lighter: Backgrounds, soft variant */
-  --sisyphos-color-info-dark: #0891b2;                    /* Dark: Pressed states */
-  --sisyphos-color-info-darker: #0e7490;                  /* Darker: Borders, dividers */
-  --sisyphos-color-info-contained: #0891b2;               /* Contained: Contained button background */
-  
+  --sisyphos-color-info: #00b8d9; /* Main: Cyan */
+  --sisyphos-color-info-light: #06b6d4; /* Light: Hover states */
+  --sisyphos-color-info-lighter: #cffafe; /* Lighter: Backgrounds, soft variant */
+  --sisyphos-color-info-dark: #0891b2; /* Dark: Pressed states */
+  --sisyphos-color-info-darker: #0e7490; /* Darker: Borders, dividers */
+  --sisyphos-color-info-contained: #0891b2; /* Contained: Contained button background */
+
   /* Neutral Colors - Backgrounds, borders, text, dividers */
-  --sisyphos-color-neutral: #f9fafb;                      /* Main: Light gray background */
-  --sisyphos-color-neutral-lighter: #ffffff;              /* Lighter: White, card backgrounds */
-  --sisyphos-color-neutral-light: #f3f4f6;                /* Light: Subtle backgrounds, hover states */
-  --sisyphos-color-neutral-dark: #212b36;                 /* Dark: Text color, headings */
-  --sisyphos-color-neutral-darker: rgba(145, 158, 171, 0.2); /* Darker: Subtle borders (20% opacity) */
-  --sisyphos-color-border: #c4cdd5;                       /* Default border - inputs, dividers (visible) */
-  
+  --sisyphos-color-neutral: #f9fafb; /* Main: Light gray background */
+  --sisyphos-color-neutral-lighter: #ffffff; /* Lighter: White, card backgrounds */
+  --sisyphos-color-neutral-light: #f3f4f6; /* Light: Subtle backgrounds, hover states */
+  --sisyphos-color-neutral-dark: #212b36; /* Dark: Text color, headings */
+  --sisyphos-color-neutral-darker: rgba(
+    145,
+    158,
+    171,
+    0.2
+  ); /* Darker: Subtle borders (20% opacity) */
+  --sisyphos-color-border: #c4cdd5; /* Default border - inputs, dividers (visible) */
+
   /* ===== SPACING ===== */
-  --sisyphos-spacing-xxs: 4px;    /* Extra extra small: 4px */
-  --sisyphos-spacing-xs: 8px;     /* Extra small: 8px */
-  --sisyphos-spacing-s: 10px;     /* Small: 10px */
-  --sisyphos-spacing-md: 16px;    /* Medium: 16px (default) */
-  --sisyphos-spacing-lg: 24px;    /* Large: 24px */
-  --sisyphos-spacing-xl: 32px;    /* Extra large: 32px */
-  --sisyphos-spacing-2xl: 40px;   /* 2X large: 40px */
-  --sisyphos-spacing-3xl: 64px;   /* 3X large: 64px */
-  
+  --sisyphos-spacing-xxs: 4px; /* Extra extra small: 4px */
+  --sisyphos-spacing-xs: 8px; /* Extra small: 8px */
+  --sisyphos-spacing-s: 10px; /* Small: 10px */
+  --sisyphos-spacing-md: 16px; /* Medium: 16px (default) */
+  --sisyphos-spacing-lg: 24px; /* Large: 24px */
+  --sisyphos-spacing-xl: 32px; /* Extra large: 32px */
+  --sisyphos-spacing-2xl: 40px; /* 2X large: 40px */
+  --sisyphos-spacing-3xl: 64px; /* 3X large: 64px */
+
   /* ===== TYPOGRAPHY ===== */
-  
+
   /* Font Family */
-  --sisyphos-font-family: "Manrope", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-  
+  --sisyphos-font-family:
+    "Manrope", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial,
+    sans-serif;
+
   /* Font Sizes */
-  --sisyphos-font-size-xs: 10px;        /* Extra small: 10px */
-  --sisyphos-font-size-sm: 12px;        /* Small: 12px */
-  --sisyphos-font-size-md: 14px;        /* Medium: 14px */
-  --sisyphos-font-size-base: 16px;      /* Base: 16px (body text) */
-  --sisyphos-font-size-lg: 18px;        /* Large: 18px */
-  --sisyphos-font-size-xl: 32px;        /* Extra large: 32px */
-  
+  --sisyphos-font-size-xs: 10px; /* Extra small: 10px */
+  --sisyphos-font-size-sm: 12px; /* Small: 12px */
+  --sisyphos-font-size-md: 14px; /* Medium: 14px */
+  --sisyphos-font-size-base: 16px; /* Base: 16px (body text) */
+  --sisyphos-font-size-lg: 18px; /* Large: 18px */
+  --sisyphos-font-size-xl: 32px; /* Extra large: 32px */
+
   /* Heading Sizes */
-  --sisyphos-font-size-h6: 16px;        /* H6: 16px */
-  --sisyphos-font-size-h5: 18px;        /* H5: 18px */
-  --sisyphos-font-size-h4: 20px;        /* H4: 20px */
-  --sisyphos-font-size-h3: 24px;        /* H3: 24px */
-  --sisyphos-font-size-h2: 32px;        /* H2: 32px */
-  --sisyphos-font-size-h1: 40px;        /* H1: 40px */
-  --sisyphos-font-size-hero: 48px;      /* Hero: 48px */
-  --sisyphos-font-size-hero-xl: 64px;   /* Hero XL: 64px */
-  
+  --sisyphos-font-size-h6: 16px; /* H6: 16px */
+  --sisyphos-font-size-h5: 18px; /* H5: 18px */
+  --sisyphos-font-size-h4: 20px; /* H4: 20px */
+  --sisyphos-font-size-h3: 24px; /* H3: 24px */
+  --sisyphos-font-size-h2: 32px; /* H2: 32px */
+  --sisyphos-font-size-h1: 40px; /* H1: 40px */
+  --sisyphos-font-size-hero: 48px; /* Hero: 48px */
+  --sisyphos-font-size-hero-xl: 64px; /* Hero XL: 64px */
+
   /* Font Weights */
-  --sisyphos-font-weight-regular: 400;   /* Regular: 400 */
-  --sisyphos-font-weight-medium: 500;    /* Medium: 500 */
-  --sisyphos-font-weight-semibold: 600;  /* Semibold: 600 */
-  --sisyphos-font-weight-bold: 700;      /* Bold: 700 */
-  
+  --sisyphos-font-weight-regular: 400; /* Regular: 400 */
+  --sisyphos-font-weight-medium: 500; /* Medium: 500 */
+  --sisyphos-font-weight-semibold: 600; /* Semibold: 600 */
+  --sisyphos-font-weight-bold: 700; /* Bold: 700 */
+
   /* Line Heights */
-  --sisyphos-line-height-xs: 12px;      /* Extra small: 12px */
-  --sisyphos-line-height-sm: 1rem;      /* Small: 1rem */
-  --sisyphos-line-height: 1.5rem;       /* Base: 1.5rem (default) */
-  
+  --sisyphos-line-height-xs: 12px; /* Extra small: 12px */
+  --sisyphos-line-height-sm: 1rem; /* Small: 1rem */
+  --sisyphos-line-height: 1.5rem; /* Base: 1.5rem (default) */
+
   /* ===== BORDER RADIUS ===== */
-  --sisyphos-radius-xxs: 4px;    /* x-small: 4px (compact components) */
-  --sisyphos-radius-xs: 6px;     /* Extra small: 6px */
-  --sisyphos-radius-s: 8px;      /* small: 8px (buttons, inputs) */
-  --sisyphos-radius-md: 12px;    /* medium: 12px (cards, modals) */
-  --sisyphos-radius-lg: 16px;    /* large: 16px */
-  --sisyphos-radius-xl: 24px;    /* x-large: 24px */
+  --sisyphos-radius-xxs: 4px; /* x-small: 4px (compact components) */
+  --sisyphos-radius-xs: 6px; /* Extra small: 6px */
+  --sisyphos-radius-s: 8px; /* small: 8px (buttons, inputs) */
+  --sisyphos-radius-md: 12px; /* medium: 12px (cards, modals) */
+  --sisyphos-radius-lg: 16px; /* large: 16px */
+  --sisyphos-radius-xl: 24px; /* x-large: 24px */
   --sisyphos-radius-full: 9999px; /* Full: 9999px (pills, badges) */
-  
+
   /* ===== OPACITY ===== */
-  --sisyphos-opacity-xs: 0.6;    /* Extra small: 0.6 (disabled states) */
-  --sisyphos-opacity-s: 0.8;     /* Small: 0.8 */
-  --sisyphos-opacity-md: 0.16;   /* Medium: 0.16 (subtle overlays) */
-  --sisyphos-opacity-lg: 0.24;   /* Large: 0.24 */
-  
+  --sisyphos-opacity-xs: 0.6; /* Extra small: 0.6 (disabled states) */
+  --sisyphos-opacity-s: 0.8; /* Small: 0.8 */
+  --sisyphos-opacity-md: 0.16; /* Medium: 0.16 (subtle overlays) */
+  --sisyphos-opacity-lg: 0.24; /* Large: 0.24 */
+
   /* ===== DURATIONS ===== */
-  --sisyphos-duration-s: 250ms;  /* Small: 250ms (default transitions) */
-  --sisyphos-duration-m: 350ms;  /* Medium: 350ms */
-  
+  --sisyphos-duration-s: 250ms; /* Small: 250ms (default transitions) */
+  --sisyphos-duration-m: 350ms; /* Medium: 350ms */
+
   /* ===== Z-INDEX ===== */
-  --sisyphos-z-index-tooltip: 10000;   /* Tooltip: 10000 (highest) */
-  --sisyphos-z-index-pickers: 800;     /* Pickers: 800 (date pickers, etc.) */
-  --sisyphos-z-index-overlay: 900;     /* Overlay: 900 (modals, dropdowns) */
+  --sisyphos-z-index-tooltip: 10000; /* Tooltip: 10000 (highest) */
+  --sisyphos-z-index-pickers: 800; /* Pickers: 800 (date pickers, etc.) */
+  --sisyphos-z-index-overlay: 900; /* Overlay: 900 (modals, dropdowns) */
 }
 
 /* Dark Theme */

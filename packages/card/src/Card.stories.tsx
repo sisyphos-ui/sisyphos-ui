@@ -20,9 +20,7 @@ export const Default: Story = {
   render: (args) => (
     <Card {...args} style={{ maxWidth: 380 }}>
       <Card.Header>Project name</Card.Header>
-      <Card.Body>
-        Project description and key facts go here. Designed to fit any layout.
-      </Card.Body>
+      <Card.Body>Project description and key facts go here. Designed to fit any layout.</Card.Body>
       <Card.Footer>
         <Button variant="outlined">Cancel</Button>
         <Button style={{ marginLeft: "auto" }}>Save</Button>
@@ -39,8 +37,12 @@ export const Variants: Story = {
           <Card.Header>{v}</Card.Header>
           <Card.Body>Variant: {v}</Card.Body>
           <Card.Footer>
-            <Button size="sm" variant="text">Skip</Button>
-            <Button size="sm" style={{ marginLeft: "auto" }}>Continue</Button>
+            <Button size="sm" variant="text">
+              Skip
+            </Button>
+            <Button size="sm" style={{ marginLeft: "auto" }}>
+              Continue
+            </Button>
           </Card.Footer>
         </Card>
       ))}

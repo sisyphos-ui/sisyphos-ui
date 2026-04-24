@@ -31,8 +31,12 @@ export const Default: Story = {
             <Dialog.Description>This action cannot be undone. Please confirm.</Dialog.Description>
           </Dialog.Body>
           <Dialog.Footer>
-            <Button variant="outlined" onClick={() => setOpen(false)}>Cancel</Button>
-            <Button color="error" onClick={() => setOpen(false)}>Confirm</Button>
+            <Button variant="outlined" onClick={() => setOpen(false)}>
+              Cancel
+            </Button>
+            <Button color="error" onClick={() => setOpen(false)}>
+              Confirm
+            </Button>
           </Dialog.Footer>
         </Dialog>
       </>
@@ -46,7 +50,9 @@ export const Sizes: Story = {
     return (
       <div style={{ display: "flex", flexWrap: "wrap", gap: 8 }}>
         {(["sm", "md", "lg", "xl", "full"] as const).map((s) => (
-          <Button key={s} variant="outlined" onClick={() => setSize(s)}>{s}</Button>
+          <Button key={s} variant="outlined" onClick={() => setSize(s)}>
+            {s}
+          </Button>
         ))}
         <Dialog open={size !== null} onOpenChange={() => setSize(null)} size={size ?? "md"}>
           <Dialog.Header>
@@ -77,18 +83,40 @@ export const WithForm: Story = {
           <Dialog.Body>
             <form id="profile-form" style={{ display: "grid", gap: 12 }}>
               <label>
-                Name<br />
-                <input style={{ width: "100%", padding: 8, border: "1px solid #c4cdd5", borderRadius: 6 }} defaultValue="Volkan Günay" />
+                Name
+                <br />
+                <input
+                  style={{
+                    width: "100%",
+                    padding: 8,
+                    border: "1px solid #c4cdd5",
+                    borderRadius: 6,
+                  }}
+                  defaultValue="Volkan Günay"
+                />
               </label>
               <label>
-                Email<br />
-                <input style={{ width: "100%", padding: 8, border: "1px solid #c4cdd5", borderRadius: 6 }} defaultValue="me@example.com" />
+                Email
+                <br />
+                <input
+                  style={{
+                    width: "100%",
+                    padding: 8,
+                    border: "1px solid #c4cdd5",
+                    borderRadius: 6,
+                  }}
+                  defaultValue="me@example.com"
+                />
               </label>
             </form>
           </Dialog.Body>
           <Dialog.Footer>
-            <Button variant="outlined" onClick={() => setOpen(false)}>Cancel</Button>
-            <Button form="profile-form" type="submit">Save</Button>
+            <Button variant="outlined" onClick={() => setOpen(false)}>
+              Cancel
+            </Button>
+            <Button form="profile-form" type="submit">
+              Save
+            </Button>
           </Dialog.Footer>
         </Dialog>
       </>

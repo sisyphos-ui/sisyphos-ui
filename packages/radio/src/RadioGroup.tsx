@@ -21,7 +21,10 @@ export interface RadioOption {
   disabled?: boolean;
 }
 
-export interface RadioGroupProps extends Omit<React.HTMLAttributes<HTMLDivElement>, "onChange" | "defaultValue"> {
+export interface RadioGroupProps extends Omit<
+  React.HTMLAttributes<HTMLDivElement>,
+  "onChange" | "defaultValue"
+> {
   /** Shared `name` for the underlying inputs. Auto-generated when omitted. */
   name?: string;
   /** Selected value (controlled). */
@@ -58,109 +61,97 @@ export interface RadioGroupProps extends Omit<React.HTMLAttributes<HTMLDivElemen
   children?: React.ReactNode;
 }
 
-export const RadioGroup = React.forwardRef<HTMLDivElement, RadioGroupProps>(
-  function RadioGroup(
-    {
-      name: nameProp,
-      value: valueProp,
-      defaultValue,
-      onChange,
-      disabled = false,
-      required = false,
-      label,
-      error = false,
-      errorMessage,
-      direction = "vertical",
-      size = "md",
-      color = "primary",
-      variant = "standard",
-      options,
-      allowAddOption = false,
-      onAddOption,
-      addOptionLabel = "Add option",
-      className,
-      children,
-      ...rest
+export const RadioGroup = React.forwardRef<HTMLDivElement, RadioGroupProps>(function RadioGroup(
+  {
+    name: nameProp,
+    value: valueProp,
+    defaultValue,
+    onChange,
+    disabled = false,
+    required = false,
+    label,
+    error = false,
+    errorMessage,
+    direction = "vertical",
+    size = "md",
+    color = "primary",
+    variant = "standard",
+    options,
+    allowAddOption = false,
+    onAddOption,
+    addOptionLabel = "Add option",
+    className,
+    children,
+    ...rest
+  },
+  ref
+) {
+  const reactId = useId();
+  const name = nameProp ?? `sisyphos-radio-${reactId}`;
+  const isControlled = valueProp !== undefined;
+  const [internal, setInternal] = useState<string | number | undefined>(defaultValue);
+  const value = isControlled ? valueProp : internal;
+
+  const handleChange = useCallback(
+    (next: string | number) => {
+      if (!isControlled) setInternal(next);
+      onChange?.(next);
     },
-    ref
-  ) {
-    const reactId = useId();
-    const name = nameProp ?? `sisyphos-radio-${reactId}`;
-    const isControlled = valueProp !== undefined;
-    const [internal, setInternal] = useState<string | number | undefined>(defaultValue);
-    const value = isControlled ? valueProp : internal;
+    [isControlled, onChange]
+  );
 
-    const handleChange = useCallback(
-      (next: string | number) => {
-        if (!isControlled) setInternal(next);
-        onChange?.(next);
-      },
-      [isControlled, onChange]
-    );
+  const ctx = useMemo(
+    () => ({ name, value, onChange: handleChange, disabled, size, color, variant }),
+    [name, value, handleChange, disabled, size, color, variant]
+  );
 
-    const ctx = useMemo(
-      () => ({ name, value, onChange: handleChange, disabled, size, color, variant }),
-      [name, value, handleChange, disabled, size, color, variant]
-    );
-
-    return (
-      <div
-        ref={ref}
-        className={cx("sisyphos-radio-group", className)}
-        {...rest}
-      >
-        {label && (
-          <div
-            className={cx(
-              "sisyphos-radio-group-label",
-              error && "error",
-              required && "required"
-            )}
-          >
-            {label}
-          </div>
-        )}
-        <div
-          role="radiogroup"
-          aria-label={label}
-          aria-required={required || undefined}
-          aria-invalid={error || undefined}
-          className={cx("sisyphos-radio-options", direction)}
-        >
-          <RadioGroupContext.Provider value={ctx}>
-            {options
-              ? options.map((o) => (
-                  <Radio
-                    key={String(o.value)}
-                    value={o.value}
-                    label={o.label}
-                    description={o.description}
-                    icon={o.icon}
-                    disabled={o.disabled}
-                  />
-                ))
-              : children}
-          </RadioGroupContext.Provider>
+  return (
+    <div ref={ref} className={cx("sisyphos-radio-group", className)} {...rest}>
+      {label && (
+        <div className={cx("sisyphos-radio-group-label", error && "error", required && "required")}>
+          {label}
         </div>
-        {allowAddOption && (
-          <button
-            type="button"
-            className="sisyphos-radio-add-option"
-            onClick={onAddOption}
-            disabled={disabled}
-          >
-            <span aria-hidden="true">+</span>
-            <span>{addOptionLabel}</span>
-          </button>
-        )}
-        {error && errorMessage && (
-          <span className="sisyphos-radio-group-error" role="alert">
-            {errorMessage}
-          </span>
-        )}
+      )}
+      <div
+        role="radiogroup"
+        aria-label={label}
+        aria-required={required || undefined}
+        aria-invalid={error || undefined}
+        className={cx("sisyphos-radio-options", direction)}
+      >
+        <RadioGroupContext.Provider value={ctx}>
+          {options
+            ? options.map((o) => (
+                <Radio
+                  key={String(o.value)}
+                  value={o.value}
+                  label={o.label}
+                  description={o.description}
+                  icon={o.icon}
+                  disabled={o.disabled}
+                />
+              ))
+            : children}
+        </RadioGroupContext.Provider>
       </div>
-    );
-  }
-);
+      {allowAddOption && (
+        <button
+          type="button"
+          className="sisyphos-radio-add-option"
+          onClick={onAddOption}
+          disabled={disabled}
+        >
+          <span aria-hidden="true">+</span>
+          <span>{addOptionLabel}</span>
+        </button>
+      )}
+      {error && errorMessage && (
+        <span className="sisyphos-radio-group-error" role="alert">
+          {errorMessage}
+        </span>
+      )}
+    </div>
+  );
+});
 
 RadioGroup.displayName = "RadioGroup";

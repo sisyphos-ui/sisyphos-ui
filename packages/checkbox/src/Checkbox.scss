@@ -41,7 +41,9 @@
   margin: 0;
   border: 2px solid var(--sisyphos-color-border, #c4cdd5);
   background-color: var(--sisyphos-color-neutral-lighter, #fff);
-  transition: border-color $duration-s, background-color $duration-s;
+  transition:
+    border-color $duration-s,
+    background-color $duration-s;
   cursor: pointer;
 
   &:hover:not(:disabled):not(:checked) {

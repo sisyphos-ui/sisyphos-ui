@@ -116,7 +116,8 @@ function setColorShades(prefix: string, color: ColorShades | string): void {
     if (color.lighter) root.style.setProperty(`--sisyphos-color-${prefix}-lighter`, color.lighter);
     if (color.dark) root.style.setProperty(`--sisyphos-color-${prefix}-dark`, color.dark);
     if (color.darker) root.style.setProperty(`--sisyphos-color-${prefix}-darker`, color.darker);
-    if (color.contained) root.style.setProperty(`--sisyphos-color-${prefix}-contained`, color.contained);
+    if (color.contained)
+      root.style.setProperty(`--sisyphos-color-${prefix}-contained`, color.contained);
   }
 }
 
@@ -155,12 +156,18 @@ export function applyTheme(config: ThemeConfig): void {
 
   if (config.neutral) {
     const root = document.documentElement;
-    if (config.neutral.main) root.style.setProperty("--sisyphos-color-neutral", config.neutral.main);
-    if (config.neutral.lighter) root.style.setProperty("--sisyphos-color-neutral-lighter", config.neutral.lighter);
-    if (config.neutral.light) root.style.setProperty("--sisyphos-color-neutral-light", config.neutral.light);
-    if (config.neutral.dark) root.style.setProperty("--sisyphos-color-neutral-dark", config.neutral.dark);
-    if (config.neutral.darker) root.style.setProperty("--sisyphos-color-neutral-darker", config.neutral.darker);
-    if (config.neutral.border) root.style.setProperty("--sisyphos-color-border", config.neutral.border);
+    if (config.neutral.main)
+      root.style.setProperty("--sisyphos-color-neutral", config.neutral.main);
+    if (config.neutral.lighter)
+      root.style.setProperty("--sisyphos-color-neutral-lighter", config.neutral.lighter);
+    if (config.neutral.light)
+      root.style.setProperty("--sisyphos-color-neutral-light", config.neutral.light);
+    if (config.neutral.dark)
+      root.style.setProperty("--sisyphos-color-neutral-dark", config.neutral.dark);
+    if (config.neutral.darker)
+      root.style.setProperty("--sisyphos-color-neutral-darker", config.neutral.darker);
+    if (config.neutral.border)
+      root.style.setProperty("--sisyphos-color-border", config.neutral.border);
   }
 
   if (config.spacing) {
@@ -191,7 +198,10 @@ export function applyTheme(config: ThemeConfig): void {
     if (config.typography.lineHeights) {
       Object.entries(config.typography.lineHeights).forEach(([key, value]) => {
         const cssValue = typeof value === "number" ? `${value}px` : value;
-        root.style.setProperty(`--sisyphos-line-height-${key === "base" ? "" : "-" + key}`.replace("--", ""), cssValue);
+        root.style.setProperty(
+          `--sisyphos-line-height-${key === "base" ? "" : "-" + key}`.replace("--", ""),
+          cssValue
+        );
       });
     }
   }
@@ -296,22 +306,25 @@ export function createTheme<T extends ThemeConfig>(config: T): T {
  * const mergedTheme = mergeThemes(themes.default, { colors: { primary: "#007bff" } });
  */
 export function mergeThemes(...configs: ThemeConfig[]): ThemeConfig {
-  return configs.reduce((acc, config) => ({
-    colors: { ...acc.colors, ...config.colors },
-    neutral: { ...acc.neutral, ...config.neutral },
-    spacing: { ...acc.spacing, ...config.spacing },
-    typography: {
-      ...acc.typography,
-      ...config.typography,
-      sizes: { ...acc.typography?.sizes, ...config.typography?.sizes },
-      weights: { ...acc.typography?.weights, ...config.typography?.weights },
-      lineHeights: { ...acc.typography?.lineHeights, ...config.typography?.lineHeights },
-    },
-    borderRadius: { ...acc.borderRadius, ...config.borderRadius },
-    opacity: { ...acc.opacity, ...config.opacity },
-    duration: { ...acc.duration, ...config.duration },
-    zIndex: { ...acc.zIndex, ...config.zIndex },
-  }), {});
+  return configs.reduce(
+    (acc, config) => ({
+      colors: { ...acc.colors, ...config.colors },
+      neutral: { ...acc.neutral, ...config.neutral },
+      spacing: { ...acc.spacing, ...config.spacing },
+      typography: {
+        ...acc.typography,
+        ...config.typography,
+        sizes: { ...acc.typography?.sizes, ...config.typography?.sizes },
+        weights: { ...acc.typography?.weights, ...config.typography?.weights },
+        lineHeights: { ...acc.typography?.lineHeights, ...config.typography?.lineHeights },
+      },
+      borderRadius: { ...acc.borderRadius, ...config.borderRadius },
+      opacity: { ...acc.opacity, ...config.opacity },
+      duration: { ...acc.duration, ...config.duration },
+      zIndex: { ...acc.zIndex, ...config.zIndex },
+    }),
+    {}
+  );
 }
 
 /**
@@ -344,10 +357,13 @@ export function generateThemeCSS(config: ThemeConfig): string {
 
   if (config.neutral) {
     if (config.neutral.main) cssVars.push(`--sisyphos-color-neutral: ${config.neutral.main};`);
-    if (config.neutral.lighter) cssVars.push(`--sisyphos-color-neutral-lighter: ${config.neutral.lighter};`);
-    if (config.neutral.light) cssVars.push(`--sisyphos-color-neutral-light: ${config.neutral.light};`);
+    if (config.neutral.lighter)
+      cssVars.push(`--sisyphos-color-neutral-lighter: ${config.neutral.lighter};`);
+    if (config.neutral.light)
+      cssVars.push(`--sisyphos-color-neutral-light: ${config.neutral.light};`);
     if (config.neutral.dark) cssVars.push(`--sisyphos-color-neutral-dark: ${config.neutral.dark};`);
-    if (config.neutral.darker) cssVars.push(`--sisyphos-color-neutral-darker: ${config.neutral.darker};`);
+    if (config.neutral.darker)
+      cssVars.push(`--sisyphos-color-neutral-darker: ${config.neutral.darker};`);
     if (config.neutral.border) cssVars.push(`--sisyphos-color-border: ${config.neutral.border};`);
   }
 

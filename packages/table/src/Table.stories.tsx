@@ -30,13 +30,18 @@ const columns: TableColumn<User>[] = [
     accessor: "status",
     align: "center",
     render: (u) => (
-      <span style={{
-        background: u.status === "active" ? "#dcfce7" : u.status === "invited" ? "#cffafe" : "#fee2e2",
-        color: u.status === "active" ? "#15803d" : u.status === "invited" ? "#0891b2" : "#dc2626",
-        borderRadius: 4,
-        padding: "2px 8px",
-        fontSize: 12,
-      }}>{u.status}</span>
+      <span
+        style={{
+          background:
+            u.status === "active" ? "#dcfce7" : u.status === "invited" ? "#cffafe" : "#fee2e2",
+          color: u.status === "active" ? "#15803d" : u.status === "invited" ? "#0891b2" : "#dc2626",
+          borderRadius: 4,
+          padding: "2px 8px",
+          fontSize: 12,
+        }}
+      >
+        {u.status}
+      </span>
     ),
   },
 ];

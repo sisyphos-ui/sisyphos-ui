@@ -7,8 +7,13 @@
   gap: $spacing-xxs;
   min-width: 200px;
 
-  &.full-width { width: 100%; }
-  &.disabled   { opacity: $opacity-s; pointer-events: none; }
+  &.full-width {
+    width: 100%;
+  }
+  &.disabled {
+    opacity: $opacity-s;
+    pointer-events: none;
+  }
 }
 
 .sisyphos-select-label {
@@ -16,8 +21,13 @@
   font-weight: $font-weight-medium;
   color: var(--sisyphos-color-neutral-dark, #212b36);
 
-  &.error { color: var(--sisyphos-color-error, #fb3748); }
-  &.required::after { content: " *"; color: var(--sisyphos-color-error, #fb3748); }
+  &.error {
+    color: var(--sisyphos-color-error, #fb3748);
+  }
+  &.required::after {
+    content: " *";
+    color: var(--sisyphos-color-error, #fb3748);
+  }
 }
 
 /* ── CONTROL (trigger) ────────────────────────────────────────────────── */
@@ -35,8 +45,11 @@
     border-color $duration-s,
     box-shadow $duration-s;
 
-  &:hover { border-color: var(--sisyphos-color-neutral-dark, #919eab); }
-  &.open, &:focus-visible {
+  &:hover {
+    border-color: var(--sisyphos-color-neutral-dark, #919eab);
+  }
+  &.open,
+  &:focus-visible {
     outline: none;
     border-color: var(--sisyphos-color-primary, #ff7022);
     box-shadow: 0 0 0 3px var(--sisyphos-color-primary-lighter, #ffede0);
@@ -44,19 +57,43 @@
 
   .sisyphos-select.error & {
     border-color: var(--sisyphos-color-error, #fb3748);
-    &.open { box-shadow: 0 0 0 3px var(--sisyphos-color-error-lighter, #fee2e2); }
+    &.open {
+      box-shadow: 0 0 0 3px var(--sisyphos-color-error-lighter, #fee2e2);
+    }
   }
 
-  .sisyphos-select.xs & { min-height: 28px; font-size: $size-xs; }
-  .sisyphos-select.sm & { min-height: 32px; font-size: $size-sm; }
-  .sisyphos-select.lg & { min-height: 48px; font-size: $size-lg; }
-  .sisyphos-select.xl & { min-height: 56px; font-size: $size-xl; }
+  .sisyphos-select.xs & {
+    min-height: 28px;
+    font-size: $size-xs;
+  }
+  .sisyphos-select.sm & {
+    min-height: 32px;
+    font-size: $size-sm;
+  }
+  .sisyphos-select.lg & {
+    min-height: 48px;
+    font-size: $size-lg;
+  }
+  .sisyphos-select.xl & {
+    min-height: 56px;
+    font-size: $size-xl;
+  }
 
-  .sisyphos-select.radius-xxs &  { border-radius: $radius-xxs; }
-  .sisyphos-select.radius-xs  &  { border-radius: $radius-xs; }
-  .sisyphos-select.radius-md  &  { border-radius: $radius-md; }
-  .sisyphos-select.radius-lg  &  { border-radius: $radius-lg; }
-  .sisyphos-select.radius-xl  &  { border-radius: $radius-xl; }
+  .sisyphos-select.radius-xxs & {
+    border-radius: $radius-xxs;
+  }
+  .sisyphos-select.radius-xs & {
+    border-radius: $radius-xs;
+  }
+  .sisyphos-select.radius-md & {
+    border-radius: $radius-md;
+  }
+  .sisyphos-select.radius-lg & {
+    border-radius: $radius-lg;
+  }
+  .sisyphos-select.radius-xl & {
+    border-radius: $radius-xl;
+  }
 }
 
 .sisyphos-select-value {
@@ -107,8 +144,12 @@
   line-height: 1;
   padding: 0 2px;
 
-  &:hover { opacity: 0.7; }
-  &:disabled { cursor: not-allowed; }
+  &:hover {
+    opacity: 0.7;
+  }
+  &:disabled {
+    cursor: not-allowed;
+  }
 }
 
 .sisyphos-select-clear {
@@ -121,7 +162,9 @@
   align-items: center;
   padding: 0;
 
-  &:hover { color: var(--sisyphos-color-neutral-dark, #212b36); }
+  &:hover {
+    color: var(--sisyphos-color-neutral-dark, #212b36);
+  }
 }
 
 .sisyphos-select-chevron {
@@ -147,12 +190,20 @@
 }
 
 @keyframes sisyphos-select-fade-in {
-  from { opacity: 0; transform: translateY(-4px); }
-  to   { opacity: 1; transform: none; }
+  from {
+    opacity: 0;
+    transform: translateY(-4px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
 }
 
 @keyframes sisyphos-select-spin {
-  to { transform: rotate(360deg); }
+  to {
+    transform: rotate(360deg);
+  }
 }
 
 .sisyphos-select-search-row {
@@ -182,7 +233,8 @@
   user-select: none;
   color: var(--sisyphos-color-neutral-dark, #212b36);
 
-  &:hover, &.active {
+  &:hover,
+  &.active {
     background: var(--sisyphos-color-neutral-lighter, #f4f6f8);
   }
 
@@ -202,7 +254,10 @@
   display: inline-flex;
   align-items: center;
 
-  svg { width: 1em; height: 1em; }
+  svg {
+    width: 1em;
+    height: 1em;
+  }
 }
 
 .sisyphos-select-option-body {

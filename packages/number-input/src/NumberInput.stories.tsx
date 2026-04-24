@@ -26,16 +26,7 @@ export const Default: Story = {
 export const Currency: Story = {
   render: (args) => {
     const [v, setV] = useState<number | null>(1000);
-    return (
-      <NumberInput
-        {...args}
-        label="Amount"
-        suffix="₺"
-        step={100}
-        value={v}
-        onChange={setV}
-      />
-    );
+    return <NumberInput {...args} label="Amount" suffix="₺" step={100} value={v} onChange={setV} />;
   },
 };
 

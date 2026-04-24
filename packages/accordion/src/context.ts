@@ -26,6 +26,7 @@ export const AccordionItemContext = createContext<AccordionItemContextValue | nu
 
 export function useAccordionItem(): AccordionItemContextValue {
   const ctx = useContext(AccordionItemContext);
-  if (!ctx) throw new Error("[@sisyphos-ui/accordion] Trigger/Content must be inside <Accordion.Item>.");
+  if (!ctx)
+    throw new Error("[@sisyphos-ui/accordion] Trigger/Content must be inside <Accordion.Item>.");
   return ctx;
 }

@@ -32,21 +32,45 @@
   }
 
   /* `padding` modifiers cascade to header/body/footer so variants stay consistent. */
-  &.padding-none > .sisyphos-card-header { padding: 0; }
-  &.padding-none > .sisyphos-card-body   { padding: 0; }
-  &.padding-none > .sisyphos-card-footer { padding: 0; }
+  &.padding-none > .sisyphos-card-header {
+    padding: 0;
+  }
+  &.padding-none > .sisyphos-card-body {
+    padding: 0;
+  }
+  &.padding-none > .sisyphos-card-footer {
+    padding: 0;
+  }
 
-  &.padding-sm > .sisyphos-card-header { padding: $spacing-s $spacing-md; }
-  &.padding-sm > .sisyphos-card-body   { padding: $spacing-s $spacing-md; }
-  &.padding-sm > .sisyphos-card-footer { padding: $spacing-xs $spacing-md; }
+  &.padding-sm > .sisyphos-card-header {
+    padding: $spacing-s $spacing-md;
+  }
+  &.padding-sm > .sisyphos-card-body {
+    padding: $spacing-s $spacing-md;
+  }
+  &.padding-sm > .sisyphos-card-footer {
+    padding: $spacing-xs $spacing-md;
+  }
 
-  &.padding-md > .sisyphos-card-header { padding: $spacing-md $spacing-lg; }
-  &.padding-md > .sisyphos-card-body   { padding: $spacing-md $spacing-lg; }
-  &.padding-md > .sisyphos-card-footer { padding: $spacing-s $spacing-lg; }
+  &.padding-md > .sisyphos-card-header {
+    padding: $spacing-md $spacing-lg;
+  }
+  &.padding-md > .sisyphos-card-body {
+    padding: $spacing-md $spacing-lg;
+  }
+  &.padding-md > .sisyphos-card-footer {
+    padding: $spacing-s $spacing-lg;
+  }
 
-  &.padding-lg > .sisyphos-card-header { padding: $spacing-lg $spacing-xl; }
-  &.padding-lg > .sisyphos-card-body   { padding: $spacing-lg $spacing-xl; }
-  &.padding-lg > .sisyphos-card-footer { padding: $spacing-md $spacing-xl; }
+  &.padding-lg > .sisyphos-card-header {
+    padding: $spacing-lg $spacing-xl;
+  }
+  &.padding-lg > .sisyphos-card-body {
+    padding: $spacing-lg $spacing-xl;
+  }
+  &.padding-lg > .sisyphos-card-footer {
+    padding: $spacing-md $spacing-xl;
+  }
 
   &.interactive {
     cursor: pointer;

@@ -15,8 +15,16 @@ export default meta;
 type Story = StoryObj<typeof Accordion>;
 
 const items = [
-  { value: "1", title: "What is Sisyphos UI?", body: "A modern, framework-agnostic React design system." },
-  { value: "2", title: "How is it themed?", body: "Through CSS variables, with optional SCSS tokens." },
+  {
+    value: "1",
+    title: "What is Sisyphos UI?",
+    body: "A modern, framework-agnostic React design system.",
+  },
+  {
+    value: "2",
+    title: "How is it themed?",
+    body: "Through CSS variables, with optional SCSS tokens.",
+  },
   { value: "3", title: "Is it accessible?", body: "Yes — ARIA-compliant, keyboard operable." },
 ];
 

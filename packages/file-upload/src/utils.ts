@@ -11,7 +11,10 @@ export function formatBytes(bytes: number): string {
  */
 export function matchesAccept(file: File, accept?: string): boolean {
   if (!accept || accept === "*" || accept === "*/*") return true;
-  const tokens = accept.split(",").map((t) => t.trim().toLowerCase()).filter(Boolean);
+  const tokens = accept
+    .split(",")
+    .map((t) => t.trim().toLowerCase())
+    .filter(Boolean);
   const fileName = file.name.toLowerCase();
   const mime = (file.type || "").toLowerCase();
   return tokens.some((t) => {

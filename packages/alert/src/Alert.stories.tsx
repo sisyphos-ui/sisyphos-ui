@@ -31,7 +31,13 @@ export const AllColors: Story = {
   render: (args) => (
     <div style={{ display: "grid", gap: 12 }}>
       {(["primary", "success", "error", "warning", "info"] as const).map((c) => (
-        <Alert key={c} {...args} color={c} title={`${c} alert`} description={`Short ${c} description.`} />
+        <Alert
+          key={c}
+          {...args}
+          color={c}
+          title={`${c} alert`}
+          description={`Short ${c} description.`}
+        />
       ))}
     </div>
   ),
@@ -54,8 +60,12 @@ export const WithActions: Story = {
     description: "Upgrade your plan or clean up old files.",
     actions: (
       <>
-        <Button size="sm" color="warning">Upgrade</Button>
-        <Button size="sm" variant="outlined" color="warning">Manage files</Button>
+        <Button size="sm" color="warning">
+          Upgrade
+        </Button>
+        <Button size="sm" variant="outlined" color="warning">
+          Manage files
+        </Button>
       </>
     ),
   },

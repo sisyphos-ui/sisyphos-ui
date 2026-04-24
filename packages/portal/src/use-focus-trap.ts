@@ -19,10 +19,7 @@ function getFocusable(root: HTMLElement): HTMLElement[] {
  * Traps keyboard focus within the ref element while active.
  * Restores previously focused element on unmount/disable.
  */
-export function useFocusTrap(
-  ref: RefObject<HTMLElement | null>,
-  active = true
-): void {
+export function useFocusTrap(ref: RefObject<HTMLElement | null>, active = true): void {
   useEffect(() => {
     if (!active) return;
     const root = ref.current;

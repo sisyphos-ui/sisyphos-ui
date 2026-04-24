@@ -338,13 +338,9 @@ export const DropdownMenu: React.FC<DropdownMenuProps> = ({
             }}
             onScroll={handleScroll}
           >
-            {header && (
-              <div className="sisyphos-dropdown-menu-header">{header}</div>
-            )}
+            {header && <div className="sisyphos-dropdown-menu-header">{header}</div>}
             {renderItems()}
-            {footer && (
-              <div className="sisyphos-dropdown-menu-footer">{footer}</div>
-            )}
+            {footer && <div className="sisyphos-dropdown-menu-footer">{footer}</div>}
           </div>
         </Portal>
       )}

@@ -157,4 +157,3 @@ export const Playground: Story = {
     fullWidth: false,
   },
 };
-

@@ -4,9 +4,9 @@
 $radio-colors: (
   primary: var(--sisyphos-color-primary, #ff7022),
   success: var(--sisyphos-color-success, #22c55e),
-  error:   var(--sisyphos-color-error, #fb3748),
+  error: var(--sisyphos-color-error, #fb3748),
   warning: var(--sisyphos-color-warning, #ffab00),
-  info:    var(--sisyphos-color-info, #00b8d9),
+  info: var(--sisyphos-color-info, #00b8d9),
 );
 
 .sisyphos-radio-group {
@@ -20,8 +20,13 @@ $radio-colors: (
   font-weight: $font-weight-medium;
   color: var(--sisyphos-color-neutral-dark, #212b36);
 
-  &.error { color: var(--sisyphos-color-error, #fb3748); }
-  &.required::after { content: " *"; color: var(--sisyphos-color-error, #fb3748); }
+  &.error {
+    color: var(--sisyphos-color-error, #fb3748);
+  }
+  &.required::after {
+    content: " *";
+    color: var(--sisyphos-color-error, #fb3748);
+  }
 }
 
 .sisyphos-radio-group-error {
@@ -33,7 +38,9 @@ $radio-colors: (
   display: flex;
   gap: $spacing-xs;
 
-  &.vertical { flex-direction: column; }
+  &.vertical {
+    flex-direction: column;
+  }
   &.horizontal {
     flex-direction: row;
     flex-wrap: wrap;
@@ -57,11 +64,26 @@ $radio-colors: (
   }
 
   /* Sizes (control dot) */
-  &.xs .sisyphos-radio-control { width: 14px; height: 14px; }
-  &.sm .sisyphos-radio-control { width: 16px; height: 16px; }
-  &.md .sisyphos-radio-control { width: 18px; height: 18px; }
-  &.lg .sisyphos-radio-control { width: 22px; height: 22px; }
-  &.xl .sisyphos-radio-control { width: 26px; height: 26px; }
+  &.xs .sisyphos-radio-control {
+    width: 14px;
+    height: 14px;
+  }
+  &.sm .sisyphos-radio-control {
+    width: 16px;
+    height: 16px;
+  }
+  &.md .sisyphos-radio-control {
+    width: 18px;
+    height: 18px;
+  }
+  &.lg .sisyphos-radio-control {
+    width: 22px;
+    height: 22px;
+  }
+  &.xl .sisyphos-radio-control {
+    width: 26px;
+    height: 26px;
+  }
 
   /* Color applies to checked state */
   @each $name, $col in $radio-colors {
@@ -109,7 +131,9 @@ $radio-colors: (
     background: transparent;
     transition: border-color $duration-s;
 
-    &.checked { border-color: currentColor; }
+    &.checked {
+      border-color: currentColor;
+    }
     &:hover:not(.disabled):not(.checked) {
       border-color: var(--sisyphos-color-primary, #ff7022);
     }
@@ -212,7 +236,9 @@ $radio-colors: (
   font-size: $size-sm;
   font-weight: $font-weight-medium;
   cursor: pointer;
-  transition: background $duration-s, border-color $duration-s;
+  transition:
+    background $duration-s,
+    border-color $duration-s;
 
   &:hover:not(:disabled) {
     background: var(--sisyphos-color-primary-lighter, #ffede0);

@@ -11,8 +11,12 @@ const meta: Meta<typeof Toaster> = {
     position: {
       control: "radio",
       options: [
-        "top-left", "top-center", "top-right",
-        "bottom-left", "bottom-center", "bottom-right",
+        "top-left",
+        "top-center",
+        "top-right",
+        "bottom-left",
+        "bottom-center",
+        "bottom-right",
       ],
     },
   },
@@ -38,21 +42,44 @@ export const Default: Story = {
       </p>
       <div style={grid}>
         <Button onClick={() => toast("Default notification")}>Default</Button>
-        <Button color="success" onClick={() => toast.success("Saved successfully", { description: "Your changes have been persisted." })}>
+        <Button
+          color="success"
+          onClick={() =>
+            toast.success("Saved successfully", {
+              description: "Your changes have been persisted.",
+            })
+          }
+        >
           Success
         </Button>
-        <Button color="error" onClick={() => toast.error("Save failed", { description: "Network error. Try again.", duration: 6000 })}>
+        <Button
+          color="error"
+          onClick={() =>
+            toast.error("Save failed", { description: "Network error. Try again.", duration: 6000 })
+          }
+        >
           Error
         </Button>
         <Button color="warning" onClick={() => toast.warning("Storage almost full")}>
           Warning
         </Button>
-        <Button color="info" onClick={() => toast.info("Update available", {
-          action: <Button size="sm" variant="outlined" color="info" onClick={() => alert("reload")}>Reload</Button>,
-        })}>
+        <Button
+          color="info"
+          onClick={() =>
+            toast.info("Update available", {
+              action: (
+                <Button size="sm" variant="outlined" color="info" onClick={() => alert("reload")}>
+                  Reload
+                </Button>
+              ),
+            })
+          }
+        >
           Info w/ action
         </Button>
-        <Button variant="outlined" onClick={() => toast.clear()}>Clear all</Button>
+        <Button variant="outlined" onClick={() => toast.clear()}>
+          Clear all
+        </Button>
       </div>
     </div>
   ),
@@ -77,9 +104,11 @@ export const StackingLimit: Story = {
       <p style={{ margin: 0, color: "#637381" }}>
         With <code>max=3</code>, toasts beyond the limit drop off the stack automatically.
       </p>
-      <Button onClick={() => {
-        for (let i = 1; i <= 5; i++) toast(`Toast #${i}`);
-      }}>
+      <Button
+        onClick={() => {
+          for (let i = 1; i <= 5; i++) toast(`Toast #${i}`);
+        }}
+      >
         Fire 5 toasts
       </Button>
     </div>

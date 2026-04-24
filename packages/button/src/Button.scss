@@ -5,58 +5,62 @@
 
 $button-contained-colors: (
   primary: (
-    bg: linear-gradient(to bottom, var(--sisyphos-color-primary-light, #ff8637), var(--sisyphos-color-primary, #ff7022)),
+    bg: linear-gradient(
+        to bottom,
+        var(--sisyphos-color-primary-light, #ff8637),
+        var(--sisyphos-color-primary, #ff7022)
+      ),
     border: var(--sisyphos-color-primary-contained, #f04906),
     hover-border: var(--sisyphos-color-primary-dark, #e5631c),
-    radius: $radius-md
+    radius: $radius-md,
   ),
   success: (
     bg: var(--sisyphos-color-success-contained, #16a34a),
     border: var(--sisyphos-color-success-contained, #16a34a),
     hover-border: var(--sisyphos-color-success-dark, #16a34a),
-    radius: $radius-md
+    radius: $radius-md,
   ),
   error: (
     bg: var(--sisyphos-color-error-contained, #dc2626),
     border: var(--sisyphos-color-error-contained, #dc2626),
     hover-border: var(--sisyphos-color-error-dark, #dc2626),
-    radius: $radius-md
+    radius: $radius-md,
   ),
   warning: (
     bg: var(--sisyphos-color-warning-contained, #f59e0b),
     border: var(--sisyphos-color-warning-contained, #f59e0b),
     hover-border: var(--sisyphos-color-warning-dark, #f59e0b),
-    radius: $radius-md
+    radius: $radius-md,
   ),
   info: (
     bg: var(--sisyphos-color-info-contained, #0891b2),
     border: var(--sisyphos-color-info-contained, #0891b2),
     hover-border: var(--sisyphos-color-info-dark, #0891b2),
-    radius: $radius-md
-  )
+    radius: $radius-md,
+  ),
 );
 
 $button-soft-colors: (
   primary: (
     color: var(--sisyphos-color-primary, #ff7022),
-    bg: var(--sisyphos-color-primary-lighter, #ffede0)
+    bg: var(--sisyphos-color-primary-lighter, #ffede0),
   ),
   success: (
     color: var(--sisyphos-color-success, #22c55e),
-    bg: var(--sisyphos-color-success-lighter, #dcfce7)
+    bg: var(--sisyphos-color-success-lighter, #dcfce7),
   ),
   error: (
     color: var(--sisyphos-color-error, #fb3748),
-    bg: var(--sisyphos-color-error-lighter, #fee2e2)
+    bg: var(--sisyphos-color-error-lighter, #fee2e2),
   ),
   warning: (
     color: var(--sisyphos-color-warning, #ffab00),
-    bg: var(--sisyphos-color-warning-lighter, #fef3c7)
+    bg: var(--sisyphos-color-warning-lighter, #fef3c7),
   ),
   info: (
     color: var(--sisyphos-color-info, #00b8d9),
-    bg: var(--sisyphos-color-info-lighter, #cffafe)
-  )
+    bg: var(--sisyphos-color-info-lighter, #cffafe),
+  ),
 );
 
 /* ─── LOADING SPINNER ────────────────────────────────────────────────────── */

@@ -8,8 +8,7 @@ const meta = {
     layout: "centered",
     docs: {
       description: {
-        component:
-          "Input component with label, error states, variants, and password toggle.",
+        component: "Input component with label, error states, variants, and password toggle.",
       },
     },
   },

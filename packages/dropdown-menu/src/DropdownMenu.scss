@@ -16,7 +16,9 @@
   transition: opacity $duration-s ease;
   outline: none;
 
-  &.rich { min-width: 280px; }
+  &.rich {
+    min-width: 280px;
+  }
 }
 
 .sisyphos-dropdown-menu-list {
@@ -106,7 +108,10 @@
   display: inline-flex;
   align-items: center;
 
-  svg { width: 1em; height: 1em; }
+  svg {
+    width: 1em;
+    height: 1em;
+  }
 }
 
 .sisyphos-dropdown-menu-item-label {

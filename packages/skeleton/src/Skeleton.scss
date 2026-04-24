@@ -7,8 +7,13 @@
  *   which also reads correctly as a skeleton placeholder on white surfaces.
  *   The shimmer sweep uses neutral-dark at low opacity so it works on any theme.
  */
-$skeleton-base:  var(--sisyphos-color-neutral-light, #eef0f2);
-$skeleton-peak:  rgba(145, 158, 171, 0.24); /* neutral-dark @ ~24% — visible on both base and dark modes */
+$skeleton-base: var(--sisyphos-color-neutral-light, #eef0f2);
+$skeleton-peak: rgba(
+  145,
+  158,
+  171,
+  0.24
+); /* neutral-dark @ ~24% — visible on both base and dark modes */
 
 .sisyphos-skeleton {
   display: inline-block;
@@ -20,20 +25,19 @@ $skeleton-peak:  rgba(145, 158, 171, 0.24); /* neutral-dark @ ~24% — visible o
   vertical-align: middle;
   min-height: 0.75em;
 
-  &.text { border-radius: $radius-xxs; }
-  &.circular { border-radius: 50%; }
+  &.text {
+    border-radius: $radius-xxs;
+  }
+  &.circular {
+    border-radius: 50%;
+  }
 
   /* Shimmer (default): sweep a slightly darker band across the base color. */
   &.shimmer::after {
     content: "";
     position: absolute;
     inset: 0;
-    background: linear-gradient(
-      90deg,
-      transparent 0%,
-      $skeleton-peak 50%,
-      transparent 100%
-    );
+    background: linear-gradient(90deg, transparent 0%, $skeleton-peak 50%, transparent 100%);
     transform: translateX(-100%);
     animation: sisyphos-skeleton-shimmer 1.4s infinite;
   }
@@ -43,7 +47,9 @@ $skeleton-peak:  rgba(145, 158, 171, 0.24); /* neutral-dark @ ~24% — visible o
     animation: sisyphos-skeleton-pulse 1.5s ease-in-out infinite;
   }
 
-  &.none { /* no animation */ }
+  &.none {
+    /* no animation */
+  }
 }
 
 .sisyphos-skeleton-ghost {
@@ -51,12 +57,19 @@ $skeleton-peak:  rgba(145, 158, 171, 0.24); /* neutral-dark @ ~24% — visible o
 }
 
 @keyframes sisyphos-skeleton-shimmer {
-  100% { transform: translateX(100%); }
+  100% {
+    transform: translateX(100%);
+  }
 }
 
 @keyframes sisyphos-skeleton-pulse {
-  0%, 100% { opacity: 1; }
-  50% { opacity: 0.55; }
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.55;
+  }
 }
 
 /* ─── PAGE SKELETON ──────────────────────────────────────────────────── */
@@ -122,7 +135,9 @@ $skeleton-peak:  rgba(145, 158, 171, 0.24); /* neutral-dark @ ~24% — visible o
   padding: $spacing-md;
   border-bottom: 1px solid var(--sisyphos-color-border, #eef0f2);
 
-  &:last-child { border-bottom: 0; }
+  &:last-child {
+    border-bottom: 0;
+  }
 }
 
 .sisyphos-page-skeleton-detail {

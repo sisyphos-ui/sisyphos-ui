@@ -39,9 +39,6 @@ export const Collapsed: Story = {
 
 export const WithButton: Story = {
   args: {
-    items: [
-      { label: "Back", onClick: () => alert("back") },
-      { label: "Current" },
-    ],
+    items: [{ label: "Back", onClick: () => alert("back") }, { label: "Current" }],
   },
 };

@@ -16,9 +16,7 @@ export const RadioGroupContext = createContext<RadioGroupContextValue | null>(nu
 export function useRadioGroup(): RadioGroupContextValue {
   const ctx = useContext(RadioGroupContext);
   if (!ctx) {
-    throw new Error(
-      "[@sisyphos-ui/radio] <Radio> must be rendered inside <RadioGroup>."
-    );
+    throw new Error("[@sisyphos-ui/radio] <Radio> must be rendered inside <RadioGroup>.");
   }
   return ctx;
 }

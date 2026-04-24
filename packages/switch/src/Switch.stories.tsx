@@ -9,8 +9,7 @@ const meta = {
     layout: "centered",
     docs: {
       description: {
-        component:
-          "Toggle switch with semantic colors and sizes. Used for binary on/off states.",
+        component: "Toggle switch with semantic colors and sizes. Used for binary on/off states.",
       },
       source: {
         type: "dynamic",
@@ -82,13 +81,7 @@ type Story = StoryObj<typeof meta>;
 export const Playground: Story = {
   render: (args) => {
     const [checked, setChecked] = useState(args.checked ?? false);
-    return (
-      <Switch
-        {...args}
-        checked={checked}
-        onChange={(v) => setChecked(v)}
-      />
-    );
+    return <Switch {...args} checked={checked} onChange={(v) => setChecked(v)} />;
   },
   args: {
     color: "primary",
