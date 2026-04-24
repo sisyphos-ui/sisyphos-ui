@@ -1,6 +1,6 @@
 import type { ReactNode } from "react";
 
-export type ToastType = "default" | "success" | "error" | "warning" | "info";
+export type ToastType = "default" | "success" | "error" | "warning" | "info" | "loading";
 
 export interface ToastOptions {
   /** Short summary. */
@@ -93,12 +93,29 @@ export const toastStore = {
   },
 };
 
+export interface PromiseMessages<T> {
+  loading: ReactNode;
+  success: ReactNode | ((value: T) => ReactNode);
+  error: ReactNode | ((err: unknown) => ReactNode);
+}
+
 export type ToastFn = {
   (title: ReactNode, options?: ToastOptions): string;
   success: (title: ReactNode, options?: ToastOptions) => string;
   error: (title: ReactNode, options?: ToastOptions) => string;
   warning: (title: ReactNode, options?: ToastOptions) => string;
   info: (title: ReactNode, options?: ToastOptions) => string;
+  loading: (title: ReactNode, options?: ToastOptions) => string;
+  /**
+   * Show a toast that starts in loading state and transitions to success or
+   * error when the promise settles. Returns the toast id. Behind the scenes
+   * the store reuses the same id, so the border/icon animate in place.
+   */
+  promise: <T>(
+    promise: Promise<T> | (() => Promise<T>),
+    messages: PromiseMessages<T>,
+    options?: ToastOptions,
+  ) => Promise<T>;
   custom: (options: ToastOptions) => string;
   dismiss: (id: string) => void;
   clear: () => void;
@@ -109,8 +126,42 @@ toastFn.success = (title, options) => add("success", title, options);
 toastFn.error = (title, options) => add("error", title, options);
 toastFn.warning = (title, options) => add("warning", title, options);
 toastFn.info = (title, options) => add("info", title, options);
+toastFn.loading = (title, options) =>
+  add("loading", title, {
+    duration: Infinity,
+    dismissible: false,
+    ...options,
+  });
 toastFn.custom = (options) => add("default", options);
 toastFn.dismiss = (id) => toastStore.dismiss(id);
 toastFn.clear = () => toastStore.clear();
+
+toastFn.promise = function promise<T>(
+  p: Promise<T> | (() => Promise<T>),
+  messages: PromiseMessages<T>,
+  options: ToastOptions = {},
+): Promise<T> {
+  const id = options.id ?? `t${Date.now()}-${++counter}`;
+  add("loading", messages.loading, {
+    ...options,
+    id,
+    duration: Infinity,
+    dismissible: false,
+  });
+
+  const actual = typeof p === "function" ? p() : p;
+  return actual.then(
+    (value) => {
+      const title = typeof messages.success === "function" ? messages.success(value) : messages.success;
+      add("success", title, { ...options, id, duration: options.duration ?? 4000, dismissible: options.dismissible ?? true });
+      return value;
+    },
+    (err) => {
+      const title = typeof messages.error === "function" ? messages.error(err) : messages.error;
+      add("error", title, { ...options, id, duration: options.duration ?? 4000, dismissible: options.dismissible ?? true });
+      throw err;
+    },
+  );
+};
 
 export const toast = toastFn;
