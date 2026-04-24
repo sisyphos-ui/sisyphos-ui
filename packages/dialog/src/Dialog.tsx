@@ -26,6 +26,14 @@ export interface DialogProps {
   closeOnEscape?: boolean;
   /** Render the backdrop. Disable for transparent dialogs. Default `true`. */
   backdrop?: boolean;
+  /**
+   * Render a floating close button in the top-right of the dialog. Default `false`.
+   * Use this when you want a close affordance without composing `<Dialog.Close />`
+   * yourself. For custom placement (e.g. inside a header), use the compound instead.
+   */
+  showCloseButton?: boolean;
+  /** aria-label for the auto-rendered close button. Default `"Close"`. */
+  closeButtonLabel?: string;
   /** Element that receives focus on open. Defaults to the first focusable child. */
   initialFocus?: React.RefObject<HTMLElement>;
   className?: string;
@@ -48,6 +56,8 @@ const DialogRoot: React.FC<DialogProps> = ({
   closeOnBackdropClick = true,
   closeOnEscape = true,
   backdrop = true,
+  showCloseButton = false,
+  closeButtonLabel = "Close",
   initialFocus,
   className,
   children,
@@ -86,14 +96,22 @@ const DialogRoot: React.FC<DialogProps> = ({
       >
         <div
           ref={contentRef}
-          className={cx("sisyphos-dialog", size, className)}
+          className={cx("sisyphos-dialog", size, showCloseButton && "has-auto-close", className)}
           role="dialog"
           aria-modal="true"
           aria-labelledby={titleId}
           aria-describedby={descriptionId}
           tabIndex={-1}
         >
-          <DialogContext.Provider value={ctx}>{children}</DialogContext.Provider>
+          <DialogContext.Provider value={ctx}>
+            {showCloseButton && (
+              <DialogClose
+                className="sisyphos-dialog-close--auto"
+                aria-label={closeButtonLabel}
+              />
+            )}
+            {children}
+          </DialogContext.Provider>
         </div>
       </div>
     </Portal>
