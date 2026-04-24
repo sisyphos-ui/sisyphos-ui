@@ -32,4 +32,7 @@ jobs:
           version: pnpm version-packages
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+          # setup-node writes an .npmrc that reads `${NODE_AUTH_TOKEN}` — the
+          # previous NPM_TOKEN env var was never picked up, so npm publish ran
+          # unauthenticated and got 404-as-denied from the registry.
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
