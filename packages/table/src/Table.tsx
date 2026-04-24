@@ -69,6 +69,13 @@ export interface TableProps<T> {
   selectedIds?: RowId[];
   /** Called with the next selection when it changes. */
   onSelectionChange?: (ids: RowId[]) => void;
+  /**
+   * How row selection is toggled when `selectable` is true.
+   * - `checkbox` (default): only the checkbox toggles selection.
+   * - `click`: single click anywhere on the row toggles the selection.
+   * - `doubleClick`: double-click toggles. Single click still fires `onRowClick`.
+   */
+  rowSelectionMode?: "checkbox" | "click" | "doubleClick";
 
   /** Current sort state (controlled). */
   sort?: SortState;
@@ -82,6 +89,8 @@ export interface TableProps<T> {
 
   /** Invoked when a row body is clicked (ignored for checkbox/actions cells). */
   onRowClick?: (row: T, index: number) => void;
+  /** Fired on right-click of a row. Useful for wiring a context menu. */
+  onRowContextMenu?: (event: React.MouseEvent<HTMLTableRowElement>, row: T, index: number) => void;
 
   /** Arbitrary toolbar content rendered above the header (filters, buttons, …). */
   toolbar?: React.ReactNode;
@@ -186,11 +195,13 @@ export function Table<T>(props: TableProps<T>) {
     selectable = false,
     selectedIds = [],
     onSelectionChange,
+    rowSelectionMode = "checkbox",
     sort,
     onSortChange,
     actions,
     actionsHeader = "Actions",
     onRowClick,
+    onRowContextMenu,
     toolbar,
     filters,
     onFilterClear,
@@ -430,8 +441,24 @@ export function Table<T>(props: TableProps<T>) {
                 return (
                   <React.Fragment key={String(id)}>
                     <tr
-                      className={cx(selected && "selected", onRowClick && "clickable")}
-                      onClick={onRowClick ? () => onRowClick(row, i) : undefined}
+                      className={cx(
+                        selected && "selected",
+                        (onRowClick || (selectable && rowSelectionMode !== "checkbox")) && "clickable",
+                      )}
+                      onClick={(() => {
+                        const selectOnClick = selectable && rowSelectionMode === "click";
+                        if (!onRowClick && !selectOnClick) return undefined;
+                        return () => {
+                          if (selectOnClick) toggleRow(row, i);
+                          onRowClick?.(row, i);
+                        };
+                      })()}
+                      onDoubleClick={
+                        selectable && rowSelectionMode === "doubleClick"
+                          ? () => toggleRow(row, i)
+                          : undefined
+                      }
+                      onContextMenu={onRowContextMenu ? (e) => onRowContextMenu(e, row, i) : undefined}
                       aria-selected={selected || undefined}
                     >
                       {expandable && (
