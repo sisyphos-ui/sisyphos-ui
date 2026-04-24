@@ -27,6 +27,12 @@ const Info = () => (
     <circle cx="12" cy="12" r="10" /><line x1="12" y1="16" x2="12" y2="12" /><line x1="12" y1="8" x2="12.01" y2="8" />
   </svg>
 );
+const Loading = () => (
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" aria-hidden="true" className="sisyphos-toast-spinner">
+    <circle cx="12" cy="12" r="10" opacity="0.25" />
+    <path d="M22 12a10 10 0 0 1-10 10" />
+  </svg>
+);
 
 export const DEFAULT_ICONS: Record<ToastType, ReactNode> = {
   default: null,
@@ -34,5 +40,6 @@ export const DEFAULT_ICONS: Record<ToastType, ReactNode> = {
   error: <Error />,
   warning: <Warning />,
   info: <Info />,
+  loading: <Loading />,
 };
 export { Base };

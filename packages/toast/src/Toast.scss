@@ -27,6 +27,11 @@ $toast-colors: (
     fg: var(--sisyphos-color-neutral-dark, #212b36),
     accent: var(--sisyphos-color-info, #00b8d9),
   ),
+  loading: (
+    bg: var(--sisyphos-color-neutral-lighter, #fff),
+    fg: var(--sisyphos-color-neutral-dark, #212b36),
+    accent: var(--sisyphos-color-neutral, #9ca3af),
+  ),
 );
 
 /* ── TOASTER ──────────────────────────────────────────────────────────── */
@@ -83,6 +88,15 @@ $toast-colors: (
   svg { width: 18px; height: 18px; }
 }
 
+.sisyphos-toast-spinner {
+  animation: sisyphos-toast-spin 0.9s linear infinite;
+  transform-origin: center;
+}
+
+@keyframes sisyphos-toast-spin {
+  to { transform: rotate(360deg); }
+}
+
 .sisyphos-toast-body {
   flex: 1;
   min-width: 0;
@@ -105,6 +119,11 @@ $toast-colors: (
 
 .sisyphos-toast-action {
   flex-shrink: 0;
+  /* Action (e.g. Undo) should read as part of the toast as a whole, not
+   * pinned to the title's baseline — center it vertically against the body. */
+  align-self: center;
+  display: inline-flex;
+  align-items: center;
 }
 
 .sisyphos-toast-close {
@@ -122,6 +141,7 @@ $toast-colors: (
   height: 1.5em;
   border-radius: $radius-xxs;
   flex-shrink: 0;
+  align-self: center;
 
   svg { width: 1em; height: 1em; }
 

@@ -85,4 +85,61 @@ describe("toast store + Toaster", () => {
     expect(screen.getByText("b")).toBeInTheDocument();
     expect(screen.queryByText("a")).not.toBeInTheDocument();
   });
+
+  it("toast.loading shows a loading toast that doesn't auto-dismiss", async () => {
+    render(<Toaster />);
+    act(() => {
+      toast.loading("Saving…");
+    });
+    await screen.findByText("Saving…");
+    // No close button by default on loading
+    expect(screen.queryByRole("button", { name: "Dismiss notification" })).not.toBeInTheDocument();
+  });
+
+  it("toast.promise transitions loading → success on resolve", async () => {
+    render(<Toaster />);
+    let resolve!: (v: string) => void;
+    const p = new Promise<string>((res) => {
+      resolve = res;
+    });
+    act(() => {
+      void toast.promise(p, { loading: "Saving…", success: "Saved!", error: "Oops" });
+    });
+    await screen.findByText("Saving…");
+    await act(async () => {
+      resolve("ok");
+      await p;
+    });
+    await screen.findByText("Saved!");
+    expect(screen.queryByText("Saving…")).not.toBeInTheDocument();
+  });
+
+  it("toast.promise transitions loading → error on reject", async () => {
+    render(<Toaster />);
+    let reject!: (e: unknown) => void;
+    const p = new Promise<string>((_res, rej) => {
+      reject = rej;
+    });
+    const wrapped = toast.promise(p, { loading: "Saving…", success: "Saved!", error: "Oops" });
+    await screen.findByText("Saving…");
+    await act(async () => {
+      reject(new Error("x"));
+      await wrapped.catch(() => {});
+    });
+    await screen.findByText("Oops");
+    expect(screen.queryByText("Saving…")).not.toBeInTheDocument();
+  });
+
+  it("toast.promise passes resolved value to success function", async () => {
+    render(<Toaster />);
+    const p = Promise.resolve({ name: "Ada" });
+    await act(async () => {
+      await toast.promise(p, {
+        loading: "Saving…",
+        success: (v) => `Saved ${v.name}`,
+        error: "x",
+      });
+    });
+    expect(await screen.findByText("Saved Ada")).toBeInTheDocument();
+  });
 });
