@@ -23,7 +23,9 @@ jobs:
           cache: pnpm
           registry-url: https://registry.npmjs.org
       - run: pnpm install --frozen-lockfile
-      - run: pnpm build
+      # `pnpm release` already runs `turbo run build --filter=./packages/*`
+      # before `changeset publish`, so a standalone pre-build here is both
+      # redundant and would drag the broken storybook dev app into scope.
       - uses: changesets/action@v1
         with:
           publish: pnpm release
