@@ -1,0 +1,112 @@
+@use "@sisyphos-ui/core/src/tokens/variables" as *;
+
+.sisyphos-command {
+  display: flex;
+  flex-direction: column;
+  background: var(--sisyphos-color-neutral-lighter, #fff);
+  color: var(--sisyphos-color-neutral-dark, #212b36);
+  border: 1px solid var(--sisyphos-color-border, #e4e7eb);
+  border-radius: $radius-md;
+  overflow: hidden;
+  min-width: 320px;
+  max-width: 640px;
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.1);
+}
+
+.sisyphos-command-input {
+  appearance: none;
+  border: 0;
+  outline: 0;
+  padding: $spacing-md $spacing-lg;
+  font: inherit;
+  font-size: $size-md;
+  color: inherit;
+  background: transparent;
+  border-bottom: 1px solid var(--sisyphos-color-border, #eef0f2);
+
+  &::placeholder {
+    color: var(--sisyphos-color-neutral-dark, #919eab);
+  }
+
+  &:focus {
+    outline: 0;
+  }
+}
+
+.sisyphos-command-list {
+  overflow-y: auto;
+  max-height: 360px;
+  padding: $spacing-xxs;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.sisyphos-command-empty {
+  padding: $spacing-xl $spacing-md;
+  text-align: center;
+  color: var(--sisyphos-color-neutral-dark, #637381);
+  font-size: $size-sm;
+}
+
+.sisyphos-command-group {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+
+  /* Hide the whole group (heading included) when it has no visible items.
+   * Items remove themselves from the DOM entirely, so :empty on the items
+   * container is the right signal. */
+  &:has(.sisyphos-command-group-items:empty) {
+    display: none;
+  }
+}
+
+.sisyphos-command-group-heading {
+  padding: $spacing-xs $spacing-s;
+  font-size: $size-xs;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--sisyphos-color-neutral-dark, #919eab);
+  user-select: none;
+}
+
+.sisyphos-command-group-items {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.sisyphos-command-item {
+  display: flex;
+  align-items: center;
+  gap: $spacing-xs;
+  padding: $spacing-s $spacing-md;
+  border-radius: $radius-xs;
+  font-size: $size-md;
+  cursor: pointer;
+  user-select: none;
+  color: var(--sisyphos-color-neutral-dark, #212b36);
+  outline: none;
+
+  &.active,
+  &:hover:not(.disabled) {
+    background: var(--sisyphos-color-neutral-light, #f4f6f8);
+  }
+
+  &.disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+
+  svg {
+    width: 1em;
+    height: 1em;
+  }
+}
+
+.sisyphos-command-separator {
+  height: 1px;
+  margin: $spacing-xxs 0;
+  background: var(--sisyphos-color-border, #eef0f2);
+}

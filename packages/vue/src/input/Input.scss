@@ -1,0 +1,390 @@
+@use "@sisyphos-ui/core/src/tokens/variables" as *;
+
+/* ─── BASE CONTAINER ─────────────────────────────────────────────────────── */
+
+.sisyphos-input-container {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  min-width: 200px;
+
+  &.full-width {
+    width: 100%;
+  }
+}
+
+/* ─── LABEL ──────────────────────────────────────────────────────────────── */
+
+.sisyphos-input-label {
+  font-size: $base-size;
+  color: var(--sisyphos-color-neutral-dark, #212b36);
+  margin-bottom: $spacing-xs;
+  transition: color $duration-s;
+
+  &.focused {
+    color: var(--sisyphos-color-primary, #ff7022);
+  }
+
+  &.error {
+    color: var(--sisyphos-color-error, #fb3748);
+  }
+
+  &.required::after {
+    content: " *";
+    color: var(--sisyphos-color-error, #fb3748);
+  }
+
+  &.disabled {
+    color: var(--sisyphos-color-neutral-darker, #919eab);
+    opacity: $opacity-xs;
+  }
+
+  &.read-only {
+    color: var(--sisyphos-color-neutral-dark, #212b36);
+  }
+}
+
+/* ─── WRAPPER ────────────────────────────────────────────────────────────── */
+
+.sisyphos-input-wrapper {
+  display: flex;
+  align-items: center;
+  position: relative;
+  width: 100%;
+}
+
+/* ─── INPUT BASE ─────────────────────────────────────────────────────────── */
+
+.sisyphos-input {
+  width: 100%;
+  font-size: $base-size;
+  font-weight: $font-weight-regular;
+  font-family: inherit;
+  color: var(--sisyphos-color-neutral-dark, #212b36);
+  background-color: var(--sisyphos-color-neutral-light, #f3f4f6);
+  border: 1px solid $border;
+  border-radius: $radius-s;
+  padding: $spacing-s $spacing-md;
+  outline: none;
+  transition:
+    border-color $duration-s,
+    box-shadow $duration-s,
+    background-color $duration-s;
+
+  &::placeholder {
+    color: var(--sisyphos-color-neutral-dark, #212b36);
+    opacity: 0.5;
+  }
+
+  &:hover:not(:disabled):not(:read-only) {
+    border-color: $border;
+    border-color: color-mix(in srgb, var(--sisyphos-color-primary, #ff7022) 40%, $border 60%);
+  }
+
+  &:focus {
+    caret-color: var(--sisyphos-color-primary, #ff7022);
+    background-color: var(--sisyphos-color-neutral-lighter, #fff);
+    border-color: var(--sisyphos-color-primary, #ff7022);
+  }
+
+  &:disabled {
+    cursor: not-allowed;
+    background-color: var(--sisyphos-color-neutral-light, #f3f4f6);
+    color: var(--sisyphos-color-neutral-dark, #212b36);
+    opacity: $opacity-xs;
+  }
+
+  &:read-only {
+    cursor: default;
+    background-color: var(--sisyphos-color-neutral-light, #f3f4f6);
+  }
+
+  /* Sizes */
+  &.xs {
+    padding: $spacing-xxs $spacing-xs;
+    font-size: $size-xs;
+    min-height: 28px;
+  }
+
+  &.sm {
+    padding: $spacing-xs $spacing-s;
+    font-size: $size-sm;
+    min-height: 32px;
+  }
+
+  &.md {
+    padding: $spacing-s $spacing-md;
+    font-size: $base-size;
+    min-height: 40px;
+  }
+
+  &.lg {
+    padding: $spacing-md $spacing-lg;
+    font-size: $size-lg;
+    min-height: 52px;
+  }
+
+  &.xl {
+    padding: $spacing-lg $spacing-xl;
+    font-size: $size-lg;
+    min-height: 60px;
+  }
+
+  /* Radius */
+  &.radius-xs {
+    border-radius: $radius-xxs !important;
+  }
+
+  &.radius-sm {
+    border-radius: $radius-s !important;
+  }
+
+  &.radius-md {
+    border-radius: $radius-md !important;
+  }
+
+  &.radius-lg {
+    border-radius: $radius-lg !important;
+  }
+
+  &.radius-xl {
+    border-radius: $radius-xl !important;
+  }
+
+  /* Variants */
+  &.outlined {
+    border-radius: $radius-xs;
+  }
+
+  &.underline {
+    border: none;
+    border-bottom: 1px solid var(--sisyphos-color-neutral-darker, #919eab33);
+    border-radius: 0;
+    padding-left: 0;
+    padding-right: 0;
+  }
+
+  &.focused.standard,
+  &.focused.outlined {
+    border-color: var(--sisyphos-color-primary, #ff7022);
+    box-shadow: 0 0 0 3px var(--sisyphos-color-primary-lighter, #ffede0);
+  }
+
+  &.focused.underline {
+    border-bottom-color: var(--sisyphos-color-primary, #ff7022);
+  }
+
+  &.error.standard,
+  &.error.outlined {
+    border-color: var(--sisyphos-color-error, #fb3748);
+  }
+
+  &.focused.error.standard,
+  &.focused.error.outlined {
+    box-shadow: 0 0 0 3px var(--sisyphos-color-error-lighter, #fee2e2);
+  }
+
+  &.error.underline {
+    border-bottom-color: var(--sisyphos-color-error, #fb3748);
+  }
+}
+
+/* ─── START ICON ─────────────────────────────────────────────────────────── */
+
+.sisyphos-input-container.has-start-icon .sisyphos-input-wrapper {
+  .sisyphos-input {
+    padding-left: calc($spacing-xl + $spacing-s);
+  }
+}
+
+.sisyphos-input-icon--start {
+  position: absolute;
+  left: $spacing-s;
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--sisyphos-color-neutral-darker, #919eab);
+  pointer-events: none;
+  transition: color $duration-s;
+
+  /* Clamp icon glyphs to text scale — prevents 24×24 lucide defaults from
+   * dominating small inputs and throwing off vertical centering. */
+  > svg,
+  > img {
+    width: 1.15em;
+    height: 1.15em;
+  }
+}
+
+.sisyphos-input-container.focused .sisyphos-input-icon--start {
+  color: var(--sisyphos-color-primary, #ff7022);
+}
+
+.sisyphos-input-container.error .sisyphos-input-icon--start {
+  color: var(--sisyphos-color-error, #fb3748);
+}
+
+.sisyphos-input-container.disabled .sisyphos-input-icon--start {
+  color: var(--sisyphos-color-neutral-darker, #919eab);
+  opacity: $opacity-xs;
+}
+
+/* ─── PASSWORD TOGGLE / COPY / END ADORNMENT ─────────────────────────────── */
+
+.sisyphos-input-container.has-end-adornment .sisyphos-input {
+  padding-right: calc($spacing-xl + $spacing-s);
+}
+
+.sisyphos-input-password-toggle,
+.sisyphos-input-copy-button {
+  position: absolute;
+  right: $spacing-s;
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: $spacing-xs;
+  border: none;
+  background: transparent;
+  color: var(--sisyphos-color-neutral-darker, #919eab);
+  cursor: pointer;
+  transition: color $duration-s;
+
+  &:hover {
+    color: var(--sisyphos-color-neutral-dark, #212b36);
+  }
+
+  &:focus-visible {
+    color: var(--sisyphos-color-primary, #ff7022);
+    border-radius: $radius-xs;
+    outline: 2px solid var(--sisyphos-color-primary, #ff7022);
+    outline-offset: 1px;
+  }
+}
+
+.sisyphos-input-icon--end {
+  position: absolute;
+  right: $spacing-s;
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--sisyphos-color-neutral-darker, #919eab);
+  pointer-events: none;
+
+  > svg,
+  > img {
+    width: 1.15em;
+    height: 1.15em;
+  }
+}
+
+/* ─── LABEL TOOLTIP ───────────────────────────────────────────────────────── */
+
+.sisyphos-input-label {
+  display: inline-flex;
+  align-items: center;
+  gap: $spacing-xxs;
+}
+
+.sisyphos-input-label-tooltip {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--sisyphos-color-neutral-darker, #919eab);
+  cursor: help;
+  border-radius: 50%;
+  width: 16px;
+  height: 16px;
+  transition: color $duration-s;
+
+  &:hover,
+  &:focus-visible {
+    color: var(--sisyphos-color-neutral-dark, #212b36);
+    outline: none;
+
+    .sisyphos-input-label-tooltip-popover {
+      opacity: 1;
+      visibility: visible;
+
+      &.top {
+        transform: translate(-50%, 0);
+      }
+      &.bottom {
+        transform: translate(-50%, 0);
+      }
+      &.left {
+        transform: translate(0, -50%);
+      }
+      &.right {
+        transform: translate(0, -50%);
+      }
+    }
+  }
+}
+
+.sisyphos-input-label-tooltip-popover {
+  position: absolute;
+  z-index: 10;
+  min-width: 180px;
+  max-width: 260px;
+  padding: $spacing-xs $spacing-s;
+  border-radius: $radius-s;
+  background: var(--sisyphos-color-neutral-dark, #212b36);
+  color: var(--sisyphos-color-neutral-lighter, #fff);
+  font-size: $size-xs;
+  line-height: 1.4;
+  text-align: left;
+  white-space: normal;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.16);
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition:
+    opacity $duration-s,
+    visibility $duration-s,
+    transform $duration-s;
+
+  &.top {
+    bottom: calc(100% + #{$spacing-xs});
+    left: 50%;
+    transform: translate(-50%, 4px);
+  }
+  &.bottom {
+    top: calc(100% + #{$spacing-xs});
+    left: 50%;
+    transform: translate(-50%, -4px);
+  }
+  &.left {
+    right: calc(100% + #{$spacing-xs});
+    top: 50%;
+    transform: translate(4px, -50%);
+  }
+  &.right {
+    left: calc(100% + #{$spacing-xs});
+    top: 50%;
+    transform: translate(-4px, -50%);
+  }
+}
+
+/* ─── MESSAGES ───────────────────────────────────────────────────────────── */
+
+.sisyphos-input-error {
+  margin-top: $spacing-xxs;
+  font-size: $size-sm;
+  color: var(--sisyphos-color-error, #fb3748);
+}
+
+.sisyphos-input-character-count {
+  display: block;
+  margin-top: $spacing-xxs;
+  font-size: $size-xs;
+  color: var(--sisyphos-color-neutral-dark, #212b36);
+  opacity: 0.5;
+  text-align: right;
+}

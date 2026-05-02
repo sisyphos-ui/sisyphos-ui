@@ -1,0 +1,216 @@
+@use "@sisyphos-ui/core/src/tokens/variables" as *;
+
+.sisyphos-file-upload {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-xs;
+
+  &.disabled {
+    opacity: $opacity-s;
+    pointer-events: none;
+  }
+}
+
+.sisyphos-file-upload-label {
+  font-size: $size-md;
+  font-weight: $font-weight-medium;
+  color: var(--sisyphos-color-neutral-dark, #212b36);
+}
+
+.sisyphos-file-upload-dropzone {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: $spacing-s;
+  padding: $spacing-xl $spacing-md;
+  border: 2px dashed var(--sisyphos-color-border, #c4cdd5);
+  border-radius: $radius-md;
+  background: var(--sisyphos-color-neutral-lighter, #f9fafb);
+  cursor: pointer;
+  transition:
+    border-color $duration-s,
+    background $duration-s;
+  outline: none;
+  text-align: center;
+
+  &:hover:not(.disabled),
+  &.drag-over {
+    border-color: var(--sisyphos-color-primary, #ff7022);
+    background: var(--sisyphos-color-primary-lighter, #ffede0);
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--sisyphos-color-primary, #ff7022);
+    outline-offset: 2px;
+  }
+
+  &.disabled {
+    cursor: not-allowed;
+    opacity: $opacity-s;
+  }
+
+  .sisyphos-file-upload.error & {
+    border-color: var(--sisyphos-color-error, #fb3748);
+    background: var(--sisyphos-color-error-lighter, #fee2e2);
+  }
+}
+
+.sisyphos-file-upload-dropzone-icon {
+  color: var(--sisyphos-color-neutral-dark, #637381);
+}
+
+.sisyphos-file-upload-dropzone-text {
+  display: flex;
+  align-items: center;
+  gap: $spacing-xs;
+  flex-wrap: wrap;
+  justify-content: center;
+
+  p {
+    margin: 0;
+    color: var(--sisyphos-color-neutral-dark, #637381);
+  }
+}
+
+.sisyphos-file-upload-browse {
+  appearance: none;
+  background: transparent;
+  border: 0;
+  padding: 0;
+  margin: 0;
+  cursor: pointer;
+  font: inherit;
+  font-weight: $font-weight-semibold;
+  color: var(--sisyphos-color-primary, #ff7022);
+  text-decoration: underline;
+}
+
+.sisyphos-file-upload-native {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  cursor: inherit;
+  pointer-events: none;
+}
+
+.sisyphos-file-upload-hints {
+  display: flex;
+  flex-wrap: wrap;
+  gap: $spacing-md;
+  font-size: $size-sm;
+  color: var(--sisyphos-color-neutral-dark, #637381);
+}
+
+.sisyphos-file-upload-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-xs;
+}
+
+.sisyphos-file-upload-item {
+  border: 1px solid var(--sisyphos-color-border, #e4e7eb);
+  border-radius: $radius-s;
+  padding: $spacing-xs $spacing-s;
+  background: var(--sisyphos-color-neutral-lighter, #fff);
+
+  &.error {
+    border-color: var(--sisyphos-color-error, #fb3748);
+    background: var(--sisyphos-color-error-lighter, #fee2e2);
+  }
+}
+
+.sisyphos-file-upload-item-main {
+  display: flex;
+  align-items: center;
+  gap: $spacing-s;
+}
+
+.sisyphos-file-upload-item-icon {
+  width: 40px;
+  height: 40px;
+  flex-shrink: 0;
+  border-radius: $radius-xs;
+  background: var(--sisyphos-color-neutral-lighter, #f4f6f8);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--sisyphos-color-neutral-dark, #637381);
+  overflow: hidden;
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+}
+
+.sisyphos-file-upload-item-info {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.sisyphos-file-upload-item-name {
+  font-size: $size-md;
+  font-weight: $font-weight-medium;
+  color: var(--sisyphos-color-neutral-dark, #212b36);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.sisyphos-file-upload-item-meta {
+  font-size: $size-sm;
+  color: var(--sisyphos-color-neutral-dark, #637381);
+}
+
+.sisyphos-file-upload-remove {
+  appearance: none;
+  background: transparent;
+  border: 0;
+  padding: 0;
+  width: 24px;
+  height: 24px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  color: var(--sisyphos-color-neutral-dark, #637381);
+  border-radius: $radius-xxs;
+
+  &:hover {
+    color: var(--sisyphos-color-error, #fb3748);
+    background: var(--sisyphos-color-error-lighter, #fee2e2);
+  }
+  &:disabled {
+    opacity: $opacity-xs;
+    cursor: not-allowed;
+  }
+}
+
+.sisyphos-file-upload-progress {
+  height: 4px;
+  border-radius: $radius-full;
+  background: var(--sisyphos-color-neutral-lighter, #f0f1f3);
+  overflow: hidden;
+  margin-top: $spacing-xs;
+}
+
+.sisyphos-file-upload-progress-bar {
+  height: 100%;
+  background: var(--sisyphos-color-primary, #ff7022);
+  transition: width $duration-s linear;
+}
+
+.sisyphos-file-upload-error {
+  font-size: $size-sm;
+  color: var(--sisyphos-color-error, #fb3748);
+}
