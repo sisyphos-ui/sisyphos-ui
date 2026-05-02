@@ -33,6 +33,12 @@ export interface FileUploadProps {
   maxFiles?: number;
   /** Allow the native input to accept multiple files at once. Default derived from `maxFiles > 1`. */
   multiple?: boolean;
+  /**
+   * When true, the picker accepts an entire folder via `webkitdirectory`
+   * (Chromium / WebKit). The relative path is preserved in `File.webkitRelativePath`
+   * if the consumer needs it.
+   */
+  directory?: boolean;
   disabled?: boolean;
   error?: boolean;
   errorMessage?: string;
@@ -40,6 +46,13 @@ export interface FileUploadProps {
   supportedFormats?: string[];
   /** Fired when a file is dropped/selected but rejected by validation. */
   onReject?: (file: File, reason: RejectReason) => void;
+  /**
+   * Called before a file is removed. Return `false` (or a Promise resolving
+   * to `false`) to cancel the removal — useful when the parent has to
+   * confirm with the user or revoke a server-side resource first. When
+   * omitted, removal is unconditional.
+   */
+  onBeforeRemove?: (file: UploadedFile) => boolean | Promise<boolean>;
   /** Custom renderer for a single file row. Return null to hide. */
   renderFile?: (file: UploadedFile, handlers: { remove: () => void }) => React.ReactNode;
   labels?: FileUploadLabels;
@@ -108,11 +121,13 @@ export const FileUpload: React.FC<FileUploadProps> = ({
   maxSize = 10 * 1024 * 1024,
   maxFiles = 1,
   multiple,
+  directory = false,
   disabled = false,
   error = false,
   errorMessage,
   supportedFormats,
   onReject,
+  onBeforeRemove,
   renderFile,
   labels,
   className,
@@ -197,7 +212,13 @@ export const FileUpload: React.FC<FileUploadProps> = ({
     if (canAddMore) inputRef.current?.click();
   };
 
-  const remove = (id: string) => {
+  const remove = async (id: string) => {
+    const target = value.find((f) => f.id === id);
+    if (!target) return;
+    if (onBeforeRemove) {
+      const allowed = await Promise.resolve(onBeforeRemove(target));
+      if (allowed === false) return;
+    }
     const next = value.filter((f) => f.id !== id);
     commit(next);
   };
@@ -251,6 +272,10 @@ export const FileUpload: React.FC<FileUploadProps> = ({
           disabled={!canAddMore}
           onChange={handleInputChange}
           className="sisyphos-file-upload-native"
+          // `webkitdirectory` is non-standard but supported on every modern
+          // browser. React doesn't know about it as a typed attribute, so
+          // we spread it in via a string-key object.
+          {...(directory ? { webkitdirectory: "", directory: "" } : {})}
         />
       </div>
 
