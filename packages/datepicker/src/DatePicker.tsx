@@ -47,6 +47,21 @@ export type DatePickerProps = {
   showTime?: boolean;
   /** Minute increments in the time picker. Default 15. */
   minuteStep?: number;
+  /**
+   * Default hour applied when the user picks a date for the first time in
+   * `showTime` mode. Avoids the "always lands on 00:00" footgun. Defaults to 0.
+   */
+  defaultHour?: number;
+  /** Default minute applied alongside `defaultHour`. Defaults to 0. */
+  defaultMinute?: number;
+  /** Range mode: default hour for the start date. Falls back to `defaultHour`. */
+  defaultStartHour?: number;
+  /** Range mode: default minute for the start date. Falls back to `defaultMinute`. */
+  defaultStartMinute?: number;
+  /** Range mode: default hour for the end date. Falls back to `defaultHour`. */
+  defaultEndHour?: number;
+  /** Range mode: default minute for the end date. Falls back to `defaultMinute`. */
+  defaultEndMinute?: number;
   allowClear?: boolean;
   fullWidth?: boolean;
   className?: string;
@@ -126,6 +141,12 @@ export const DatePicker: React.FC<DatePickerProps> = (props) => {
     locale = "tr",
     showTime = false,
     minuteStep = 15,
+    defaultHour = 0,
+    defaultMinute = 0,
+    defaultStartHour,
+    defaultStartMinute,
+    defaultEndHour,
+    defaultEndMinute,
     allowClear = false,
     fullWidth = false,
     className,
@@ -265,22 +286,59 @@ export const DatePicker: React.FC<DatePickerProps> = (props) => {
     [isRange, rangeValue]
   );
 
+  /**
+   * Apply the configured default time when the user picks a date for the
+   * first time in `showTime` mode. Once a date already has a user-edited
+   * time we keep it intact.
+   */
+  const applyDefaultTime = useCallback(
+    (d: Date, target: "single" | "start" | "end"): Date => {
+      if (!showTime) return d;
+      let h = defaultHour;
+      let m = defaultMinute;
+      if (target === "start") {
+        h = defaultStartHour ?? defaultHour;
+        m = defaultStartMinute ?? defaultMinute;
+      } else if (target === "end") {
+        h = defaultEndHour ?? defaultHour;
+        m = defaultEndMinute ?? defaultMinute;
+      }
+      return withTime(d, h, m);
+    },
+    [
+      showTime,
+      defaultHour,
+      defaultMinute,
+      defaultStartHour,
+      defaultStartMinute,
+      defaultEndHour,
+      defaultEndMinute,
+    ]
+  );
+
   const handleDaySelect = (d: Date) => {
     if (isDateDisabled(d)) return;
     if (!isRange) {
-      const withMaybeTime =
-        showTime && singleValue ? withTime(d, singleValue.getHours(), singleValue.getMinutes()) : d;
-      emitSingle(withMaybeTime);
+      const next =
+        showTime && singleValue
+          ? withTime(d, singleValue.getHours(), singleValue.getMinutes())
+          : applyDefaultTime(d, "single");
+      emitSingle(next);
       if (!showTime) setIsOpen(false);
       return;
     }
     const [s, e] = rangeValue;
     if (!s || (s && e)) {
-      emitRange([d, null]);
+      emitRange([applyDefaultTime(d, "start"), null]);
     } else if (s && !e) {
-      const newStart = d < s ? d : s;
-      const newEnd = d < s ? s : d;
-      emitRange([newStart, newEnd]);
+      if (d >= s) {
+        emitRange([s, applyDefaultTime(d, "end")]);
+      } else {
+        // User picked a date earlier than the existing start — flip the range.
+        // The previous start keeps its (possibly edited) time and becomes the
+        // end; the freshly picked date receives the default start time.
+        emitRange([applyDefaultTime(d, "start"), s]);
+      }
       if (!showTime) setIsOpen(false);
     }
   };
