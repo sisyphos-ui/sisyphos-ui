@@ -270,9 +270,7 @@ describe("Table", () => {
   it("loadingDelay defers skeleton until the timer elapses", () => {
     vi.useFakeTimers();
     try {
-      render(
-        <Table data={[]} columns={columns} loading loadingDelay={250} skeletonRows={2} />
-      );
+      render(<Table data={[]} columns={columns} loading loadingDelay={250} skeletonRows={2} />);
       expect(document.querySelectorAll(".sisyphos-table-skeleton").length).toBe(0);
       act(() => {
         vi.advanceTimersByTime(260);

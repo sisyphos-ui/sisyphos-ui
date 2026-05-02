@@ -69,13 +69,7 @@ describe("DatePicker default times", () => {
   it("applies defaultHour/defaultMinute on first single-date pick when showTime is on", async () => {
     const onChange = vi.fn();
     render(
-      <DatePicker
-        label="Date"
-        showTime
-        defaultHour={9}
-        defaultMinute={30}
-        onChange={onChange}
-      />
+      <DatePicker label="Date" showTime defaultHour={9} defaultMinute={30} onChange={onChange} />
     );
     await userEvent.click(screen.getByLabelText("Date"));
     const day = await screen.findByRole("button", { name: "15" });
