@@ -1,0 +1,119 @@
+@use "@sisyphos-ui/core/src/tokens/variables" as *;
+
+/* Visually mirror DropdownMenu — only the trigger/positioning mechanism
+ * differs. Keeping the selectors distinct (sisyphos-context-menu-*) so
+ * consumers can override one without the other. */
+
+.sisyphos-context-menu {
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+  padding: 0;
+  background: var(--sisyphos-color-neutral-lighter, #fff);
+  border: 1px solid var(--sisyphos-color-border, #e4e7eb);
+  border-radius: $radius-md;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+  min-width: 180px;
+  max-height: 320px;
+  overflow-y: auto;
+  z-index: $z-index-pickers;
+  outline: none;
+  animation: sisyphos-context-menu-enter 120ms ease-out;
+  transform-origin: top left;
+}
+
+@keyframes sisyphos-context-menu-enter {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.sisyphos-context-menu-list {
+  list-style: none;
+  margin: 0;
+  padding: $spacing-xxs;
+}
+
+.sisyphos-context-menu-empty {
+  padding: $spacing-xl $spacing-md;
+  text-align: center;
+  color: var(--sisyphos-color-neutral-dark, #637381);
+  font-size: $size-sm;
+}
+
+.sisyphos-context-menu-label {
+  padding: $spacing-xxs $spacing-s;
+  font-size: $size-xs;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--sisyphos-color-neutral-dark, #919eab);
+  user-select: none;
+}
+
+.sisyphos-context-menu-separator {
+  height: 1px;
+  margin: $spacing-xxs 0;
+  background: var(--sisyphos-color-border, #eef0f2);
+}
+
+.sisyphos-context-menu-item {
+  display: flex;
+  align-items: center;
+  gap: $spacing-xs;
+  padding: $spacing-xs $spacing-s;
+  border-radius: $radius-xs;
+  cursor: pointer;
+  user-select: none;
+  color: var(--sisyphos-color-neutral-dark, #212b36);
+  font-size: $size-md;
+  outline: none;
+
+  &:hover:not(.disabled),
+  &:focus:not(.disabled) {
+    background: var(--sisyphos-color-neutral-lighter, #f4f6f8);
+  }
+
+  &.destructive {
+    color: var(--sisyphos-color-error, #fb3748);
+
+    &:hover:not(.disabled),
+    &:focus:not(.disabled) {
+      background: var(--sisyphos-color-error-lighter, #fee2e2);
+    }
+  }
+
+  &.disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+}
+
+.sisyphos-context-menu-item-icon {
+  display: inline-flex;
+  align-items: center;
+
+  svg {
+    width: 1em;
+    height: 1em;
+  }
+}
+
+.sisyphos-context-menu-item-label {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.sisyphos-context-menu-item-shortcut {
+  color: var(--sisyphos-color-neutral-dark, #919eab);
+  font-size: $size-xs;
+  margin-left: auto;
+  padding-left: $spacing-md;
+}
