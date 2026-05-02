@@ -32,7 +32,12 @@ jobs:
           version: pnpm version-packages
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          # setup-node writes an .npmrc that reads `${NODE_AUTH_TOKEN}` — the
-          # previous NPM_TOKEN env var was never picked up, so npm publish ran
-          # unauthenticated and got 404-as-denied from the registry.
+          # Two consumers of the same secret:
+          #   - `NODE_AUTH_TOKEN` is what setup-node's generated `.npmrc`
+          #     interpolates, so the actual `npm publish` call authenticates.
+          #   - `NPM_TOKEN` is what `changesets/action` itself looks for to
+          #     decide between token-mode and OIDC trusted publishing. Without
+          #     it the action falls back to OIDC and fails with ENEEDAUTH on
+          #     repos where trusted publishing isn't configured on npm's side.
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
