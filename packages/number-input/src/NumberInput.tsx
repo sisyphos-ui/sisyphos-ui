@@ -20,7 +20,12 @@ export interface NumberInputProps extends Omit<
   step?: number;
   /** Decimal places. Default 0. */
   precision?: number;
-  /** Locale for `Intl.NumberFormat`. Default `tr-TR`. */
+  /**
+   * BCP 47 locale tag for `Intl.NumberFormat`. Defaults to `undefined`,
+   * which uses the runtime's default locale — pass an explicit string
+   * (e.g. `"tr-TR"`, `"de-DE"`, `"en-US"`) when you need a fixed format
+   * that matches the visual design.
+   */
   locale?: string;
   /** Custom Intl.NumberFormat options (overrides precision when set). */
   numberFormatOptions?: Intl.NumberFormatOptions;
@@ -46,7 +51,11 @@ function clamp(n: number, min?: number, max?: number): number {
   return v;
 }
 
-function buildFormatter(locale: string, precision: number, opts?: Intl.NumberFormatOptions) {
+function buildFormatter(
+  locale: string | undefined,
+  precision: number,
+  opts?: Intl.NumberFormatOptions
+) {
   return new Intl.NumberFormat(
     locale,
     opts ?? { minimumFractionDigits: precision, maximumFractionDigits: precision }
@@ -54,7 +63,7 @@ function buildFormatter(locale: string, precision: number, opts?: Intl.NumberFor
 }
 
 /** Strip everything except digits, "-", and the locale's decimal separator. */
-function parseLocaleNumber(input: string, locale: string): number | null {
+function parseLocaleNumber(input: string, locale: string | undefined): number | null {
   if (input == null || input === "") return null;
   const example = (1234.5).toLocaleString(locale);
   // Derive the locale decimal separator from a formatted sample: "...5" where
@@ -77,7 +86,7 @@ export const NumberInput = React.forwardRef<HTMLInputElement, NumberInputProps>(
       max,
       step = 1,
       precision = 0,
-      locale = "tr-TR",
+      locale,
       numberFormatOptions,
       withStepper = true,
       prefix,
