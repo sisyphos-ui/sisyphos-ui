@@ -1,0 +1,105 @@
+@use "@sisyphos-ui/core/src/tokens/variables" as *;
+
+.sisyphos-carousel {
+  position: relative;
+  width: 100%;
+  outline: none;
+
+  &:focus-visible {
+    box-shadow: 0 0 0 2px var(--sisyphos-color-primary, #ff7022);
+    border-radius: $radius-md;
+  }
+}
+
+.sisyphos-carousel-viewport {
+  position: relative;
+  overflow: hidden;
+  border-radius: $radius-md;
+}
+
+.sisyphos-carousel-track {
+  display: flex;
+  width: 100%;
+  transition: transform $duration-m ease;
+  will-change: transform;
+}
+
+.sisyphos-carousel-slide {
+  flex: 0 0 100%;
+  min-width: 0;
+  box-sizing: border-box;
+}
+
+.sisyphos-carousel-arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  appearance: none;
+  background: rgba(0, 0, 0, 0.4);
+  color: #fff;
+  border: 0;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 1;
+  transition:
+    background $duration-s,
+    opacity $duration-s;
+
+  &.prev {
+    left: $spacing-s;
+  }
+  &.next {
+    right: $spacing-s;
+  }
+
+  &:hover:not(:disabled) {
+    background: rgba(0, 0, 0, 0.6);
+  }
+  &:focus-visible {
+    outline: 2px solid var(--sisyphos-color-primary, #ff7022);
+    outline-offset: 2px;
+  }
+  &:disabled {
+    opacity: $opacity-xs;
+    cursor: not-allowed;
+  }
+}
+
+.sisyphos-carousel-dots {
+  display: flex;
+  justify-content: center;
+  gap: $spacing-xs;
+  margin-top: $spacing-s;
+}
+
+.sisyphos-carousel-dot {
+  appearance: none;
+  background: var(--sisyphos-color-border, #c4cdd5);
+  border: 0;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  cursor: pointer;
+  padding: 0;
+  transition:
+    background $duration-s,
+    transform $duration-s;
+
+  &:hover {
+    background: var(--sisyphos-color-neutral-dark, #919eab);
+  }
+  &.active {
+    background: var(--sisyphos-color-primary, #ff7022);
+    transform: scale(1.25);
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--sisyphos-color-primary, #ff7022);
+    outline-offset: 2px;
+  }
+}

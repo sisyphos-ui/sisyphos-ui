@@ -1,0 +1,171 @@
+@use "@sisyphos-ui/core/src/tokens/variables" as *;
+
+/* ─── BASE SWITCH ────────────────────────────────────────────────────────── */
+
+.sisyphos-switch {
+  position: relative;
+  display: inline-block;
+  cursor: pointer;
+  /* 1px border her durumda; unchecked’te renkli, checked’te transparent – layout kayması önlenir */
+  border: 1px solid transparent;
+  padding: 0;
+  background: transparent;
+  font: inherit;
+  transition: opacity $duration-s;
+  -webkit-tap-highlight-color: transparent;
+
+  /* Focus visible */
+  &:focus-visible {
+    outline: 2px solid var(--sisyphos-color-primary, #ff7022);
+    outline-offset: 2px;
+  }
+
+  /* Default track dimensions (md) */
+  width: 40px;
+  height: 20px;
+  border-radius: $radius-full;
+  box-sizing: border-box;
+
+  /* Unchecked - neutral */
+  &.unchecked {
+    background-color: var(--sisyphos-color-neutral, #f9fafb);
+    border-color: var(--sisyphos-color-border, #c4cdd5);
+
+    &:hover:not(.disabled) {
+      background-color: var(--sisyphos-color-neutral-light, #f3f4f6);
+    }
+  }
+
+  /* Checked - semantic colors (border transparent, boyut aynı kalır) */
+  &.checked.neutral {
+    background-color: var(--sisyphos-color-neutral-dark, #212b36);
+  }
+
+  &.checked.primary {
+    background-color: var(--sisyphos-color-primary, #ff7022);
+  }
+
+  &.checked.success {
+    background-color: var(--sisyphos-color-success, #22c55e);
+  }
+
+  &.checked.error {
+    background-color: var(--sisyphos-color-error, #fb3748);
+  }
+
+  &.checked.warning {
+    background-color: var(--sisyphos-color-warning, #ffab00);
+  }
+
+  &.checked.info {
+    background-color: var(--sisyphos-color-info, #00b8d9);
+  }
+
+  &.checked:hover:not(.disabled) {
+    filter: brightness(1.05);
+  }
+
+  /* Disabled */
+  &.disabled {
+    cursor: not-allowed;
+    opacity: $opacity-xs;
+    pointer-events: none;
+  }
+}
+
+/* ─── TOGGLE (THUMB) ─────────────────────────────────────────────────────── */
+
+.sisyphos-switch-toggle {
+  position: absolute;
+  top: 50%;
+  left: 2px;
+  width: 16px;
+  height: 16px;
+  border-radius: $radius-full;
+  background-color: var(--sisyphos-color-neutral-lighter, #fff);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12);
+  transition: transform $duration-s;
+  pointer-events: none;
+  transform: translateY(-50%);
+}
+
+.sisyphos-switch.checked .sisyphos-switch-toggle {
+  transform: translateY(-50%) translateX(20px);
+}
+
+/* ─── SIZES (Simplified BEM - flat structure) ─────────────────────────────── */
+
+.sisyphos-switch.xs {
+  width: 32px;
+  height: 16px;
+}
+
+.sisyphos-switch.xs .sisyphos-switch-toggle {
+  width: 12px;
+  height: 12px;
+  left: 2px;
+}
+
+.sisyphos-switch.xs.checked .sisyphos-switch-toggle {
+  transform: translateY(-50%) translateX(16px);
+}
+
+.sisyphos-switch.sm {
+  width: 36px;
+  height: 18px;
+}
+
+.sisyphos-switch.sm .sisyphos-switch-toggle {
+  width: 14px;
+  height: 14px;
+  left: 2px;
+}
+
+.sisyphos-switch.sm.checked .sisyphos-switch-toggle {
+  transform: translateY(-50%) translateX(18px);
+}
+
+.sisyphos-switch.md {
+  width: 40px;
+  height: 20px;
+}
+
+.sisyphos-switch.md .sisyphos-switch-toggle {
+  width: 16px;
+  height: 16px;
+  left: 2px;
+}
+
+.sisyphos-switch.md.checked .sisyphos-switch-toggle {
+  transform: translateY(-50%) translateX(20px);
+}
+
+.sisyphos-switch.lg {
+  width: 48px;
+  height: 24px;
+}
+
+.sisyphos-switch.lg .sisyphos-switch-toggle {
+  width: 20px;
+  height: 20px;
+  left: 2px;
+}
+
+.sisyphos-switch.lg.checked .sisyphos-switch-toggle {
+  transform: translateY(-50%) translateX(24px);
+}
+
+.sisyphos-switch.xl {
+  width: 56px;
+  height: 28px;
+}
+
+.sisyphos-switch.xl .sisyphos-switch-toggle {
+  width: 24px;
+  height: 24px;
+  left: 2px;
+}
+
+.sisyphos-switch.xl.checked .sisyphos-switch-toggle {
+  transform: translateY(-50%) translateX(28px);
+}

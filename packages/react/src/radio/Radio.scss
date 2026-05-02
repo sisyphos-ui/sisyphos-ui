@@ -1,0 +1,257 @@
+@use "@sisyphos-ui/core/src/tokens/variables" as *;
+@use "sass:map";
+
+$radio-colors: (
+  primary: var(--sisyphos-color-primary, #ff7022),
+  success: var(--sisyphos-color-success, #22c55e),
+  error: var(--sisyphos-color-error, #fb3748),
+  warning: var(--sisyphos-color-warning, #ffab00),
+  info: var(--sisyphos-color-info, #00b8d9),
+);
+
+.sisyphos-radio-group {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-xs;
+}
+
+.sisyphos-radio-group-label {
+  font-size: $size-md;
+  font-weight: $font-weight-medium;
+  color: var(--sisyphos-color-neutral-dark, #212b36);
+
+  &.error {
+    color: var(--sisyphos-color-error, #fb3748);
+  }
+  &.required::after {
+    content: " *";
+    color: var(--sisyphos-color-error, #fb3748);
+  }
+}
+
+.sisyphos-radio-group-error {
+  font-size: $size-sm;
+  color: var(--sisyphos-color-error, #fb3748);
+}
+
+.sisyphos-radio-options {
+  display: flex;
+  gap: $spacing-xs;
+
+  &.vertical {
+    flex-direction: column;
+  }
+  &.horizontal {
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: $spacing-md;
+  }
+}
+
+/* ── RADIO ITEM ───────────────────────────────────────────────────────── */
+.sisyphos-radio {
+  display: inline-flex;
+  flex-direction: column;
+  gap: $spacing-s;
+  cursor: pointer;
+  user-select: none;
+  color: var(--sisyphos-color-neutral-dark, #212b36);
+  line-height: 1.4;
+
+  &.disabled {
+    cursor: not-allowed;
+    opacity: $opacity-xs;
+  }
+
+  /* Sizes (control dot) */
+  &.xs .sisyphos-radio-control {
+    width: 14px;
+    height: 14px;
+  }
+  &.sm .sisyphos-radio-control {
+    width: 16px;
+    height: 16px;
+  }
+  &.md .sisyphos-radio-control {
+    width: 18px;
+    height: 18px;
+  }
+  &.lg .sisyphos-radio-control {
+    width: 22px;
+    height: 22px;
+  }
+  &.xl .sisyphos-radio-control {
+    width: 26px;
+    height: 26px;
+  }
+
+  /* Color applies to checked state */
+  @each $name, $col in $radio-colors {
+    &.#{$name} {
+      &.checked .sisyphos-radio-control {
+        border-color: $col;
+      }
+      &.checked .sisyphos-radio-inner {
+        background: $col;
+      }
+      .sisyphos-radio-input:focus-visible + .sisyphos-radio-control {
+        outline: 2px solid $col;
+        outline-offset: 2px;
+      }
+    }
+  }
+
+  /* Card variant — vertical block, hover lift, soft tint when checked */
+  &.card {
+    padding: $spacing-s $spacing-md;
+    border: 1px solid var(--sisyphos-color-border, #c4cdd5);
+    border-radius: $radius-md;
+    background: var(--sisyphos-color-neutral-lighter, #fff);
+    transition:
+      border-color $duration-s,
+      background $duration-s,
+      box-shadow $duration-s;
+
+    &.checked {
+      border-color: currentColor;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+    }
+
+    &:hover:not(.disabled):not(.checked) {
+      border-color: var(--sisyphos-color-neutral-dark, #919eab);
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+    }
+  }
+
+  /* List variant — horizontal row inside a bordered container, no shadow */
+  &.list {
+    padding: $spacing-md;
+    border: 1px solid var(--sisyphos-color-border, #c4cdd5);
+    border-radius: $radius-md;
+    background: transparent;
+    transition: border-color $duration-s;
+
+    &.checked {
+      border-color: currentColor;
+    }
+    &:hover:not(.disabled):not(.checked) {
+      border-color: var(--sisyphos-color-primary, #ff7022);
+    }
+  }
+}
+
+/* The clickable row inside list/card variants groups the control + content. */
+.sisyphos-radio-row {
+  display: inline-flex;
+  align-items: flex-start;
+  gap: $spacing-xs;
+  width: 100%;
+}
+
+/* Nested content (rendered only when checked, click bubbling stopped). */
+.sisyphos-radio-nested {
+  cursor: default;
+  padding-left: calc(#{$spacing-xs} + 18px); /* align under label past the control dot */
+
+  .sisyphos-radio.list & {
+    padding-top: $spacing-md;
+    border-top: 1px solid var(--sisyphos-color-border, #eef0f2);
+    padding-left: 0;
+    margin-top: $spacing-md;
+  }
+}
+
+.sisyphos-radio-input {
+  position: absolute;
+  width: 0;
+  height: 0;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.sisyphos-radio-control {
+  position: relative;
+  flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid var(--sisyphos-color-border, #c4cdd5);
+  border-radius: 50%;
+  background: var(--sisyphos-color-neutral-lighter, #fff);
+  transition:
+    border-color $duration-s,
+    box-shadow $duration-s;
+  margin-top: 2px;
+}
+
+.sisyphos-radio-inner {
+  width: 50%;
+  height: 50%;
+  border-radius: 50%;
+  background: transparent;
+  transition: background $duration-s;
+}
+
+.sisyphos-radio-content {
+  display: inline-flex;
+  align-items: flex-start;
+  gap: $spacing-xs;
+}
+
+.sisyphos-radio-icon {
+  display: inline-flex;
+  align-items: center;
+  font-size: 1.2em;
+}
+
+.sisyphos-radio-text {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.sisyphos-radio-label {
+  font-size: $size-md;
+  font-weight: $font-weight-medium;
+}
+
+.sisyphos-radio-description {
+  font-size: $size-sm;
+  color: var(--sisyphos-color-neutral-dark, #637381);
+}
+
+.sisyphos-radio-add-option {
+  appearance: none;
+  align-self: flex-start;
+  margin-top: $spacing-xs;
+  display: inline-flex;
+  align-items: center;
+  gap: $spacing-xxs;
+  padding: $spacing-xs $spacing-s;
+  border: 1px dashed var(--sisyphos-color-border, #eef0f2);
+  border-radius: $radius-s;
+  background: transparent;
+  color: var(--sisyphos-color-primary, #ff7022);
+  font: inherit;
+  font-size: $size-sm;
+  font-weight: $font-weight-medium;
+  cursor: pointer;
+  transition:
+    background $duration-s,
+    border-color $duration-s;
+
+  &:hover:not(:disabled) {
+    background: var(--sisyphos-color-primary-lighter, #ffede0);
+    border-color: var(--sisyphos-color-primary, #ff7022);
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--sisyphos-color-primary, #ff7022);
+    outline-offset: 2px;
+  }
+
+  &:disabled {
+    opacity: $opacity-xs;
+    cursor: not-allowed;
+  }
+}
