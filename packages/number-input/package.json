@@ -1,6 +1,6 @@
 {
   "name": "@sisyphos-ui/number-input",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "Number input with localized formatting, stepper buttons, prefix/suffix slots, and min/max/step",
   "keywords": [
     "amount",

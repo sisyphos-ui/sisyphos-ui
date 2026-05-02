@@ -1,6 +1,6 @@
 {
   "name": "@sisyphos-ui/file-upload",
-  "version": "0.3.0",
+  "version": "0.4.0",
   "description": "Drag & drop file upload with validation, progress, and preview slots",
   "keywords": [
     "design-system",

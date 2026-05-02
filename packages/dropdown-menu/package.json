@@ -1,6 +1,6 @@
 {
   "name": "@sisyphos-ui/dropdown-menu",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "description": "Accessible action menu anchored to a trigger (menubutton pattern)",
   "keywords": [
     "action-menu",

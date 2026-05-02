@@ -1,6 +1,6 @@
 {
   "name": "@sisyphos-ui/tooltip",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "description": "Tooltip component with portal + auto-flip + keyboard accessibility",
   "keywords": [
     "design-system",

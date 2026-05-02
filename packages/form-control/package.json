@@ -1,6 +1,6 @@
 {
   "name": "@sisyphos-ui/form-control",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "FormControl compound primitive (Label, HelperText, ErrorText, CharacterCount)",
   "keywords": [
     "design-system",

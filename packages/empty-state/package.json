@@ -1,6 +1,6 @@
 {
   "name": "@sisyphos-ui/empty-state",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "description": "EmptyState component — empty/zero-data placeholder with icon, title, description, actions",
   "keywords": [
     "design-system",

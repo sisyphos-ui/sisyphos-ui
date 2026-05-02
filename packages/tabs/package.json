@@ -1,6 +1,6 @@
 {
   "name": "@sisyphos-ui/tabs",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "description": "Compound Tabs (List, Trigger, Panel) with roving focus and animated active indicator",
   "keywords": [
     "design-system",

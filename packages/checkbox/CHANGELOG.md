@@ -1,5 +1,18 @@
 # Changelog
 
+## 0.4.0
+
+### Minor Changes
+
+- 979e26d: `<Checkbox>` gains real tristate support. Pass `indeterminate` to render a horizontal "minus" mark instead of the check; the component sets the DOM `indeterminate` flag and exposes `aria-checked="mixed"` so assistive tech announces the mixed state correctly. Activating an indeterminate checkbox calls `onChange(true)` — the standard "select all" promotion that hierarchical pickers (TreeSelect, multi-row tables) need.
+
+  The visual fill matches the configured `color` token in indeterminate state, so the tristate variant looks right across the full primary / success / warning / error / info palette.
+
+### Patch Changes
+
+- Updated dependencies [5dadf8c]
+  - @sisyphos-ui/core@0.3.0
+
 ## 0.3.0
 
 ### Minor Changes

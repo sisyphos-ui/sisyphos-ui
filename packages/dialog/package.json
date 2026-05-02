@@ -1,6 +1,6 @@
 {
   "name": "@sisyphos-ui/dialog",
-  "version": "0.4.0",
+  "version": "0.4.1",
   "description": "Accessible modal dialog with focus trap, scroll lock, portal, and compound slots",
   "keywords": [
     "design-system",

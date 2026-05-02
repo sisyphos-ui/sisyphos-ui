@@ -1,6 +1,6 @@
 {
   "name": "@sisyphos-ui/spinner",
-  "version": "0.3.1",
+  "version": "0.3.2",
   "description": "Spinner + LoadingOverlay primitives for Sisyphos UI",
   "keywords": [
     "component",

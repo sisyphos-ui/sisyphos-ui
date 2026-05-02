@@ -1,6 +1,6 @@
 {
   "name": "@sisyphos-ui/breadcrumb",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "Breadcrumb navigation with optional collapse for Sisyphos UI",
   "keywords": [
     "breadcrumb",

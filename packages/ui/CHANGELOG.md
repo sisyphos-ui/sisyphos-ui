@@ -1,5 +1,90 @@
 # Changelog
 
+## 0.5.0
+
+### Minor Changes
+
+- 979e26d: `<Checkbox>` gains real tristate support. Pass `indeterminate` to render a horizontal "minus" mark instead of the check; the component sets the DOM `indeterminate` flag and exposes `aria-checked="mixed"` so assistive tech announces the mixed state correctly. Activating an indeterminate checkbox calls `onChange(true)` — the standard "select all" promotion that hierarchical pickers (TreeSelect, multi-row tables) need.
+
+  The visual fill matches the configured `color` token in indeterminate state, so the tristate variant looks right across the full primary / success / warning / error / info palette.
+
+- 62b18ad: `<DatePicker>` learns six new optional props for `showTime` mode: `defaultHour`, `defaultMinute`, and the range-aware `defaultStartHour` / `defaultStartMinute` / `defaultEndHour` / `defaultEndMinute`. They define the time applied the first time the user picks a date, so common cases like "leave from 09:00 to 18:00" no longer require the user to manually adjust both ends from `00:00` after every selection.
+
+  The defaults only apply on first pick. Once a date carries a user-edited time the picker preserves it on subsequent re-picks. In range mode, picking an earlier date than the existing start flips the range without losing the previous start's time.
+
+- ab5cfab: `<FileUpload>` learns two new optional props:
+  - `directory` — accepts an entire folder via the non-standard `webkitdirectory` attribute (Chromium / WebKit). Each picked file's `webkitRelativePath` is preserved so the parent app can reconstruct the original folder layout.
+  - `onBeforeRemove(file)` — called before a file is removed. Returning `false` (or a `Promise` that resolves to `false`) cancels the removal. Useful when the parent has to confirm with the user or revoke a server-side resource before the row disappears. When omitted, removal stays unconditional.
+
+  The progress / status surface (already on `UploadedFile`) is unchanged — pre-uploaded "existing" files still flow through `value` items that carry a `url` instead of a `file`.
+
+- b8e3ec1: `<Input>` now locks the caret past a mask's fixed prefix. When you click, focus, or arrow-key into the literal portion of a pattern (e.g. `+90 (5` in the `tel-tr` preset), the collapsed caret snaps to the first editable token so users can't accidentally type inside the prefix. Real text selections (Ctrl+A) are left alone so select-all-then-replace still works.
+
+  Exports a new helper, `getMaskPrefixLength(maskSpec)`, for callers that want to compute the same lock position outside of the component.
+
+- 5583084: `<NumberInput>`'s `locale` prop now defaults to `undefined` instead of `"tr-TR"`. The picker formats and parses values against the runtime's default locale unless you pass an explicit BCP 47 tag. This makes `<NumberInput>` work correctly out of the box for international consumers — pass `locale="tr-TR"` (or any other tag) to lock in a specific format that matches a fixed visual design.
+
+  Behavior is otherwise identical: explicit `locale` values pass straight through to `Intl.NumberFormat`, and the parser still derives the decimal separator from the active locale.
+
+- 04b74e0: `<Table>` gains a handful of polish features that cover real-world data-table needs without forcing apps to wrap or reimplement the component:
+  - `truncate` on `TableColumn` clips a cell to one line with an ellipsis. When the cell actually overflows, the rendered text is exposed as a native `title` tooltip so the full value remains discoverable — no extra dependency required.
+  - `loadingDelay` defers the skeleton until `loading` has stayed `true` for the configured duration, eliminating the flicker you see on fast network responses.
+  - `rowClassName(row, index)` returns an extra class on the rendered `<tr>`, useful for state-driven highlighting (warning rows, drafts, and so on).
+  - `onRowDoubleClick(row, index)` is a first-class double-click handler that runs independently of `rowSelectionMode` — so you can wire row activation without losing checkbox-driven selection semantics.
+
+  Skeleton placeholder widths now vary across columns for a more realistic loading shimmer.
+
+### Patch Changes
+
+- 5dadf8c: Nested overlays now close one layer at a time when the user presses Escape. Previously every active `useEscapeKey` subscription received the keystroke and collapsed every layer at once — a Popover opened inside a Dialog would close both, a DatePicker opened inside a Dialog would close both, and so on. The internal hook is now backed by a stack so only the topmost (most recently opened) overlay handles the event, which matches WAI-ARIA expectations and how every native browser dialog behaves.
+
+  This is a transparent improvement for callers — `useEscapeKey`'s signature is unchanged. Re-renders no longer churn the stack thanks to a stable wrapper that always points at the latest callback via a ref.
+
+- c445b53: `<TreeSelect>` now auto-expands matched ancestors while a search term is active. The recursive filter already returned only the matched paths, but collapsed parents kept hiding the very rows the user typed to find — confusing for deep trees. While `search` is non-empty every visible node is treated as expanded; clearing the search restores the user's manual expand/collapse state intact.
+- Updated dependencies [979e26d]
+- Updated dependencies [62b18ad]
+- Updated dependencies [5dadf8c]
+- Updated dependencies [ab5cfab]
+- Updated dependencies [b8e3ec1]
+- Updated dependencies [5583084]
+- Updated dependencies [04b74e0]
+- Updated dependencies [c445b53]
+  - @sisyphos-ui/checkbox@0.4.0
+  - @sisyphos-ui/datepicker@0.4.0
+  - @sisyphos-ui/core@0.3.0
+  - @sisyphos-ui/dialog@0.4.1
+  - @sisyphos-ui/popover@0.3.1
+  - @sisyphos-ui/dropdown-menu@0.3.1
+  - @sisyphos-ui/select@0.3.1
+  - @sisyphos-ui/tree-select@0.3.1
+  - @sisyphos-ui/context-menu@0.2.1
+  - @sisyphos-ui/button@0.2.1
+  - @sisyphos-ui/file-upload@0.4.0
+  - @sisyphos-ui/input@0.4.0
+  - @sisyphos-ui/number-input@0.3.0
+  - @sisyphos-ui/table@0.5.0
+  - @sisyphos-ui/accordion@0.3.2
+  - @sisyphos-ui/alert@0.3.1
+  - @sisyphos-ui/avatar@0.2.1
+  - @sisyphos-ui/breadcrumb@0.2.1
+  - @sisyphos-ui/card@0.3.1
+  - @sisyphos-ui/carousel@0.3.1
+  - @sisyphos-ui/chip@0.2.1
+  - @sisyphos-ui/command@0.2.1
+  - @sisyphos-ui/empty-state@0.3.1
+  - @sisyphos-ui/form-control@0.2.1
+  - @sisyphos-ui/kbd@0.2.1
+  - @sisyphos-ui/portal@0.2.1
+  - @sisyphos-ui/radio@0.3.1
+  - @sisyphos-ui/skeleton@0.3.1
+  - @sisyphos-ui/slider@0.3.1
+  - @sisyphos-ui/spinner@0.3.2
+  - @sisyphos-ui/switch@0.2.1
+  - @sisyphos-ui/tabs@0.3.1
+  - @sisyphos-ui/textarea@0.2.1
+  - @sisyphos-ui/toast@0.4.1
+  - @sisyphos-ui/tooltip@0.3.1
+
 ## 0.4.0
 
 ### Minor Changes
