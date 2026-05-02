@@ -1,5 +1,5 @@
 import { describe, it, expect, vi } from "vitest";
-import { render, screen } from "@testing-library/react";
+import { fireEvent, render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { Input } from "./Input";
 
@@ -111,6 +111,31 @@ describe("Input", () => {
       const input = screen.getByLabelText("Card") as HTMLInputElement;
       await userEvent.type(input, "4111abc1111-2222 3333");
       expect(input.value).toBe("4111 1111 2222 3333");
+    });
+
+    it("snaps caret past the fixed prefix when click event fires inside it", () => {
+      render(<Input label="Phone" mask="tel-tr" defaultValue="5321112233" />);
+      const input = screen.getByLabelText("Phone") as HTMLInputElement;
+      // The masked value reformats to "+90 (532) 111 22 33". The pattern's
+      // literal prefix is `+90 (5`, so the first editable token sits at index 6.
+      input.focus();
+      input.setSelectionRange(1, 1); // caret lands inside the literal prefix
+      fireEvent.click(input);
+      expect(input.selectionStart).toBe(6);
+      expect(input.selectionEnd).toBe(6);
+    });
+
+    it("does not move the caret when a real text selection covers the prefix", () => {
+      render(<Input label="Phone" mask="tel-tr" defaultValue="5321112233" />);
+      const input = screen.getByLabelText("Phone") as HTMLInputElement;
+      input.focus();
+      const len = input.value.length;
+      input.setSelectionRange(0, len); // simulate Ctrl+A
+      fireEvent.click(input);
+      // A non-collapsed selection must be preserved so users can still
+      // select-all and replace the value.
+      expect(input.selectionStart).toBe(0);
+      expect(input.selectionEnd).toBe(len);
     });
   });
 });
