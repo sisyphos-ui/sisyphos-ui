@@ -109,6 +109,39 @@
   opacity: 1;
 }
 
+/* Indeterminate state — mirrors the colored fill of `:checked` but the
+ * input itself isn't checked, so we drive both the fill and the mark
+ * visibility from the root modifier class. */
+.sisyphos-checkbox.indeterminate {
+  .sisyphos-checkbox-mark {
+    opacity: 1;
+  }
+  .sisyphos-checkbox-input.primary {
+    background: var(--sisyphos-color-primary, #ff7022);
+    border-color: var(--sisyphos-color-primary, #ff7022);
+  }
+  .sisyphos-checkbox-input.neutral {
+    background: var(--sisyphos-color-neutral-darker, #212b36);
+    border-color: var(--sisyphos-color-neutral-darker, #212b36);
+  }
+  .sisyphos-checkbox-input.success {
+    background: var(--sisyphos-color-success, #22c55e);
+    border-color: var(--sisyphos-color-success, #22c55e);
+  }
+  .sisyphos-checkbox-input.error {
+    background: var(--sisyphos-color-error, #fb3748);
+    border-color: var(--sisyphos-color-error, #fb3748);
+  }
+  .sisyphos-checkbox-input.warning {
+    background: var(--sisyphos-color-warning, #ffab00);
+    border-color: var(--sisyphos-color-warning, #ffab00);
+  }
+  .sisyphos-checkbox-input.info {
+    background: var(--sisyphos-color-info, #00b8d9);
+    border-color: var(--sisyphos-color-info, #00b8d9);
+  }
+}
+
 /* ─── SIZES (styling on input = element that has the visual) ──────────────── */
 
 .sisyphos-checkbox-input.xs {
