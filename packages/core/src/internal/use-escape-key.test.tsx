@@ -44,4 +44,18 @@ describe("useEscapeKey", () => {
     await userEvent.keyboard("{Escape}");
     expect(fn).not.toHaveBeenCalled();
   });
+
+  it("only the topmost handler fires when multiple are mounted", async () => {
+    const outer = vi.fn();
+    const inner = vi.fn();
+    render(<Harness onEscape={outer} />);
+    const { unmount: unmountInner } = render(<Harness onEscape={inner} />);
+    await userEvent.keyboard("{Escape}");
+    expect(inner).toHaveBeenCalledTimes(1);
+    expect(outer).not.toHaveBeenCalled();
+    unmountInner();
+    // After the inner layer unmounts the outer one becomes topmost.
+    await userEvent.keyboard("{Escape}");
+    expect(outer).toHaveBeenCalledTimes(1);
+  });
 });

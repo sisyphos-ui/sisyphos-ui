@@ -112,4 +112,26 @@ describe("Dialog", () => {
     );
     expect(screen.getByRole("button", { name: "Kapat" })).toBeInTheDocument();
   });
+
+  it("nested dialogs close one layer at a time on Escape", async () => {
+    const outer = vi.fn();
+    const inner = vi.fn();
+    render(
+      <Dialog open onOpenChange={outer}>
+        <Dialog.Header>
+          <Dialog.Title>Outer</Dialog.Title>
+        </Dialog.Header>
+        <Dialog open onOpenChange={inner}>
+          <Dialog.Header>
+            <Dialog.Title>Inner</Dialog.Title>
+          </Dialog.Header>
+        </Dialog>
+      </Dialog>
+    );
+    await userEvent.keyboard("{Escape}");
+    // The most recently opened (inner) Dialog handles the keystroke; the
+    // outer one stays open so the user can dismiss layers progressively.
+    expect(inner).toHaveBeenCalledWith(false);
+    expect(outer).not.toHaveBeenCalled();
+  });
 });
