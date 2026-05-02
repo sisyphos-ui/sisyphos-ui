@@ -72,4 +72,44 @@ describe("FileUpload", () => {
     expect(next).toHaveLength(1);
     expect(next[0].name).toBe("new.pdf");
   });
+
+  it("onBeforeRemove returning false cancels the removal", async () => {
+    const onChange = vi.fn();
+    const onBeforeRemove = vi.fn().mockReturnValue(false);
+    render(
+      <FileUpload
+        label="confirm-remove"
+        value={[{ id: "a", name: "a.pdf", size: 100 }]}
+        onChange={onChange}
+        onBeforeRemove={onBeforeRemove}
+      />
+    );
+    await userEvent.click(screen.getByRole("button", { name: "Remove file" }));
+    expect(onBeforeRemove).toHaveBeenCalledWith(
+      expect.objectContaining({ id: "a", name: "a.pdf" })
+    );
+    expect(onChange).not.toHaveBeenCalled();
+  });
+
+  it("onBeforeRemove resolving true allows the async removal", async () => {
+    const onChange = vi.fn();
+    const onBeforeRemove = vi.fn().mockResolvedValue(true);
+    render(
+      <FileUpload
+        label="async-remove"
+        value={[{ id: "a", name: "a.pdf", size: 100 }]}
+        onChange={onChange}
+        onBeforeRemove={onBeforeRemove}
+      />
+    );
+    await userEvent.click(screen.getByRole("button", { name: "Remove file" }));
+    expect(onChange).toHaveBeenCalledWith([]);
+  });
+
+  it("directory mode applies the webkitdirectory attribute to the native input", () => {
+    render(<FileUpload label="folder" value={[]} onChange={() => {}} directory />);
+    const input = screen.getByLabelText("folder");
+    expect(input).toHaveAttribute("webkitdirectory");
+    expect(input).toHaveAttribute("directory");
+  });
 });
