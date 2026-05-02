@@ -10,7 +10,7 @@ export default defineConfig({
   sourcemap: true,
   clean: true,
   treeshake: true,
-  external: ["react", "react-dom", "@sisyphos-ui/core"],
+  external: ["react", "react-dom", "@sisyphos-ui/core", "@sisyphos-ui/portal"],
   esbuildPlugins: [
     sassPlugin({
       loadPaths: [
