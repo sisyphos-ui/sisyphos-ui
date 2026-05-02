@@ -1,6 +1,6 @@
 {
   "name": "@sisyphos-ui/core",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "Core design system package with theme system and design tokens",
   "keywords": [
     "css-variables",

@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.3.2
+
+### Patch Changes
+
+- Updated dependencies [5dadf8c]
+  - @sisyphos-ui/core@0.3.0
+  - @sisyphos-ui/portal@0.2.1
+
 ## 0.3.1
 
 ### Patch Changes

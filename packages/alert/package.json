@@ -1,6 +1,6 @@
 {
   "name": "@sisyphos-ui/alert",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "description": "Alert / callout component with semantic colors and variants",
   "keywords": [
     "alert",

@@ -1,5 +1,23 @@
 # Changelog
 
+## 0.4.0
+
+### Minor Changes
+
+- 62b18ad: `<DatePicker>` learns six new optional props for `showTime` mode: `defaultHour`, `defaultMinute`, and the range-aware `defaultStartHour` / `defaultStartMinute` / `defaultEndHour` / `defaultEndMinute`. They define the time applied the first time the user picks a date, so common cases like "leave from 09:00 to 18:00" no longer require the user to manually adjust both ends from `00:00` after every selection.
+
+  The defaults only apply on first pick. Once a date carries a user-edited time the picker preserves it on subsequent re-picks. In range mode, picking an earlier date than the existing start flips the range without losing the previous start's time.
+
+### Patch Changes
+
+- 5dadf8c: Nested overlays now close one layer at a time when the user presses Escape. Previously every active `useEscapeKey` subscription received the keystroke and collapsed every layer at once — a Popover opened inside a Dialog would close both, a DatePicker opened inside a Dialog would close both, and so on. The internal hook is now backed by a stack so only the topmost (most recently opened) overlay handles the event, which matches WAI-ARIA expectations and how every native browser dialog behaves.
+
+  This is a transparent improvement for callers — `useEscapeKey`'s signature is unchanged. Re-renders no longer churn the stack thanks to a stable wrapper that always points at the latest callback via a ref.
+
+- Updated dependencies [5dadf8c]
+  - @sisyphos-ui/core@0.3.0
+  - @sisyphos-ui/portal@0.2.1
+
 ## 0.3.0
 
 ### Minor Changes

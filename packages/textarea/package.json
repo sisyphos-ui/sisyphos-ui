@@ -1,6 +1,6 @@
 {
   "name": "@sisyphos-ui/textarea",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "Textarea component with auto-resize and character count for Sisyphos UI",
   "keywords": [
     "component",

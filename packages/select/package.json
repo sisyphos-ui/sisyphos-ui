@@ -1,6 +1,6 @@
 {
   "name": "@sisyphos-ui/select",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "description": "Single/multi select form control with search, clearable, creatable, and infinite scroll",
   "keywords": [
     "design-system",

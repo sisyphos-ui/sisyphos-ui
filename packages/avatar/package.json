@@ -1,6 +1,6 @@
 {
   "name": "@sisyphos-ui/avatar",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "Avatar + AvatarGroup component for Sisyphos UI design system",
   "keywords": [
     "avatar",
