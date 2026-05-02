@@ -65,6 +65,88 @@ describe("DatePicker (range)", () => {
   });
 });
 
+describe("DatePicker default times", () => {
+  it("applies defaultHour/defaultMinute on first single-date pick when showTime is on", async () => {
+    const onChange = vi.fn();
+    render(
+      <DatePicker
+        label="Date"
+        showTime
+        defaultHour={9}
+        defaultMinute={30}
+        onChange={onChange}
+      />
+    );
+    await userEvent.click(screen.getByLabelText("Date"));
+    const day = await screen.findByRole("button", { name: "15" });
+    await userEvent.click(day);
+    expect(onChange).toHaveBeenCalled();
+    const picked = onChange.mock.calls[0][0] as Date;
+    expect(picked.getHours()).toBe(9);
+    expect(picked.getMinutes()).toBe(30);
+  });
+
+  it("applies defaultStart and defaultEnd times across a range pick", async () => {
+    const onChange = vi.fn();
+    function Wrap() {
+      const [v, setV] = useState<[Date | null, Date | null]>([null, null]);
+      return (
+        <DatePicker
+          label="Range"
+          isRange
+          showTime
+          defaultStartHour={9}
+          defaultStartMinute={0}
+          defaultEndHour={18}
+          defaultEndMinute={0}
+          value={v}
+          onChange={(next) => {
+            onChange(next);
+            setV(next);
+          }}
+        />
+      );
+    }
+    render(<Wrap />);
+    await userEvent.click(screen.getByLabelText("Range"));
+    const start = await screen.findByRole("button", { name: "10" });
+    await userEvent.click(start);
+    const end = screen.getByRole("button", { name: "20" });
+    await userEvent.click(end);
+    // Last call should hold the completed range with both defaults applied.
+    const lastArgs = onChange.mock.calls[onChange.mock.calls.length - 1][0] as [
+      Date | null,
+      Date | null,
+    ];
+    expect(lastArgs[0]?.getHours()).toBe(9);
+    expect(lastArgs[0]?.getMinutes()).toBe(0);
+    expect(lastArgs[1]?.getHours()).toBe(18);
+    expect(lastArgs[1]?.getMinutes()).toBe(0);
+  });
+
+  it("does not override an already-set time when picking another date", async () => {
+    const onChange = vi.fn();
+    render(
+      <DatePicker
+        label="Existing-time date"
+        showTime
+        defaultHour={9}
+        defaultMinute={0}
+        value={new Date(2025, 0, 15, 14, 0)}
+        onChange={onChange}
+      />
+    );
+    await userEvent.click(screen.getByLabelText("Existing-time date"));
+    const day20 = await screen.findByRole("button", { name: "20" });
+    await userEvent.click(day20);
+    // Existing time (14:00) should be preserved on re-pick — the default
+    // only applies when the user has no prior time.
+    const picked = onChange.mock.calls[0][0] as Date;
+    expect(picked.getHours()).toBe(14);
+    expect(picked.getMinutes()).toBe(0);
+  });
+});
+
 describe("DatePicker header views", () => {
   it("switches to months view on header click and selects month", async () => {
     render(<DatePicker label="Date" />);
