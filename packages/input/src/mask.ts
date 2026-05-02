@@ -67,6 +67,20 @@ export function applyMask(raw: string, maskSpec: string): string {
   return out;
 }
 
+/**
+ * Index of the first editable token in a mask pattern.
+ *
+ * Use this to prevent the caret from being placed inside a fixed prefix
+ * (e.g. `+90 ` in `tel-tr`). Returns `0` for masks with no leading literals.
+ */
+export function getMaskPrefixLength(maskSpec: string): number {
+  const pattern = resolvePattern(maskSpec);
+  for (let i = 0; i < pattern.length; i++) {
+    if (isMaskToken(pattern[i])) return i;
+  }
+  return 0;
+}
+
 /** Strip a masked value back to just the raw token characters. */
 export function unmask(masked: string, maskSpec: string): string {
   const pattern = resolvePattern(maskSpec);

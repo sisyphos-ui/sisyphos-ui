@@ -6,7 +6,7 @@ import React, { useState, useRef, useMemo, useCallback } from "react";
 import "./Input.scss";
 import { CN, DEFAULTS } from "./constants";
 import { mergeRefs } from "@sisyphos-ui/core/internal";
-import { applyMask, unmask } from "./mask";
+import { applyMask, getMaskPrefixLength, unmask } from "./mask";
 
 export interface InputProps extends Omit<
   React.InputHTMLAttributes<HTMLInputElement>,
@@ -246,6 +246,31 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(function Inp
     [isControlled, mask, onUnmaskedChange, props.onChange]
   );
 
+  /**
+   * For masks with a fixed prefix (e.g. `+90 ` in `tel-tr`) snap the caret
+   * past the prefix so the user can never land inside the literal area.
+   * Runs on focus, click, and keyup so all interaction paths are covered.
+   */
+  const prefixLength = useMemo(() => (mask ? getMaskPrefixLength(mask) : 0), [mask]);
+  const protectMaskPrefix = useCallback(() => {
+    if (!mask || prefixLength === 0) return;
+    const node = inputRef.current;
+    if (!node) return;
+    const start = node.selectionStart ?? 0;
+    const end = node.selectionEnd ?? 0;
+    if (start < prefixLength) {
+      // Don't fight a real text selection (e.g. Ctrl+A), only snap collapsed
+      // carets that wandered into the prefix.
+      if (start === end) {
+        try {
+          node.setSelectionRange(prefixLength, prefixLength);
+        } catch {
+          /* setSelectionRange throws on non-text input types — ignore */
+        }
+      }
+    }
+  }, [mask, prefixLength]);
+
   const inputElement = (
     <input
       {...props}
@@ -266,9 +291,25 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(function Inp
           .filter(Boolean)
           .join(" ") || undefined
       }
-      onFocus={handleFocus}
+      onFocus={(e) => {
+        handleFocus(e);
+        // After focus the browser may select-all or place the caret somewhere
+        // that lands inside the mask prefix — snap past it on the next frame.
+        if (mask && prefixLength > 0) requestAnimationFrame(protectMaskPrefix);
+      }}
       onBlur={handleBlur}
-      onChange={handleChange}
+      onChange={(e) => {
+        handleChange(e);
+        if (mask && prefixLength > 0) requestAnimationFrame(protectMaskPrefix);
+      }}
+      onClick={(e) => {
+        props.onClick?.(e);
+        if (mask && prefixLength > 0) protectMaskPrefix();
+      }}
+      onKeyUp={(e) => {
+        props.onKeyUp?.(e);
+        if (mask && prefixLength > 0) protectMaskPrefix();
+      }}
     />
   );
 
