@@ -41,4 +41,18 @@ describe("Checkbox", () => {
     const input = screen.getByLabelText("Linked");
     expect(input).toHaveAttribute("id", "terms");
   });
+
+  it("indeterminate exposes aria-checked='mixed' and the DOM flag", () => {
+    render(<Checkbox checked={false} indeterminate label="All" />);
+    const input = screen.getByLabelText("All") as HTMLInputElement;
+    expect(input.indeterminate).toBe(true);
+    expect(input).toHaveAttribute("aria-checked", "mixed");
+  });
+
+  it("toggling an indeterminate checkbox promotes it to checked=true", async () => {
+    const onChange = vi.fn();
+    render(<Checkbox checked={false} indeterminate label="All" onChange={onChange} />);
+    await userEvent.click(screen.getByLabelText("All"));
+    expect(onChange).toHaveBeenCalledWith(true);
+  });
 });
