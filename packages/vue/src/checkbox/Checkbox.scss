@@ -1,0 +1,115 @@
+@use "@sisyphos-ui/core/src/tokens/variables" as *;
+
+.sisyphos-checkbox {
+  display: inline-flex;
+  align-items: center;
+
+  &.disabled {
+    opacity: $opacity-xs;
+    cursor: not-allowed;
+  }
+}
+
+.sisyphos-checkbox-label {
+  display: inline-flex;
+  align-items: center;
+  gap: $spacing-xs;
+  cursor: pointer;
+  user-select: none;
+
+  .sisyphos-checkbox.disabled & {
+    cursor: not-allowed;
+  }
+}
+
+.sisyphos-checkbox-box {
+  position: relative;
+  display: inline-flex;
+}
+
+.sisyphos-checkbox-input {
+  appearance: none;
+  width: 18px;
+  height: 18px;
+  border: 1.5px solid var(--sisyphos-color-border, #c4cdd5);
+  border-radius: $radius-xs;
+  background: var(--sisyphos-color-neutral-lighter, #fff);
+  cursor: pointer;
+  transition:
+    background $duration-s,
+    border-color $duration-s;
+
+  &.xs {
+    width: 12px;
+    height: 12px;
+  }
+  &.sm {
+    width: 14px;
+    height: 14px;
+  }
+  &.md {
+    width: 18px;
+    height: 18px;
+  }
+  &.lg {
+    width: 22px;
+    height: 22px;
+  }
+  &.xl {
+    width: 26px;
+    height: 26px;
+  }
+
+  &:hover:not(:disabled):not(:checked) {
+    border-color: var(--sisyphos-color-neutral-darker, #919eab);
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--sisyphos-color-primary, #ff7022);
+    outline-offset: 2px;
+  }
+
+  &.disabled {
+    cursor: not-allowed;
+  }
+}
+
+@each $name,
+  $col
+    in (
+      primary: var(--sisyphos-color-primary, #ff7022),
+      neutral: var(--sisyphos-color-neutral-darker, #212b36),
+      success: var(--sisyphos-color-success, #22c55e),
+      error: var(--sisyphos-color-error, #fb3748),
+      warning: var(--sisyphos-color-warning, #ffab00),
+      info: var(--sisyphos-color-info, #00b8d9)
+    )
+{
+  .sisyphos-checkbox-input.#{$name}:checked,
+  .sisyphos-checkbox.indeterminate .sisyphos-checkbox-input.#{$name} {
+    background: $col;
+    border-color: $col;
+  }
+}
+
+.sisyphos-checkbox-mark {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+  color: var(--sisyphos-color-neutral-lighter, #fff);
+  opacity: 0;
+  transition: opacity $duration-s;
+}
+
+.sisyphos-checkbox-input:checked ~ .sisyphos-checkbox-mark,
+.sisyphos-checkbox.indeterminate .sisyphos-checkbox-mark {
+  opacity: 1;
+}
+
+.sisyphos-checkbox-label-text {
+  font-size: $size-md;
+  color: var(--sisyphos-color-neutral-dark, #212b36);
+}

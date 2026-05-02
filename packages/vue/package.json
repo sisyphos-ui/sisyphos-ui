@@ -1,0 +1,61 @@
+{
+  "name": "@sisyphos-ui/vue",
+  "version": "0.0.0",
+  "private": true,
+  "description": "Sisyphos UI — Vue 3 bindings (v1.0 unified umbrella, all components in one package)",
+  "keywords": ["design-system", "vue", "vue3", "sisyphos-ui", "ui", "components"],
+  "homepage": "https://github.com/sisyphos-ui/sisyphos-ui#readme",
+  "bugs": {
+    "url": "https://github.com/sisyphos-ui/sisyphos-ui/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sisyphos-ui/sisyphos-ui.git",
+    "directory": "packages/vue"
+  },
+  "license": "MIT",
+  "author": "Sisyphos UI Contributors",
+  "sideEffects": ["**/*.css", "**/*.scss"],
+  "main": "./dist/sisyphos-ui-vue.umd.js",
+  "module": "./dist/sisyphos-ui-vue.mjs",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/sisyphos-ui-vue.mjs",
+      "require": "./dist/sisyphos-ui-vue.umd.js"
+    },
+    "./styles.css": "./dist/style.css",
+    "./styles": "./dist/style.css"
+  },
+  "files": ["CHANGELOG.md", "LICENSE", "README.md", "dist"],
+  "scripts": {
+    "build": "vite build && vue-tsc --emitDeclarationOnly --outDir dist",
+    "dev": "vite build --watch",
+    "lint": "eslint .",
+    "clean": "rm -rf .turbo && rm -rf node_modules && rm -rf dist",
+    "type-check": "vue-tsc --noEmit"
+  },
+  "dependencies": {
+    "@sisyphos-ui/core": "workspace:*"
+  },
+  "peerDependencies": {
+    "vue": "^3.4.0"
+  },
+  "devDependencies": {
+    "@sisyphos-ui/eslint-config": "workspace:*",
+    "@vitejs/plugin-vue": "^5.0.0",
+    "@vue/test-utils": "^2.4.0",
+    "sass": "^1.77.0",
+    "typescript": "^5.3.3",
+    "vite": "^5.0.0",
+    "vue": "^3.4.0",
+    "vue-tsc": "^2.0.0"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}
