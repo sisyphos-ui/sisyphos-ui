@@ -1,0 +1,80 @@
+@use "@sisyphos-ui/core/src/tokens/variables" as *;
+
+.sisyphos-breadcrumb {
+  font-size: $size-md;
+  color: var(--sisyphos-color-neutral-dark, #637381);
+}
+
+.sisyphos-breadcrumb-list {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  gap: $spacing-xs;
+}
+
+.sisyphos-breadcrumb-item,
+.sisyphos-breadcrumb-separator,
+.sisyphos-breadcrumb-ellipsis {
+  display: inline-flex;
+  align-items: center;
+  gap: $spacing-xxs;
+}
+
+.sisyphos-breadcrumb-separator {
+  color: var(--sisyphos-color-border, #c4cdd5);
+  user-select: none;
+
+  svg {
+    width: 1em;
+    height: 1em;
+  }
+}
+
+.sisyphos-breadcrumb-ellipsis {
+  color: var(--sisyphos-color-neutral-dark, #919eab);
+  padding: 0 $spacing-xxs;
+}
+
+.sisyphos-breadcrumb-link {
+  background: transparent;
+  border: 0;
+  padding: 0;
+  margin: 0;
+  font: inherit;
+  color: var(--sisyphos-color-neutral-dark, #637381);
+  cursor: pointer;
+  text-decoration: none;
+  border-radius: $radius-xxs;
+  transition: color $duration-s;
+
+  &:hover {
+    color: var(--sisyphos-color-primary, #ff7022);
+    text-decoration: underline;
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--sisyphos-color-primary, #ff7022);
+    outline-offset: 2px;
+  }
+}
+
+.sisyphos-breadcrumb-current {
+  color: var(--sisyphos-color-neutral-dark, #212b36);
+  font-weight: $font-weight-medium;
+}
+
+.sisyphos-breadcrumb-text {
+  color: inherit;
+}
+
+.sisyphos-breadcrumb-icon {
+  display: inline-flex;
+  align-items: center;
+  svg {
+    width: 1em;
+    height: 1em;
+  }
+}

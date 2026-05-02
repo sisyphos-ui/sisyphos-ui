@@ -1,0 +1,152 @@
+@use "@sisyphos-ui/core/src/tokens/variables" as *;
+@use "sass:map";
+
+$spinner-colors: (
+  primary: var(--sisyphos-color-primary, #ff7022),
+  success: var(--sisyphos-color-success, #22c55e),
+  error: var(--sisyphos-color-error, #fb3748),
+  warning: var(--sisyphos-color-warning, #ffab00),
+  info: var(--sisyphos-color-info, #00b8d9),
+  neutral: var(--sisyphos-color-neutral-dark, #637381),
+);
+
+/* ── SPINNER ──────────────────────────────────────────────────────────────
+ * SVG-based so Firefox does not render an anti-aliasing seam on the
+ * `border-radius: 50%` + thin-border combo. Stroke width is driven by
+ * --sisyphos-spinner-thickness (set inline from the `thickness` prop) and
+ * scaled to the SVG viewBox (0..50) from the spinner's pixel size. */
+.sisyphos-spinner {
+  --sisyphos-spinner-stroke: var(--sisyphos-color-primary, #ff7022);
+  display: inline-flex;
+  position: relative;
+  box-sizing: border-box;
+  line-height: 0;
+
+  &.xs {
+    width: 14px;
+    height: 14px;
+  }
+  &.sm {
+    width: 18px;
+    height: 18px;
+  }
+  &.md {
+    width: 24px;
+    height: 24px;
+  }
+  &.lg {
+    width: 40px;
+    height: 40px;
+  }
+  &.xl {
+    width: 64px;
+    height: 64px;
+  }
+
+  /* Per-color rule — only sets the stroke var; actual stroke lives in .arc */
+  @each $name, $col in $spinner-colors {
+    &.#{$name} {
+      --sisyphos-spinner-stroke: #{$col};
+    }
+  }
+
+  &.inherit {
+    --sisyphos-spinner-stroke: currentColor;
+  }
+}
+
+.sisyphos-spinner-svg {
+  width: 100%;
+  height: 100%;
+  animation: sisyphos-spin 0.9s linear infinite;
+  overflow: visible;
+
+  .sisyphos-spinner.double &--inner {
+    position: absolute;
+    inset: 14%;
+    width: 72%;
+    height: 72%;
+    animation: sisyphos-spin-reverse 0.7s linear infinite;
+  }
+}
+
+/* Arc stroke-width is expressed in viewBox units — convert the px thickness
+ * to viewBox units using the spinner's current pixel size.
+ * 50 viewBox / current width (px) × thickness (px) = viewBox stroke.
+ * We read the parent width via element-level intrinsic sizing; CSS can't do
+ * that directly, so we approximate with `em` scaling: 1em = current pixel size
+ * via font-size trickery. Instead, rely on stroke-width being declared in px
+ * within the SVG — SVG accepts px and scales with the viewBox automatically. */
+.sisyphos-spinner-arc {
+  stroke: var(--sisyphos-spinner-stroke);
+  stroke-width: var(--sisyphos-spinner-thickness, 3px);
+  transform-origin: center;
+  /* Firefox renders stroke antialiasing cleanly for SVG — no seam. */
+  vector-effect: non-scaling-stroke;
+}
+
+.sisyphos-spinner-arc--inner {
+  opacity: 0.7;
+}
+
+@keyframes sisyphos-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes sisyphos-spin-reverse {
+  to {
+    transform: rotate(-360deg);
+  }
+}
+
+/* ── LOADING OVERLAY ──────────────────────────────────────────────────── */
+.sisyphos-loading-overlay {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  &.fullscreen {
+    position: fixed;
+    inset: 0;
+    z-index: $z-index-overlay;
+  }
+
+  &.overlay {
+    position: absolute;
+    inset: 0;
+    z-index: 100;
+  }
+
+  &.inline {
+    padding: $spacing-lg;
+  }
+}
+
+.sisyphos-loading-overlay-backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(255, 255, 255, 0.6);
+
+  .sisyphos-loading-overlay.blur & {
+    backdrop-filter: blur(4px);
+  }
+}
+
+.sisyphos-loading-overlay-content {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: $spacing-md;
+}
+
+.sisyphos-loading-overlay-text {
+  margin: 0;
+  font-size: $size-md;
+  font-weight: $font-weight-medium;
+  color: var(--sisyphos-color-neutral-dark, #212b36);
+  text-align: center;
+}
