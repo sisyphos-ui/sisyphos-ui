@@ -12,7 +12,9 @@ describe("Popover", () => {
     );
     const btn = screen.getByRole("button", { name: "Open" });
     await userEvent.click(btn);
-    expect(screen.getByRole("dialog")).toHaveTextContent("Panel");
+    // `findByRole` waits for the Portal-mounted dialog to land in the DOM —
+    // `getByRole` raced the post-click commit on slower CI runners.
+    expect(await screen.findByRole("dialog")).toHaveTextContent("Panel");
     await userEvent.click(btn);
     expect(screen.queryByRole("dialog")).not.toBeInTheDocument();
   });
@@ -39,7 +41,7 @@ describe("Popover", () => {
       </div>
     );
     await userEvent.click(screen.getByRole("button", { name: "Open" }));
-    expect(screen.getByRole("dialog")).toBeInTheDocument();
+    expect(await screen.findByRole("dialog")).toBeInTheDocument();
     await userEvent.click(screen.getByTestId("outside"));
     expect(screen.queryByRole("dialog")).not.toBeInTheDocument();
   });
