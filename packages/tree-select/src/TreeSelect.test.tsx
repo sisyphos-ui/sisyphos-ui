@@ -75,4 +75,15 @@ describe("TreeSelect", () => {
     await userEvent.click(screen.getByRole("button", { name: "Clear all" }));
     expect(onChange).toHaveBeenCalledWith([]);
   });
+
+  it("auto-expands matched ancestors while a search term is active", async () => {
+    render(<TreeSelect nodes={sample} label="search-expand" />);
+    await userEvent.click(screen.getByRole("combobox"));
+    // Without search the deeply nested item is hidden behind a collapsed parent.
+    expect(screen.queryByRole("checkbox", { name: /Item A1/ })).not.toBeInTheDocument();
+    await userEvent.type(await screen.findByPlaceholderText("Search…"), "A1");
+    // While searching the matched ancestor (Group A) is auto-expanded so the
+    // user sees the matching descendant immediately.
+    expect(await screen.findByRole("checkbox", { name: /Item A1/ })).toBeInTheDocument();
+  });
 });

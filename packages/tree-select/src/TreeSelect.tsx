@@ -214,7 +214,10 @@ export const TreeSelect: React.FC<TreeSelectProps> = ({
 
   const renderNode = (node: TreeNode, level: number): React.ReactNode => {
     const hasChildren = !!(node.children && node.children.length);
-    const isOpenNode = expanded[String(node.id)];
+    // While the user is searching, the visible tree is already filtered to
+    // matched ancestors — auto-expand them so the user doesn't have to dig
+    // through collapsed parents to see what matched.
+    const isOpenNode = search ? true : expanded[String(node.id)];
     const state = nodeState(node, selectedSet);
 
     return (
