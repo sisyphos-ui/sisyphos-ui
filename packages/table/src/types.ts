@@ -25,4 +25,10 @@ export interface TableColumn<T> {
   sortable?: boolean;
   /** Override sort key when different from `id`. */
   sortKey?: string;
+  /**
+   * Truncate cell content to a single line with an ellipsis. When the cell
+   * actually overflows, the rendered text is exposed as a native `title`
+   * tooltip so the user can still read the full value.
+   */
+  truncate?: boolean;
 }
