@@ -1,0 +1,272 @@
+@use "@sisyphos-ui/core/src/tokens/variables" as *;
+
+.sisyphos-tree-select {
+  display: inline-flex;
+  flex-direction: column;
+  gap: $spacing-xxs;
+  min-width: 240px;
+
+  &.full-width {
+    width: 100%;
+  }
+  &.disabled {
+    opacity: $opacity-s;
+    pointer-events: none;
+  }
+}
+
+.sisyphos-tree-select-label {
+  font-size: $size-md;
+  font-weight: $font-weight-medium;
+  color: var(--sisyphos-color-neutral-dark, #212b36);
+
+  &.error {
+    color: var(--sisyphos-color-error, #fb3748);
+  }
+  &.required::after {
+    content: " *";
+    color: var(--sisyphos-color-error, #fb3748);
+  }
+}
+
+.sisyphos-tree-select-trigger {
+  display: flex;
+  align-items: center;
+  gap: $spacing-xs;
+  padding: $spacing-xxs $spacing-s;
+  min-height: 40px;
+  background: var(--sisyphos-color-neutral-lighter, #fff);
+  border: 1px solid var(--sisyphos-color-border, #c4cdd5);
+  border-radius: $radius-s;
+  cursor: pointer;
+  transition:
+    border-color $duration-s,
+    box-shadow $duration-s;
+
+  &:hover {
+    border-color: var(--sisyphos-color-neutral-dark, #919eab);
+  }
+  &.open {
+    border-color: var(--sisyphos-color-primary, #ff7022);
+    box-shadow: 0 0 0 3px var(--sisyphos-color-primary-lighter, #ffede0);
+  }
+
+  .sisyphos-tree-select.sm & {
+    min-height: 32px;
+    font-size: $size-sm;
+  }
+  .sisyphos-tree-select.lg & {
+    min-height: 48px;
+    font-size: $size-lg;
+  }
+  .sisyphos-tree-select.error & {
+    border-color: var(--sisyphos-color-error, #fb3748);
+  }
+}
+
+.sisyphos-tree-select-value {
+  flex: 1;
+  min-width: 0;
+}
+
+.sisyphos-tree-select-placeholder {
+  color: var(--sisyphos-color-neutral-dark, #919eab);
+  opacity: 0.7;
+}
+
+.sisyphos-tree-select-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: $spacing-xxs;
+}
+
+.sisyphos-tree-select-tag {
+  display: inline-flex;
+  align-items: center;
+  background: var(--sisyphos-color-primary-lighter, #ffede0);
+  color: var(--sisyphos-color-primary, #ff7022);
+  border-radius: $radius-xs;
+  padding: 2px $spacing-xs;
+  font-size: $size-sm;
+  max-width: 200px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+
+  &.more {
+    background: var(--sisyphos-color-neutral-lighter, #f4f6f8);
+    color: var(--sisyphos-color-neutral-dark, #637381);
+  }
+}
+
+.sisyphos-tree-select-clear {
+  appearance: none;
+  background: transparent;
+  border: 0;
+  cursor: pointer;
+  color: var(--sisyphos-color-neutral-dark, #919eab);
+  display: inline-flex;
+  align-items: center;
+  padding: 0;
+
+  &:hover {
+    color: var(--sisyphos-color-neutral-dark, #212b36);
+  }
+}
+
+.sisyphos-tree-select-chevron {
+  color: var(--sisyphos-color-neutral-dark, #919eab);
+  display: inline-flex;
+  align-items: center;
+}
+
+.sisyphos-tree-select-error {
+  font-size: $size-sm;
+  color: var(--sisyphos-color-error, #fb3748);
+}
+
+/* ── DROPDOWN ─────────────────────────────────────────────────────────── */
+.sisyphos-tree-select-dropdown {
+  background: var(--sisyphos-color-neutral-lighter, #fff);
+  border: 1px solid var(--sisyphos-color-border, #e4e7eb);
+  border-radius: $radius-md;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+  max-height: 360px;
+  overflow: hidden;
+  z-index: $z-index-pickers;
+  transition: opacity $duration-s ease;
+  display: flex;
+  flex-direction: column;
+}
+
+.sisyphos-tree-select-search {
+  padding: $spacing-xs;
+  border-bottom: 1px solid var(--sisyphos-color-border, #eef0f2);
+
+  input {
+    width: 100%;
+    box-sizing: border-box;
+    padding: $spacing-xs;
+    border: 1px solid var(--sisyphos-color-border, #c4cdd5);
+    border-radius: $radius-xs;
+    font: inherit;
+    color: var(--sisyphos-color-neutral-dark, #212b36);
+    outline: none;
+
+    &:focus {
+      border-color: var(--sisyphos-color-primary, #ff7022);
+    }
+  }
+}
+
+.sisyphos-tree-select-content {
+  flex: 1;
+  overflow-y: auto;
+  padding: $spacing-xxs;
+}
+
+.sisyphos-tree-select-empty {
+  padding: $spacing-md;
+  text-align: center;
+  color: var(--sisyphos-color-neutral-dark, #919eab);
+}
+
+/* ── NODE ─────────────────────────────────────────────────────────────── */
+.sisyphos-tree-row {
+  display: flex;
+  align-items: center;
+  gap: $spacing-xxs;
+  border-radius: $radius-xs;
+
+  &:hover:not(.disabled) {
+    background: var(--sisyphos-color-neutral-lighter, #f4f6f8);
+  }
+
+  &.disabled {
+    opacity: 0.5;
+    pointer-events: none;
+  }
+}
+
+.sisyphos-tree-expand {
+  appearance: none;
+  background: transparent;
+  border: 0;
+  padding: 0;
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--sisyphos-color-neutral-dark, #919eab);
+  border-radius: $radius-xxs;
+
+  &:hover {
+    background: var(--sisyphos-color-neutral-lighter, #eef0f2);
+    color: var(--sisyphos-color-neutral-dark, #212b36);
+  }
+}
+
+.sisyphos-tree-expand-spacer {
+  width: 20px;
+  height: 20px;
+  flex-shrink: 0;
+}
+
+.sisyphos-tree-toggle {
+  appearance: none;
+  background: transparent;
+  border: 0;
+  padding: $spacing-xxs $spacing-xxs;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: $spacing-xs;
+  flex: 1;
+  min-width: 0;
+  text-align: left;
+  color: inherit;
+  font: inherit;
+
+  &:disabled {
+    cursor: not-allowed;
+  }
+}
+
+.sisyphos-tree-checkbox {
+  width: 16px;
+  height: 16px;
+  border: 1.5px solid var(--sisyphos-color-border, #c4cdd5);
+  border-radius: $radius-xxs;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--sisyphos-color-neutral-lighter, #fff);
+  flex-shrink: 0;
+  color: #fff;
+
+  &.checked {
+    background: var(--sisyphos-color-primary, #ff7022);
+    border-color: var(--sisyphos-color-primary, #ff7022);
+  }
+  &.partial {
+    background: var(--sisyphos-color-primary, #ff7022);
+    border-color: var(--sisyphos-color-primary, #ff7022);
+  }
+}
+
+.sisyphos-tree-partial {
+  width: 8px;
+  height: 2px;
+  background: #fff;
+  display: block;
+}
+
+.sisyphos-tree-label {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
