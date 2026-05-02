@@ -1,5 +1,5 @@
 import { describe, it, expect, vi } from "vitest";
-import { render, screen } from "@testing-library/react";
+import { act, render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { Table } from "./Table";
 import { Pagination, getPageItems } from "./Pagination";
@@ -224,6 +224,63 @@ describe("Table", () => {
     expect(onRowContextMenu).toHaveBeenCalled();
     expect(onRowContextMenu.mock.calls[0][1]).toEqual(rows[0]);
     expect(onRowContextMenu.mock.calls[0][2]).toBe(0);
+  });
+
+  it("onRowDoubleClick fires independently of selection", async () => {
+    const onRowDoubleClick = vi.fn();
+    render(
+      <Table
+        data={rows}
+        columns={columns}
+        rowKey={(r) => r.id}
+        onRowDoubleClick={onRowDoubleClick}
+      />
+    );
+    await userEvent.dblClick(screen.getByText("Ada"));
+    expect(onRowDoubleClick).toHaveBeenCalled();
+    expect(onRowDoubleClick.mock.calls[0][0]).toEqual(rows[0]);
+    expect(onRowDoubleClick.mock.calls[0][1]).toBe(0);
+  });
+
+  it("rowClassName decorates the rendered row element", () => {
+    render(
+      <Table
+        data={rows}
+        columns={columns}
+        rowKey={(r) => r.id}
+        rowClassName={(row) => (row.id === 2 ? "is-flagged" : undefined)}
+      />
+    );
+    const flagged = document.querySelector("tr.is-flagged");
+    expect(flagged).not.toBeNull();
+    expect(flagged?.textContent).toContain("Volkan");
+  });
+
+  it("truncate column wraps cell content in a truncating container", () => {
+    const truncCols: TableColumn<Row>[] = [
+      { id: "name", header: "Name", accessor: "name", truncate: true },
+      { id: "email", header: "Email", accessor: "email" },
+    ];
+    render(<Table data={rows} columns={truncCols} rowKey={(r) => r.id} />);
+    const truncated = document.querySelectorAll(".sisyphos-table-cell-truncate");
+    expect(truncated.length).toBe(rows.length);
+    expect(truncated[0].textContent).toBe("Ada");
+  });
+
+  it("loadingDelay defers skeleton until the timer elapses", () => {
+    vi.useFakeTimers();
+    try {
+      render(
+        <Table data={[]} columns={columns} loading loadingDelay={250} skeletonRows={2} />
+      );
+      expect(document.querySelectorAll(".sisyphos-table-skeleton").length).toBe(0);
+      act(() => {
+        vi.advanceTimersByTime(260);
+      });
+      expect(document.querySelectorAll(".sisyphos-table-skeleton").length).toBeGreaterThan(0);
+    } finally {
+      vi.useRealTimers();
+    }
   });
 });
 

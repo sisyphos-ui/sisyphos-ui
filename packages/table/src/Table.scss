@@ -390,6 +390,31 @@
   );
   background-size: 200% 100%;
   animation: sisyphos-table-skeleton-shimmer 1.4s infinite;
+
+  &.width-0 {
+    width: 60%;
+  }
+  &.width-1 {
+    width: 80%;
+  }
+  &.width-2 {
+    width: 100%;
+  }
+  &.width-actions {
+    width: 32px;
+  }
+}
+
+.sisyphos-table-cell-truncate {
+  display: block;
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.sisyphos-table td.truncate {
+  max-width: 0;
 }
 
 @keyframes sisyphos-table-skeleton-shimmer {

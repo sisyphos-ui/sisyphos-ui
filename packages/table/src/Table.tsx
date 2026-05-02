@@ -60,6 +60,12 @@ export interface TableProps<T> {
   loading?: boolean;
   /** Number of skeleton rows to render while loading. Default 5. */
   skeletonRows?: number;
+  /**
+   * Smooths perceived flicker on fast loads. When set, the skeleton only
+   * appears if `loading` stays `true` for at least this many milliseconds.
+   * Defaults to `0` (skeleton shows immediately).
+   */
+  loadingDelay?: number;
   /** Content rendered when `data` is empty. */
   empty?: React.ReactNode;
 
@@ -89,8 +95,16 @@ export interface TableProps<T> {
 
   /** Invoked when a row body is clicked (ignored for checkbox/actions cells). */
   onRowClick?: (row: T, index: number) => void;
+  /**
+   * Invoked on row double-click. Independent of selection — fires regardless
+   * of `rowSelectionMode`. When `rowSelectionMode` is `"doubleClick"`, the
+   * selection toggle still runs alongside this handler.
+   */
+  onRowDoubleClick?: (row: T, index: number) => void;
   /** Fired on right-click of a row. Useful for wiring a context menu. */
   onRowContextMenu?: (event: React.MouseEvent<HTMLTableRowElement>, row: T, index: number) => void;
+  /** Returns an extra className for the row — useful for state-driven row highlighting. */
+  rowClassName?: (row: T, index: number) => string | undefined;
 
   /** Arbitrary toolbar content rendered above the header (filters, buttons, …). */
   toolbar?: React.ReactNode;
@@ -191,6 +205,49 @@ const SearchIcon: React.FC = () => (
   </svg>
 );
 
+/**
+ * Recursively reads the rendered text out of a ReactNode so we can use it as
+ * a native `title` tooltip when the cell overflows. Falls back to `undefined`
+ * for nodes that have no plain-text representation.
+ */
+function extractText(node: React.ReactNode): string | undefined {
+  if (node == null || typeof node === "boolean") return undefined;
+  if (typeof node === "string") return node;
+  if (typeof node === "number") return String(node);
+  if (Array.isArray(node)) {
+    const parts = node.map(extractText).filter(Boolean) as string[];
+    return parts.length ? parts.join("") : undefined;
+  }
+  if (React.isValidElement(node)) {
+    const children = (node.props as { children?: React.ReactNode }).children;
+    return extractText(children);
+  }
+  return undefined;
+}
+
+const TruncatedCell: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+  const ref = useRef<HTMLDivElement | null>(null);
+  const [overflowing, setOverflowing] = useState(false);
+
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    const measure = () => setOverflowing(el.scrollWidth > el.clientWidth + 1);
+    measure();
+    if (typeof ResizeObserver === "undefined") return;
+    const ro = new ResizeObserver(() => requestAnimationFrame(measure));
+    ro.observe(el);
+    return () => ro.disconnect();
+  }, [children]);
+
+  const title = overflowing ? extractText(children) : undefined;
+  return (
+    <div ref={ref} className="sisyphos-table-cell-truncate" title={title}>
+      {children}
+    </div>
+  );
+};
+
 export function Table<T>(props: TableProps<T>) {
   const {
     data,
@@ -198,6 +255,7 @@ export function Table<T>(props: TableProps<T>) {
     rowKey,
     loading = false,
     skeletonRows = 5,
+    loadingDelay = 0,
     empty = "No data",
     selectable = false,
     selectedIds = [],
@@ -208,7 +266,9 @@ export function Table<T>(props: TableProps<T>) {
     actions,
     actionsHeader = "Actions",
     onRowClick,
+    onRowDoubleClick,
     onRowContextMenu,
+    rowClassName,
     toolbar,
     filters,
     onFilterClear,
@@ -294,6 +354,21 @@ export function Table<T>(props: TableProps<T>) {
   useEffect(() => {
     if (headerCheckRef.current) headerCheckRef.current.indeterminate = someSelected;
   }, [someSelected]);
+
+  /* ── loading delay (smooths flicker on fast loads) ── */
+  const [showSkeleton, setShowSkeleton] = useState(loading && loadingDelay <= 0);
+  useEffect(() => {
+    if (!loading) {
+      setShowSkeleton(false);
+      return;
+    }
+    if (loadingDelay <= 0) {
+      setShowSkeleton(true);
+      return;
+    }
+    const timer = setTimeout(() => setShowSkeleton(true), loadingDelay);
+    return () => clearTimeout(timer);
+  }, [loading, loadingDelay]);
 
   const colCount = columns.length + (selectable ? 1 : 0) + (actions ? 1 : 0) + (expandable ? 1 : 0);
 
@@ -417,7 +492,7 @@ export function Table<T>(props: TableProps<T>) {
             </tr>
           </thead>
           <tbody>
-            {loading ? (
+            {showSkeleton ? (
               Array.from({ length: skeletonRows }).map((_, i) => (
                 <tr key={`skeleton-${i}`} className="sisyphos-table-skeleton-row">
                   {expandable && <td className="sisyphos-table-expand-cell" />}
@@ -426,14 +501,14 @@ export function Table<T>(props: TableProps<T>) {
                       <span className="sisyphos-table-skeleton" />
                     </td>
                   )}
-                  {columns.map((c) => (
+                  {columns.map((c, ci) => (
                     <td key={c.id} className={cx(`align-${c.align ?? "left"}`)}>
-                      <span className="sisyphos-table-skeleton" />
+                      <span className={cx("sisyphos-table-skeleton", `width-${ci % 3}`)} />
                     </td>
                   ))}
                   {actions && (
                     <td>
-                      <span className="sisyphos-table-skeleton" />
+                      <span className="sisyphos-table-skeleton width-actions" />
                     </td>
                   )}
                 </tr>
@@ -458,8 +533,11 @@ export function Table<T>(props: TableProps<T>) {
                     <tr
                       className={cx(
                         selected && "selected",
-                        (onRowClick || (selectable && rowSelectionMode !== "checkbox")) &&
-                          "clickable"
+                        (onRowClick ||
+                          onRowDoubleClick ||
+                          (selectable && rowSelectionMode !== "checkbox")) &&
+                          "clickable",
+                        rowClassName?.(row, i)
                       )}
                       onClick={(() => {
                         const selectOnClick = selectable && rowSelectionMode === "click";
@@ -469,11 +547,14 @@ export function Table<T>(props: TableProps<T>) {
                           onRowClick?.(row, i);
                         };
                       })()}
-                      onDoubleClick={
-                        selectable && rowSelectionMode === "doubleClick"
-                          ? () => toggleRow(row, i)
-                          : undefined
-                      }
+                      onDoubleClick={(() => {
+                        const selectOnDouble = selectable && rowSelectionMode === "doubleClick";
+                        if (!onRowDoubleClick && !selectOnDouble) return undefined;
+                        return () => {
+                          if (selectOnDouble) toggleRow(row, i);
+                          onRowDoubleClick?.(row, i);
+                        };
+                      })()}
                       onContextMenu={
                         onRowContextMenu ? (e) => onRowContextMenu(e, row, i) : undefined
                       }
@@ -519,10 +600,14 @@ export function Table<T>(props: TableProps<T>) {
                         return (
                           <td
                             key={col.id}
-                            className={cx(`align-${col.align ?? "left"}`, col.className)}
+                            className={cx(
+                              `align-${col.align ?? "left"}`,
+                              col.truncate && "truncate",
+                              col.className
+                            )}
                             style={col.style}
                           >
-                            {value}
+                            {col.truncate ? <TruncatedCell>{value}</TruncatedCell> : value}
                           </td>
                         );
                       })}

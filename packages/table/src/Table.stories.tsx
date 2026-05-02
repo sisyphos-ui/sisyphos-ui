@@ -118,3 +118,59 @@ export const WithPagination: Story = {
     );
   },
 };
+
+export const TruncatedColumns: Story = {
+  name: "Truncated columns",
+  render: () => {
+    const longRows: User[] = [
+      {
+        id: 1,
+        name: "A very long name that almost certainly does not fit inside its column",
+        email: "this-is-a-rather-long-mailbox-address@example-corporation.co.uk",
+        role: "Admin",
+        status: "active",
+      },
+      ...allUsers.slice(0, 4),
+    ];
+    const truncCols: TableColumn<User>[] = [
+      { id: "name", header: "Name", accessor: "name", truncate: true, width: 180 },
+      { id: "email", header: "Email", accessor: "email", truncate: true, width: 200 },
+      { id: "role", header: "Role", accessor: "role" },
+    ];
+    return <Table data={longRows} columns={truncCols} rowKey={(u) => u.id} bordered />;
+  },
+};
+
+export const RowClassName: Story = {
+  name: "Highlighted rows via rowClassName",
+  render: () => (
+    <Table
+      data={allUsers.slice(0, 6)}
+      columns={columns}
+      rowKey={(u) => u.id}
+      rowClassName={(u) => (u.status === "disabled" ? "row-disabled" : undefined)}
+    />
+  ),
+};
+
+export const LoadingDelay: Story = {
+  name: "Loading with delay (smooths flicker)",
+  render: () => {
+    const [loading, setLoading] = useState(true);
+    return (
+      <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
+        <button onClick={() => setLoading((l) => !l)} style={{ alignSelf: "start" }}>
+          Toggle loading (currently {String(loading)})
+        </button>
+        <Table
+          data={loading ? [] : allUsers.slice(0, 4)}
+          columns={columns}
+          rowKey={(u) => u.id}
+          loading={loading}
+          loadingDelay={400}
+          skeletonRows={4}
+        />
+      </div>
+    );
+  },
+};
