@@ -1,9 +1,15 @@
 {
   "name": "@sisyphos-ui/react",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "private": false,
   "description": "Sisyphos UI — React bindings (v1.0 unified umbrella, all components in one package)",
-  "keywords": ["design-system", "react", "sisyphos-ui", "ui", "components"],
+  "keywords": [
+    "design-system",
+    "react",
+    "sisyphos-ui",
+    "ui",
+    "components"
+  ],
   "homepage": "https://github.com/sisyphos-ui/sisyphos-ui#readme",
   "bugs": {
     "url": "https://github.com/sisyphos-ui/sisyphos-ui/issues"
@@ -15,7 +21,10 @@
   },
   "license": "MIT",
   "author": "Sisyphos UI Contributors",
-  "sideEffects": ["**/*.css", "**/*.scss"],
+  "sideEffects": [
+    "**/*.css",
+    "**/*.scss"
+  ],
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",
   "types": "./dist/index.d.ts",
@@ -28,7 +37,12 @@
     "./styles.css": "./dist/index.css",
     "./styles": "./dist/index.css"
   },
-  "files": ["CHANGELOG.md", "LICENSE", "README.md", "dist"],
+  "files": [
+    "CHANGELOG.md",
+    "LICENSE",
+    "README.md",
+    "dist"
+  ],
   "scripts": {
     "build": "tsup",
     "dev": "tsup --watch",
