@@ -36,4 +36,6 @@ export * from "./textarea";
 export * from "./toast";
 export * from "./tooltip";
 export * from "./tree-select";
+export * from "./table";
+export * from "./datepicker";
 export * from "./composables";
