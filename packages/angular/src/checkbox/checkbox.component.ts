@@ -1,5 +1,5 @@
 /**
- * Checkbox — Angular 17 standalone binding.
+ * Checkbox — Angular 18 standalone binding.
  *
  * Two-way bind via the `checked` model signal:
  *   `<sui-checkbox [(checked)]="value" />`
@@ -8,19 +8,28 @@
  * `nextCheckboxStateAfterToggle` helper from `@sisyphos-ui/core`, so the
  * indeterminate→checked transition matches the React and Vue bindings exactly.
  *
- * No internal state for `checked` — the model signal IS the source of truth.
- * `indeterminate` is a one-way input mirrored to the native input's DOM
- * property via an effect (it's a property, not an attribute).
+ * On the API surface:
+ *   - `model()` for `checked` (two-way) — set via `[(checked)]` or `.set()`
+ *   - aliased `@Input()` setters for one-way props, with the public read
+ *     surface exposed as readonly signals (`size()`, `disabled()`, etc.)
+ *
+ * The hybrid keeps every prop on a signal — so computeds, templates, and
+ * effects stay reactive — while routing writes through @Input setters that
+ * the AnalogJS+Vitest test runner accepts (signal `input()` does not work
+ * in that JIT environment).
+ *
+ * Note on styles: this binding does NOT use `styleUrl`. Styles are global
+ * (`sisyphos-checkbox` class names, no view encapsulation) and consumers
+ * import the bundled stylesheet once at app bootstrap — same model as the
+ * React and Vue bindings.
  */
 import {
   ChangeDetectionStrategy,
   Component,
-  ElementRef,
+  Input,
   computed,
-  effect,
-  input,
   model,
-  viewChild,
+  signal,
 } from "@angular/core";
 import { nextCheckboxStateAfterToggle } from "@sisyphos-ui/core";
 
@@ -28,15 +37,6 @@ export type CheckboxColor = "neutral" | "primary" | "success" | "error" | "warni
 export type CheckboxSize = "sm" | "md" | "lg";
 export type CheckboxRadius = "none" | "sm" | "md" | "lg" | "full";
 
-/**
- * Note on styles: this binding does NOT use `styleUrl` for the Sass file.
- * Styles are global (`sisyphos-checkbox` class names, not Angular's view
- * encapsulation), so consumers import the bundled stylesheet once at app
- * bootstrap (`@import "@sisyphos-ui/angular/styles";`) — same model as the
- * React and Vue bindings. This also keeps tests JIT-compatible: external
- * `styleUrl` references would force callers to run `resolveComponentResources()`
- * before every TestBed run.
- */
 @Component({
   selector: "sui-checkbox",
   standalone: true,
@@ -50,6 +50,7 @@ export type CheckboxRadius = "none" | "sm" | "md" | "lg" | "full";
           class="sisyphos-checkbox-native"
           [checked]="checked()"
           [disabled]="disabled()"
+          [indeterminate]="indeterminate()"
           [attr.name]="name() || null"
           [attr.aria-checked]="indeterminate() ? 'mixed' : checked()"
           [attr.aria-label]="ariaLabel() || null"
@@ -75,16 +76,38 @@ export type CheckboxRadius = "none" | "sm" | "md" | "lg" | "full";
 })
 export class Checkbox {
   readonly checked = model<boolean>(false);
-  readonly indeterminate = input(false);
-  readonly disabled = input(false);
-  readonly label = input<string>();
-  readonly name = input<string>();
-  readonly ariaLabel = input<string>();
-  readonly color = input<CheckboxColor>("primary");
-  readonly size = input<CheckboxSize>("md");
-  readonly radius = input<CheckboxRadius>("sm");
 
-  private readonly nativeInput = viewChild<ElementRef<HTMLInputElement>>("nativeInput");
+  // Backing signals.
+  private readonly _indeterminate = signal(false);
+  private readonly _disabled = signal(false);
+  private readonly _label = signal<string | undefined>(undefined);
+  private readonly _name = signal<string | undefined>(undefined);
+  private readonly _ariaLabel = signal<string | undefined>(undefined);
+  private readonly _color = signal<CheckboxColor>("primary");
+  private readonly _size = signal<CheckboxSize>("md");
+  private readonly _radius = signal<CheckboxRadius>("sm");
+
+  // Public read API — readonly signals consumed by templates and computeds.
+  readonly indeterminate = this._indeterminate.asReadonly();
+  readonly disabled = this._disabled.asReadonly();
+  readonly label = this._label.asReadonly();
+  readonly name = this._name.asReadonly();
+  readonly ariaLabel = this._ariaLabel.asReadonly();
+  readonly color = this._color.asReadonly();
+  readonly size = this._size.asReadonly();
+  readonly radius = this._radius.asReadonly();
+
+  // @Input aliases — the public binding name is the alias (e.g. `[size]`),
+  // the setter method has a different name to avoid colliding with the
+  // signal property of the same public name.
+  @Input("indeterminate") set indeterminateInput(v: boolean) { this._indeterminate.set(v); }
+  @Input("disabled") set disabledInput(v: boolean) { this._disabled.set(v); }
+  @Input("label") set labelInput(v: string | undefined) { this._label.set(v); }
+  @Input("name") set nameInput(v: string | undefined) { this._name.set(v); }
+  @Input("aria-label") set ariaLabelInput(v: string | undefined) { this._ariaLabel.set(v); }
+  @Input("color") set colorInput(v: CheckboxColor) { this._color.set(v); }
+  @Input("size") set sizeInput(v: CheckboxSize) { this._size.set(v); }
+  @Input("radius") set radiusInput(v: CheckboxRadius) { this._radius.set(v); }
 
   readonly containerClasses = computed(() =>
     [
@@ -99,15 +122,6 @@ export class Checkbox {
       .filter(Boolean)
       .join(" ")
   );
-
-  constructor() {
-    // `indeterminate` is a DOM property on <input>, not an HTML attribute —
-    // it must be set imperatively. Mirrors React's useEffect + ref pattern.
-    effect(() => {
-      const el = this.nativeInput()?.nativeElement;
-      if (el) el.indeterminate = this.indeterminate();
-    });
-  }
 
   handleToggle(): void {
     const next = nextCheckboxStateAfterToggle({
