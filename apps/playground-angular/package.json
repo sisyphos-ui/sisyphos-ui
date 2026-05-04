@@ -2,11 +2,10 @@
   "name": "@sisyphos-ui/playground-angular",
   "version": "0.0.0",
   "private": true,
-  "type": "module",
   "scripts": {
-    "dev": "vite",
-    "build": "vite build",
-    "preview": "vite preview"
+    "build": "ng build",
+    "dev": "ng serve --port 4380",
+    "preview": "npx serve dist/playground-angular/browser -l 4380"
   },
   "dependencies": {
     "@angular/common": "^18.2.0",
@@ -20,11 +19,11 @@
     "zone.js": "~0.14.4"
   },
   "devDependencies": {
-    "@analogjs/vite-plugin-angular": "1.14.1",
-    "@angular/compiler-cli": "^18.2.0",
-    "@angular/build": "^18.0.0",
     "@angular-devkit/architect": "^0.1802.0",
-    "typescript": ">=5.4.0 <5.6.0",
-    "vite": "^5.0.11"
+    "@angular-devkit/build-angular": "^18.2.0",
+    "@angular/build": "^18.0.0",
+    "@angular/cli": "^18.2.0",
+    "@angular/compiler-cli": "^18.2.0",
+    "typescript": ">=5.4.0 <5.6.0"
   }
 }

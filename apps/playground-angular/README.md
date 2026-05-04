@@ -1,43 +1,62 @@
 # @sisyphos-ui/playground-angular
 
-Angular 18 consumer scaffold for `@sisyphos-ui/angular`. Mirrors the React +
-Vue playground apps so all three frameworks demonstrate the same components.
+Angular 18 consumer app for `@sisyphos-ui/angular`. Mirrors the React +
+Vue playground apps so all three frameworks demonstrate the same
+components in real browsers.
 
-## Status
+## Stack
 
-The TypeScript app code (`src/main.ts` + `src/app.component.ts`) targets
-the v1 surface and consumes `@sisyphos-ui/angular` exactly the way a
-downstream Angular CLI app would.
+Standard **Angular CLI 18** workspace using the `@angular/build`
+esbuild-based application builder. The package consumes
+`@sisyphos-ui/angular` exactly the way a downstream `ng new` consumer
+would — through the published Partial-Ivy FESM2022 artifact, with
+Angular CLI auto-running the Linker on import.
 
-The Vite build via `@analogjs/vite-plugin-angular` currently fails on
-this scaffold (NgCompiler `Cannot read properties of undefined (reading 'flags')`
-on a 0-source program) — this plugin is primarily designed for AnalogJS
-SSR apps and Angular library AOT, and needs additional wiring for a plain
-SPA build. This is **not** a blocker for shipping the package: the
-canonical end-to-end consumer is `ng new` + Angular CLI, which produces
-its own webpack/esbuild setup with the Angular Linker enabled.
+## Requirements
 
-End-to-end paths verified for `@sisyphos-ui/angular`:
+Angular CLI 18 requires **Node.js ≥ 18.19**. If your local Node is older,
+use a 22.x toolchain (`.nvmrc` recommended). With nvm:
 
-- `ng-packagr` emits FESM2022 + d.ts + a 130KB merged stylesheet at
-  `packages/angular/dist/`.
-- 33 component test specs / 364 individual tests pass under Vitest
-  jsdom — exercising every component through real Angular runtime,
-  signal graph, Linker, and DOM.
-- The `dist/` folder follows the standard Angular library layout
-  (Partial Ivy), so a downstream `pnpm add @sisyphos-ui/angular` in a
-  fresh `ng new` workspace finalizes AOT through the consumer's
-  Angular CLI toolchain — same as Material/PrimeNG/etc.
+```bash
+nvm use 22
+```
 
-## To finish the Vite playground
+## Commands
 
-When time permits, the cleanest paths are:
+```bash
+# Build the production bundle (esbuild)
+pnpm --filter @sisyphos-ui/playground-angular build
 
-1. **Angular CLI** — `ng new playground-angular --routing=false --style=css`
-   inside `apps/`, then add `@sisyphos-ui/angular` and the standard
-   `styles.css` import. This is the production pattern.
-2. **AnalogJS app preset** — switch from `@analogjs/vite-plugin-angular`
-   alone to the full `@analogjs/platform` preset, which adds the
-   missing `index.html`/router/build wiring.
+# Dev server with HMR on http://localhost:4380
+pnpm --filter @sisyphos-ui/playground-angular dev
 
-Either route plugs into the existing `src/app.component.ts` unchanged.
+# Preview the production build on http://localhost:4380
+pnpm --filter @sisyphos-ui/playground-angular preview
+```
+
+## End-to-end smoke
+
+A real headless-Chrome render verifies the published artifact mounts:
+
+```bash
+pnpm --filter @sisyphos-ui/playground-angular preview &
+/Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome \
+  --headless --dump-dom http://localhost:4380/ \
+  | grep -oE 'sisyphos-[a-z]+' | sort -u
+```
+
+That dump returns 13+ unique component classes (Button, Card,
+Checkbox, Chip, DatePicker, Dialog, Avatar, Spinner, Switch, Table,
+Tabs, Toaster, …) — confirming the Angular package is consumable
+end-to-end from a fresh CLI workspace.
+
+## Notes
+
+- The bundled stylesheet is wired through `angular.json` →
+  `architect.build.options.styles[]` pointing at
+  `node_modules/@sisyphos-ui/angular/dist/styles.css`.
+- `Table`'s `TableColumn<T>` generic erases to
+  `TableColumn<Record<string, unknown>>` after ng-packagr Partial-Ivy
+  emit (Angular 18 d.ts limitation), so the playground casts at the
+  binding boundary. Production consumers can do the same or wrap in
+  a generic factory function.
