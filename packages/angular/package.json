@@ -1,7 +1,7 @@
 {
   "name": "@sisyphos-ui/angular",
-  "version": "0.0.0",
-  "private": true,
+  "version": "1.0.0",
+  "private": false,
   "description": "Sisyphos UI — Angular 17 standalone bindings (signals, OnPush).",
   "type": "module",
   "main": "./dist/fesm2022/sisyphos-ui-angular.mjs",

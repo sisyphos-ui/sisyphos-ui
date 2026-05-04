@@ -9,7 +9,9 @@
   "updateInternalDependencies": "patch",
   "ignore": [
     "@sisyphos-ui/storybook",
-    "@sisyphos-ui/playground"
+    "@sisyphos-ui/playground",
+    "@sisyphos-ui/playground-vue",
+    "@sisyphos-ui/playground-angular"
   ]
 }
 
