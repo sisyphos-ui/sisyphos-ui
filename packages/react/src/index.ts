@@ -39,3 +39,8 @@ export * from "./tooltip";
 export * from "./tree-select";
 export * from "./table";
 export * from "./datepicker";
+
+// Portal + focus-trap / scroll-lock primitives — public for advanced
+// consumers that want to compose their own overlays.
+export { Portal, useFocusTrap, useScrollLock } from "./internal/portal";
+export type { PortalProps } from "./internal/portal";
