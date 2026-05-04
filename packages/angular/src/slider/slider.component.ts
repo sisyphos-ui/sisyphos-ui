@@ -7,13 +7,14 @@
  * Mouse + touch + keyboard (Arrow / Page / Home / End). Mirrors the
  * React/Vue versions: same class names, same step-snapping, same minGap.
  */
+import type {
+  ElementRef,
+  OnDestroy} from "@angular/core";
 import {
   ChangeDetectionStrategy,
   Component,
-  ElementRef,
   EventEmitter,
   Input,
-  OnDestroy,
   Output,
   ViewChild,
   computed,

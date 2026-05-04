@@ -14,14 +14,15 @@
  *     </ng-template>
  *   </sui-carousel>
  */
-import {
+import type {
   AfterContentInit,
+  OnDestroy} from "@angular/core";
+import {
   ChangeDetectionStrategy,
   Component,
   ContentChild,
   EventEmitter,
   Input,
-  OnDestroy,
   Output,
   TemplateRef,
   computed,

@@ -11,14 +11,15 @@
  *     <button>Actions</button>
  *   </sui-dropdown-menu>
  */
+import type {
+  ElementRef,
+  OnDestroy} from "@angular/core";
 import {
   ChangeDetectionStrategy,
   Component,
-  ElementRef,
   EventEmitter,
   HostListener,
   Input,
-  OnDestroy,
   Output,
   ViewChild,
   computed,
@@ -28,7 +29,6 @@ import {
 import { computePosition, type Placement } from "@sisyphos-ui/core/internal";
 import {
   isDropdownMenuAction,
-  type DropdownMenuAction,
   type DropdownMenuItem,
 } from "./types";
 

@@ -8,12 +8,13 @@
  *     `ResizeObserver` + `window.resize` to stay in sync, exactly matching
  *     the React/Vue versions' behavior.
  */
-import {
+import type {
   AfterViewInit,
+  ElementRef,
+  OnDestroy} from "@angular/core";
+import {
   ChangeDetectionStrategy,
   Component,
-  ElementRef,
-  OnDestroy,
   ViewChild,
   effect,
   inject,

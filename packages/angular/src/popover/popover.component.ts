@@ -15,14 +15,15 @@
  *     </div>
  *   </sui-popover>
  */
+import type {
+  ElementRef,
+  OnDestroy} from "@angular/core";
 import {
   ChangeDetectionStrategy,
   Component,
-  ElementRef,
   EventEmitter,
   HostListener,
   Input,
-  OnDestroy,
   Output,
   ViewChild,
   computed,

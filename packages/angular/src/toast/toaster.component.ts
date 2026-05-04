@@ -14,11 +14,12 @@
  *   import { toast } from '@sisyphos-ui/angular';
  *   toast.success('Saved!');
  */
+import type {
+  OnDestroy} from "@angular/core";
 import {
   ChangeDetectionStrategy,
   Component,
   Input,
-  OnDestroy,
   computed,
   signal,
 } from "@angular/core";

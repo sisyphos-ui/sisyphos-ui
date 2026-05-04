@@ -14,10 +14,11 @@
  * Dropdown items pass via `[dropdownItems]`. The chevron and outside-click
  * handling are built in.
  */
+import type {
+  ElementRef} from "@angular/core";
 import {
   ChangeDetectionStrategy,
   Component,
-  ElementRef,
   EventEmitter,
   HostListener,
   Input,

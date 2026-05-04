@@ -7,12 +7,13 @@
  * via `(close)` output. `[autoCloseDuration]` ms triggers `(close)` after
  * the timer elapses (mirrors React's autoCloseDuration behavior).
  */
+import type {
+  OnDestroy} from "@angular/core";
 import {
   ChangeDetectionStrategy,
   Component,
   EventEmitter,
   Input,
-  OnDestroy,
   Output,
   computed,
   effect,

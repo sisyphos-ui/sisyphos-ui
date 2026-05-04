@@ -9,14 +9,15 @@
  *   <sui-select [options]="opts" [(value)]="picked" placeholder="Pick one" />
  *   <sui-select [options]="opts" [(values)]="picked" multiple searchable />
  */
+import type {
+  ElementRef,
+  OnDestroy} from "@angular/core";
 import {
   ChangeDetectionStrategy,
   Component,
-  ElementRef,
   EventEmitter,
   HostListener,
   Input,
-  OnDestroy,
   Output,
   ViewChild,
   computed,

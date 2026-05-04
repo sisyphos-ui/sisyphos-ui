@@ -8,13 +8,14 @@
  * environment — the effect runs as soon as both the value input and the
  * rendered <button> are visible to the signal graph.
  */
-import {
+import type {
   AfterViewInit,
+  ElementRef,
+  OnDestroy} from "@angular/core";
+import {
   ChangeDetectionStrategy,
   Component,
-  ElementRef,
   Input,
-  OnDestroy,
   ViewChild,
   computed,
   inject,

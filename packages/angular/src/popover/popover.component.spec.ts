@@ -27,12 +27,6 @@ class Host {
   closeOnOutsideClick = true;
 }
 
-function paint(): Promise<void> {
-  return new Promise((r) => {
-    queueMicrotask(() => requestAnimationFrame(() => r()));
-  });
-}
-
 describe("Popover (Angular)", () => {
   it("does not render the panel when closed", () => {
     const fixture = TestBed.createComponent(Host);

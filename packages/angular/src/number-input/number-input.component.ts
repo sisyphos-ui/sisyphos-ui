@@ -6,10 +6,11 @@
  *
  * Two-way bind via `[(value)]`. `null` represents an empty field.
  */
+import type {
+  ElementRef} from "@angular/core";
 import {
   ChangeDetectionStrategy,
   Component,
-  ElementRef,
   EventEmitter,
   Input as NgInput,
   Output,

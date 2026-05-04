@@ -15,15 +15,15 @@
  *
  * Expanded row content via `[expandedTemplate]`, actions via `[actionsTemplate]`.
  */
+import type {
+  OnDestroy,
+  TemplateRef} from "@angular/core";
 import {
   ChangeDetectionStrategy,
   Component,
-  ElementRef,
   EventEmitter,
   Input as NgInput,
-  OnDestroy,
   Output,
-  TemplateRef,
   computed,
   effect,
   signal,

@@ -18,13 +18,14 @@
  *   ];
  *   <sui-breadcrumb [items]="items" />
  */
+import type {
+  TemplateRef} from "@angular/core";
 import {
   ChangeDetectionStrategy,
   Component,
   EventEmitter,
   Input,
   Output,
-  TemplateRef,
   computed,
   signal,
 } from "@angular/core";

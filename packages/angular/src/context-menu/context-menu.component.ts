@@ -12,14 +12,15 @@
  *     <div class="row">{{ row.name }}</div>
  *   </sui-context-menu>
  */
+import type {
+  ElementRef,
+  OnDestroy} from "@angular/core";
 import {
   ChangeDetectionStrategy,
   Component,
-  ElementRef,
   EventEmitter,
   HostListener,
   Input,
-  OnDestroy,
   Output,
   ViewChild,
   computed,

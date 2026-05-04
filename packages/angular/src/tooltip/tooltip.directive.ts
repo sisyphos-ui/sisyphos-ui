@@ -10,13 +10,14 @@
  *
  *   <button sui-tooltip="Save changes" placement="bottom">Save</button>
  */
+import type {
+  OnDestroy,
+  OnInit} from "@angular/core";
 import {
   Directive,
   ElementRef,
   HostListener,
   Input,
-  OnDestroy,
-  OnInit,
   effect,
   inject,
   signal,

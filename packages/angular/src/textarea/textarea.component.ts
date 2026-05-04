@@ -5,10 +5,11 @@
  * Two-way bind via `[(value)]`. Class names + behavior + ARIA mirror the
  * React/Vue versions.
  */
+import type {
+  ElementRef} from "@angular/core";
 import {
   ChangeDetectionStrategy,
   Component,
-  ElementRef,
   EventEmitter,
   Input,
   Output,

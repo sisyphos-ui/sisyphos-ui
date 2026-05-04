@@ -4,14 +4,15 @@
  * React/Vue versions exactly: same class names, same node shape, same
  * `descendantIds` / `nodeState` rules from the shared `utils`.
  */
+import type {
+  ElementRef,
+  OnDestroy} from "@angular/core";
 import {
   ChangeDetectionStrategy,
   Component,
-  ElementRef,
   EventEmitter,
   HostListener,
   Input as NgInput,
-  OnDestroy,
   Output,
   ViewChild,
   computed,

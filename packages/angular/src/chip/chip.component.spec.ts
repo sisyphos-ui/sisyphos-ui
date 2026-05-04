@@ -80,7 +80,7 @@ describe("Chip (Angular)", () => {
   });
 
   it("clicking delete button emits (delete) and stops propagation", () => {
-    const { fixture, root } = setup({ deletable: true, clickable: true });
+    const { fixture } = setup({ deletable: true, clickable: true });
     const onChipClick = vi.fn();
     const onDelete = vi.fn();
     fixture.componentInstance.chipClick.subscribe(onChipClick);

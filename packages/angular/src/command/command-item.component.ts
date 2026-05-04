@@ -10,14 +10,15 @@
  * text content, since the projected DOM doesn't exist when the item is
  * hidden.
  */
+import type {
+  ElementRef,
+  OnDestroy,
+  OnInit} from "@angular/core";
 import {
   ChangeDetectionStrategy,
   Component,
-  ElementRef,
   EventEmitter,
   Input,
-  OnDestroy,
-  OnInit,
   Output,
   ViewChild,
   computed,

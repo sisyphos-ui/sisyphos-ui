@@ -11,14 +11,15 @@
  *     </sui-dialog-footer>
  *   </sui-dialog>
  */
-import {
+import type {
   AfterViewInit,
+  ElementRef,
+  OnDestroy} from "@angular/core";
+import {
   ChangeDetectionStrategy,
   Component,
-  ElementRef,
   EventEmitter,
   Input,
-  OnDestroy,
   Output,
   ViewChild,
   computed,

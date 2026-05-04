@@ -6,14 +6,15 @@
  * Use `[isRange]="true"` to switch to range mode; bind via `[(value)]` for
  * single (Date | null) or `[(values)]` for range ([Date | null, Date | null]).
  */
+import type {
+  ElementRef,
+  OnDestroy} from "@angular/core";
 import {
   ChangeDetectionStrategy,
   Component,
-  ElementRef,
   EventEmitter,
   HostListener,
   Input as NgInput,
-  OnDestroy,
   Output,
   ViewChild,
   computed,

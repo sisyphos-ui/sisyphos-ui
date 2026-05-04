@@ -15,10 +15,11 @@
  *     (reject)="onReject($event)"
  *   />
  */
+import type {
+  ElementRef} from "@angular/core";
 import {
   ChangeDetectionStrategy,
   Component,
-  ElementRef,
   EventEmitter,
   Input as NgInput,
   Output,
