@@ -19,7 +19,7 @@ import {
   useState,
   type ReactElement,
 } from "react";
-import { Portal } from "@sisyphos-ui/portal";
+import { Portal } from "../internal/portal";
 import { cx, useEscapeKey } from "@sisyphos-ui/core/internal";
 import type { ContextMenuItem, ContextMenuAction } from "./types";
 import "./ContextMenu.scss";

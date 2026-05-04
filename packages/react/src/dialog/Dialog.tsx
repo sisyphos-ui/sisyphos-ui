@@ -7,7 +7,7 @@
  * `Dialog.Footer`, and `Dialog.Close`.
  */
 import React, { useCallback, useEffect, useId, useMemo, useRef } from "react";
-import { Portal, useFocusTrap, useScrollLock } from "@sisyphos-ui/portal";
+import { Portal, useFocusTrap, useScrollLock } from "../internal/portal";
 import { cx, useEscapeKey } from "@sisyphos-ui/core/internal";
 import { DialogContext } from "./context";
 import "./Dialog.scss";

@@ -7,7 +7,7 @@
  */
 import type React from "react";
 import { useCallback, useEffect, useId, useMemo, useRef, useState } from "react";
-import { Portal } from "@sisyphos-ui/portal";
+import { Portal } from "../internal/portal";
 import { cx, computePosition, useEscapeKey, type Placement } from "@sisyphos-ui/core/internal";
 import type { TreeNode, TreeNodeId } from "./types";
 import { descendantIds, filterTree, nodeState, findNode } from "./utils";

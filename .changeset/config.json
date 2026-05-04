@@ -8,10 +8,11 @@
   "baseBranch": "master",
   "updateInternalDependencies": "patch",
   "ignore": [
-    "@sisyphos-ui/storybook",
     "@sisyphos-ui/playground",
     "@sisyphos-ui/playground-vue",
-    "@sisyphos-ui/playground-angular"
+    "@sisyphos-ui/playground-angular",
+    "@sisyphos-ui/preview-vue",
+    "@sisyphos-ui/preview-angular"
   ]
 }
 

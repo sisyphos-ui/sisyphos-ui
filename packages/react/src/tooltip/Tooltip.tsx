@@ -16,7 +16,7 @@ import {
   useState,
   type ReactElement,
 } from "react";
-import { Portal } from "@sisyphos-ui/portal";
+import { Portal } from "../internal/portal";
 import { cx, computePosition, type Placement } from "@sisyphos-ui/core/internal";
 import "./Tooltip.scss";
 

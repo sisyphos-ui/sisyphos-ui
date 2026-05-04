@@ -6,7 +6,7 @@
  */
 import type React from "react";
 import { useEffect, useMemo, useRef, useState } from "react";
-import { Portal } from "@sisyphos-ui/portal";
+import { Portal } from "../internal/portal";
 import { cx } from "@sisyphos-ui/core/internal";
 import { toastStore, type ToastRecord } from "./store";
 import { DEFAULT_ICONS } from "./icons";

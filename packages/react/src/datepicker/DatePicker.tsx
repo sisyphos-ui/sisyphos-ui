@@ -7,7 +7,7 @@
  */
 import type React from "react";
 import { useCallback, useEffect, useId, useMemo, useRef, useState } from "react";
-import { Portal } from "@sisyphos-ui/portal";
+import { Portal } from "../internal/portal";
 import { cx, computePosition, useEscapeKey, type Placement } from "@sisyphos-ui/core/internal";
 import { WEEK_DAYS, MONTHS, PLACEHOLDERS, RANGE_LABELS, type DateLocale } from "./locale";
 import { formatDate, sameDay, withTime } from "./format";

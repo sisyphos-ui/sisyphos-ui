@@ -18,7 +18,7 @@ import {
   useState,
   type ReactElement,
 } from "react";
-import { Portal } from "@sisyphos-ui/portal";
+import { Portal } from "../internal/portal";
 import { cx, computePosition, useEscapeKey, type Placement } from "@sisyphos-ui/core/internal";
 import type { DropdownMenuItem, DropdownMenuAction } from "./types";
 import "./DropdownMenu.scss";
