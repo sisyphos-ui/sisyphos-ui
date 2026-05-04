@@ -10,9 +10,8 @@
     "type-check": "tsc --noEmit"
   },
   "dependencies": {
-    "@sisyphos-ui/button": "workspace:*",
     "@sisyphos-ui/core": "workspace:*",
-    "@sisyphos-ui/ui": "workspace:*",
+    "@sisyphos-ui/react": "workspace:*",
     "react": "^18.2.0",
     "react-dom": "^18.2.0"
   },

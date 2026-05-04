@@ -1,5 +1,5 @@
 import { useState } from "react";
-import "@sisyphos-ui/ui/styles.css";
+import "@sisyphos-ui/react/styles.css";
 import {
   Accordion,
   Alert,
@@ -9,6 +9,7 @@ import {
   Card,
   Checkbox,
   Chip,
+  DatePicker,
   Dialog,
   DropdownMenu,
   EmptyState,
@@ -22,12 +23,14 @@ import {
   Slider,
   Spinner,
   Switch,
+  Table,
   Tabs,
   Textarea,
   Toaster,
   Tooltip,
   toast,
-} from "@sisyphos-ui/ui";
+} from "@sisyphos-ui/react";
+import type { TableColumn } from "@sisyphos-ui/react";
 import "./App.css";
 
 const Section: React.FC<{ title: string; description?: string; children: React.ReactNode }> = ({
@@ -52,6 +55,19 @@ export default function App() {
   const [plan, setPlan] = useState<string | number>("pro");
   const [country, setCountry] = useState<string | number | null>("tr");
   const [volume, setVolume] = useState(50);
+  const [date, setDate] = useState<Date | null>(new Date());
+
+  const tableRows = [
+    { id: 1, name: "Volkan Günay", role: "Engineer", status: "active" },
+    { id: 2, name: "Ada Lovelace", role: "Mathematician", status: "active" },
+    { id: 3, name: "Grace Hopper", role: "Compiler pioneer", status: "active" },
+    { id: 4, name: "Alan Turing", role: "Cryptanalyst", status: "active" },
+  ];
+  const tableColumns: TableColumn<(typeof tableRows)[number]>[] = [
+    { id: "name", header: "Name", accessor: "name", sortable: true },
+    { id: "role", header: "Role", accessor: "role", sortable: true },
+    { id: "status", header: "Status", accessor: "status" },
+  ];
 
   return (
     <div className="page">
@@ -226,6 +242,19 @@ export default function App() {
             <Spinner />
             <Spinner variant="double" color="info" size="lg" />
           </div>
+        </Section>
+
+        <Section title="Data table" description="Sortable, paginated table with column templates.">
+          <Table
+            data={tableRows}
+            columns={tableColumns}
+            rowKey={(r) => r.id}
+            striped
+          />
+        </Section>
+
+        <Section title="DatePicker" description="Single date selection with locale + format.">
+          <DatePicker value={date} onChange={setDate} />
         </Section>
 
         <Section title="Disclosure" description="Single or multi-expand accordion.">
