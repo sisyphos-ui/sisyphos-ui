@@ -15,7 +15,13 @@ export default defineConfig({
     environment: "jsdom",
     setupFiles: ["./vitest.setup.ts"],
     include: ["packages/**/*.{test,spec}.{ts,tsx}"],
-    exclude: ["**/node_modules/**", "**/dist/**"],
+    exclude: [
+      "**/node_modules/**",
+      "**/dist/**",
+      // Angular has its own vitest config — it processes TS via @analogjs's
+      // angular plugin, which would clash with the React/Vue plugins here.
+      "packages/angular/**",
+    ],
     server: {
       deps: {
         inline: [/@sisyphos-ui\//],

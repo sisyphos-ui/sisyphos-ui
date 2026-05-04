@@ -1,0 +1,47 @@
+{
+  "name": "@sisyphos-ui/angular",
+  "version": "0.0.0",
+  "private": true,
+  "description": "Sisyphos UI — Angular 17 standalone bindings (signals, OnPush).",
+  "type": "module",
+  "main": "./dist/fesm2022/sisyphos-ui-angular.mjs",
+  "module": "./dist/fesm2022/sisyphos-ui-angular.mjs",
+  "types": "./dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "ng-packagr -p ng-package.json -c tsconfig.lib.json",
+    "test": "vitest run --config vitest.config.ts",
+    "test:watch": "vitest --config vitest.config.ts",
+    "lint": "eslint .",
+    "clean": "rm -rf dist .turbo node_modules"
+  },
+  "peerDependencies": {
+    "@angular/common": "^18.0.0",
+    "@angular/core": "^18.0.0",
+    "rxjs": "^7.8.0"
+  },
+  "dependencies": {
+    "@sisyphos-ui/core": "workspace:*",
+    "tslib": "^2.6.0"
+  },
+  "devDependencies": {
+    "@analogjs/vite-plugin-angular": "1.14.1",
+    "@analogjs/vitest-angular": "1.14.1",
+    "@angular-devkit/architect": "^0.1802.0",
+    "@angular/build": "^18.0.0",
+    "@angular/common": "^18.2.0",
+    "@angular/compiler": "^18.2.0",
+    "@angular/compiler-cli": "^18.2.0",
+    "@angular/core": "^18.2.0",
+    "@angular/platform-browser": "^18.2.0",
+    "@angular/platform-browser-dynamic": "^18.2.0",
+    "@sisyphos-ui/eslint-config": "workspace:*",
+    "ng-packagr": "^18.2.0",
+    "rxjs": "^7.8.0",
+    "sass": "^1.77.0",
+    "typescript": ">=5.4.0 <5.6.0",
+    "zone.js": "~0.14.4"
+  }
+}
