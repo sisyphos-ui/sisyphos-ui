@@ -1,0 +1,47 @@
+@use "@sisyphos-ui/core/src/tokens/variables" as *;
+
+.sisyphos-form-control {
+  display: inline-flex;
+  flex-direction: column;
+  gap: $spacing-xxs;
+
+  &.full-width {
+    display: flex;
+    width: 100%;
+  }
+
+  &.disabled {
+    opacity: $opacity-s;
+    pointer-events: none;
+  }
+}
+
+.sisyphos-form-label {
+  font-size: $size-md;
+  font-weight: $font-weight-medium;
+  color: var(--sisyphos-color-neutral-dark, #212b36);
+  line-height: $line-height;
+
+  &.disabled {
+    cursor: not-allowed;
+  }
+}
+
+.sisyphos-form-label-required {
+  margin-left: 2px;
+  color: var(--sisyphos-color-error, #fb3748);
+}
+
+.sisyphos-form-helper-text {
+  margin: 0;
+  font-size: $size-sm;
+  color: var(--sisyphos-color-neutral-dark, #637381);
+  line-height: $line-height-sm;
+}
+
+.sisyphos-form-error-text {
+  margin: 0;
+  font-size: $size-sm;
+  color: var(--sisyphos-color-error, #fb3748);
+  line-height: $line-height-sm;
+}

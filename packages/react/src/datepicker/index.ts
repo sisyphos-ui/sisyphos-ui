@@ -1,2 +1,3 @@
-export * from "./DatePicker";
-export type { DateLocale } from "../../../../datepicker/src/locale";
+export { DatePicker } from "./DatePicker";
+export type { DatePickerProps } from "./DatePicker";
+export type { DateLocale } from "./locale";

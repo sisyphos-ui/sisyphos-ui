@@ -20,6 +20,7 @@ export * from "./context-menu";
 export * from "./dialog";
 export * from "./dropdown-menu";
 export * from "./empty-state";
+export * from "./form-control";
 export * from "./file-upload";
 export * from "./input";
 export * from "./kbd";
