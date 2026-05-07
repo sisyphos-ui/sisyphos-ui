@@ -6,10 +6,12 @@
  * (via `defaultValue`).
  */
 import type React from "react";
-import { useCallback, useId, useMemo, useState } from "react";
+import { useCallback, useEffect, useId, useLayoutEffect, useMemo, useRef, useState } from "react";
 import { cx } from "@sisyphos-ui/core/internal";
 import { AccordionContext, AccordionItemContext, useAccordion, useAccordionItem } from "./context";
 import "./Accordion.scss";
+
+const useIsomorphicLayoutEffect = typeof window !== "undefined" ? useLayoutEffect : useEffect;
 
 type SingleProps = {
   multiple?: false;
@@ -189,20 +191,50 @@ const AccordionContent: React.FC<AccordionContentProps> = ({
   className,
   children,
   forceMount = true,
+  style,
   ...rest
 }) => {
   const item = useAccordionItem();
+  const innerRef = useRef<HTMLDivElement | null>(null);
+  const [contentHeight, setContentHeight] = useState<number | null>(null);
+
+  useIsomorphicLayoutEffect(() => {
+    const el = innerRef.current;
+    if (!el) return;
+
+    const measure = () => setContentHeight(el.scrollHeight);
+    measure();
+
+    if (typeof ResizeObserver === "undefined") return;
+
+    const observer = new ResizeObserver(measure);
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, []);
+
+  const contentStyle = {
+    ...style,
+    ...(contentHeight !== null && {
+      "--sisyphos-accordion-content-height": `${contentHeight}px`,
+    }),
+  } as React.CSSProperties;
+
   if (!item.open && !forceMount) return null;
   return (
     <div
       id={item.contentId}
       role="region"
       aria-labelledby={item.triggerId}
-      hidden={!item.open}
+      aria-hidden={!item.open}
+      data-state={item.open ? "open" : "closed"}
+      data-initialized={contentHeight !== null ? "" : undefined}
       className={cx("sisyphos-accordion-content", className)}
+      style={contentStyle}
       {...rest}
     >
-      <div className="sisyphos-accordion-content-inner">{children}</div>
+      <div ref={innerRef} className="sisyphos-accordion-content-inner">
+        {children}
+      </div>
     </div>
   );
 };
