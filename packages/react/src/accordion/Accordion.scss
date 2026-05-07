@@ -84,12 +84,33 @@
 }
 
 .sisyphos-accordion-content {
-  padding: 0 $spacing-lg;
   overflow: hidden;
-  transition: opacity $duration-s;
+  padding: 0 $spacing-lg;
+  max-height: 0;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition:
+    max-height $duration-s ease,
+    opacity $duration-s ease;
 
-  &[hidden] {
-    display: none;
+  // No transition until first ResizeObserver measurement; avoids flicker on open-by-default items.
+  &:not([data-initialized]) {
+    transition: none;
+  }
+
+  &[data-state="open"] {
+    // Fallback 9999px keeps open-by-default items visible before first measurement.
+    max-height: var(--sisyphos-accordion-content-height, 9999px);
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+  }
+
+  &[data-state="closed"] {
+    max-height: 0;
+    opacity: 0;
+    pointer-events: none;
   }
 }
 
@@ -97,4 +118,10 @@
   padding: 0 0 $spacing-md;
   color: var(--sisyphos-color-neutral-dark, #637381);
   line-height: $line-height;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sisyphos-accordion-content {
+    transition: none;
+  }
 }
