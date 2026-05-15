@@ -120,7 +120,10 @@ export const TreeSelect: React.FC<TreeSelectProps> = ({
 
   const isControlled = valueProp !== undefined;
   const [internal, setInternal] = useState<TreeNodeId[]>(defaultValue ?? []);
-  const selectedIds = isControlled ? (valueProp ?? []) : internal;
+  const selectedIds = useMemo<TreeNodeId[]>(
+    () => (isControlled ? (valueProp ?? []) : internal),
+    [isControlled, valueProp, internal]
+  );
   const selectedSet = useMemo(() => new Set<TreeNodeId>(selectedIds), [selectedIds]);
 
   const [open, setOpen] = useState(false);
