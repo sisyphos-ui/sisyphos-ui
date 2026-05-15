@@ -1,7 +1,13 @@
 <script setup lang="ts">
 /**
- * Select — Vue 3 binding. Combobox-style picker with single or multi
- * value, optional search filter, clearable, keyboard navigation.
+ * Select — Vue 3 binding. Combobox-style picker with single/multi value,
+ * search filter, clearable, keyboard navigation, async loading state,
+ * and a portal-mounted dropdown.
+ *
+ * Class names, ARIA, and visual structure mirror the React + Angular
+ * bindings: control (with chevron + clear), value wrapper (with tags
+ * for multi-select), and a dropdown list with search row + loading +
+ * empty states.
  */
 import { computed, ref, useId, watch } from "vue";
 import { useEscapeKey, useOutsideClick } from "../composables";
@@ -22,6 +28,9 @@ interface Props {
   disabled?: boolean;
   fullWidth?: boolean;
   size?: "sm" | "md" | "lg";
+  loading?: boolean;
+  loadingText?: string;
+  emptyText?: string;
 }
 
 const props = withDefaults(defineProps<Props>(), {
@@ -34,6 +43,9 @@ const props = withDefaults(defineProps<Props>(), {
   fullWidth: false,
   error: false,
   size: "md",
+  loading: false,
+  loadingText: "Loading…",
+  emptyText: "No options",
 });
 
 const emit = defineEmits<{
@@ -63,15 +75,20 @@ const selectedValues = computed<SelectValue[]>(() => {
   return v == null ? [] : [v as SelectValue];
 });
 
-const selectedLabel = computed(() => {
+const singleLabel = computed(() => {
   if (props.multiple) return "";
   const v = props.modelValue;
   if (v == null) return "";
   return props.options.find((o) => o.value === v)?.label ?? "";
 });
 
-const isSelected = (v: SelectValue) =>
-  selectedValues.value.some((x) => x === v);
+const hasValue = computed(() =>
+  props.multiple ? selectedValues.value.length > 0 : props.modelValue != null
+);
+
+const isSelected = (v: SelectValue) => selectedValues.value.some((x) => x === v);
+
+const labelOf = (v: SelectValue) => props.options.find((o) => o.value === v)?.label ?? String(v);
 
 function pick(opt: SelectOption) {
   if (opt.disabled) return;
@@ -84,6 +101,14 @@ function pick(opt: SelectOption) {
     emit("update:modelValue", opt.value);
     open.value = false;
   }
+}
+
+function removeTag(v: SelectValue) {
+  if (!props.multiple) return;
+  emit(
+    "update:modelValue",
+    selectedValues.value.filter((x) => x !== v)
+  );
 }
 
 function clear() {
@@ -125,42 +150,57 @@ const containerClasses = computed(() => [
   props.fullWidth && "full-width",
 ]);
 
-const showClear = computed(
-  () => props.clearable && !props.disabled && (props.multiple ? selectedValues.value.length > 0 : props.modelValue != null)
-);
+const controlClasses = computed(() => [
+  "sisyphos-select-control",
+  open.value && "open",
+  hasValue.value && "has-value",
+]);
+
+const showClear = computed(() => props.clearable && !props.disabled && hasValue.value);
 </script>
 
 <template>
   <div :class="containerClasses">
-    <label v-if="label" class="sisyphos-select-label">{{ label }}</label>
+    <label v-if="label" :class="['sisyphos-select-label', error && 'error']">{{ label }}</label>
     <div
       ref="triggerRef"
       role="combobox"
       :aria-expanded="open"
-      :aria-haspopup="searchable ? 'listbox' : 'listbox'"
+      aria-haspopup="listbox"
       :tabindex="disabled ? -1 : 0"
-      class="sisyphos-select-trigger"
+      :class="controlClasses"
       @click="!disabled && (open = !open)"
       @keydown="handleKeyDown"
     >
-      <template v-if="multiple">
-        <template v-if="selectedValues.length === 0">
-          <span class="sisyphos-select-placeholder">{{ placeholder }}</span>
+      <div class="sisyphos-select-value">
+        <template v-if="multiple">
+          <span v-if="selectedValues.length === 0" class="sisyphos-select-placeholder">
+            {{ placeholder }}
+          </span>
+          <div v-else class="sisyphos-select-tags">
+            <span
+              v-for="v in selectedValues"
+              :key="String(v)"
+              class="sisyphos-select-tag"
+              :title="labelOf(v)"
+            >
+              {{ labelOf(v) }}
+              <button
+                type="button"
+                class="sisyphos-select-tag-delete"
+                aria-label="Remove"
+                @click.stop="removeTag(v)"
+              >
+                ✕
+              </button>
+            </span>
+          </div>
         </template>
-        <span
-          v-for="v in selectedValues"
-          :key="String(v)"
-          class="sisyphos-select-tag"
-        >
-          {{ options.find((o) => o.value === v)?.label ?? v }}
-        </span>
-      </template>
-      <template v-else>
-        <template v-if="!selectedLabel">
-          <span class="sisyphos-select-placeholder">{{ placeholder }}</span>
+        <template v-else>
+          <span v-if="!singleLabel" class="sisyphos-select-placeholder">{{ placeholder }}</span>
+          <span v-else class="sisyphos-select-single">{{ singleLabel }}</span>
         </template>
-        <span v-else class="sisyphos-select-value">{{ selectedLabel }}</span>
-      </template>
+      </div>
       <button
         v-if="showClear"
         type="button"
@@ -170,51 +210,66 @@ const showClear = computed(
       >
         ✕
       </button>
+      <span class="sisyphos-select-chevron" aria-hidden="true">
+        <svg viewBox="0 0 24 24" width="16" height="16">
+          <path d="M7 10l5 5 5-5z" fill="currentColor" />
+        </svg>
+      </span>
     </div>
     <Teleport to="body">
-      <div
+      <ul
         v-if="open"
         ref="dropdownRef"
-        :id="`${baseId}-dropdown`"
+        :id="`${baseId}-list`"
         role="listbox"
-        class="sisyphos-select-dropdown"
+        class="sisyphos-select-list"
         @keydown="handleKeyDown"
       >
-        <input
-          v-if="searchable"
-          ref="searchRef"
-          v-model="search"
-          type="search"
-          class="sisyphos-select-search"
-          :placeholder="searchPlaceholder"
-        />
-        <div class="sisyphos-select-list">
-          <button
+        <li v-if="searchable" class="sisyphos-select-search-row">
+          <input
+            ref="searchRef"
+            v-model="search"
+            type="search"
+            class="sisyphos-select-search"
+            :placeholder="searchPlaceholder"
+          />
+        </li>
+        <li v-if="loading" class="sisyphos-select-loading">
+          <span class="sisyphos-select-loading-spinner" aria-hidden="true" />
+          {{ loadingText }}
+        </li>
+        <li v-else-if="filtered.length === 0" class="sisyphos-select-empty">{{ emptyText }}</li>
+        <template v-else>
+          <li
             v-for="(opt, idx) in filtered"
             :key="String(opt.value)"
-            type="button"
             role="option"
             :aria-selected="isSelected(opt.value)"
+            :aria-disabled="opt.disabled || undefined"
             :class="[
               'sisyphos-select-option',
               opt.disabled && 'disabled',
               isSelected(opt.value) && 'selected',
               idx === activeIndex && 'active',
             ]"
-            :disabled="opt.disabled"
             @click="pick(opt)"
+            @mouseenter="activeIndex = idx"
           >
+            <span v-if="multiple" class="sisyphos-select-option-check" aria-hidden="true">
+              {{ isSelected(opt.value) ? "✓" : "" }}
+            </span>
             <span v-if="opt.icon" class="sisyphos-select-option-icon">
               <slot name="icon" :option="opt" />
             </span>
-            <span class="sisyphos-select-option-label">{{ opt.label }}</span>
-            <span v-if="opt.description" class="sisyphos-select-option-description">
-              {{ opt.description }}
+            <span class="sisyphos-select-option-body">
+              <span class="sisyphos-select-option-label">{{ opt.label }}</span>
+              <span v-if="opt.description" class="sisyphos-select-option-description">
+                {{ opt.description }}
+              </span>
             </span>
-          </button>
-          <div v-if="filtered.length === 0" class="sisyphos-select-empty">No results</div>
-        </div>
-      </div>
+          </li>
+        </template>
+      </ul>
     </Teleport>
     <span v-if="error && errorMessage" class="sisyphos-select-error" role="alert">
       {{ errorMessage }}
