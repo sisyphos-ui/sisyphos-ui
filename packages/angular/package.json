@@ -8,10 +8,6 @@
   "module": "./dist/fesm2022/sisyphos-ui-angular.mjs",
   "types": "./dist/index.d.ts",
   "exports": {
-    ".": {
-      "types": "./dist/index.d.ts",
-      "default": "./dist/fesm2022/sisyphos-ui-angular.mjs"
-    },
     "./styles.css": "./dist/styles.css",
     "./styles": "./dist/styles.css"
   },
