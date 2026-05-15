@@ -162,15 +162,24 @@ export const DatePicker: React.FC<DatePickerProps> = (props) => {
   const fieldId = `sisyphos-datepicker-${reactId}`;
 
   const value = props.value;
-  const singleValue = !isRange ? ((value as SingleValue | undefined) ?? null) : null;
-  const rangeValue: RangeValue = isRange
-    ? ((value as RangeValue | undefined) ?? [null, null])
-    : [null, null];
+  const singleValue = useMemo<SingleValue>(
+    () => (!isRange ? ((value as SingleValue | undefined) ?? null) : null),
+    [isRange, value]
+  );
+  const rangeValue = useMemo<RangeValue>(
+    () => (isRange ? ((value as RangeValue | undefined) ?? [null, null]) : [null, null]),
+    [isRange, value]
+  );
 
-  const emitSingle = (v: SingleValue) =>
-    (props.onChange as ((v: SingleValue) => void) | undefined)?.(v);
-  const emitRange = (v: RangeValue) =>
-    (props.onChange as ((v: RangeValue) => void) | undefined)?.(v);
+  const onChangeProp = props.onChange;
+  const emitSingle = useCallback(
+    (v: SingleValue) => (onChangeProp as ((v: SingleValue) => void) | undefined)?.(v),
+    [onChangeProp]
+  );
+  const emitRange = useCallback(
+    (v: RangeValue) => (onChangeProp as ((v: RangeValue) => void) | undefined)?.(v),
+    [onChangeProp]
+  );
 
   const [isOpen, setIsOpen] = useState(false);
   const [viewMode, setViewMode] = useState<ViewMode>("days");
@@ -253,7 +262,7 @@ export const DatePicker: React.FC<DatePickerProps> = (props) => {
       if (isRange) emitRange([null, null]);
       else emitSingle(null);
     },
-    [isRange]
+    [isRange, emitRange, emitSingle]
   );
 
   const isDateDisabled = useCallback(

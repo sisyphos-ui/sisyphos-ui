@@ -228,6 +228,7 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(function Inp
   const rawDisplayValue = isControlled ? String(props.value ?? "") : internalValue;
   const displayValue = mask ? applyMask(rawDisplayValue, mask) : rawDisplayValue;
 
+  const onChangeProp = props.onChange;
   const handleChange = useCallback(
     (e: React.ChangeEvent<HTMLInputElement>) => {
       let nextValue = e.target.value;
@@ -241,9 +242,9 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(function Inp
         setInternalValue(nextValue);
       }
       if (mask) onUnmaskedChange?.(unmask(nextValue, mask));
-      props.onChange?.(e);
+      onChangeProp?.(e);
     },
-    [isControlled, mask, onUnmaskedChange, props.onChange]
+    [isControlled, mask, onUnmaskedChange, onChangeProp]
   );
 
   /**
