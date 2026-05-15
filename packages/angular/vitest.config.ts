@@ -17,6 +17,11 @@ export default defineConfig({
       inlineStylesExtension: "scss",
     }),
   ],
+  css: {
+    preprocessorOptions: {
+      scss: { api: "modern-compiler" },
+    },
+  },
   test: {
     globals: true,
     environment: "jsdom",
