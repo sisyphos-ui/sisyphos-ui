@@ -168,34 +168,41 @@ if (typeof window !== "undefined") {
       @scroll="onScroll"
       @keydown="handleKeyDown"
     >
+      <div v-if="$slots.header" class="sisyphos-dropdown-menu-header">
+        <slot name="header" />
+      </div>
       <template v-if="items.length === 0 && emptyState">
-        <div class="sisyphos-dropdown-empty">{{ emptyState }}</div>
+        <div class="sisyphos-dropdown-menu-empty" role="note">{{ emptyState }}</div>
       </template>
-      <template v-else>
+      <ul v-else class="sisyphos-dropdown-menu-list">
         <template v-for="(item, idx) in items" :key="item.key ?? idx">
-          <div v-if="item.type === 'separator'" class="sisyphos-dropdown-separator" role="separator" />
-          <div v-else-if="item.type === 'label'" class="sisyphos-dropdown-label">
+          <li v-if="item.type === 'separator'" class="sisyphos-dropdown-menu-separator" role="separator" />
+          <li v-else-if="item.type === 'label'" class="sisyphos-dropdown-menu-label" role="presentation">
             {{ item.label }}
-          </div>
-          <button
-            v-else
-            type="button"
-            role="menuitem"
-            :class="[
-              'sisyphos-dropdown-item',
-              item.disabled && 'disabled',
-              item.destructive && 'destructive',
-              actionItems.findIndex((a) => a.idx === idx) === activeIndex && 'active',
-            ]"
-            :disabled="item.disabled"
-            @click="selectAction(item, $event)"
-          >
-            <span v-if="item.icon" class="sisyphos-dropdown-item-icon"><slot name="icon" :item="item" /></span>
-            <span class="sisyphos-dropdown-item-label">{{ item.label }}</span>
-            <span v-if="item.shortcut" class="sisyphos-dropdown-item-shortcut">{{ item.shortcut }}</span>
-          </button>
+          </li>
+          <li v-else role="none">
+            <button
+              type="button"
+              role="menuitem"
+              :class="[
+                'sisyphos-dropdown-menu-item',
+                item.disabled && 'disabled',
+                item.destructive && 'destructive',
+                actionItems.findIndex((a) => a.idx === idx) === activeIndex && 'active',
+              ]"
+              :disabled="item.disabled"
+              @click="selectAction(item, $event)"
+            >
+              <span v-if="item.icon" class="sisyphos-dropdown-menu-item-icon"><slot name="icon" :item="item" /></span>
+              <span class="sisyphos-dropdown-menu-item-label">{{ item.label }}</span>
+              <span v-if="item.shortcut" class="sisyphos-dropdown-menu-item-shortcut">{{ item.shortcut }}</span>
+            </button>
+          </li>
         </template>
-      </template>
+      </ul>
+      <div v-if="$slots.footer" class="sisyphos-dropdown-menu-footer">
+        <slot name="footer" />
+      </div>
     </div>
   </Teleport>
 </template>

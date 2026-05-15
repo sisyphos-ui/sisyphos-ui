@@ -28,7 +28,7 @@ describe("DropdownMenu (Vue)", () => {
       attachTo: document.body,
     });
     await flushPromises();
-    expect(document.querySelector(".sisyphos-dropdown-empty")?.textContent).toBe("No actions");
+    expect(document.querySelector(".sisyphos-dropdown-menu-empty")?.textContent).toBe("No actions");
     wrapper.unmount();
   });
 
