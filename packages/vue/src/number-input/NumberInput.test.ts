@@ -28,16 +28,16 @@ describe("NumberInput (Vue)", () => {
       template: `<NumberInput :modelValue="v" @update:modelValue="v = $event" :step="2" locale="en-US" />`,
     });
     const wrapper = mount(Wrap);
-    await wrapper.find(".sisyphos-number-input-step.up").trigger("click");
+    await wrapper.find(".sisyphos-number-input-step.increment").trigger("click");
     expect(wrapper.vm.v).toBe(7);
-    await wrapper.find(".sisyphos-number-input-step.down").trigger("click");
+    await wrapper.find(".sisyphos-number-input-step.decrement").trigger("click");
     expect(wrapper.vm.v).toBe(5);
   });
 
   it("disabled blocks stepper", () => {
     const wrapper = mount(NumberInput, { props: { modelValue: 5, disabled: true } });
     expect(
-      (wrapper.find(".sisyphos-number-input-step.up").element as HTMLButtonElement).disabled
+      (wrapper.find(".sisyphos-number-input-step.increment").element as HTMLButtonElement).disabled
     ).toBe(true);
   });
 });

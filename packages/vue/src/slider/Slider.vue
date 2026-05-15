@@ -15,6 +15,10 @@ interface Props {
   size?: "sm" | "md" | "lg";
   color?: "primary" | "success" | "error" | "warning" | "info";
   showValue?: boolean;
+  /** In range mode, render editable number inputs below the track. */
+  withInputs?: boolean;
+  minInputLabel?: string;
+  maxInputLabel?: string;
   disabled?: boolean;
   ariaLabel?: string;
   ariaLabelMin?: string;
@@ -29,6 +33,9 @@ const props = withDefaults(defineProps<Props>(), {
   size: "md",
   color: "primary",
   showValue: false,
+  withInputs: false,
+  minInputLabel: "Min",
+  maxInputLabel: "Max",
   disabled: false,
 });
 
@@ -129,6 +136,13 @@ const rootClasses = computed(() => [
 
 <template>
   <div :class="rootClasses">
+    <div v-if="showValue && range" class="sisyphos-slider-values">
+      <span>{{ minVal }}</span>
+      <span>{{ maxVal }}</span>
+    </div>
+    <div v-if="showValue && !range" class="sisyphos-slider-values single">
+      <span :style="{ marginLeft: `calc(${pct(single)}% - 16px)` }">{{ single }}</span>
+    </div>
     <div
       ref="trackRef"
       class="sisyphos-slider-track"
@@ -138,12 +152,12 @@ const rootClasses = computed(() => [
     >
       <div
         v-if="!range"
-        class="sisyphos-slider-fill"
+        class="sisyphos-slider-progress"
         :style="{ width: `${pct(single)}%` }"
       />
       <div
         v-else
-        class="sisyphos-slider-fill"
+        class="sisyphos-slider-progress"
         :style="{
           left: `${pct(minVal)}%`,
           width: `${pct(maxVal) - pct(minVal)}%`,
@@ -167,7 +181,7 @@ const rootClasses = computed(() => [
       <template v-else>
         <button
           type="button"
-          class="sisyphos-slider-thumb sisyphos-slider-thumb-min"
+          class="sisyphos-slider-thumb"
           role="slider"
           :aria-valuenow="minVal"
           :aria-valuemin="min"
@@ -180,7 +194,7 @@ const rootClasses = computed(() => [
         />
         <button
           type="button"
-          class="sisyphos-slider-thumb sisyphos-slider-thumb-max"
+          class="sisyphos-slider-thumb"
           role="slider"
           :aria-valuenow="maxVal"
           :aria-valuemin="min"
@@ -193,9 +207,38 @@ const rootClasses = computed(() => [
         />
       </template>
     </div>
-    <div v-if="showValue" class="sisyphos-slider-value">
-      <template v-if="!range">{{ single }}</template>
-      <template v-else>{{ minVal }} – {{ maxVal }}</template>
+    <div v-if="range && withInputs" class="sisyphos-slider-inputs">
+      <label class="sisyphos-slider-input-field">
+        <span class="sisyphos-slider-input-label">{{ minInputLabel }}</span>
+        <input
+          type="number"
+          :min="min"
+          :max="maxVal"
+          :step="step"
+          :value="minVal"
+          :disabled="disabled"
+          @input="(e) => {
+            const v = Number((e.target as HTMLInputElement).value);
+            if (!Number.isNaN(v)) setRange([v, maxVal]);
+          }"
+        />
+      </label>
+      <span class="sisyphos-slider-input-divider" aria-hidden="true">–</span>
+      <label class="sisyphos-slider-input-field">
+        <span class="sisyphos-slider-input-label">{{ maxInputLabel }}</span>
+        <input
+          type="number"
+          :min="minVal"
+          :max="max"
+          :step="step"
+          :value="maxVal"
+          :disabled="disabled"
+          @input="(e) => {
+            const v = Number((e.target as HTMLInputElement).value);
+            if (!Number.isNaN(v)) setRange([minVal, v]);
+          }"
+        />
+      </label>
     </div>
   </div>
 </template>
