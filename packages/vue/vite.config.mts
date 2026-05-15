@@ -4,6 +4,11 @@ import { resolve } from "node:path";
 
 export default defineConfig({
   plugins: [vue()],
+  css: {
+    preprocessorOptions: {
+      scss: { api: "modern-compiler" },
+    },
+  },
   build: {
     lib: {
       entry: resolve(__dirname, "src/index.ts"),
