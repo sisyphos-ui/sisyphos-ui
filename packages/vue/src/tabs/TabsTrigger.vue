@@ -42,9 +42,15 @@ function activate() {
     :aria-selected="selected"
     :tabindex="selected ? 0 : -1"
     :disabled="disabled"
-    :class="['sisyphos-tabs-trigger', selected && 'active']"
+    :data-sisyphos-tab-value="value"
+    :class="['sisyphos-tabs-trigger', selected && 'active', disabled && 'disabled']"
     @click="activate"
   >
-    <slot />
+    <span v-if="$slots.icon" class="sisyphos-tabs-trigger-icon" aria-hidden="true">
+      <slot name="icon" />
+    </span>
+    <span class="sisyphos-tabs-trigger-label">
+      <slot />
+    </span>
   </button>
 </template>
