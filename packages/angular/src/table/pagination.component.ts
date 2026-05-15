@@ -52,12 +52,19 @@ export function getPageItems(
         (click)="goTo(page() - 1)"
       >
         <svg viewBox="0 0 16 16" width="14" height="14" aria-hidden="true">
-          <path d="M10 4l-4 4 4 4" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+          <path
+            d="M10 4l-4 4 4 4"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1.5"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          />
         </svg>
       </button>
       <ul class="sisyphos-pagination-list">
         @for (it of items(); track $index) {
-          @if (it === 'ellipsis') {
+          @if (it === "ellipsis") {
             <li class="sisyphos-pagination-ellipsis" aria-hidden="true">…</li>
           } @else {
             <li>
@@ -66,7 +73,9 @@ export function getPageItems(
                 [class]="'sisyphos-pagination-page' + (it === page() ? ' active' : '')"
                 [attr.aria-current]="it === page() ? 'page' : null"
                 (click)="goTo(it)"
-              >{{ it }}</button>
+              >
+                {{ it }}
+              </button>
             </li>
           }
         }
@@ -79,7 +88,14 @@ export function getPageItems(
         (click)="goTo(page() + 1)"
       >
         <svg viewBox="0 0 16 16" width="14" height="14" aria-hidden="true">
-          <path d="M6 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+          <path
+            d="M6 4l4 4-4 4"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1.5"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          />
         </svg>
       </button>
     </nav>
@@ -95,11 +111,21 @@ export class Pagination {
   readonly page = this._page.asReadonly();
   readonly pageCount = this._pageCount.asReadonly();
 
-  @NgInput("page") set pageInput(v: number) { this._page.set(v); }
-  @NgInput("pageCount") set pageCountInput(v: number) { this._pageCount.set(v); }
-  @NgInput("siblings") set siblingsInput(v: number) { this._siblings.set(v); }
-  @NgInput("boundaries") set boundariesInput(v: number) { this._boundaries.set(v); }
-  @NgInput("size") set sizeInput(v: "sm" | "md" | "lg") { this._size.set(v); }
+  @NgInput("page") set pageInput(v: number) {
+    this._page.set(v);
+  }
+  @NgInput("pageCount") set pageCountInput(v: number) {
+    this._pageCount.set(v);
+  }
+  @NgInput("siblings") set siblingsInput(v: number) {
+    this._siblings.set(v);
+  }
+  @NgInput("boundaries") set boundariesInput(v: number) {
+    this._boundaries.set(v);
+  }
+  @NgInput("size") set sizeInput(v: "sm" | "md" | "lg") {
+    this._size.set(v);
+  }
 
   @Output() readonly pageChange = new EventEmitter<number>();
 

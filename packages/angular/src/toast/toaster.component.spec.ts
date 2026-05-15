@@ -163,7 +163,9 @@ describe("toast store API", () => {
     toast("b");
     toast("c");
     let count = 0;
-    const unsub = toastStore.subscribe((t) => { count = t.length; });
+    const unsub = toastStore.subscribe((t) => {
+      count = t.length;
+    });
     expect(count).toBe(3);
     toast.clear();
     expect(count).toBe(0);

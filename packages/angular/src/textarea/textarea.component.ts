@@ -5,8 +5,7 @@
  * Two-way bind via `[(value)]`. Class names + behavior + ARIA mirror the
  * React/Vue versions.
  */
-import type {
-  ElementRef} from "@angular/core";
+import type { ElementRef } from "@angular/core";
 import {
   ChangeDetectionStrategy,
   Component,
@@ -50,7 +49,9 @@ let textareaCounter = 0;
         (input)="onInput($event)"
       ></textarea>
       @if (error() && errorMessage()) {
-        <span [id]="errorId" class="sisyphos-textarea-error" role="alert">{{ errorMessage() }}</span>
+        <span [id]="errorId" class="sisyphos-textarea-error" role="alert">{{
+          errorMessage()
+        }}</span>
       }
       @if (showCount() && !error()) {
         <span [id]="countId" class="sisyphos-textarea-character-count">
@@ -106,35 +107,69 @@ export class Textarea {
     if (v === undefined || v === null) return;
     this._value.set(String(v));
   }
-  @Input("label") set labelInput(v: string | undefined) { this._label.set(v); }
-  @Input("placeholder") set placeholderInput(v: string | undefined) { this._placeholder.set(v); }
-  @Input("name") set nameInput(v: string | undefined) { this._name.set(v); }
-  @Input("variant") set variantInput(v: "standard" | "outlined" | "underline") { this._variant.set(v); }
-  @Input("size") set sizeInput(v: "xs" | "sm" | "md" | "lg" | "xl") { this._size.set(v); }
-  @Input("radius") set radiusInput(v: "none" | "sm" | "md" | "lg" | "full") { this._radius.set(v); }
-  @Input("error") set errorInput(v: boolean) { this._error.set(v); }
-  @Input("errorMessage") set errorMessageInput(v: string | undefined) { this._errorMessage.set(v); }
-  @Input("disabled") set disabledInput(v: boolean) { this._disabled.set(v); }
-  @Input("readOnly") set readOnlyInput(v: boolean) { this._readOnly.set(v); }
-  @Input("required") set requiredInput(v: boolean) { this._required.set(v); }
-  @Input("maxLength") set maxLengthInput(v: number | undefined) { this._maxLength.set(v); }
+  @Input("label") set labelInput(v: string | undefined) {
+    this._label.set(v);
+  }
+  @Input("placeholder") set placeholderInput(v: string | undefined) {
+    this._placeholder.set(v);
+  }
+  @Input("name") set nameInput(v: string | undefined) {
+    this._name.set(v);
+  }
+  @Input("variant") set variantInput(v: "standard" | "outlined" | "underline") {
+    this._variant.set(v);
+  }
+  @Input("size") set sizeInput(v: "xs" | "sm" | "md" | "lg" | "xl") {
+    this._size.set(v);
+  }
+  @Input("radius") set radiusInput(v: "none" | "sm" | "md" | "lg" | "full") {
+    this._radius.set(v);
+  }
+  @Input("error") set errorInput(v: boolean) {
+    this._error.set(v);
+  }
+  @Input("errorMessage") set errorMessageInput(v: string | undefined) {
+    this._errorMessage.set(v);
+  }
+  @Input("disabled") set disabledInput(v: boolean) {
+    this._disabled.set(v);
+  }
+  @Input("readOnly") set readOnlyInput(v: boolean) {
+    this._readOnly.set(v);
+  }
+  @Input("required") set requiredInput(v: boolean) {
+    this._required.set(v);
+  }
+  @Input("maxLength") set maxLengthInput(v: number | undefined) {
+    this._maxLength.set(v);
+  }
   @Input("showCharacterCount") set showCharacterCountInput(v: boolean) {
     this._showCharacterCount.set(v);
   }
-  @Input("autoResize") set autoResizeInput(v: boolean) { this._autoResize.set(v); }
-  @Input("minRows") set minRowsInput(v: number) { this._minRows.set(v); }
-  @Input("maxRows") set maxRowsInput(v: number | undefined) { this._maxRows.set(v); }
-  @Input("rows") set rowsInput(v: number | undefined) { this._rows.set(v); }
-  @Input("resize") set resizeInput(v: "none" | "vertical" | "horizontal" | "both") { this._resize.set(v); }
-  @Input("fullWidth") set fullWidthInput(v: boolean) { this._fullWidth.set(v); }
+  @Input("autoResize") set autoResizeInput(v: boolean) {
+    this._autoResize.set(v);
+  }
+  @Input("minRows") set minRowsInput(v: number) {
+    this._minRows.set(v);
+  }
+  @Input("maxRows") set maxRowsInput(v: number | undefined) {
+    this._maxRows.set(v);
+  }
+  @Input("rows") set rowsInput(v: number | undefined) {
+    this._rows.set(v);
+  }
+  @Input("resize") set resizeInput(v: "none" | "vertical" | "horizontal" | "both") {
+    this._resize.set(v);
+  }
+  @Input("fullWidth") set fullWidthInput(v: boolean) {
+    this._fullWidth.set(v);
+  }
 
   @Output() readonly valueChange = new EventEmitter<string>();
 
   @ViewChild("nativeTextarea") nativeTextarea?: ElementRef<HTMLTextAreaElement>;
 
-  readonly showCount = computed(
-    () => Boolean(this._maxLength()) && this._showCharacterCount()
-  );
+  readonly showCount = computed(() => Boolean(this._maxLength()) && this._showCharacterCount());
 
   readonly describedBy = computed(() => {
     const ids: string[] = [];
@@ -190,8 +225,12 @@ export class Textarea {
     });
   }
 
-  onFocus(): void { this._focused.set(true); }
-  onBlur(): void { this._focused.set(false); }
+  onFocus(): void {
+    this._focused.set(true);
+  }
+  onBlur(): void {
+    this._focused.set(false);
+  }
 
   onInput(event: Event): void {
     const next = (event.target as HTMLTextAreaElement).value;

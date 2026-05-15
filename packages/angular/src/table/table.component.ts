@@ -15,9 +15,7 @@
  *
  * Expanded row content via `[expandedTemplate]`, actions via `[actionsTemplate]`.
  */
-import type {
-  OnDestroy,
-  TemplateRef} from "@angular/core";
+import type { OnDestroy, TemplateRef } from "@angular/core";
 import {
   ChangeDetectionStrategy,
   Component,
@@ -51,7 +49,10 @@ import type {
             <div class="sisyphos-table-search">
               <span class="sisyphos-table-search-icon">
                 <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true">
-                  <path d="M10 18a8 8 0 115.29-14A8 8 0 0110 18zm11 3l-5.2-5.2a10 10 0 10-1.4 1.4L19.6 22.4z" fill="currentColor" />
+                  <path
+                    d="M10 18a8 8 0 115.29-14A8 8 0 0110 18zm11 3l-5.2-5.2a10 10 0 10-1.4 1.4L19.6 22.4z"
+                    fill="currentColor"
+                  />
                 </svg>
               </span>
               <input
@@ -91,12 +92,18 @@ import type {
                   class="sisyphos-table-filter-clear"
                   [attr.aria-label]="'Clear ' + (f.label ?? f.key)"
                   (click)="filterClear.emit(f.key)"
-                >×</button>
+                >
+                  ×
+                </button>
               }
             </div>
           }
           @if (showClearAllFilters() && anyFilterActive()) {
-            <button type="button" class="sisyphos-table-filter-clear-all" (click)="clearAllFilters.emit()">
+            <button
+              type="button"
+              class="sisyphos-table-filter-clear-all"
+              (click)="clearAllFilters.emit()"
+            >
               Clear all
             </button>
           }
@@ -138,7 +145,11 @@ import type {
                           d="M8 2l4 5H4l4-5zM8 14l-4-5h8l-4 5z"
                           fill="currentColor"
                           [attr.opacity]="sort()?.key === (col.sortKey ?? col.id) ? 1 : 0.4"
-                          [attr.transform]="sort()?.key === (col.sortKey ?? col.id) && sort()?.direction === 'desc' ? 'rotate(180 8 8)' : null"
+                          [attr.transform]="
+                            sort()?.key === (col.sortKey ?? col.id) && sort()?.direction === 'desc'
+                              ? 'rotate(180 8 8)'
+                              : null
+                          "
                         />
                       </svg>
                     }
@@ -154,9 +165,13 @@ import type {
             @if (showSkeleton()) {
               @for (i of skeletonIndexes(); track $index) {
                 <tr class="sisyphos-table-skeleton-row">
-                  @if (expandable()) { <td class="sisyphos-table-expand-cell"></td> }
+                  @if (expandable()) {
+                    <td class="sisyphos-table-expand-cell"></td>
+                  }
                   @if (selectable()) {
-                    <td class="sisyphos-table-select-cell"><span class="sisyphos-table-skeleton"></span></td>
+                    <td class="sisyphos-table-select-cell">
+                      <span class="sisyphos-table-skeleton"></span>
+                    </td>
                   }
                   @for (col of columns(); track col.id; let ci = $index) {
                     <td [class]="'align-' + (col.align ?? 'left')">
@@ -191,9 +206,23 @@ import type {
                           [attr.aria-label]="isExpanded(row, i) ? 'Collapse row' : 'Expand row'"
                           (click)="toggleExpanded(row, i)"
                         >
-                          <svg viewBox="0 0 16 16" width="14" height="14" aria-hidden="true"
-                               [class]="'sisyphos-table-expand-chevron' + (isExpanded(row, i) ? ' open' : '')">
-                            <path d="M6 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                          <svg
+                            viewBox="0 0 16 16"
+                            width="14"
+                            height="14"
+                            aria-hidden="true"
+                            [class]="
+                              'sisyphos-table-expand-chevron' + (isExpanded(row, i) ? ' open' : '')
+                            "
+                          >
+                            <path
+                              d="M6 4l4 4-4 4"
+                              fill="none"
+                              stroke="currentColor"
+                              stroke-width="1.5"
+                              stroke-linecap="round"
+                              stroke-linejoin="round"
+                            />
                           </svg>
                         </button>
                       }
@@ -213,13 +242,15 @@ import type {
                     <td [class]="cellClasses(col)">
                       @if (cellTemplates()?.[col.id]) {
                         <ng-container
-                          *ngTemplateOutlet="cellTemplates()![col.id]; context: { $implicit: row, row: row, index: i }"
+                          *ngTemplateOutlet="
+                            cellTemplates()![col.id];
+                            context: { $implicit: row, row: row, index: i }
+                          "
                         />
                       } @else if (col.truncate) {
-                        <div
-                          class="sisyphos-table-cell-truncate"
-                          [title]="cellText(col, row)"
-                        >{{ cellText(col, row) }}</div>
+                        <div class="sisyphos-table-cell-truncate" [title]="cellText(col, row)">
+                          {{ cellText(col, row) }}
+                        </div>
                       } @else {
                         {{ cellText(col, row) }}
                       }
@@ -228,7 +259,10 @@ import type {
                   @if (actionsTemplate()) {
                     <td class="sisyphos-table-actions-cell" (click)="$event.stopPropagation()">
                       <ng-container
-                        *ngTemplateOutlet="actionsTemplate()!; context: { $implicit: row, row: row, index: i }"
+                        *ngTemplateOutlet="
+                          actionsTemplate()!;
+                          context: { $implicit: row, row: row, index: i }
+                        "
                       />
                     </td>
                   }
@@ -237,7 +271,10 @@ import type {
                   <tr class="sisyphos-table-expanded-row">
                     <td [attr.colspan]="colCount()">
                       <ng-container
-                        *ngTemplateOutlet="expandedTemplate()!; context: { $implicit: row, row: row, index: i }"
+                        *ngTemplateOutlet="
+                          expandedTemplate()!;
+                          context: { $implicit: row, row: row, index: i }
+                        "
                       />
                     </td>
                   </tr>
@@ -281,7 +318,9 @@ import type {
     </div>
   `,
 })
-export class Table<T extends Record<string, unknown> = Record<string, unknown>> implements OnDestroy {
+export class Table<
+  T extends Record<string, unknown> = Record<string, unknown>,
+> implements OnDestroy {
   // ── Inputs ────────────────────────────────────────────────────────────
   private readonly _data = signal<T[]>([]);
   private readonly _columns = signal<TableColumn<T>[]>([]);
@@ -305,8 +344,12 @@ export class Table<T extends Record<string, unknown> = Record<string, unknown>> 
   private readonly _expandable = signal(false);
   private readonly _expandedIds = signal<RowId[] | undefined>(undefined);
   private readonly _internalExpanded = signal<RowId[]>([]);
-  private readonly _rowExpandable = signal<((row: T, idx: number) => boolean) | undefined>(undefined);
-  private readonly _rowClassName = signal<((row: T, idx: number) => string | undefined) | undefined>(undefined);
+  private readonly _rowExpandable = signal<((row: T, idx: number) => boolean) | undefined>(
+    undefined
+  );
+  private readonly _rowClassName = signal<
+    ((row: T, idx: number) => string | undefined) | undefined
+  >(undefined);
   private readonly _pagination = signal<TablePaginationConfig | undefined>(undefined);
   private readonly _size = signal<"sm" | "md" | "lg">("md");
   private readonly _striped = signal(false);
@@ -314,10 +357,14 @@ export class Table<T extends Record<string, unknown> = Record<string, unknown>> 
   private readonly _bordered = signal(false);
   private readonly _stickyHeader = signal(false);
   private readonly _toolbarTemplate = signal<TemplateRef<unknown> | undefined>(undefined);
-  private readonly _cellTemplates = signal<Record<string, TemplateRef<unknown>> | undefined>(undefined);
+  private readonly _cellTemplates = signal<Record<string, TemplateRef<unknown>> | undefined>(
+    undefined
+  );
   private readonly _actionsTemplate = signal<TemplateRef<unknown> | undefined>(undefined);
   private readonly _expandedTemplate = signal<TemplateRef<unknown> | undefined>(undefined);
-  private readonly _filterTemplates = signal<Record<string, TemplateRef<unknown>> | undefined>(undefined);
+  private readonly _filterTemplates = signal<Record<string, TemplateRef<unknown>> | undefined>(
+    undefined
+  );
 
   private readonly _showSkeleton = signal(false);
   private skeletonTimer: ReturnType<typeof setTimeout> | null = null;
@@ -343,8 +390,12 @@ export class Table<T extends Record<string, unknown> = Record<string, unknown>> 
   readonly filterTemplates = this._filterTemplates.asReadonly();
   readonly showSkeleton = this._showSkeleton.asReadonly();
 
-  @NgInput("data") set dataInput(v: T[]) { this._data.set(v ?? []); }
-  @NgInput("columns") set columnsInput(v: TableColumn<T>[]) { this._columns.set(v ?? []); }
+  @NgInput("data") set dataInput(v: T[]) {
+    this._data.set(v ?? []);
+  }
+  @NgInput("columns") set columnsInput(v: TableColumn<T>[]) {
+    this._columns.set(v ?? []);
+  }
   @NgInput("rowKey") set rowKeyInput(v: ((row: T, idx: number) => RowId) | undefined) {
     this._rowKey.set(v);
   }
@@ -366,26 +417,42 @@ export class Table<T extends Record<string, unknown> = Record<string, unknown>> 
     }
     this.skeletonTimer = setTimeout(() => this._showSkeleton.set(true), this._loadingDelay());
   }
-  @NgInput("skeletonRows") set skeletonRowsInput(v: number) { this._skeletonRows.set(v); }
-  @NgInput("loadingDelay") set loadingDelayInput(v: number) { this._loadingDelay.set(v); }
-  @NgInput("empty") set emptyInput(v: string) { this._empty.set(v); }
-  @NgInput("selectable") set selectableInput(v: boolean) { this._selectable.set(v); }
+  @NgInput("skeletonRows") set skeletonRowsInput(v: number) {
+    this._skeletonRows.set(v);
+  }
+  @NgInput("loadingDelay") set loadingDelayInput(v: number) {
+    this._loadingDelay.set(v);
+  }
+  @NgInput("empty") set emptyInput(v: string) {
+    this._empty.set(v);
+  }
+  @NgInput("selectable") set selectableInput(v: boolean) {
+    this._selectable.set(v);
+  }
   @NgInput("selectedIds") set selectedIdsInput(v: RowId[] | undefined) {
     this._selectedIds.set(v ?? []);
   }
   @NgInput("rowSelectionMode") set rowSelectionModeInput(v: "checkbox" | "click" | "doubleClick") {
     this._rowSelectionMode.set(v);
   }
-  @NgInput("sort") set sortInput(v: SortState | undefined) { this._sort.set(v); }
-  @NgInput("actionsHeader") set actionsHeaderInput(v: string) { this._actionsHeader.set(v); }
-  @NgInput("filters") set filtersInput(v: TableFilterField[] | undefined) { this._filters.set(v); }
+  @NgInput("sort") set sortInput(v: SortState | undefined) {
+    this._sort.set(v);
+  }
+  @NgInput("actionsHeader") set actionsHeaderInput(v: string) {
+    this._actionsHeader.set(v);
+  }
+  @NgInput("filters") set filtersInput(v: TableFilterField[] | undefined) {
+    this._filters.set(v);
+  }
   @NgInput("showClearAllFilters") set showClearAllFiltersInput(v: boolean) {
     this._showClearAllFilters.set(v);
   }
   @NgInput("heightMode") set heightModeInput(v: "auto" | "flex" | "content") {
     this._heightMode.set(v);
   }
-  @NgInput("searchable") set searchableInput(v: boolean) { this._searchable.set(v); }
+  @NgInput("searchable") set searchableInput(v: boolean) {
+    this._searchable.set(v);
+  }
   @NgInput("searchValue") set searchValueInput(v: string | undefined) {
     this._searchValue.set(v);
   }
@@ -395,33 +462,51 @@ export class Table<T extends Record<string, unknown> = Record<string, unknown>> 
   @NgInput("searchPlaceholder") set searchPlaceholderInput(v: string) {
     this._searchPlaceholder.set(v);
   }
-  @NgInput("expandable") set expandableInput(v: boolean) { this._expandable.set(v); }
+  @NgInput("expandable") set expandableInput(v: boolean) {
+    this._expandable.set(v);
+  }
   @NgInput("expandedIds") set expandedIdsInput(v: RowId[] | undefined) {
     this._expandedIds.set(v);
   }
   @NgInput("defaultExpandedIds") set defaultExpandedIdsInput(v: RowId[]) {
     if (this._internalExpanded().length === 0) this._internalExpanded.set(v);
   }
-  @NgInput("rowExpandable") set rowExpandableInput(v: ((row: T, idx: number) => boolean) | undefined) {
+  @NgInput("rowExpandable") set rowExpandableInput(
+    v: ((row: T, idx: number) => boolean) | undefined
+  ) {
     this._rowExpandable.set(v);
   }
-  @NgInput("rowClassName") set rowClassNameInput(v: ((row: T, idx: number) => string | undefined) | undefined) {
+  @NgInput("rowClassName") set rowClassNameInput(
+    v: ((row: T, idx: number) => string | undefined) | undefined
+  ) {
     this._rowClassName.set(v);
   }
   @NgInput("pagination") set paginationInput(v: TablePaginationConfig | undefined) {
     this._pagination.set(v);
   }
-  @NgInput("size") set sizeInput(v: "sm" | "md" | "lg") { this._size.set(v); }
-  @NgInput("striped") set stripedInput(v: boolean) { this._striped.set(v); }
-  @NgInput("hoverable") set hoverableInput(v: boolean) { this._hoverable.set(v); }
-  @NgInput("bordered") set borderedInput(v: boolean) { this._bordered.set(v); }
-  @NgInput("stickyHeader") set stickyHeaderInput(v: boolean) { this._stickyHeader.set(v); }
+  @NgInput("size") set sizeInput(v: "sm" | "md" | "lg") {
+    this._size.set(v);
+  }
+  @NgInput("striped") set stripedInput(v: boolean) {
+    this._striped.set(v);
+  }
+  @NgInput("hoverable") set hoverableInput(v: boolean) {
+    this._hoverable.set(v);
+  }
+  @NgInput("bordered") set borderedInput(v: boolean) {
+    this._bordered.set(v);
+  }
+  @NgInput("stickyHeader") set stickyHeaderInput(v: boolean) {
+    this._stickyHeader.set(v);
+  }
 
   // Template-ref slots (TemplateRef<unknown>) ───────────────────────────
   @NgInput("toolbarTemplate") set toolbarTemplateInput(t: TemplateRef<unknown> | undefined) {
     this._toolbarTemplate.set(t);
   }
-  @NgInput("cellTemplates") set cellTemplatesInput(t: Record<string, TemplateRef<unknown>> | undefined) {
+  @NgInput("cellTemplates") set cellTemplatesInput(
+    t: Record<string, TemplateRef<unknown>> | undefined
+  ) {
     this._cellTemplates.set(t);
   }
   @NgInput("actionsTemplate") set actionsTemplateInput(t: TemplateRef<unknown> | undefined) {
@@ -430,7 +515,9 @@ export class Table<T extends Record<string, unknown> = Record<string, unknown>> 
   @NgInput("expandedTemplate") set expandedTemplateInput(t: TemplateRef<unknown> | undefined) {
     this._expandedTemplate.set(t);
   }
-  @NgInput("filterTemplates") set filterTemplatesInput(t: Record<string, TemplateRef<unknown>> | undefined) {
+  @NgInput("filterTemplates") set filterTemplatesInput(
+    t: Record<string, TemplateRef<unknown>> | undefined
+  ) {
     this._filterTemplates.set(t);
   }
 
@@ -441,7 +528,11 @@ export class Table<T extends Record<string, unknown> = Record<string, unknown>> 
   @Output() readonly expandedIdsChange = new EventEmitter<RowId[]>();
   @Output() readonly rowClick = new EventEmitter<{ row: T; index: number }>();
   @Output() readonly rowDoubleClick = new EventEmitter<{ row: T; index: number }>();
-  @Output() readonly rowContextMenu = new EventEmitter<{ event: MouseEvent; row: T; index: number }>();
+  @Output() readonly rowContextMenu = new EventEmitter<{
+    event: MouseEvent;
+    row: T;
+    index: number;
+  }>();
   @Output() readonly filterClear = new EventEmitter<string>();
   @Output() readonly clearAllFilters = new EventEmitter<void>();
 
@@ -585,7 +676,8 @@ export class Table<T extends Record<string, unknown> = Record<string, unknown>> 
   }
 
   onRowDblclickInternal(row: T, idx: number, _event: MouseEvent): void {
-    if (this._selectable() && this._rowSelectionMode() === "doubleClick") this.onToggleRow(row, idx);
+    if (this._selectable() && this._rowSelectionMode() === "doubleClick")
+      this.onToggleRow(row, idx);
     this.rowDoubleClick.emit({ row, index: idx });
   }
 
@@ -626,13 +718,11 @@ export class Table<T extends Record<string, unknown> = Record<string, unknown>> 
   readonly showToolbar = computed(() => this._searchable() || !!this._toolbarTemplate());
 
   readonly hasFilters = computed(() => Boolean(this._filters() && this._filters()!.length > 0));
-  readonly anyFilterActive = computed(() =>
-    this.hasFilters() && this._filters()!.some((f) => f.active)
+  readonly anyFilterActive = computed(
+    () => this.hasFilters() && this._filters()!.some((f) => f.active)
   );
 
-  readonly wrapperClasses = computed(() =>
-    `sisyphos-table-wrapper height-${this._heightMode()}`
-  );
+  readonly wrapperClasses = computed(() => `sisyphos-table-wrapper height-${this._heightMode()}`);
 
   readonly tableClasses = computed(() =>
     [
@@ -648,29 +738,20 @@ export class Table<T extends Record<string, unknown> = Record<string, unknown>> 
   );
 
   headerClasses(col: TableColumn<T>): string {
-    return [
-      `align-${col.align ?? "left"}`,
-      col.sortable && "sortable",
-      col.className,
-    ]
+    return [`align-${col.align ?? "left"}`, col.sortable && "sortable", col.className]
       .filter(Boolean)
       .join(" ");
   }
 
   cellClasses(col: TableColumn<T>): string {
-    return [
-      `align-${col.align ?? "left"}`,
-      col.truncate && "truncate",
-      col.className,
-    ]
+    return [`align-${col.align ?? "left"}`, col.truncate && "truncate", col.className]
       .filter(Boolean)
       .join(" ");
   }
 
   rowClasses(row: T, idx: number): string {
     const interactive =
-      (this._selectable() && this._rowSelectionMode() !== "checkbox") ||
-      this.rowClick.observed;
+      (this._selectable() && this._rowSelectionMode() !== "checkbox") || this.rowClick.observed;
     return [
       this.isSelected(row, idx) && "selected",
       interactive && "clickable",

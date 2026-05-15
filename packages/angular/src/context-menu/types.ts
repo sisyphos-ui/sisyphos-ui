@@ -25,10 +25,7 @@ export interface ContextMenuLabel {
   label: string;
 }
 
-export type ContextMenuItem =
-  | ContextMenuAction
-  | ContextMenuSeparator
-  | ContextMenuLabel;
+export type ContextMenuItem = ContextMenuAction | ContextMenuSeparator | ContextMenuLabel;
 
 export function isContextMenuAction(item: ContextMenuItem): item is ContextMenuAction {
   return item.type === undefined || item.type === "action";

@@ -33,11 +33,25 @@ import type { TreeNode, TreeNodeId } from "./types";
           >
             @if (isOpen()) {
               <svg viewBox="0 0 24 24" width="14" height="14" aria-hidden="true">
-                <path d="M6 9l6 6 6-6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                <path
+                  d="M6 9l6 6 6-6"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
               </svg>
             } @else {
               <svg viewBox="0 0 24 24" width="14" height="14" aria-hidden="true">
-                <path d="M9 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                <path
+                  d="M9 6l6 6-6 6"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
               </svg>
             }
           </button>
@@ -48,17 +62,26 @@ import type { TreeNode, TreeNodeId } from "./types";
           type="button"
           class="sisyphos-tree-toggle"
           role="checkbox"
-          [attr.aria-checked]="state() === 'checked' ? 'true' : state() === 'partial' ? 'mixed' : 'false'"
+          [attr.aria-checked]="
+            state() === 'checked' ? 'true' : state() === 'partial' ? 'mixed' : 'false'
+          "
           [disabled]="node().disabled"
           (click)="onToggle()"
         >
           <span [class]="checkboxClasses()">
-            @if (state() === 'checked') {
+            @if (state() === "checked") {
               <svg viewBox="0 0 16 16" width="10" height="10" aria-hidden="true">
-                <path d="M2 8l4 4 8-8" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" />
+                <path
+                  d="M2 8l4 4 8-8"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2.5"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
               </svg>
             }
-            @if (state() === 'partial') {
+            @if (state() === "partial") {
               <span class="sisyphos-tree-partial"></span>
             }
           </span>
@@ -96,11 +119,21 @@ export class TreeNodeRow {
   readonly expanded = this._expanded.asReadonly();
   readonly searchActive = this._searchActive.asReadonly();
 
-  @NgInput("node") set nodeInput(v: TreeNode) { this._node.set(v); }
-  @NgInput("level") set levelInput(v: number) { this._level.set(v); }
-  @NgInput("selectedSet") set selectedSetInput(v: Set<TreeNodeId>) { this._selectedSet.set(v); }
-  @NgInput("expanded") set expandedInput(v: Record<string, boolean>) { this._expanded.set(v); }
-  @NgInput("searchActive") set searchActiveInput(v: boolean) { this._searchActive.set(v); }
+  @NgInput("node") set nodeInput(v: TreeNode) {
+    this._node.set(v);
+  }
+  @NgInput("level") set levelInput(v: number) {
+    this._level.set(v);
+  }
+  @NgInput("selectedSet") set selectedSetInput(v: Set<TreeNodeId>) {
+    this._selectedSet.set(v);
+  }
+  @NgInput("expanded") set expandedInput(v: Record<string, boolean>) {
+    this._expanded.set(v);
+  }
+  @NgInput("searchActive") set searchActiveInput(v: boolean) {
+    this._searchActive.set(v);
+  }
 
   @Output() readonly toggleNode = new EventEmitter<TreeNode>();
   @Output() readonly toggleExpand = new EventEmitter<TreeNodeId>();

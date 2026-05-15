@@ -14,9 +14,7 @@ function setup(props: { checked?: boolean; [k: string]: unknown } = {}) {
     if (value !== undefined) fixture.componentRef.setInput(key, value);
   }
   fixture.detectChanges();
-  const native = fixture.nativeElement.querySelector(
-    "input[type=checkbox]"
-  ) as HTMLInputElement;
+  const native = fixture.nativeElement.querySelector("input[type=checkbox]") as HTMLInputElement;
   const label = fixture.nativeElement.querySelector("label") as HTMLLabelElement;
   return { fixture, native, label };
 }

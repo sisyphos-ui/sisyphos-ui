@@ -4,7 +4,4 @@ export { AccordionItem } from "./accordion-item.component";
 export { AccordionTrigger } from "./accordion-trigger.component";
 export { AccordionContent } from "./accordion-content.component";
 export { AccordionCtx, AccordionItemCtx } from "./context";
-export type {
-  AccordionContextValue,
-  AccordionItemContextValue,
-} from "./context";
+export type { AccordionContextValue, AccordionItemContextValue } from "./context";

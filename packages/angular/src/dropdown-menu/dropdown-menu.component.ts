@@ -11,9 +11,7 @@
  *     <button>Actions</button>
  *   </sui-dropdown-menu>
  */
-import type {
-  ElementRef,
-  OnDestroy} from "@angular/core";
+import type { ElementRef, OnDestroy } from "@angular/core";
 import {
   ChangeDetectionStrategy,
   Component,
@@ -27,10 +25,7 @@ import {
   signal,
 } from "@angular/core";
 import { computePosition, type Placement } from "@sisyphos-ui/core/internal";
-import {
-  isDropdownMenuAction,
-  type DropdownMenuItem,
-} from "./types";
+import { isDropdownMenuAction, type DropdownMenuItem } from "./types";
 
 let menuCounter = 0;
 
@@ -80,9 +75,9 @@ let menuCounter = 0;
             (keydown)="onMenuKeydown($event)"
           >
             @for (item of items(); track $index; let i = $index) {
-              @if (item.type === 'separator') {
+              @if (item.type === "separator") {
                 <li class="sisyphos-dropdown-menu-separator" role="separator"></li>
-              } @else if (item.type === 'label') {
+              } @else if (item.type === "label") {
                 <li class="sisyphos-dropdown-menu-label" role="presentation">{{ item.label }}</li>
               } @else {
                 <li
@@ -140,7 +135,9 @@ export class DropdownMenu implements OnDestroy {
   hasFooter = false;
   hasEmpty = false;
 
-  @Input("items") set itemsInput(v: DropdownMenuItem[]) { this._items.set(v ?? []); }
+  @Input("items") set itemsInput(v: DropdownMenuItem[]) {
+    this._items.set(v ?? []);
+  }
   @Input("open") set openInput(v: boolean) {
     if (typeof v !== "boolean") return;
     const wasOpen = this._open();
@@ -155,18 +152,30 @@ export class DropdownMenu implements OnDestroy {
       this._activeIndex.set(-1);
     }
   }
-  @Input("placement") set placementInput(v: Placement) { this._placement.set(v); }
-  @Input("offset") set offsetInput(v: number) { this._offset.set(v); }
-  @Input("disabled") set disabledInput(v: boolean) { this._disabled.set(v); }
+  @Input("placement") set placementInput(v: Placement) {
+    this._placement.set(v);
+  }
+  @Input("offset") set offsetInput(v: number) {
+    this._offset.set(v);
+  }
+  @Input("disabled") set disabledInput(v: boolean) {
+    this._disabled.set(v);
+  }
   @Input("maxHeight") set maxHeightInput(v: number | string | null) {
     this._maxHeight.set(typeof v === "number" ? `${v}px` : v);
   }
   @Input("scrollEndThreshold") set scrollEndThresholdInput(v: number) {
     this._scrollEndThreshold.set(v);
   }
-  @Input("hasHeader") set hasHeaderInput(v: boolean) { this.hasHeader = v; }
-  @Input("hasFooter") set hasFooterInput(v: boolean) { this.hasFooter = v; }
-  @Input("hasEmpty") set hasEmptyInput(v: boolean) { this.hasEmpty = v; }
+  @Input("hasHeader") set hasHeaderInput(v: boolean) {
+    this.hasHeader = v;
+  }
+  @Input("hasFooter") set hasFooterInput(v: boolean) {
+    this.hasFooter = v;
+  }
+  @Input("hasEmpty") set hasEmptyInput(v: boolean) {
+    this.hasEmpty = v;
+  }
 
   @Output() readonly openChange = new EventEmitter<boolean>();
   @Output() readonly scrollEnd = new EventEmitter<void>();
@@ -234,7 +243,9 @@ export class DropdownMenu implements OnDestroy {
     });
   }
 
-  ngOnDestroy(): void { this.removeScrollListeners(); }
+  ngOnDestroy(): void {
+    this.removeScrollListeners();
+  }
 
   // ── public API ────────────────────────────────────────────────────────
 

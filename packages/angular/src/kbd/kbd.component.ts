@@ -12,13 +12,7 @@
  * Mirrors the React/Vue versions exactly — same class names, same shortcut
  * grammar, same glyph map.
  */
-import {
-  ChangeDetectionStrategy,
-  Component,
-  Input,
-  computed,
-  signal,
-} from "@angular/core";
+import { ChangeDetectionStrategy, Component, Input, computed, signal } from "@angular/core";
 import { isMac, normalizeKey, parseShortcut } from "./glyphs";
 
 export type KbdSize = "xs" | "sm" | "md" | "lg" | "xl";
@@ -54,11 +48,21 @@ export class Kbd {
 
   readonly separator = this._separator.asReadonly();
 
-  @Input("variant") set variantInput(v: KbdVariant) { this._variant.set(v); }
-  @Input("size") set sizeInput(v: KbdSize) { this._size.set(v); }
-  @Input("keys") set keysInput(v: string[] | undefined) { this._keys.set(v); }
-  @Input("shortcut") set shortcutInput(v: string | undefined) { this._shortcut.set(v); }
-  @Input("separator") set separatorInput(v: string | undefined) { this._separator.set(v); }
+  @Input("variant") set variantInput(v: KbdVariant) {
+    this._variant.set(v);
+  }
+  @Input("size") set sizeInput(v: KbdSize) {
+    this._size.set(v);
+  }
+  @Input("keys") set keysInput(v: string[] | undefined) {
+    this._keys.set(v);
+  }
+  @Input("shortcut") set shortcutInput(v: string | undefined) {
+    this._shortcut.set(v);
+  }
+  @Input("separator") set separatorInput(v: string | undefined) {
+    this._separator.set(v);
+  }
 
   readonly resolvedKeys = computed<string[]>(() => {
     const k = this._keys();
@@ -68,9 +72,7 @@ export class Kbd {
     return [];
   });
 
-  readonly rootClasses = computed(
-    () => `sisyphos-kbd ${this._variant()} ${this._size()}`
-  );
+  readonly rootClasses = computed(() => `sisyphos-kbd ${this._variant()} ${this._size()}`);
 
   /** Lazy mac detection — kept on the instance so SSR-friendly hosts can
    * override globalThis.navigator before render without re-evaluating per call. */

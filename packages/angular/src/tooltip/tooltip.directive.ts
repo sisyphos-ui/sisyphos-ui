@@ -10,18 +10,8 @@
  *
  *   <button sui-tooltip="Save changes" placement="bottom">Save</button>
  */
-import type {
-  OnDestroy,
-  OnInit} from "@angular/core";
-import {
-  Directive,
-  ElementRef,
-  HostListener,
-  Input,
-  effect,
-  inject,
-  signal,
-} from "@angular/core";
+import type { OnDestroy, OnInit } from "@angular/core";
+import { Directive, ElementRef, HostListener, Input, effect, inject, signal } from "@angular/core";
 import { computePosition, type Placement } from "@sisyphos-ui/core/internal";
 
 let tooltipCounter = 0;
@@ -37,12 +27,24 @@ export class TooltipDirective implements OnInit, OnDestroy {
   @Input("sui-tooltip") set contentInput(v: string | null | undefined) {
     this._content.set(v ?? "");
   }
-  @Input("placement") set placementInput(v: Placement) { this._placement.set(v); }
-  @Input("offset") set offsetInput(v: number) { this._offset.set(v); }
-  @Input("openDelay") set openDelayInput(v: number) { this._openDelay.set(v); }
-  @Input("closeDelay") set closeDelayInput(v: number) { this._closeDelay.set(v); }
-  @Input("disabled") set disabledInput(v: boolean) { this._disabled.set(v); }
-  @Input("arrow") set arrowInput(v: boolean) { this._arrow.set(v); }
+  @Input("placement") set placementInput(v: Placement) {
+    this._placement.set(v);
+  }
+  @Input("offset") set offsetInput(v: number) {
+    this._offset.set(v);
+  }
+  @Input("openDelay") set openDelayInput(v: number) {
+    this._openDelay.set(v);
+  }
+  @Input("closeDelay") set closeDelayInput(v: number) {
+    this._closeDelay.set(v);
+  }
+  @Input("disabled") set disabledInput(v: boolean) {
+    this._disabled.set(v);
+  }
+  @Input("arrow") set arrowInput(v: boolean) {
+    this._arrow.set(v);
+  }
 
   private readonly _content = signal<string>("");
   private readonly _placement = signal<Placement>("top");
@@ -90,22 +92,36 @@ export class TooltipDirective implements OnInit, OnDestroy {
   // ── pointer + focus on the host ────────────────────────────────────────
 
   @HostListener("mouseenter")
-  onMouseEnter(): void { this.scheduleOpen(); }
+  onMouseEnter(): void {
+    this.scheduleOpen();
+  }
 
   @HostListener("mouseleave")
-  onMouseLeave(): void { this.scheduleClose(); }
+  onMouseLeave(): void {
+    this.scheduleClose();
+  }
 
   @HostListener("focus")
-  onFocus(): void { this.scheduleOpen(); }
+  onFocus(): void {
+    this.scheduleOpen();
+  }
 
   @HostListener("blur")
-  onBlur(): void { this.scheduleClose(); }
+  onBlur(): void {
+    this.scheduleClose();
+  }
 
   // ── timers ─────────────────────────────────────────────────────────────
 
   private clearTimers(): void {
-    if (this.openTimer) { clearTimeout(this.openTimer); this.openTimer = null; }
-    if (this.closeTimer) { clearTimeout(this.closeTimer); this.closeTimer = null; }
+    if (this.openTimer) {
+      clearTimeout(this.openTimer);
+      this.openTimer = null;
+    }
+    if (this.closeTimer) {
+      clearTimeout(this.closeTimer);
+      this.closeTimer = null;
+    }
   }
 
   private scheduleOpen(): void {

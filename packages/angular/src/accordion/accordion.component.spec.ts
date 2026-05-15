@@ -37,7 +37,9 @@ describe("Accordion (Angular) — single mode", () => {
   it("clicking a trigger opens its item", () => {
     const fixture = TestBed.createComponent(Host);
     fixture.detectChanges();
-    const triggers = fixture.nativeElement.querySelectorAll("button[aria-expanded]") as NodeListOf<HTMLButtonElement>;
+    const triggers = fixture.nativeElement.querySelectorAll(
+      "button[aria-expanded]"
+    ) as NodeListOf<HTMLButtonElement>;
     triggers[0].click();
     fixture.detectChanges();
     expect(fixture.componentInstance.active).toBe("a");
@@ -48,7 +50,9 @@ describe("Accordion (Angular) — single mode", () => {
     const fixture = TestBed.createComponent(Host);
     fixture.componentInstance.active = "a";
     fixture.detectChanges();
-    const triggers = fixture.nativeElement.querySelectorAll("button[aria-expanded]") as NodeListOf<HTMLButtonElement>;
+    const triggers = fixture.nativeElement.querySelectorAll(
+      "button[aria-expanded]"
+    ) as NodeListOf<HTMLButtonElement>;
     triggers[1].click();
     fixture.detectChanges();
     expect(fixture.componentInstance.active).toBe("b");
@@ -60,7 +64,9 @@ describe("Accordion (Angular) — single mode", () => {
     const fixture = TestBed.createComponent(Host);
     fixture.componentInstance.active = "a";
     fixture.detectChanges();
-    const triggers = fixture.nativeElement.querySelectorAll("button[aria-expanded]") as NodeListOf<HTMLButtonElement>;
+    const triggers = fixture.nativeElement.querySelectorAll(
+      "button[aria-expanded]"
+    ) as NodeListOf<HTMLButtonElement>;
     triggers[0].click();
     fixture.detectChanges();
     expect(fixture.componentInstance.active).toBeNull();
@@ -70,7 +76,9 @@ describe("Accordion (Angular) — single mode", () => {
     const fixture = TestBed.createComponent(Host);
     fixture.componentInstance.active = "a";
     fixture.detectChanges();
-    const regions = fixture.nativeElement.querySelectorAll("[role=region]") as NodeListOf<HTMLElement>;
+    const regions = fixture.nativeElement.querySelectorAll(
+      "[role=region]"
+    ) as NodeListOf<HTMLElement>;
     expect(regions[0].hasAttribute("hidden")).toBe(false);
     expect(regions[1].hasAttribute("hidden")).toBe(true);
   });
@@ -114,7 +122,9 @@ describe("Accordion (Angular) — multi mode", () => {
   it("can open multiple items at once", () => {
     const fixture = TestBed.createComponent(Host);
     fixture.detectChanges();
-    const triggers = fixture.nativeElement.querySelectorAll("button[aria-expanded]") as NodeListOf<HTMLButtonElement>;
+    const triggers = fixture.nativeElement.querySelectorAll(
+      "button[aria-expanded]"
+    ) as NodeListOf<HTMLButtonElement>;
     triggers[0].click();
     fixture.detectChanges();
     triggers[2].click();
@@ -126,7 +136,9 @@ describe("Accordion (Angular) — multi mode", () => {
     const fixture = TestBed.createComponent(Host);
     fixture.componentInstance.active = ["a", "b"];
     fixture.detectChanges();
-    const triggers = fixture.nativeElement.querySelectorAll("button[aria-expanded]") as NodeListOf<HTMLButtonElement>;
+    const triggers = fixture.nativeElement.querySelectorAll(
+      "button[aria-expanded]"
+    ) as NodeListOf<HTMLButtonElement>;
     triggers[0].click();
     fixture.detectChanges();
     expect(fixture.componentInstance.active).toEqual(["b"]);

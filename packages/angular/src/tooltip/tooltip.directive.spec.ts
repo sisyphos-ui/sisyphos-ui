@@ -13,7 +13,9 @@ import { TooltipDirective } from "./tooltip.directive";
       [openDelay]="openDelay"
       [closeDelay]="closeDelay"
       [disabled]="disabled"
-    >Trigger</button>
+    >
+      Trigger
+    </button>
   `,
 })
 class Host {

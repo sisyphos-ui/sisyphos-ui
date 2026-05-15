@@ -26,7 +26,9 @@ describe("EmptyState (Angular)", () => {
   it("renders title and description text", () => {
     const fixture = setup({ title: "No items", description: "Add one to get started." });
     const title = fixture.nativeElement.querySelector(".sisyphos-empty-state-title") as HTMLElement;
-    const desc = fixture.nativeElement.querySelector(".sisyphos-empty-state-description") as HTMLElement;
+    const desc = fixture.nativeElement.querySelector(
+      ".sisyphos-empty-state-description"
+    ) as HTMLElement;
     expect(title.tagName).toBe("H3");
     expect(title.textContent).toBe("No items");
     expect(desc.tagName).toBe("P");

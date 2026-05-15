@@ -33,8 +33,12 @@ describe("Alert (Angular)", () => {
 
   it("renders title and description text", () => {
     const fixture = setup({ title: "Saved", description: "Document saved." });
-    const title = fixture.fixture.nativeElement.querySelector(".sisyphos-alert-title") as HTMLElement;
-    const desc = fixture.fixture.nativeElement.querySelector(".sisyphos-alert-description") as HTMLElement;
+    const title = fixture.fixture.nativeElement.querySelector(
+      ".sisyphos-alert-title"
+    ) as HTMLElement;
+    const desc = fixture.fixture.nativeElement.querySelector(
+      ".sisyphos-alert-description"
+    ) as HTMLElement;
     expect(title.textContent).toBe("Saved");
     expect(desc.textContent).toBe("Document saved.");
   });

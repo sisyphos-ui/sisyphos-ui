@@ -139,34 +139,52 @@ export class RadioGroup implements RadioGroupContextValue {
   @Input("name") set nameInput(v: string | undefined) {
     if (v) this._name.set(v);
   }
-  @Input("disabled") set disabledInput(v: boolean) { this._disabled.set(v); }
-  @Input("required") set requiredInput(v: boolean) { this._required.set(v); }
-  @Input("label") set labelInput(v: string | undefined) { this._label.set(v); }
-  @Input("error") set errorInput(v: boolean) { this._error.set(v); }
-  @Input("errorMessage") set errorMessageInput(v: string | undefined) { this._errorMessage.set(v); }
-  @Input("direction") set directionInput(v: "horizontal" | "vertical") { this._direction.set(v); }
-  @Input("size") set sizeInput(v: RadioGroupSize) { this._size.set(v); }
-  @Input("color") set colorInput(v: RadioGroupColor) { this._color.set(v); }
-  @Input("variant") set variantInput(v: RadioGroupVariant) { this._variant.set(v); }
-  @Input("options") set optionsInput(v: RadioOption[] | undefined) { this._options.set(v); }
-  @Input("allowAddOption") set allowAddOptionInput(v: boolean) { this._allowAddOption.set(v); }
-  @Input("addOptionLabel") set addOptionLabelInput(v: string) { this._addOptionLabel.set(v); }
+  @Input("disabled") set disabledInput(v: boolean) {
+    this._disabled.set(v);
+  }
+  @Input("required") set requiredInput(v: boolean) {
+    this._required.set(v);
+  }
+  @Input("label") set labelInput(v: string | undefined) {
+    this._label.set(v);
+  }
+  @Input("error") set errorInput(v: boolean) {
+    this._error.set(v);
+  }
+  @Input("errorMessage") set errorMessageInput(v: string | undefined) {
+    this._errorMessage.set(v);
+  }
+  @Input("direction") set directionInput(v: "horizontal" | "vertical") {
+    this._direction.set(v);
+  }
+  @Input("size") set sizeInput(v: RadioGroupSize) {
+    this._size.set(v);
+  }
+  @Input("color") set colorInput(v: RadioGroupColor) {
+    this._color.set(v);
+  }
+  @Input("variant") set variantInput(v: RadioGroupVariant) {
+    this._variant.set(v);
+  }
+  @Input("options") set optionsInput(v: RadioOption[] | undefined) {
+    this._options.set(v);
+  }
+  @Input("allowAddOption") set allowAddOptionInput(v: boolean) {
+    this._allowAddOption.set(v);
+  }
+  @Input("addOptionLabel") set addOptionLabelInput(v: string) {
+    this._addOptionLabel.set(v);
+  }
 
   @Output() readonly addOption = new EventEmitter<void>();
 
   readonly labelClasses = computed(() =>
-    [
-      "sisyphos-radio-group-label",
-      this._error() && "error",
-      this._required() && "required",
-    ]
+    ["sisyphos-radio-group-label", this._error() && "error", this._required() && "required"]
       .filter(Boolean)
       .join(" ")
   );
 
-  readonly optionsClasses = computed(
-    () => `sisyphos-radio-options ${this._direction()}`
-  );
+  readonly optionsClasses = computed(() => `sisyphos-radio-options ${this._direction()}`);
 
   /** Implements RadioGroupContextValue — invoked by `<sui-radio>` on selection. */
   select(next: string | number): void {

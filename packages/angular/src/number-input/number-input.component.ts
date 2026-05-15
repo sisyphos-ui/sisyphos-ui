@@ -6,8 +6,7 @@
  *
  * Two-way bind via `[(value)]`. `null` represents an empty field.
  */
-import type {
-  ElementRef} from "@angular/core";
+import type { ElementRef } from "@angular/core";
 import {
   ChangeDetectionStrategy,
   Component,
@@ -111,7 +110,12 @@ function parseLocaleNumber(input: string, locale: string | undefined): number | 
             (click)="stepBy(step())"
           >
             <svg viewBox="0 0 20 20" width="16" height="16" aria-hidden="true">
-              <path d="M10 5V15M5 10H15" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+              <path
+                d="M10 5V15M5 10H15"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+              />
             </svg>
           </button>
         }
@@ -167,27 +171,65 @@ export class NumberInput {
     if (v === undefined) return;
     this._value.set(v);
   }
-  @NgInput("min") set minInput(v: number | undefined) { this._min.set(v); }
-  @NgInput("max") set maxInput(v: number | undefined) { this._max.set(v); }
-  @NgInput("step") set stepInput(v: number) { this._step.set(v); }
-  @NgInput("precision") set precisionInput(v: number) { this._precision.set(v); }
-  @NgInput("locale") set localeInput(v: string | undefined) { this._locale.set(v); }
-  @NgInput("numberFormatOptions") set numberFormatOptionsInput(v: Intl.NumberFormatOptions | undefined) {
+  @NgInput("min") set minInput(v: number | undefined) {
+    this._min.set(v);
+  }
+  @NgInput("max") set maxInput(v: number | undefined) {
+    this._max.set(v);
+  }
+  @NgInput("step") set stepInput(v: number) {
+    this._step.set(v);
+  }
+  @NgInput("precision") set precisionInput(v: number) {
+    this._precision.set(v);
+  }
+  @NgInput("locale") set localeInput(v: string | undefined) {
+    this._locale.set(v);
+  }
+  @NgInput("numberFormatOptions") set numberFormatOptionsInput(
+    v: Intl.NumberFormatOptions | undefined
+  ) {
     this._formatOptions.set(v);
   }
-  @NgInput("withStepper") set withStepperInput(v: boolean) { this._withStepper.set(v); }
-  @NgInput("variant") set variantInput(v: "standard" | "outlined" | "underline") { this._variant.set(v); }
-  @NgInput("size") set sizeInput(v: "sm" | "md" | "lg") { this._size.set(v); }
-  @NgInput("label") set labelInput(v: string | undefined) { this._label.set(v); }
-  @NgInput("placeholder") set placeholderInput(v: string) { this._placeholder.set(v); }
-  @NgInput("error") set errorInput(v: boolean) { this._error.set(v); }
-  @NgInput("errorMessage") set errorMessageInput(v: string | undefined) { this._errorMessage.set(v); }
-  @NgInput("required") set requiredInput(v: boolean) { this._required.set(v); }
-  @NgInput("fullWidth") set fullWidthInput(v: boolean) { this._fullWidth.set(v); }
-  @NgInput("disabled") set disabledInput(v: boolean) { this._disabled.set(v); }
-  @NgInput("readOnly") set readOnlyInput(v: boolean) { this._readOnly.set(v); }
-  @NgInput("hasPrefix") set hasPrefixInput(v: boolean) { this.hasPrefix = v; }
-  @NgInput("hasSuffix") set hasSuffixInput(v: boolean) { this.hasSuffix = v; }
+  @NgInput("withStepper") set withStepperInput(v: boolean) {
+    this._withStepper.set(v);
+  }
+  @NgInput("variant") set variantInput(v: "standard" | "outlined" | "underline") {
+    this._variant.set(v);
+  }
+  @NgInput("size") set sizeInput(v: "sm" | "md" | "lg") {
+    this._size.set(v);
+  }
+  @NgInput("label") set labelInput(v: string | undefined) {
+    this._label.set(v);
+  }
+  @NgInput("placeholder") set placeholderInput(v: string) {
+    this._placeholder.set(v);
+  }
+  @NgInput("error") set errorInput(v: boolean) {
+    this._error.set(v);
+  }
+  @NgInput("errorMessage") set errorMessageInput(v: string | undefined) {
+    this._errorMessage.set(v);
+  }
+  @NgInput("required") set requiredInput(v: boolean) {
+    this._required.set(v);
+  }
+  @NgInput("fullWidth") set fullWidthInput(v: boolean) {
+    this._fullWidth.set(v);
+  }
+  @NgInput("disabled") set disabledInput(v: boolean) {
+    this._disabled.set(v);
+  }
+  @NgInput("readOnly") set readOnlyInput(v: boolean) {
+    this._readOnly.set(v);
+  }
+  @NgInput("hasPrefix") set hasPrefixInput(v: boolean) {
+    this.hasPrefix = v;
+  }
+  @NgInput("hasSuffix") set hasSuffixInput(v: boolean) {
+    this.hasSuffix = v;
+  }
 
   @Output() readonly valueChange = new EventEmitter<number | null>();
 
@@ -233,11 +275,7 @@ export class NumberInput {
   );
 
   readonly labelClasses = computed(() =>
-    [
-      "sisyphos-number-input-label",
-      this._error() && "error",
-      this._required() && "required",
-    ]
+    ["sisyphos-number-input-label", this._error() && "error", this._required() && "required"]
       .filter(Boolean)
       .join(" ")
   );
@@ -252,7 +290,9 @@ export class NumberInput {
     });
   }
 
-  onFocus(): void { this._focused.set(true); }
+  onFocus(): void {
+    this._focused.set(true);
+  }
 
   onBlur(): void {
     this._focused.set(false);
@@ -264,8 +304,7 @@ export class NumberInput {
     const text = (event.target as HTMLInputElement).value;
     this._draft.set(text);
     const parsed = parseLocaleNumber(text, this._locale());
-    const next =
-      parsed === null ? null : clamp(parsed, this._min(), this._max());
+    const next = parsed === null ? null : clamp(parsed, this._min(), this._max());
     this._value.set(next);
     this.valueChange.emit(next);
   }

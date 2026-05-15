@@ -8,10 +8,7 @@
  * environment — the effect runs as soon as both the value input and the
  * rendered <button> are visible to the signal graph.
  */
-import type {
-  AfterViewInit,
-  ElementRef,
-  OnDestroy} from "@angular/core";
+import type { AfterViewInit, ElementRef, OnDestroy } from "@angular/core";
 import {
   ChangeDetectionStrategy,
   Component,
@@ -61,9 +58,15 @@ export class TabsTrigger implements AfterViewInit, OnDestroy {
   readonly icon = this._icon.asReadonly();
   readonly disabled = this._disabled.asReadonly();
 
-  @Input("value") set valueInput(v: string) { this._value.set(v); }
-  @Input("icon") set iconInput(v: string | undefined) { this._icon.set(v); }
-  @Input("disabled") set disabledInput(v: boolean) { this._disabled.set(v); }
+  @Input("value") set valueInput(v: string) {
+    this._value.set(v);
+  }
+  @Input("icon") set iconInput(v: string | undefined) {
+    this._icon.set(v);
+  }
+  @Input("disabled") set disabledInput(v: boolean) {
+    this._disabled.set(v);
+  }
 
   // Decorator-based ViewChild — signal-based viewChild() is not picked up in
   // the AnalogJS+Vitest JIT environment (same family of issues as input()).
@@ -75,11 +78,7 @@ export class TabsTrigger implements AfterViewInit, OnDestroy {
   readonly panelId = computed(() => `${this.ctx.baseId()}-panel-${this._value()}`);
 
   readonly rootClasses = computed(() =>
-    [
-      "sisyphos-tabs-trigger",
-      this.isSelected() && "active",
-      this._disabled() && "disabled",
-    ]
+    ["sisyphos-tabs-trigger", this.isSelected() && "active", this._disabled() && "disabled"]
       .filter(Boolean)
       .join(" ")
   );

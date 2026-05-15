@@ -14,9 +14,7 @@
  *     </ng-template>
  *   </sui-carousel>
  */
-import type {
-  AfterContentInit,
-  OnDestroy} from "@angular/core";
+import type { AfterContentInit, OnDestroy } from "@angular/core";
 import {
   ChangeDetectionStrategy,
   Component,
@@ -56,10 +54,12 @@ import { NgTemplateOutlet } from "@angular/common";
                 class="sisyphos-carousel-slide"
                 role="group"
                 aria-roledescription="slide"
-                [attr.aria-label]="(i + 1) + ' of ' + count()"
+                [attr.aria-label]="i + 1 + ' of ' + count()"
                 [attr.aria-hidden]="i !== current()"
               >
-                <ng-container *ngTemplateOutlet="itemTemplate; context: { $implicit: item, index: i }" />
+                <ng-container
+                  *ngTemplateOutlet="itemTemplate; context: { $implicit: item, index: i }"
+                />
               </div>
             }
           </div>
@@ -72,7 +72,14 @@ import { NgTemplateOutlet } from "@angular/common";
               (click)="prev()"
             >
               <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true">
-                <path d="M15 18L9 12L15 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                <path
+                  d="M15 18L9 12L15 6"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
               </svg>
             </button>
             <button
@@ -83,7 +90,14 @@ import { NgTemplateOutlet } from "@angular/common";
               (click)="next()"
             >
               <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true">
-                <path d="M9 18L15 12L9 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                <path
+                  d="M9 18L15 12L9 6"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
               </svg>
             </button>
           }
@@ -107,7 +121,10 @@ import { NgTemplateOutlet } from "@angular/common";
   `,
 })
 export class Carousel implements AfterContentInit, OnDestroy {
-  @ContentChild(TemplateRef) itemTemplate: TemplateRef<{ $implicit: unknown; index: number }> | null = null;
+  @ContentChild(TemplateRef) itemTemplate: TemplateRef<{
+    $implicit: unknown;
+    index: number;
+  }> | null = null;
 
   private readonly _items = signal<readonly unknown[]>([]);
   private readonly _index = signal(0);
@@ -130,20 +147,36 @@ export class Carousel implements AfterContentInit, OnDestroy {
   readonly pauseOnHover = this._pauseOnHover.asReadonly();
   readonly ariaLabel = this._ariaLabel.asReadonly();
 
-  @Input("items") set itemsInput(v: readonly unknown[]) { this._items.set(v ?? []); }
+  @Input("items") set itemsInput(v: readonly unknown[]) {
+    this._items.set(v ?? []);
+  }
   @Input("index") set indexInput(v: number | undefined) {
     if (v !== undefined) this._index.set(v);
   }
   @Input("defaultIndex") set defaultIndexInput(v: number | undefined) {
     if (v !== undefined && this._index() === 0) this._index.set(v);
   }
-  @Input("autoPlay") set autoPlayInput(v: boolean) { this._autoPlay.set(v); }
-  @Input("autoPlayInterval") set autoPlayIntervalInput(v: number) { this._autoPlayInterval.set(v); }
-  @Input("loop") set loopInput(v: boolean) { this._loop.set(v); }
-  @Input("showArrows") set showArrowsInput(v: boolean) { this._showArrows.set(v); }
-  @Input("showDots") set showDotsInput(v: boolean) { this._showDots.set(v); }
-  @Input("pauseOnHover") set pauseOnHoverInput(v: boolean) { this._pauseOnHover.set(v); }
-  @Input("ariaLabel") set ariaLabelInput(v: string) { this._ariaLabel.set(v); }
+  @Input("autoPlay") set autoPlayInput(v: boolean) {
+    this._autoPlay.set(v);
+  }
+  @Input("autoPlayInterval") set autoPlayIntervalInput(v: number) {
+    this._autoPlayInterval.set(v);
+  }
+  @Input("loop") set loopInput(v: boolean) {
+    this._loop.set(v);
+  }
+  @Input("showArrows") set showArrowsInput(v: boolean) {
+    this._showArrows.set(v);
+  }
+  @Input("showDots") set showDotsInput(v: boolean) {
+    this._showDots.set(v);
+  }
+  @Input("pauseOnHover") set pauseOnHoverInput(v: boolean) {
+    this._pauseOnHover.set(v);
+  }
+  @Input("ariaLabel") set ariaLabelInput(v: string) {
+    this._ariaLabel.set(v);
+  }
 
   /** Two-way `[(index)]` sugar. */
   @Output() readonly indexChange = new EventEmitter<number>();

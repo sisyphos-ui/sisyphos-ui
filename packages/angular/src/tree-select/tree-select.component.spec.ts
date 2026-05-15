@@ -2,13 +2,7 @@ import { describe, it, expect } from "vitest";
 import { Component } from "@angular/core";
 import { TestBed } from "@angular/core/testing";
 import { TreeSelect } from "./tree-select.component";
-import {
-  descendantIds,
-  filterTree,
-  findNode,
-  leaves,
-  nodeState,
-} from "./utils";
+import { descendantIds, filterTree, findNode, leaves, nodeState } from "./utils";
 import type { TreeNode } from "./types";
 
 const sample: TreeNode[] = [
@@ -39,9 +33,11 @@ describe("TreeSelect utils", () => {
   });
 
   it("leaves returns nodes without children", () => {
-    expect(leaves(sample).map((n) => n.id).sort()).toEqual(
-      ["apple", "banana", "carrot", "cherry"]
-    );
+    expect(
+      leaves(sample)
+        .map((n) => n.id)
+        .sort()
+    ).toEqual(["apple", "banana", "carrot", "cherry"]);
   });
 
   it("findNode searches DFS", () => {
@@ -153,9 +149,9 @@ describe("TreeSelect (Angular)", () => {
     search.value = "ban";
     search.dispatchEvent(new Event("input"));
     fixture.detectChanges();
-    const labels = Array.from(
-      fixture.nativeElement.querySelectorAll(".sisyphos-tree-label")
-    ).map((el) => (el as HTMLElement).textContent?.trim());
+    const labels = Array.from(fixture.nativeElement.querySelectorAll(".sisyphos-tree-label")).map(
+      (el) => (el as HTMLElement).textContent?.trim()
+    );
     expect(labels).toEqual(["Fruit", "Banana"]);
   });
 
@@ -172,7 +168,9 @@ describe("TreeSelect (Angular)", () => {
     fixture.componentInstance.value = ["apple", "banana"];
     fixture.componentInstance.clearable = true;
     fixture.detectChanges();
-    const clear = fixture.nativeElement.querySelector(".sisyphos-tree-select-clear") as HTMLButtonElement;
+    const clear = fixture.nativeElement.querySelector(
+      ".sisyphos-tree-select-clear"
+    ) as HTMLButtonElement;
     clear.click();
     fixture.detectChanges();
     expect(fixture.componentInstance.value).toEqual([]);

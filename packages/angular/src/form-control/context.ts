@@ -19,6 +19,4 @@ export interface FormControlContextValue {
   describedBy: Signal<string>;
 }
 
-export const FormControlCtx = new InjectionToken<FormControlContextValue>(
-  "sisyphos.form-control"
-);
+export const FormControlCtx = new InjectionToken<FormControlContextValue>("sisyphos.form-control");

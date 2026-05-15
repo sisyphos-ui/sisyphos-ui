@@ -15,8 +15,7 @@
  *     (reject)="onReject($event)"
  *   />
  */
-import type {
-  ElementRef} from "@angular/core";
+import type { ElementRef } from "@angular/core";
 import {
   ChangeDetectionStrategy,
   Component,
@@ -73,7 +72,17 @@ const DEFAULT_LABELS: Required<FileUploadLabels> = {
         (keydown)="onKeydown($event)"
       >
         <div class="sisyphos-file-upload-dropzone-icon" aria-hidden="true">
-          <svg viewBox="0 0 24 24" width="32" height="32" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <svg
+            viewBox="0 0 24 24"
+            width="32"
+            height="32"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1.5"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            aria-hidden="true"
+          >
             <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
             <polyline points="17 8 12 3 7 8" />
             <line x1="12" y1="3" x2="12" y2="15" />
@@ -120,7 +129,17 @@ const DEFAULT_LABELS: Required<FileUploadLabels> = {
                   @if (f.preview) {
                     <img [src]="f.preview" alt="" />
                   } @else {
-                    <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <svg
+                      viewBox="0 0 24 24"
+                      width="20"
+                      height="20"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="1.5"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      aria-hidden="true"
+                    >
                       <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
                       <polyline points="14 2 14 8 20 8" />
                     </svg>
@@ -138,11 +157,14 @@ const DEFAULT_LABELS: Required<FileUploadLabels> = {
                   (click)="remove(f.id)"
                 >
                   <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true">
-                    <path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z" fill="currentColor" />
+                    <path
+                      d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"
+                      fill="currentColor"
+                    />
                   </svg>
                 </button>
               </div>
-              @if (f.status === 'uploading' && f.progress !== undefined) {
+              @if (f.status === "uploading" && f.progress !== undefined) {
                 <div class="sisyphos-file-upload-progress">
                   <div class="sisyphos-file-upload-progress-bar" [style.width.%]="f.progress"></div>
                 </div>
@@ -189,21 +211,39 @@ export class FileUpload {
   @NgInput("value") set valueInput(v: UploadedFile[] | undefined) {
     this._value.set(v ?? []);
   }
-  @NgInput("label") set labelInput(v: string | undefined) { this._label.set(v); }
-  @NgInput("accept") set acceptInput(v: string | undefined) { this._accept.set(v); }
-  @NgInput("maxSize") set maxSizeInput(v: number) { this._maxSize.set(v); }
-  @NgInput("maxFiles") set maxFilesInput(v: number) { this._maxFiles.set(v); }
-  @NgInput("multiple") set multipleInput(v: boolean | undefined) { this._multiple.set(v); }
-  @NgInput("directory") set directoryInput(v: boolean) { this._directory.set(v); }
-  @NgInput("disabled") set disabledInput(v: boolean) { this._disabled.set(v); }
-  @NgInput("error") set errorInput(v: boolean) { this._error.set(v); }
+  @NgInput("label") set labelInput(v: string | undefined) {
+    this._label.set(v);
+  }
+  @NgInput("accept") set acceptInput(v: string | undefined) {
+    this._accept.set(v);
+  }
+  @NgInput("maxSize") set maxSizeInput(v: number) {
+    this._maxSize.set(v);
+  }
+  @NgInput("maxFiles") set maxFilesInput(v: number) {
+    this._maxFiles.set(v);
+  }
+  @NgInput("multiple") set multipleInput(v: boolean | undefined) {
+    this._multiple.set(v);
+  }
+  @NgInput("directory") set directoryInput(v: boolean) {
+    this._directory.set(v);
+  }
+  @NgInput("disabled") set disabledInput(v: boolean) {
+    this._disabled.set(v);
+  }
+  @NgInput("error") set errorInput(v: boolean) {
+    this._error.set(v);
+  }
   @NgInput("errorMessage") set errorMessageInput(v: string | undefined) {
     this._errorMessage.set(v);
   }
   @NgInput("supportedFormats") set supportedFormatsInput(v: string[] | undefined) {
     this._supportedFormats.set(v);
   }
-  @NgInput("labels") set labelsInput(v: FileUploadLabels | undefined) { this._labels.set(v); }
+  @NgInput("labels") set labelsInput(v: FileUploadLabels | undefined) {
+    this._labels.set(v);
+  }
 
   /** Two-way `[(value)]` for the file list. */
   @Output() readonly valueChange = new EventEmitter<UploadedFile[]>();
@@ -218,12 +258,10 @@ export class FileUpload {
     () => !this._disabled() && (this._maxFiles() === 1 || this._value().length < this._maxFiles())
   );
 
-  readonly effectiveMultiple = computed(
-    () => this._multiple() ?? this._maxFiles() > 1
-  );
+  readonly effectiveMultiple = computed(() => this._multiple() ?? this._maxFiles() > 1);
 
-  readonly showHints = computed(
-    () => Boolean((this._supportedFormats()?.length ?? 0) > 0 || this._maxSize())
+  readonly showHints = computed(() =>
+    Boolean((this._supportedFormats()?.length ?? 0) > 0 || this._maxSize())
   );
 
   readonly effectiveLabels = computed<Required<FileUploadLabels>>(() => ({
@@ -232,11 +270,7 @@ export class FileUpload {
   }));
 
   readonly rootClasses = computed(() =>
-    [
-      "sisyphos-file-upload",
-      this._error() && "error",
-      this._disabled() && "disabled",
-    ]
+    ["sisyphos-file-upload", this._error() && "error", this._disabled() && "disabled"]
       .filter(Boolean)
       .join(" ")
   );
@@ -252,9 +286,7 @@ export class FileUpload {
   );
 
   itemClasses(f: UploadedFile): string {
-    return ["sisyphos-file-upload-item", f.status === "error" && "error"]
-      .filter(Boolean)
-      .join(" ");
+    return ["sisyphos-file-upload-item", f.status === "error" && "error"].filter(Boolean).join(" ");
   }
 
   metaFor(f: UploadedFile): string {

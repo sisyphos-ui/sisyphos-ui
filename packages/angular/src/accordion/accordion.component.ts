@@ -43,8 +43,12 @@ export class Accordion implements AccordionContextValue {
   readonly baseId = this._baseId.asReadonly();
   readonly multiple = this._multiple.asReadonly();
 
-  @Input("variant") set variantInput(v: AccordionVariant) { this._variant.set(v); }
-  @Input("multiple") set multipleInput(v: boolean) { this._multiple.set(v); }
+  @Input("variant") set variantInput(v: AccordionVariant) {
+    this._variant.set(v);
+  }
+  @Input("multiple") set multipleInput(v: boolean) {
+    this._multiple.set(v);
+  }
 
   /** Single-mode active value. Use only when multiple=false. */
   @Input("value") set valueInput(v: string | null | undefined) {
@@ -60,9 +64,7 @@ export class Accordion implements AccordionContextValue {
   /** Two-way `[(values)]` for multi-mode. */
   @Output() readonly valuesChange = new EventEmitter<string[]>();
 
-  readonly rootClasses = computed(() =>
-    `sisyphos-accordion ${this._variant()}`
-  );
+  readonly rootClasses = computed(() => `sisyphos-accordion ${this._variant()}`);
 
   isOpen(v: string): boolean {
     return this._multiple() ? this._values().includes(v) : this._value() === v;

@@ -147,9 +147,7 @@ describe("Dialog (Angular)", () => {
     fixture.componentInstance.open = true;
     fixture.componentInstance.showCloseButton = true;
     await tick(fixture);
-    expect(
-      fixture.nativeElement.querySelector(".sisyphos-dialog-close--auto")
-    ).toBeTruthy();
+    expect(fixture.nativeElement.querySelector(".sisyphos-dialog-close--auto")).toBeTruthy();
   });
 
   it("locks body scroll when open and restores on close", async () => {

@@ -1,7 +1,5 @@
 export { DropdownMenu } from "./dropdown-menu.component";
-export {
-  isDropdownMenuAction,
-} from "./types";
+export { isDropdownMenuAction } from "./types";
 export type {
   DropdownMenuItem,
   DropdownMenuAction,

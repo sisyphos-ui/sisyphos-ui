@@ -20,9 +20,8 @@ export interface FormControlContextValue {
 /** Reactive variant — what FormControl actually provides under the hood. */
 export type FormControlContextRef = ComputedRef<FormControlContextValue>;
 
-export const FormControlInjectionKey: InjectionKey<FormControlContextRef> = Symbol(
-  "sisyphos.form-control"
-);
+export const FormControlInjectionKey: InjectionKey<FormControlContextRef> =
+  Symbol("sisyphos.form-control");
 
 /**
  * Read FormControl state from a nested label/helper/input. Returns `undefined`

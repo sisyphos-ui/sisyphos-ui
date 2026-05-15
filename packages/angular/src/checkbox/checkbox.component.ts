@@ -23,14 +23,7 @@
  * import the bundled stylesheet once at app bootstrap — same model as the
  * React and Vue bindings.
  */
-import {
-  ChangeDetectionStrategy,
-  Component,
-  Input,
-  computed,
-  model,
-  signal,
-} from "@angular/core";
+import { ChangeDetectionStrategy, Component, Input, computed, model, signal } from "@angular/core";
 import { nextCheckboxStateAfterToggle } from "@sisyphos-ui/core";
 
 export type CheckboxColor = "neutral" | "primary" | "success" | "error" | "warning" | "info";
@@ -59,11 +52,25 @@ export type CheckboxRadius = "none" | "sm" | "md" | "lg" | "full";
         <span class="sisyphos-checkbox-indicator" aria-hidden="true">
           @if (indeterminate()) {
             <svg viewBox="0 0 16 16" width="100%" height="100%">
-              <line x1="3.5" y1="8" x2="12.5" y2="8" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+              <line
+                x1="3.5"
+                y1="8"
+                x2="12.5"
+                y2="8"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+              />
             </svg>
           } @else if (checked()) {
             <svg viewBox="0 0 16 16" width="100%" height="100%" fill="none">
-              <path d="M3.5 8.5l3 3 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+              <path
+                d="M3.5 8.5l3 3 6-6"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
             </svg>
           }
         </span>
@@ -100,14 +107,30 @@ export class Checkbox {
   // @Input aliases — the public binding name is the alias (e.g. `[size]`),
   // the setter method has a different name to avoid colliding with the
   // signal property of the same public name.
-  @Input("indeterminate") set indeterminateInput(v: boolean) { this._indeterminate.set(v); }
-  @Input("disabled") set disabledInput(v: boolean) { this._disabled.set(v); }
-  @Input("label") set labelInput(v: string | undefined) { this._label.set(v); }
-  @Input("name") set nameInput(v: string | undefined) { this._name.set(v); }
-  @Input("aria-label") set ariaLabelInput(v: string | undefined) { this._ariaLabel.set(v); }
-  @Input("color") set colorInput(v: CheckboxColor) { this._color.set(v); }
-  @Input("size") set sizeInput(v: CheckboxSize) { this._size.set(v); }
-  @Input("radius") set radiusInput(v: CheckboxRadius) { this._radius.set(v); }
+  @Input("indeterminate") set indeterminateInput(v: boolean) {
+    this._indeterminate.set(v);
+  }
+  @Input("disabled") set disabledInput(v: boolean) {
+    this._disabled.set(v);
+  }
+  @Input("label") set labelInput(v: string | undefined) {
+    this._label.set(v);
+  }
+  @Input("name") set nameInput(v: string | undefined) {
+    this._name.set(v);
+  }
+  @Input("aria-label") set ariaLabelInput(v: string | undefined) {
+    this._ariaLabel.set(v);
+  }
+  @Input("color") set colorInput(v: CheckboxColor) {
+    this._color.set(v);
+  }
+  @Input("size") set sizeInput(v: CheckboxSize) {
+    this._size.set(v);
+  }
+  @Input("radius") set radiusInput(v: CheckboxRadius) {
+    this._radius.set(v);
+  }
 
   readonly containerClasses = computed(() =>
     [

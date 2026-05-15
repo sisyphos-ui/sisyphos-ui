@@ -14,13 +14,7 @@
  *     <sui-card-footer>...</sui-card-footer>
  *   </sui-card>
  */
-import {
-  ChangeDetectionStrategy,
-  Component,
-  Input,
-  computed,
-  signal,
-} from "@angular/core";
+import { ChangeDetectionStrategy, Component, Input, computed, signal } from "@angular/core";
 
 export type CardVariant = "elevated" | "outlined" | "filled";
 export type CardPadding = "none" | "sm" | "md" | "lg";
@@ -48,9 +42,15 @@ export class Card {
   readonly padding = this._padding.asReadonly();
   readonly interactive = this._interactive.asReadonly();
 
-  @Input("variant") set variantInput(v: CardVariant) { this._variant.set(v); }
-  @Input("padding") set paddingInput(v: CardPadding) { this._padding.set(v); }
-  @Input("interactive") set interactiveInput(v: boolean) { this._interactive.set(v); }
+  @Input("variant") set variantInput(v: CardVariant) {
+    this._variant.set(v);
+  }
+  @Input("padding") set paddingInput(v: CardPadding) {
+    this._padding.set(v);
+  }
+  @Input("interactive") set interactiveInput(v: boolean) {
+    this._interactive.set(v);
+  }
 
   readonly rootClasses = computed(() =>
     [

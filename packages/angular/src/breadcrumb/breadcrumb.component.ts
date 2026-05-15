@@ -18,8 +18,7 @@
  *   ];
  *   <sui-breadcrumb [items]="items" />
  */
-import type {
-  TemplateRef} from "@angular/core";
+import type { TemplateRef } from "@angular/core";
 import {
   ChangeDetectionStrategy,
   Component,
@@ -55,7 +54,7 @@ type RenderedNode = ({ kind: "item"; item: BreadcrumbItem } | { kind: "ellipsis"
     <nav class="sisyphos-breadcrumb" aria-label="breadcrumb">
       <ol class="sisyphos-breadcrumb-list">
         @for (node of rendered(); track node.trackKey; let idx = $index, isLast = $last) {
-          @if (node.kind === 'ellipsis') {
+          @if (node.kind === "ellipsis") {
             <li class="sisyphos-breadcrumb-ellipsis" aria-hidden="true">…</li>
           } @else {
             <li class="sisyphos-breadcrumb-item">
@@ -127,14 +126,24 @@ export class Breadcrumb {
   readonly separator = this._separator.asReadonly();
   readonly separatorTemplate = this._separatorTemplate.asReadonly();
 
-  @Input("items") set itemsInput(v: BreadcrumbItem[]) { this._items.set(v ?? []); }
-  @Input("separator") set separatorInput(v: string) { this._separator.set(v); }
+  @Input("items") set itemsInput(v: BreadcrumbItem[]) {
+    this._items.set(v ?? []);
+  }
+  @Input("separator") set separatorInput(v: string) {
+    this._separator.set(v);
+  }
   @Input("separatorTemplate") set separatorTemplateInput(v: TemplateRef<unknown> | undefined) {
     this._separatorTemplate.set(v);
   }
-  @Input("maxItems") set maxItemsInput(v: number | undefined) { this._maxItems.set(v); }
-  @Input("itemsBeforeCollapse") set itemsBeforeInput(v: number) { this._itemsBefore.set(v); }
-  @Input("itemsAfterCollapse") set itemsAfterInput(v: number) { this._itemsAfter.set(v); }
+  @Input("maxItems") set maxItemsInput(v: number | undefined) {
+    this._maxItems.set(v);
+  }
+  @Input("itemsBeforeCollapse") set itemsBeforeInput(v: number) {
+    this._itemsBefore.set(v);
+  }
+  @Input("itemsAfterCollapse") set itemsAfterInput(v: number) {
+    this._itemsAfter.set(v);
+  }
 
   /** Emitted when an item with `onClick` is activated. Useful when consumers
    * prefer a single output handler over per-item callbacks. */
@@ -149,7 +158,9 @@ export class Breadcrumb {
     const collapsed =
       typeof max === "number" && items.length > max
         ? [
-            ...items.slice(0, before).map((item, i) => ({ kind: "item" as const, item, trackKey: keyFor(item, i) })),
+            ...items
+              .slice(0, before)
+              .map((item, i) => ({ kind: "item" as const, item, trackKey: keyFor(item, i) })),
             { kind: "ellipsis" as const, trackKey: "__ellipsis__" },
             ...items.slice(items.length - after).map((item, i) => ({
               kind: "item" as const,

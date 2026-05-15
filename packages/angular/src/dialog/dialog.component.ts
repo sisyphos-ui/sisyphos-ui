@@ -11,10 +11,7 @@
  *     </sui-dialog-footer>
  *   </sui-dialog>
  */
-import type {
-  AfterViewInit,
-  ElementRef,
-  OnDestroy} from "@angular/core";
+import type { AfterViewInit, ElementRef, OnDestroy } from "@angular/core";
 import {
   ChangeDetectionStrategy,
   Component,
@@ -64,7 +61,10 @@ let priorBodyOverflow = "";
               (click)="close()"
             >
               <svg viewBox="0 0 24 24" width="1em" height="1em" aria-hidden="true">
-                <path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z" fill="currentColor" />
+                <path
+                  d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"
+                  fill="currentColor"
+                />
               </svg>
             </button>
           }
@@ -92,15 +92,27 @@ export class Dialog implements DialogContextValue, AfterViewInit, OnDestroy {
   readonly showCloseButton = this._showCloseButton.asReadonly();
   readonly closeButtonLabel = this._closeButtonLabel.asReadonly();
 
-  @Input("open") set openInput(v: boolean) { this._open.set(v); }
-  @Input("size") set sizeInput(v: DialogSize) { this._size.set(v); }
+  @Input("open") set openInput(v: boolean) {
+    this._open.set(v);
+  }
+  @Input("size") set sizeInput(v: DialogSize) {
+    this._size.set(v);
+  }
   @Input("closeOnBackdropClick") set closeOnBackdropClickInput(v: boolean) {
     this._closeOnBackdropClick.set(v);
   }
-  @Input("closeOnEscape") set closeOnEscapeInput(v: boolean) { this._closeOnEscape.set(v); }
-  @Input("backdrop") set backdropInput(v: boolean) { this._backdrop.set(v); }
-  @Input("showCloseButton") set showCloseButtonInput(v: boolean) { this._showCloseButton.set(v); }
-  @Input("closeButtonLabel") set closeButtonLabelInput(v: string) { this._closeButtonLabel.set(v); }
+  @Input("closeOnEscape") set closeOnEscapeInput(v: boolean) {
+    this._closeOnEscape.set(v);
+  }
+  @Input("backdrop") set backdropInput(v: boolean) {
+    this._backdrop.set(v);
+  }
+  @Input("showCloseButton") set showCloseButtonInput(v: boolean) {
+    this._showCloseButton.set(v);
+  }
+  @Input("closeButtonLabel") set closeButtonLabelInput(v: string) {
+    this._closeButtonLabel.set(v);
+  }
 
   /** Two-way `[(open)]` sugar. */
   @Output() readonly openChange = new EventEmitter<boolean>();
@@ -109,9 +121,7 @@ export class Dialog implements DialogContextValue, AfterViewInit, OnDestroy {
   @ViewChild("panel") panelRef?: ElementRef<HTMLDivElement>;
 
   readonly rootClasses = computed(() =>
-    ["sisyphos-dialog-root", this._backdrop() && "with-backdrop"]
-      .filter(Boolean)
-      .join(" ")
+    ["sisyphos-dialog-root", this._backdrop() && "with-backdrop"].filter(Boolean).join(" ")
   );
 
   readonly panelClasses = computed(() =>
@@ -145,7 +155,9 @@ export class Dialog implements DialogContextValue, AfterViewInit, OnDestroy {
     });
   }
 
-  ngAfterViewInit(): void { /* lifecycle anchor — no-op */ }
+  ngAfterViewInit(): void {
+    /* lifecycle anchor — no-op */
+  }
 
   ngOnDestroy(): void {
     this.releaseScrollLock();

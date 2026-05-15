@@ -69,7 +69,9 @@ describe("Tabs (Angular)", () => {
   it("hides inactive panels via the hidden attribute (forceMount=true default)", () => {
     const fixture = TestBed.createComponent(Host);
     fixture.detectChanges();
-    const panels = fixture.nativeElement.querySelectorAll('[role="tabpanel"]') as NodeListOf<HTMLElement>;
+    const panels = fixture.nativeElement.querySelectorAll(
+      '[role="tabpanel"]'
+    ) as NodeListOf<HTMLElement>;
     expect(panels[0].hasAttribute("hidden")).toBe(false);
     expect(panels[1].hasAttribute("hidden")).toBe(true);
     expect(panels[2].hasAttribute("hidden")).toBe(true);

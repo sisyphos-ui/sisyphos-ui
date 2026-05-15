@@ -4,14 +4,7 @@
  * color, and variant. Mirrors the React/Vue Radio API, including the
  * "expand on selection" pattern via projected children.
  */
-import {
-  ChangeDetectionStrategy,
-  Component,
-  Input,
-  computed,
-  inject,
-  signal,
-} from "@angular/core";
+import { ChangeDetectionStrategy, Component, Input, computed, inject, signal } from "@angular/core";
 import { RadioGroupCtx } from "./context";
 
 @Component({
@@ -74,12 +67,24 @@ export class Radio {
   readonly icon = this._icon.asReadonly();
   readonly id = this._id.asReadonly();
 
-  @Input("value") set valueInput(v: string | number) { this._value.set(v); }
-  @Input("label") set labelInput(v: string | undefined) { this._label.set(v); }
-  @Input("description") set descriptionInput(v: string | undefined) { this._description.set(v); }
-  @Input("icon") set iconInput(v: string | undefined) { this._icon.set(v); }
-  @Input("disabled") set disabledInput(v: boolean) { this._disabled.set(v); }
-  @Input("id") set idInput(v: string | undefined) { this._id.set(v); }
+  @Input("value") set valueInput(v: string | number) {
+    this._value.set(v);
+  }
+  @Input("label") set labelInput(v: string | undefined) {
+    this._label.set(v);
+  }
+  @Input("description") set descriptionInput(v: string | undefined) {
+    this._description.set(v);
+  }
+  @Input("icon") set iconInput(v: string | undefined) {
+    this._icon.set(v);
+  }
+  @Input("disabled") set disabledInput(v: boolean) {
+    this._disabled.set(v);
+  }
+  @Input("id") set idInput(v: string | undefined) {
+    this._id.set(v);
+  }
 
   readonly effectiveDisabled = computed(() => this._disabled() || this.group.disabled());
   readonly isChecked = computed(() => this.group.value() === this._value());

@@ -100,7 +100,9 @@ describe("NumberInput (Angular)", () => {
     fixture.componentInstance.min = 0;
     fixture.componentInstance.max = 10;
     fixture.detectChanges();
-    const buttons = fixture.nativeElement.querySelectorAll(".sisyphos-number-input-step") as NodeListOf<HTMLButtonElement>;
+    const buttons = fixture.nativeElement.querySelectorAll(
+      ".sisyphos-number-input-step"
+    ) as NodeListOf<HTMLButtonElement>;
     expect(buttons[0].disabled).toBe(true);
     expect(buttons[1].disabled).toBe(false);
     fixture.componentInstance.value = 10;
@@ -114,7 +116,9 @@ describe("NumberInput (Angular)", () => {
     fixture.componentInstance.value = 5;
     fixture.componentInstance.disabled = true;
     fixture.detectChanges();
-    const buttons = fixture.nativeElement.querySelectorAll(".sisyphos-number-input-step") as NodeListOf<HTMLButtonElement>;
+    const buttons = fixture.nativeElement.querySelectorAll(
+      ".sisyphos-number-input-step"
+    ) as NodeListOf<HTMLButtonElement>;
     expect(buttons[0].disabled).toBe(true);
     buttons[0].click();
     fixture.detectChanges();

@@ -14,13 +14,7 @@
  * The unmarked default slot is rendered between description and actions —
  * useful for an explicit message or extra paragraphs.
  */
-import {
-  ChangeDetectionStrategy,
-  Component,
-  Input,
-  computed,
-  signal,
-} from "@angular/core";
+import { ChangeDetectionStrategy, Component, Input, computed, signal } from "@angular/core";
 
 export type EmptyStateSize = "sm" | "md" | "lg";
 export type EmptyStateVariant = "block" | "inline";
@@ -65,19 +59,24 @@ export class EmptyState {
   readonly title = this._title.asReadonly();
   readonly description = this._description.asReadonly();
 
-  @Input("title") set titleInput(v: string | undefined) { this._title.set(v); }
-  @Input("description") set descriptionInput(v: string | undefined) { this._description.set(v); }
-  @Input("size") set sizeInput(v: EmptyStateSize) { this._size.set(v); }
-  @Input("variant") set variantInput(v: EmptyStateVariant) { this._variant.set(v); }
-  @Input("bordered") set borderedInput(v: boolean) { this._bordered.set(v); }
+  @Input("title") set titleInput(v: string | undefined) {
+    this._title.set(v);
+  }
+  @Input("description") set descriptionInput(v: string | undefined) {
+    this._description.set(v);
+  }
+  @Input("size") set sizeInput(v: EmptyStateSize) {
+    this._size.set(v);
+  }
+  @Input("variant") set variantInput(v: EmptyStateVariant) {
+    this._variant.set(v);
+  }
+  @Input("bordered") set borderedInput(v: boolean) {
+    this._bordered.set(v);
+  }
 
   readonly rootClasses = computed(() =>
-    [
-      "sisyphos-empty-state",
-      this._size(),
-      this._variant(),
-      this._bordered() && "bordered",
-    ]
+    ["sisyphos-empty-state", this._size(), this._variant(), this._bordered() && "bordered"]
       .filter(Boolean)
       .join(" ")
   );
