@@ -7,6 +7,11 @@ export default defineConfig({
   // file types (JSX/TSX for react, .vue SFCs for vue), so there's no
   // double-processing on shared TS files.
   plugins: [react(), vue()],
+  css: {
+    preprocessorOptions: {
+      scss: { api: "modern-compiler" },
+    },
+  },
   resolve: {
     dedupe: ["react", "react-dom", "react/jsx-runtime", "vue"],
   },
