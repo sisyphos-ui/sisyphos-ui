@@ -1,6 +1,0 @@
-{
-  "buildScriptName": "build:storybook",
-  "storybookBuildDir": "storybook-static",
-  "exitZeroOnChanges": true,
-  "onlyChanged": true
-}

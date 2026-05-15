@@ -4,11 +4,7 @@
   "tasks": {
     "build": {
       "dependsOn": ["^build"],
-      "outputs": ["dist/**", ".next/**", "storybook-static/**"]
-    },
-    "dev:storybook": {
-      "cache": false,
-      "persistent": true
+      "outputs": ["dist/**", ".next/**"]
     },
     "dev": {
       "cache": false,

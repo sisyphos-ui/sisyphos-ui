@@ -16,7 +16,6 @@
   "scripts": {
     "build": "turbo run build",
     "dev": "turbo run dev",
-    "dev:storybook": "pnpm --filter @sisyphos-ui/storybook dev",
     "dev:playground": "pnpm --filter @sisyphos-ui/playground dev",
     "lint": "turbo run lint",
     "format": "node scripts/format-changed.mjs",
@@ -30,10 +29,7 @@
     "changeset": "changeset",
     "version-packages": "changeset version",
     "release": "turbo run build --filter=./packages/* && changeset publish",
-    "type-check": "turbo run type-check",
-    "storybook": "pnpm --filter @sisyphos-ui/storybook dev",
-    "build:storybook": "pnpm --filter @sisyphos-ui/storybook build",
-    "chromatic": "chromatic --exit-zero-on-changes"
+    "type-check": "turbo run type-check"
   },
   "devDependencies": {
     "@changesets/cli": "^2.27.1",
@@ -56,7 +52,7 @@
   },
   "packageManager": "pnpm@8.15.0",
   "engines": {
-    "node": ">=18.0.0",
+    "node": ">=18.19.0",
     "pnpm": ">=8.0.0"
   }
 }
