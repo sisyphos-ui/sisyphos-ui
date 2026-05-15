@@ -110,20 +110,25 @@ const containerClasses = computed(() => [
       :aria-expanded="open"
       aria-haspopup="tree"
       :tabindex="disabled ? -1 : 0"
-      class="sisyphos-tree-select-trigger"
+      :class="['sisyphos-tree-select-trigger', open && 'open']"
       @click="!disabled && (open = !open)"
     >
-      <template v-if="selectedItems.length === 0">
-        <span class="sisyphos-tree-select-placeholder">
+      <div class="sisyphos-tree-select-value">
+        <span v-if="selectedItems.length === 0" class="sisyphos-tree-select-placeholder">
           {{ placeholder ?? triggerLabel ?? "Select…" }}
         </span>
-      </template>
-      <template v-else>
-        <span v-for="t in tags" :key="String(t.id)" class="sisyphos-tree-select-tag">
-          {{ t.label }}
-        </span>
-        <span v-if="overflow > 0" class="sisyphos-tree-select-overflow">+{{ overflow }}</span>
-      </template>
+        <div v-else class="sisyphos-tree-select-tags">
+          <span
+            v-for="t in tags"
+            :key="String(t.id)"
+            class="sisyphos-tree-select-tag"
+            :title="t.label"
+          >
+            {{ t.label }}
+          </span>
+          <span v-if="overflow > 0" class="sisyphos-tree-select-tag more">+{{ overflow }}</span>
+        </div>
+      </div>
       <button
         v-if="clearable && selectedItems.length > 0 && !disabled"
         type="button"
@@ -133,6 +138,11 @@ const containerClasses = computed(() => [
       >
         ✕
       </button>
+      <span class="sisyphos-tree-select-chevron" aria-hidden="true">
+        <svg viewBox="0 0 24 24" width="16" height="16">
+          <path d="M7 10l5 5 5-5z" fill="currentColor" />
+        </svg>
+      </span>
     </div>
     <Teleport to="body">
       <div
@@ -141,14 +151,15 @@ const containerClasses = computed(() => [
         :id="`${baseId}-dropdown`"
         class="sisyphos-tree-select-dropdown"
       >
-        <input
-          v-if="searchable"
-          v-model="search"
-          type="search"
-          class="sisyphos-tree-select-search"
-          :placeholder="searchPlaceholder"
-        />
-        <div role="tree" class="sisyphos-tree-select-list">
+        <div v-if="searchable" class="sisyphos-tree-select-search">
+          <input
+            v-model="search"
+            type="search"
+            :placeholder="searchPlaceholder"
+          />
+        </div>
+        <div v-if="filtered.length === 0" class="sisyphos-tree-select-empty">No results</div>
+        <div v-else role="tree" class="sisyphos-tree-select-content">
           <TreeNodeRow
             v-for="node in filtered"
             :key="String(node.id)"

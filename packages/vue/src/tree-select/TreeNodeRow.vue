@@ -24,31 +24,33 @@ const ariaChecked = computed(() =>
 </script>
 
 <template>
-  <div class="sisyphos-tree-select-node">
-    <div :class="['sisyphos-tree-select-row', state, `level-${level}`]">
+  <div class="sisyphos-tree-node">
+    <div :class="['sisyphos-tree-row', state, `level-${level}`]">
       <button
         v-if="hasChildren"
         type="button"
-        class="sisyphos-tree-select-expand"
+        class="sisyphos-tree-expand"
         :aria-label="isOpen ? 'Collapse' : 'Expand'"
         @click="onToggleExpand(node)"
       >
         {{ isOpen ? "▾" : "▸" }}
       </button>
-      <span v-else class="sisyphos-tree-select-expand-spacer" />
+      <span v-else class="sisyphos-tree-expand-spacer" />
       <button
         type="button"
-        class="sisyphos-tree-select-toggle"
+        class="sisyphos-tree-toggle"
         role="checkbox"
         :aria-checked="ariaChecked"
         :disabled="node.disabled"
         @click="onToggle(node)"
       >
-        <span :class="['sisyphos-tree-select-checkbox', state]" />
-        <span class="sisyphos-tree-select-label">{{ node.label }}</span>
+        <span :class="['sisyphos-tree-checkbox', state]">
+          <span v-if="state === 'partial'" class="sisyphos-tree-partial" />
+        </span>
+        <span class="sisyphos-tree-label" :title="node.label">{{ node.label }}</span>
       </button>
     </div>
-    <div v-if="hasChildren && isOpen" class="sisyphos-tree-select-children">
+    <div v-if="hasChildren && isOpen" class="sisyphos-tree-children">
       <TreeNodeRow
         v-for="c in node.children"
         :key="String(c.id)"
