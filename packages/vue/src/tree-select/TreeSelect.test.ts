@@ -47,7 +47,7 @@ describe("TreeSelect (Vue)", () => {
     });
     await wrapper.find(".sisyphos-tree-select-trigger").trigger("click");
     await flushPromises();
-    const search = document.querySelector(".sisyphos-tree-select-search") as HTMLInputElement;
+    const search = document.querySelector(".sisyphos-tree-select-search input") as HTMLInputElement;
     search.value = "A1";
     search.dispatchEvent(new Event("input"));
     await flushPromises();
