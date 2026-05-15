@@ -165,200 +165,6 @@ importers:
         specifier: ^2.0.0
         version: 2.2.12(typescript@5.4.5)
 
-  apps/preview-angular:
-    dependencies:
-      '@angular/common':
-        specifier: ^18.2.0
-        version: 18.2.14(@angular/core@18.2.14)(rxjs@7.8.2)
-      '@angular/compiler':
-        specifier: ^18.2.0
-        version: 18.2.14(@angular/core@18.2.14)
-      '@angular/core':
-        specifier: ^18.2.0
-        version: 18.2.14(rxjs@7.8.2)(zone.js@0.14.10)
-      '@angular/platform-browser':
-        specifier: ^18.2.0
-        version: 18.2.14(@angular/common@18.2.14)(@angular/core@18.2.14)
-      '@sisyphos-ui/angular':
-        specifier: workspace:*
-        version: link:../../packages/angular
-      '@sisyphos-ui/core':
-        specifier: workspace:*
-        version: link:../../packages/core
-      rxjs:
-        specifier: ^7.8.0
-        version: 7.8.2
-      tslib:
-        specifier: ^2.6.0
-        version: 2.8.1
-      zone.js:
-        specifier: ~0.14.4
-        version: 0.14.10
-    devDependencies:
-      '@angular-devkit/architect':
-        specifier: ^0.1802.0
-        version: 0.1802.21
-      '@angular-devkit/build-angular':
-        specifier: ^18.2.0
-        version: 18.2.21(@angular/compiler-cli@18.2.14)(typescript@5.4.5)
-      '@angular/build':
-        specifier: ^18.0.0
-        version: 18.2.21(@angular/compiler-cli@18.2.14)(less@4.2.0)(postcss@8.4.41)(terser@5.31.6)(typescript@5.4.5)
-      '@angular/cli':
-        specifier: ^18.2.0
-        version: 18.2.21
-      '@angular/compiler-cli':
-        specifier: ^18.2.0
-        version: 18.2.14(@angular/compiler@18.2.14)(typescript@5.4.5)
-      typescript:
-        specifier: '>=5.4.0 <5.6.0'
-        version: 5.4.5
-
-  apps/preview-vue:
-    dependencies:
-      '@sisyphos-ui/core':
-        specifier: workspace:*
-        version: link:../../packages/core
-      '@sisyphos-ui/vue':
-        specifier: workspace:*
-        version: link:../../packages/vue
-      vue:
-        specifier: ^3.4.0
-        version: 3.5.33(typescript@5.4.5)
-    devDependencies:
-      '@vitejs/plugin-vue':
-        specifier: ^5.0.0
-        version: 5.2.4(vite@5.4.21)(vue@3.5.33)
-      typescript:
-        specifier: ^5.3.3
-        version: 5.4.5
-      vite:
-        specifier: ^5.0.11
-        version: 5.4.21(less@4.2.0)(sass@1.77.6)(terser@5.31.6)
-      vue-tsc:
-        specifier: ^2.0.0
-        version: 2.2.12(typescript@5.4.5)
-
-  apps/storybook:
-    dependencies:
-      '@sisyphos-ui/button':
-        specifier: workspace:*
-        version: link:../../packages/button
-      '@sisyphos-ui/core':
-        specifier: workspace:*
-        version: link:../../packages/core
-      '@sisyphos-ui/input':
-        specifier: workspace:*
-        version: link:../../packages/input
-      '@sisyphos-ui/ui':
-        specifier: workspace:*
-        version: link:../../packages/ui
-      react:
-        specifier: ^18.2.0
-        version: 18.3.1
-      react-dom:
-        specifier: ^18.2.0
-        version: 18.3.1(react@18.3.1)
-    devDependencies:
-      '@storybook/addon-a11y':
-        specifier: ^8.0.0
-        version: 8.6.18(storybook@8.6.14)
-      '@storybook/addon-essentials':
-        specifier: ^8.0.0
-        version: 8.6.14(@types/react@18.3.26)(storybook@8.6.14)
-      '@storybook/addon-interactions':
-        specifier: ^8.0.0
-        version: 8.6.14(storybook@8.6.14)
-      '@storybook/addon-links':
-        specifier: ^8.0.0
-        version: 8.6.14(react@18.3.1)(storybook@8.6.14)
-      '@storybook/blocks':
-        specifier: ^8.0.0
-        version: 8.6.14(react-dom@18.3.1)(react@18.3.1)(storybook@8.6.14)
-      '@storybook/react':
-        specifier: ^8.0.0
-        version: 8.6.14(@storybook/test@8.6.14)(react-dom@18.3.1)(react@18.3.1)(storybook@8.6.14)(typescript@5.9.3)
-      '@storybook/react-vite':
-        specifier: ^8.0.0
-        version: 8.6.14(@storybook/test@8.6.14)(react-dom@18.3.1)(react@18.3.1)(storybook@8.6.14)(typescript@5.9.3)(vite@5.4.21)
-      '@storybook/test':
-        specifier: ^8.0.0
-        version: 8.6.14(storybook@8.6.14)
-      '@types/react':
-        specifier: ^18.2.48
-        version: 18.3.26
-      '@types/react-dom':
-        specifier: ^18.2.18
-        version: 18.3.7(@types/react@18.3.26)
-      storybook:
-        specifier: ^8.0.0
-        version: 8.6.14(prettier@3.8.3)
-      typescript:
-        specifier: ^5.3.3
-        version: 5.9.3
-      vite:
-        specifier: ^5.0.11
-        version: 5.4.21(less@4.2.0)(sass@1.77.6)(terser@5.31.6)
-
-  packages/accordion:
-    dependencies:
-      '@sisyphos-ui/core':
-        specifier: workspace:*
-        version: link:../core
-      react:
-        specifier: ^17.0.0 || ^18.0.0 || ^19.0.0
-        version: 18.3.1
-    devDependencies:
-      '@sisyphos-ui/eslint-config':
-        specifier: workspace:*
-        version: link:../eslint-config
-      '@types/react':
-        specifier: ^18.2.48
-        version: 18.3.26
-      esbuild-sass-plugin:
-        specifier: ^3.3.1
-        version: 3.7.0(esbuild@0.28.0)(sass-embedded@1.99.0)
-      sass:
-        specifier: ^1.77.0
-        version: 1.99.0
-      tsup:
-        specifier: ^8.0.1
-        version: 8.5.0(typescript@5.9.3)
-      typescript:
-        specifier: ^5.3.3
-        version: 5.9.3
-
-  packages/alert:
-    dependencies:
-      '@sisyphos-ui/core':
-        specifier: workspace:*
-        version: link:../core
-      react:
-        specifier: ^17.0.0 || ^18.0.0 || ^19.0.0
-        version: 18.3.1
-    devDependencies:
-      '@sisyphos-ui/button':
-        specifier: workspace:*
-        version: link:../button
-      '@sisyphos-ui/eslint-config':
-        specifier: workspace:*
-        version: link:../eslint-config
-      '@types/react':
-        specifier: ^18.2.48
-        version: 18.3.26
-      esbuild-sass-plugin:
-        specifier: ^3.3.1
-        version: 3.7.0(esbuild@0.28.0)(sass-embedded@1.99.0)
-      sass:
-        specifier: ^1.77.0
-        version: 1.99.0
-      tsup:
-        specifier: ^8.0.1
-        version: 8.5.0(typescript@5.9.3)
-      typescript:
-        specifier: ^5.3.3
-        version: 5.9.3
-
   packages/angular:
     dependencies:
       '@sisyphos-ui/core':
@@ -417,306 +223,6 @@ importers:
         specifier: ~0.14.4
         version: 0.14.10
 
-  packages/avatar:
-    dependencies:
-      '@sisyphos-ui/core':
-        specifier: workspace:*
-        version: link:../core
-      react:
-        specifier: ^17.0.0 || ^18.0.0 || ^19.0.0
-        version: 18.3.1
-      react-dom:
-        specifier: ^17.0.0 || ^18.0.0 || ^19.0.0
-        version: 18.3.1(react@18.3.1)
-    devDependencies:
-      '@sisyphos-ui/eslint-config':
-        specifier: workspace:*
-        version: link:../eslint-config
-      '@types/react':
-        specifier: ^18.2.48
-        version: 18.3.26
-      '@types/react-dom':
-        specifier: ^18.2.18
-        version: 18.3.7(@types/react@18.3.26)
-      esbuild-sass-plugin:
-        specifier: ^3.3.1
-        version: 3.7.0(esbuild@0.28.0)(sass-embedded@1.99.0)
-      sass:
-        specifier: ^1.77.0
-        version: 1.99.0
-      tsup:
-        specifier: ^8.0.1
-        version: 8.5.0(typescript@5.9.3)
-      typescript:
-        specifier: ^5.3.3
-        version: 5.9.3
-
-  packages/breadcrumb:
-    dependencies:
-      '@sisyphos-ui/core':
-        specifier: workspace:*
-        version: link:../core
-      react:
-        specifier: ^17.0.0 || ^18.0.0 || ^19.0.0
-        version: 18.3.1
-    devDependencies:
-      '@sisyphos-ui/eslint-config':
-        specifier: workspace:*
-        version: link:../eslint-config
-      '@types/react':
-        specifier: ^18.2.48
-        version: 18.3.26
-      esbuild-sass-plugin:
-        specifier: ^3.3.1
-        version: 3.7.0(esbuild@0.28.0)(sass-embedded@1.99.0)
-      sass:
-        specifier: ^1.77.0
-        version: 1.99.0
-      tsup:
-        specifier: ^8.0.1
-        version: 8.5.0(typescript@5.9.3)
-      typescript:
-        specifier: ^5.3.3
-        version: 5.9.3
-
-  packages/button:
-    dependencies:
-      '@sisyphos-ui/core':
-        specifier: workspace:*
-        version: link:../core
-      react:
-        specifier: ^17.0.0 || ^18.0.0 || ^19.0.0
-        version: 18.3.1
-      react-dom:
-        specifier: ^17.0.0 || ^18.0.0 || ^19.0.0
-        version: 18.3.1(react@18.3.1)
-    devDependencies:
-      '@sisyphos-ui/eslint-config':
-        specifier: workspace:*
-        version: link:../eslint-config
-      '@types/node':
-        specifier: ^20.11.5
-        version: 20.19.24
-      '@types/react':
-        specifier: ^18.2.48
-        version: 18.3.26
-      '@types/react-dom':
-        specifier: ^18.2.18
-        version: 18.3.7(@types/react@18.3.26)
-      esbuild-sass-plugin:
-        specifier: ^3.3.1
-        version: 3.7.0(esbuild@0.28.0)(sass-embedded@1.99.0)
-      sass:
-        specifier: ^1.77.0
-        version: 1.94.2
-      tsup:
-        specifier: ^8.0.1
-        version: 8.5.0(typescript@5.9.3)
-      typescript:
-        specifier: ^5.3.3
-        version: 5.9.3
-
-  packages/card:
-    dependencies:
-      '@sisyphos-ui/core':
-        specifier: workspace:*
-        version: link:../core
-      react:
-        specifier: ^17.0.0 || ^18.0.0 || ^19.0.0
-        version: 18.3.1
-    devDependencies:
-      '@sisyphos-ui/button':
-        specifier: workspace:*
-        version: link:../button
-      '@sisyphos-ui/eslint-config':
-        specifier: workspace:*
-        version: link:../eslint-config
-      '@types/react':
-        specifier: ^18.2.48
-        version: 18.3.26
-      esbuild-sass-plugin:
-        specifier: ^3.3.1
-        version: 3.7.0(esbuild@0.28.0)(sass-embedded@1.99.0)
-      sass:
-        specifier: ^1.77.0
-        version: 1.99.0
-      tsup:
-        specifier: ^8.0.1
-        version: 8.5.0(typescript@5.9.3)
-      typescript:
-        specifier: ^5.3.3
-        version: 5.9.3
-
-  packages/carousel:
-    dependencies:
-      '@sisyphos-ui/core':
-        specifier: workspace:*
-        version: link:../core
-      react:
-        specifier: ^17.0.0 || ^18.0.0 || ^19.0.0
-        version: 18.3.1
-    devDependencies:
-      '@sisyphos-ui/eslint-config':
-        specifier: workspace:*
-        version: link:../eslint-config
-      '@types/react':
-        specifier: ^18.2.48
-        version: 18.3.26
-      esbuild-sass-plugin:
-        specifier: ^3.3.1
-        version: 3.7.0(esbuild@0.28.0)(sass-embedded@1.99.0)
-      sass:
-        specifier: ^1.77.0
-        version: 1.99.0
-      tsup:
-        specifier: ^8.0.1
-        version: 8.5.0(typescript@5.9.3)
-      typescript:
-        specifier: ^5.3.3
-        version: 5.9.3
-
-  packages/checkbox:
-    dependencies:
-      '@sisyphos-ui/core':
-        specifier: workspace:*
-        version: link:../core
-      react:
-        specifier: ^17.0.0 || ^18.0.0 || ^19.0.0
-        version: 18.3.1
-      react-dom:
-        specifier: ^17.0.0 || ^18.0.0 || ^19.0.0
-        version: 18.3.1(react@18.3.1)
-    devDependencies:
-      '@sisyphos-ui/eslint-config':
-        specifier: workspace:*
-        version: link:../eslint-config
-      '@types/node':
-        specifier: ^20.11.5
-        version: 20.19.24
-      '@types/react':
-        specifier: ^18.2.48
-        version: 18.3.26
-      '@types/react-dom':
-        specifier: ^18.2.18
-        version: 18.3.7(@types/react@18.3.26)
-      esbuild-sass-plugin:
-        specifier: ^3.3.1
-        version: 3.7.0(esbuild@0.28.0)(sass-embedded@1.99.0)
-      sass:
-        specifier: ^1.77.0
-        version: 1.94.2
-      tsup:
-        specifier: ^8.0.1
-        version: 8.5.0(typescript@5.9.3)
-      typescript:
-        specifier: ^5.3.3
-        version: 5.9.3
-
-  packages/chip:
-    dependencies:
-      '@sisyphos-ui/core':
-        specifier: workspace:*
-        version: link:../core
-      react:
-        specifier: ^17.0.0 || ^18.0.0 || ^19.0.0
-        version: 18.3.1
-      react-dom:
-        specifier: ^17.0.0 || ^18.0.0 || ^19.0.0
-        version: 18.3.1(react@18.3.1)
-    devDependencies:
-      '@sisyphos-ui/eslint-config':
-        specifier: workspace:*
-        version: link:../eslint-config
-      '@types/react':
-        specifier: ^18.2.48
-        version: 18.3.26
-      '@types/react-dom':
-        specifier: ^18.2.18
-        version: 18.3.7(@types/react@18.3.26)
-      esbuild-sass-plugin:
-        specifier: ^3.3.1
-        version: 3.7.0(esbuild@0.28.0)(sass-embedded@1.99.0)
-      sass:
-        specifier: ^1.77.0
-        version: 1.99.0
-      tsup:
-        specifier: ^8.0.1
-        version: 8.5.0(typescript@5.9.3)
-      typescript:
-        specifier: ^5.3.3
-        version: 5.9.3
-
-  packages/command:
-    dependencies:
-      '@sisyphos-ui/core':
-        specifier: workspace:*
-        version: link:../core
-      react:
-        specifier: ^17.0.0 || ^18.0.0 || ^19.0.0
-        version: 18.3.1
-      react-dom:
-        specifier: ^17.0.0 || ^18.0.0 || ^19.0.0
-        version: 18.3.1(react@18.3.1)
-    devDependencies:
-      '@sisyphos-ui/eslint-config':
-        specifier: workspace:*
-        version: link:../eslint-config
-      '@types/react':
-        specifier: ^18.2.48
-        version: 18.3.26
-      '@types/react-dom':
-        specifier: ^18.2.18
-        version: 18.3.7(@types/react@18.3.26)
-      esbuild-sass-plugin:
-        specifier: ^3.3.1
-        version: 3.7.0(esbuild@0.28.0)(sass-embedded@1.99.0)
-      sass:
-        specifier: ^1.77.0
-        version: 1.99.0
-      tsup:
-        specifier: ^8.0.1
-        version: 8.5.0(typescript@5.9.3)
-      typescript:
-        specifier: ^5.3.3
-        version: 5.9.3
-
-  packages/context-menu:
-    dependencies:
-      '@sisyphos-ui/core':
-        specifier: workspace:*
-        version: link:../core
-      '@sisyphos-ui/portal':
-        specifier: workspace:*
-        version: link:../portal
-      react:
-        specifier: ^17.0.0 || ^18.0.0 || ^19.0.0
-        version: 18.3.1
-      react-dom:
-        specifier: ^17.0.0 || ^18.0.0 || ^19.0.0
-        version: 18.3.1(react@18.3.1)
-    devDependencies:
-      '@sisyphos-ui/eslint-config':
-        specifier: workspace:*
-        version: link:../eslint-config
-      '@types/react':
-        specifier: ^18.2.48
-        version: 18.3.26
-      '@types/react-dom':
-        specifier: ^18.2.18
-        version: 18.3.7(@types/react@18.3.26)
-      esbuild-sass-plugin:
-        specifier: ^3.3.1
-        version: 3.7.0(esbuild@0.28.0)(sass-embedded@1.99.0)
-      sass:
-        specifier: ^1.77.0
-        version: 1.99.0
-      tsup:
-        specifier: ^8.0.1
-        version: 8.5.0(typescript@5.9.3)
-      typescript:
-        specifier: ^5.3.3
-        version: 5.9.3
-
   packages/core:
     devDependencies:
       '@sisyphos-ui/eslint-config':
@@ -741,154 +247,6 @@ importers:
         specifier: ^5.3.3
         version: 5.9.3
 
-  packages/datepicker:
-    dependencies:
-      '@sisyphos-ui/core':
-        specifier: workspace:*
-        version: link:../core
-      '@sisyphos-ui/portal':
-        specifier: workspace:*
-        version: link:../portal
-      react:
-        specifier: ^17.0.0 || ^18.0.0 || ^19.0.0
-        version: 18.3.1
-      react-dom:
-        specifier: ^17.0.0 || ^18.0.0 || ^19.0.0
-        version: 18.3.1(react@18.3.1)
-    devDependencies:
-      '@sisyphos-ui/eslint-config':
-        specifier: workspace:*
-        version: link:../eslint-config
-      '@types/react':
-        specifier: ^18.2.48
-        version: 18.3.26
-      '@types/react-dom':
-        specifier: ^18.2.18
-        version: 18.3.7(@types/react@18.3.26)
-      esbuild-sass-plugin:
-        specifier: ^3.3.1
-        version: 3.7.0(esbuild@0.28.0)(sass-embedded@1.99.0)
-      sass:
-        specifier: ^1.77.0
-        version: 1.99.0
-      tsup:
-        specifier: ^8.0.1
-        version: 8.5.0(typescript@5.9.3)
-      typescript:
-        specifier: ^5.3.3
-        version: 5.9.3
-
-  packages/dialog:
-    dependencies:
-      '@sisyphos-ui/core':
-        specifier: workspace:*
-        version: link:../core
-      '@sisyphos-ui/portal':
-        specifier: workspace:*
-        version: link:../portal
-      react:
-        specifier: ^17.0.0 || ^18.0.0 || ^19.0.0
-        version: 18.3.1
-      react-dom:
-        specifier: ^17.0.0 || ^18.0.0 || ^19.0.0
-        version: 18.3.1(react@18.3.1)
-    devDependencies:
-      '@sisyphos-ui/button':
-        specifier: workspace:*
-        version: link:../button
-      '@sisyphos-ui/eslint-config':
-        specifier: workspace:*
-        version: link:../eslint-config
-      '@types/react':
-        specifier: ^18.2.48
-        version: 18.3.26
-      '@types/react-dom':
-        specifier: ^18.2.18
-        version: 18.3.7(@types/react@18.3.26)
-      esbuild-sass-plugin:
-        specifier: ^3.3.1
-        version: 3.7.0(esbuild@0.28.0)(sass-embedded@1.99.0)
-      sass:
-        specifier: ^1.77.0
-        version: 1.99.0
-      tsup:
-        specifier: ^8.0.1
-        version: 8.5.0(typescript@5.9.3)
-      typescript:
-        specifier: ^5.3.3
-        version: 5.9.3
-
-  packages/dropdown-menu:
-    dependencies:
-      '@sisyphos-ui/core':
-        specifier: workspace:*
-        version: link:../core
-      '@sisyphos-ui/portal':
-        specifier: workspace:*
-        version: link:../portal
-      react:
-        specifier: ^17.0.0 || ^18.0.0 || ^19.0.0
-        version: 18.3.1
-      react-dom:
-        specifier: ^17.0.0 || ^18.0.0 || ^19.0.0
-        version: 18.3.1(react@18.3.1)
-    devDependencies:
-      '@sisyphos-ui/button':
-        specifier: workspace:*
-        version: link:../button
-      '@sisyphos-ui/eslint-config':
-        specifier: workspace:*
-        version: link:../eslint-config
-      '@types/react':
-        specifier: ^18.2.48
-        version: 18.3.26
-      '@types/react-dom':
-        specifier: ^18.2.18
-        version: 18.3.7(@types/react@18.3.26)
-      esbuild-sass-plugin:
-        specifier: ^3.3.1
-        version: 3.7.0(esbuild@0.28.0)(sass-embedded@1.99.0)
-      sass:
-        specifier: ^1.77.0
-        version: 1.99.0
-      tsup:
-        specifier: ^8.0.1
-        version: 8.5.0(typescript@5.9.3)
-      typescript:
-        specifier: ^5.3.3
-        version: 5.9.3
-
-  packages/empty-state:
-    dependencies:
-      '@sisyphos-ui/core':
-        specifier: workspace:*
-        version: link:../core
-      react:
-        specifier: ^17.0.0 || ^18.0.0 || ^19.0.0
-        version: 18.3.1
-    devDependencies:
-      '@sisyphos-ui/button':
-        specifier: workspace:*
-        version: link:../button
-      '@sisyphos-ui/eslint-config':
-        specifier: workspace:*
-        version: link:../eslint-config
-      '@types/react':
-        specifier: ^18.2.48
-        version: 18.3.26
-      esbuild-sass-plugin:
-        specifier: ^3.3.1
-        version: 3.7.0(esbuild@0.28.0)(sass-embedded@1.99.0)
-      sass:
-        specifier: ^1.77.0
-        version: 1.99.0
-      tsup:
-        specifier: ^8.0.1
-        version: 8.5.0(typescript@5.9.3)
-      typescript:
-        specifier: ^5.3.3
-        version: 5.9.3
-
   packages/eslint-config:
     dependencies:
       '@typescript-eslint/eslint-plugin':
@@ -906,257 +264,6 @@ importers:
       eslint-plugin-react-hooks:
         specifier: ^4.6.0
         version: 4.6.2(eslint@8.57.1)
-
-  packages/file-upload:
-    dependencies:
-      '@sisyphos-ui/core':
-        specifier: workspace:*
-        version: link:../core
-      react:
-        specifier: ^17.0.0 || ^18.0.0 || ^19.0.0
-        version: 18.3.1
-    devDependencies:
-      '@sisyphos-ui/eslint-config':
-        specifier: workspace:*
-        version: link:../eslint-config
-      '@types/react':
-        specifier: ^18.2.48
-        version: 18.3.26
-      esbuild-sass-plugin:
-        specifier: ^3.3.1
-        version: 3.7.0(esbuild@0.28.0)(sass-embedded@1.99.0)
-      sass:
-        specifier: ^1.77.0
-        version: 1.99.0
-      tsup:
-        specifier: ^8.0.1
-        version: 8.5.0(typescript@5.9.3)
-      typescript:
-        specifier: ^5.3.3
-        version: 5.9.3
-
-  packages/form-control:
-    dependencies:
-      '@sisyphos-ui/core':
-        specifier: workspace:*
-        version: link:../core
-      react:
-        specifier: ^17.0.0 || ^18.0.0 || ^19.0.0
-        version: 18.3.1
-    devDependencies:
-      '@sisyphos-ui/eslint-config':
-        specifier: workspace:*
-        version: link:../eslint-config
-      '@types/react':
-        specifier: ^18.2.48
-        version: 18.3.26
-      esbuild-sass-plugin:
-        specifier: ^3.3.1
-        version: 3.7.0(esbuild@0.28.0)(sass-embedded@1.99.0)
-      sass:
-        specifier: ^1.77.0
-        version: 1.99.0
-      tsup:
-        specifier: ^8.0.1
-        version: 8.5.0(typescript@5.9.3)
-      typescript:
-        specifier: ^5.3.3
-        version: 5.9.3
-
-  packages/input:
-    dependencies:
-      '@sisyphos-ui/core':
-        specifier: workspace:*
-        version: link:../core
-      react:
-        specifier: ^17.0.0 || ^18.0.0 || ^19.0.0
-        version: 18.3.1
-      react-dom:
-        specifier: ^17.0.0 || ^18.0.0 || ^19.0.0
-        version: 18.3.1(react@18.3.1)
-    devDependencies:
-      '@sisyphos-ui/eslint-config':
-        specifier: workspace:*
-        version: link:../eslint-config
-      '@types/node':
-        specifier: ^20.11.5
-        version: 20.19.24
-      '@types/react':
-        specifier: ^18.2.48
-        version: 18.3.26
-      '@types/react-dom':
-        specifier: ^18.2.18
-        version: 18.3.7(@types/react@18.3.26)
-      esbuild-sass-plugin:
-        specifier: ^3.3.1
-        version: 3.7.0(esbuild@0.28.0)(sass-embedded@1.99.0)
-      sass:
-        specifier: ^1.77.0
-        version: 1.94.2
-      tsup:
-        specifier: ^8.0.1
-        version: 8.5.0(typescript@5.9.3)
-      typescript:
-        specifier: ^5.3.3
-        version: 5.9.3
-
-  packages/kbd:
-    dependencies:
-      '@sisyphos-ui/core':
-        specifier: workspace:*
-        version: link:../core
-      react:
-        specifier: ^17.0.0 || ^18.0.0 || ^19.0.0
-        version: 18.3.1
-      react-dom:
-        specifier: ^17.0.0 || ^18.0.0 || ^19.0.0
-        version: 18.3.1(react@18.3.1)
-    devDependencies:
-      '@sisyphos-ui/eslint-config':
-        specifier: workspace:*
-        version: link:../eslint-config
-      '@types/react':
-        specifier: ^18.2.48
-        version: 18.3.26
-      '@types/react-dom':
-        specifier: ^18.2.18
-        version: 18.3.7(@types/react@18.3.26)
-      esbuild-sass-plugin:
-        specifier: ^3.3.1
-        version: 3.7.0(esbuild@0.28.0)(sass-embedded@1.99.0)
-      sass:
-        specifier: ^1.77.0
-        version: 1.99.0
-      tsup:
-        specifier: ^8.0.1
-        version: 8.5.0(typescript@5.9.3)
-      typescript:
-        specifier: ^5.3.3
-        version: 5.9.3
-
-  packages/number-input:
-    dependencies:
-      '@sisyphos-ui/core':
-        specifier: workspace:*
-        version: link:../core
-      react:
-        specifier: ^17.0.0 || ^18.0.0 || ^19.0.0
-        version: 18.3.1
-    devDependencies:
-      '@sisyphos-ui/eslint-config':
-        specifier: workspace:*
-        version: link:../eslint-config
-      '@types/react':
-        specifier: ^18.2.48
-        version: 18.3.26
-      esbuild-sass-plugin:
-        specifier: ^3.3.1
-        version: 3.7.0(esbuild@0.28.0)(sass-embedded@1.99.0)
-      sass:
-        specifier: ^1.77.0
-        version: 1.99.0
-      tsup:
-        specifier: ^8.0.1
-        version: 8.5.0(typescript@5.9.3)
-      typescript:
-        specifier: ^5.3.3
-        version: 5.9.3
-
-  packages/popover:
-    dependencies:
-      '@sisyphos-ui/core':
-        specifier: workspace:*
-        version: link:../core
-      '@sisyphos-ui/portal':
-        specifier: workspace:*
-        version: link:../portal
-      react:
-        specifier: ^17.0.0 || ^18.0.0 || ^19.0.0
-        version: 18.3.1
-      react-dom:
-        specifier: ^17.0.0 || ^18.0.0 || ^19.0.0
-        version: 18.3.1(react@18.3.1)
-    devDependencies:
-      '@sisyphos-ui/button':
-        specifier: workspace:*
-        version: link:../button
-      '@sisyphos-ui/eslint-config':
-        specifier: workspace:*
-        version: link:../eslint-config
-      '@types/react':
-        specifier: ^18.2.48
-        version: 18.3.26
-      '@types/react-dom':
-        specifier: ^18.2.18
-        version: 18.3.7(@types/react@18.3.26)
-      esbuild-sass-plugin:
-        specifier: ^3.3.1
-        version: 3.7.0(esbuild@0.28.0)(sass-embedded@1.99.0)
-      sass:
-        specifier: ^1.77.0
-        version: 1.99.0
-      tsup:
-        specifier: ^8.0.1
-        version: 8.5.0(typescript@5.9.3)
-      typescript:
-        specifier: ^5.3.3
-        version: 5.9.3
-
-  packages/portal:
-    dependencies:
-      '@sisyphos-ui/core':
-        specifier: workspace:*
-        version: link:../core
-      react:
-        specifier: ^17.0.0 || ^18.0.0 || ^19.0.0
-        version: 18.3.1
-      react-dom:
-        specifier: ^17.0.0 || ^18.0.0 || ^19.0.0
-        version: 18.3.1(react@18.3.1)
-    devDependencies:
-      '@sisyphos-ui/eslint-config':
-        specifier: workspace:*
-        version: link:../eslint-config
-      '@types/react':
-        specifier: ^18.2.48
-        version: 18.3.26
-      '@types/react-dom':
-        specifier: ^18.2.18
-        version: 18.3.7(@types/react@18.3.26)
-      tsup:
-        specifier: ^8.0.1
-        version: 8.5.0(typescript@5.9.3)
-      typescript:
-        specifier: ^5.3.3
-        version: 5.9.3
-
-  packages/radio:
-    dependencies:
-      '@sisyphos-ui/core':
-        specifier: workspace:*
-        version: link:../core
-      react:
-        specifier: ^17.0.0 || ^18.0.0 || ^19.0.0
-        version: 18.3.1
-    devDependencies:
-      '@sisyphos-ui/eslint-config':
-        specifier: workspace:*
-        version: link:../eslint-config
-      '@types/react':
-        specifier: ^18.2.48
-        version: 18.3.26
-      esbuild-sass-plugin:
-        specifier: ^3.3.1
-        version: 3.7.0(esbuild@0.28.0)(sass-embedded@1.99.0)
-      sass:
-        specifier: ^1.77.0
-        version: 1.99.0
-      tsup:
-        specifier: ^8.0.1
-        version: 8.5.0(typescript@5.9.3)
-      typescript:
-        specifier: ^5.3.3
-        version: 5.9.3
 
   packages/react:
     dependencies:
@@ -1185,507 +292,6 @@ importers:
       sass:
         specifier: ^1.77.0
         version: 1.99.0
-      tsup:
-        specifier: ^8.0.1
-        version: 8.5.0(typescript@5.9.3)
-      typescript:
-        specifier: ^5.3.3
-        version: 5.9.3
-
-  packages/select:
-    dependencies:
-      '@sisyphos-ui/core':
-        specifier: workspace:*
-        version: link:../core
-      '@sisyphos-ui/portal':
-        specifier: workspace:*
-        version: link:../portal
-      react:
-        specifier: ^17.0.0 || ^18.0.0 || ^19.0.0
-        version: 18.3.1
-      react-dom:
-        specifier: ^17.0.0 || ^18.0.0 || ^19.0.0
-        version: 18.3.1(react@18.3.1)
-    devDependencies:
-      '@sisyphos-ui/eslint-config':
-        specifier: workspace:*
-        version: link:../eslint-config
-      '@types/react':
-        specifier: ^18.2.48
-        version: 18.3.26
-      '@types/react-dom':
-        specifier: ^18.2.18
-        version: 18.3.7(@types/react@18.3.26)
-      esbuild-sass-plugin:
-        specifier: ^3.3.1
-        version: 3.7.0(esbuild@0.28.0)(sass-embedded@1.99.0)
-      sass:
-        specifier: ^1.77.0
-        version: 1.99.0
-      tsup:
-        specifier: ^8.0.1
-        version: 8.5.0(typescript@5.9.3)
-      typescript:
-        specifier: ^5.3.3
-        version: 5.9.3
-
-  packages/skeleton:
-    dependencies:
-      '@sisyphos-ui/core':
-        specifier: workspace:*
-        version: link:../core
-      react:
-        specifier: ^17.0.0 || ^18.0.0 || ^19.0.0
-        version: 18.3.1
-    devDependencies:
-      '@sisyphos-ui/eslint-config':
-        specifier: workspace:*
-        version: link:../eslint-config
-      '@types/react':
-        specifier: ^18.2.48
-        version: 18.3.26
-      '@types/react-dom':
-        specifier: ^18.2.18
-        version: 18.3.7(@types/react@18.3.26)
-      esbuild-sass-plugin:
-        specifier: ^3.3.1
-        version: 3.7.0(esbuild@0.28.0)(sass-embedded@1.99.0)
-      sass:
-        specifier: ^1.77.0
-        version: 1.99.0
-      tsup:
-        specifier: ^8.0.1
-        version: 8.5.0(typescript@5.9.3)
-      typescript:
-        specifier: ^5.3.3
-        version: 5.9.3
-
-  packages/slider:
-    dependencies:
-      '@sisyphos-ui/core':
-        specifier: workspace:*
-        version: link:../core
-      react:
-        specifier: ^17.0.0 || ^18.0.0 || ^19.0.0
-        version: 18.3.1
-    devDependencies:
-      '@sisyphos-ui/eslint-config':
-        specifier: workspace:*
-        version: link:../eslint-config
-      '@types/react':
-        specifier: ^18.2.48
-        version: 18.3.26
-      esbuild-sass-plugin:
-        specifier: ^3.3.1
-        version: 3.7.0(esbuild@0.28.0)(sass-embedded@1.99.0)
-      sass:
-        specifier: ^1.77.0
-        version: 1.99.0
-      tsup:
-        specifier: ^8.0.1
-        version: 8.5.0(typescript@5.9.3)
-      typescript:
-        specifier: ^5.3.3
-        version: 5.9.3
-
-  packages/spinner:
-    dependencies:
-      '@sisyphos-ui/core':
-        specifier: workspace:*
-        version: link:../core
-      '@sisyphos-ui/portal':
-        specifier: workspace:*
-        version: link:../portal
-      react:
-        specifier: ^17.0.0 || ^18.0.0 || ^19.0.0
-        version: 18.3.1
-      react-dom:
-        specifier: ^17.0.0 || ^18.0.0 || ^19.0.0
-        version: 18.3.1(react@18.3.1)
-    devDependencies:
-      '@sisyphos-ui/eslint-config':
-        specifier: workspace:*
-        version: link:../eslint-config
-      '@types/react':
-        specifier: ^18.2.48
-        version: 18.3.26
-      '@types/react-dom':
-        specifier: ^18.2.18
-        version: 18.3.7(@types/react@18.3.26)
-      esbuild-sass-plugin:
-        specifier: ^3.3.1
-        version: 3.7.0(esbuild@0.28.0)(sass-embedded@1.99.0)
-      sass:
-        specifier: ^1.77.0
-        version: 1.99.0
-      tsup:
-        specifier: ^8.0.1
-        version: 8.5.0(typescript@5.9.3)
-      typescript:
-        specifier: ^5.3.3
-        version: 5.9.3
-
-  packages/switch:
-    dependencies:
-      '@sisyphos-ui/core':
-        specifier: workspace:*
-        version: link:../core
-      react:
-        specifier: ^17.0.0 || ^18.0.0 || ^19.0.0
-        version: 18.3.1
-      react-dom:
-        specifier: ^17.0.0 || ^18.0.0 || ^19.0.0
-        version: 18.3.1(react@18.3.1)
-    devDependencies:
-      '@sisyphos-ui/eslint-config':
-        specifier: workspace:*
-        version: link:../eslint-config
-      '@types/node':
-        specifier: ^20.11.5
-        version: 20.19.24
-      '@types/react':
-        specifier: ^18.2.48
-        version: 18.3.26
-      '@types/react-dom':
-        specifier: ^18.2.18
-        version: 18.3.7(@types/react@18.3.26)
-      esbuild-sass-plugin:
-        specifier: ^3.3.1
-        version: 3.7.0(esbuild@0.28.0)(sass-embedded@1.99.0)
-      sass:
-        specifier: ^1.77.0
-        version: 1.94.2
-      tsup:
-        specifier: ^8.0.1
-        version: 8.5.0(typescript@5.9.3)
-      typescript:
-        specifier: ^5.3.3
-        version: 5.9.3
-
-  packages/table:
-    dependencies:
-      '@sisyphos-ui/core':
-        specifier: workspace:*
-        version: link:../core
-      react:
-        specifier: ^17.0.0 || ^18.0.0 || ^19.0.0
-        version: 18.3.1
-    devDependencies:
-      '@sisyphos-ui/eslint-config':
-        specifier: workspace:*
-        version: link:../eslint-config
-      '@types/react':
-        specifier: ^18.2.48
-        version: 18.3.26
-      esbuild-sass-plugin:
-        specifier: ^3.3.1
-        version: 3.7.0(esbuild@0.28.0)(sass-embedded@1.99.0)
-      sass:
-        specifier: ^1.77.0
-        version: 1.99.0
-      tsup:
-        specifier: ^8.0.1
-        version: 8.5.0(typescript@5.9.3)
-      typescript:
-        specifier: ^5.3.3
-        version: 5.9.3
-
-  packages/tabs:
-    dependencies:
-      '@sisyphos-ui/core':
-        specifier: workspace:*
-        version: link:../core
-      react:
-        specifier: ^17.0.0 || ^18.0.0 || ^19.0.0
-        version: 18.3.1
-    devDependencies:
-      '@sisyphos-ui/eslint-config':
-        specifier: workspace:*
-        version: link:../eslint-config
-      '@types/react':
-        specifier: ^18.2.48
-        version: 18.3.26
-      esbuild-sass-plugin:
-        specifier: ^3.3.1
-        version: 3.7.0(esbuild@0.28.0)(sass-embedded@1.99.0)
-      sass:
-        specifier: ^1.77.0
-        version: 1.99.0
-      tsup:
-        specifier: ^8.0.1
-        version: 8.5.0(typescript@5.9.3)
-      typescript:
-        specifier: ^5.3.3
-        version: 5.9.3
-
-  packages/textarea:
-    dependencies:
-      '@sisyphos-ui/core':
-        specifier: workspace:*
-        version: link:../core
-      react:
-        specifier: ^17.0.0 || ^18.0.0 || ^19.0.0
-        version: 18.3.1
-      react-dom:
-        specifier: ^17.0.0 || ^18.0.0 || ^19.0.0
-        version: 18.3.1(react@18.3.1)
-    devDependencies:
-      '@sisyphos-ui/eslint-config':
-        specifier: workspace:*
-        version: link:../eslint-config
-      '@types/react':
-        specifier: ^18.2.48
-        version: 18.3.26
-      '@types/react-dom':
-        specifier: ^18.2.18
-        version: 18.3.7(@types/react@18.3.26)
-      esbuild-sass-plugin:
-        specifier: ^3.3.1
-        version: 3.7.0(esbuild@0.28.0)(sass-embedded@1.99.0)
-      sass:
-        specifier: ^1.77.0
-        version: 1.99.0
-      tsup:
-        specifier: ^8.0.1
-        version: 8.5.0(typescript@5.9.3)
-      typescript:
-        specifier: ^5.3.3
-        version: 5.9.3
-
-  packages/toast:
-    dependencies:
-      '@sisyphos-ui/core':
-        specifier: workspace:*
-        version: link:../core
-      '@sisyphos-ui/portal':
-        specifier: workspace:*
-        version: link:../portal
-      react:
-        specifier: ^17.0.0 || ^18.0.0 || ^19.0.0
-        version: 18.3.1
-      react-dom:
-        specifier: ^17.0.0 || ^18.0.0 || ^19.0.0
-        version: 18.3.1(react@18.3.1)
-    devDependencies:
-      '@sisyphos-ui/button':
-        specifier: workspace:*
-        version: link:../button
-      '@sisyphos-ui/eslint-config':
-        specifier: workspace:*
-        version: link:../eslint-config
-      '@types/react':
-        specifier: ^18.2.48
-        version: 18.3.26
-      '@types/react-dom':
-        specifier: ^18.2.18
-        version: 18.3.7(@types/react@18.3.26)
-      esbuild-sass-plugin:
-        specifier: ^3.3.1
-        version: 3.7.0(esbuild@0.28.0)(sass-embedded@1.99.0)
-      sass:
-        specifier: ^1.77.0
-        version: 1.99.0
-      tsup:
-        specifier: ^8.0.1
-        version: 8.5.0(typescript@5.9.3)
-      typescript:
-        specifier: ^5.3.3
-        version: 5.9.3
-
-  packages/tooltip:
-    dependencies:
-      '@sisyphos-ui/core':
-        specifier: workspace:*
-        version: link:../core
-      '@sisyphos-ui/portal':
-        specifier: workspace:*
-        version: link:../portal
-      react:
-        specifier: ^17.0.0 || ^18.0.0 || ^19.0.0
-        version: 18.3.1
-      react-dom:
-        specifier: ^17.0.0 || ^18.0.0 || ^19.0.0
-        version: 18.3.1(react@18.3.1)
-    devDependencies:
-      '@sisyphos-ui/button':
-        specifier: workspace:*
-        version: link:../button
-      '@sisyphos-ui/eslint-config':
-        specifier: workspace:*
-        version: link:../eslint-config
-      '@types/react':
-        specifier: ^18.2.48
-        version: 18.3.26
-      '@types/react-dom':
-        specifier: ^18.2.18
-        version: 18.3.7(@types/react@18.3.26)
-      esbuild-sass-plugin:
-        specifier: ^3.3.1
-        version: 3.7.0(esbuild@0.28.0)(sass-embedded@1.99.0)
-      sass:
-        specifier: ^1.77.0
-        version: 1.99.0
-      tsup:
-        specifier: ^8.0.1
-        version: 8.5.0(typescript@5.9.3)
-      typescript:
-        specifier: ^5.3.3
-        version: 5.9.3
-
-  packages/tree-select:
-    dependencies:
-      '@sisyphos-ui/core':
-        specifier: workspace:*
-        version: link:../core
-      '@sisyphos-ui/portal':
-        specifier: workspace:*
-        version: link:../portal
-      react:
-        specifier: ^17.0.0 || ^18.0.0 || ^19.0.0
-        version: 18.3.1
-      react-dom:
-        specifier: ^17.0.0 || ^18.0.0 || ^19.0.0
-        version: 18.3.1(react@18.3.1)
-    devDependencies:
-      '@sisyphos-ui/eslint-config':
-        specifier: workspace:*
-        version: link:../eslint-config
-      '@types/react':
-        specifier: ^18.2.48
-        version: 18.3.26
-      '@types/react-dom':
-        specifier: ^18.2.18
-        version: 18.3.7(@types/react@18.3.26)
-      esbuild-sass-plugin:
-        specifier: ^3.3.1
-        version: 3.7.0(esbuild@0.28.0)(sass-embedded@1.99.0)
-      sass:
-        specifier: ^1.77.0
-        version: 1.99.0
-      tsup:
-        specifier: ^8.0.1
-        version: 8.5.0(typescript@5.9.3)
-      typescript:
-        specifier: ^5.3.3
-        version: 5.9.3
-
-  packages/ui:
-    dependencies:
-      '@sisyphos-ui/accordion':
-        specifier: workspace:*
-        version: link:../accordion
-      '@sisyphos-ui/alert':
-        specifier: workspace:*
-        version: link:../alert
-      '@sisyphos-ui/avatar':
-        specifier: workspace:*
-        version: link:../avatar
-      '@sisyphos-ui/breadcrumb':
-        specifier: workspace:*
-        version: link:../breadcrumb
-      '@sisyphos-ui/button':
-        specifier: workspace:*
-        version: link:../button
-      '@sisyphos-ui/card':
-        specifier: workspace:*
-        version: link:../card
-      '@sisyphos-ui/carousel':
-        specifier: workspace:*
-        version: link:../carousel
-      '@sisyphos-ui/checkbox':
-        specifier: workspace:*
-        version: link:../checkbox
-      '@sisyphos-ui/chip':
-        specifier: workspace:*
-        version: link:../chip
-      '@sisyphos-ui/command':
-        specifier: workspace:*
-        version: link:../command
-      '@sisyphos-ui/context-menu':
-        specifier: workspace:*
-        version: link:../context-menu
-      '@sisyphos-ui/core':
-        specifier: workspace:*
-        version: link:../core
-      '@sisyphos-ui/datepicker':
-        specifier: workspace:*
-        version: link:../datepicker
-      '@sisyphos-ui/dialog':
-        specifier: workspace:*
-        version: link:../dialog
-      '@sisyphos-ui/dropdown-menu':
-        specifier: workspace:*
-        version: link:../dropdown-menu
-      '@sisyphos-ui/empty-state':
-        specifier: workspace:*
-        version: link:../empty-state
-      '@sisyphos-ui/file-upload':
-        specifier: workspace:*
-        version: link:../file-upload
-      '@sisyphos-ui/form-control':
-        specifier: workspace:*
-        version: link:../form-control
-      '@sisyphos-ui/input':
-        specifier: workspace:*
-        version: link:../input
-      '@sisyphos-ui/kbd':
-        specifier: workspace:*
-        version: link:../kbd
-      '@sisyphos-ui/number-input':
-        specifier: workspace:*
-        version: link:../number-input
-      '@sisyphos-ui/popover':
-        specifier: workspace:*
-        version: link:../popover
-      '@sisyphos-ui/portal':
-        specifier: workspace:*
-        version: link:../portal
-      '@sisyphos-ui/radio':
-        specifier: workspace:*
-        version: link:../radio
-      '@sisyphos-ui/select':
-        specifier: workspace:*
-        version: link:../select
-      '@sisyphos-ui/skeleton':
-        specifier: workspace:*
-        version: link:../skeleton
-      '@sisyphos-ui/slider':
-        specifier: workspace:*
-        version: link:../slider
-      '@sisyphos-ui/spinner':
-        specifier: workspace:*
-        version: link:../spinner
-      '@sisyphos-ui/switch':
-        specifier: workspace:*
-        version: link:../switch
-      '@sisyphos-ui/table':
-        specifier: workspace:*
-        version: link:../table
-      '@sisyphos-ui/tabs':
-        specifier: workspace:*
-        version: link:../tabs
-      '@sisyphos-ui/textarea':
-        specifier: workspace:*
-        version: link:../textarea
-      '@sisyphos-ui/toast':
-        specifier: workspace:*
-        version: link:../toast
-      '@sisyphos-ui/tooltip':
-        specifier: workspace:*
-        version: link:../tooltip
-      '@sisyphos-ui/tree-select':
-        specifier: workspace:*
-        version: link:../tree-select
-      react:
-        specifier: ^17.0.0 || ^18.0.0 || ^19.0.0
-        version: 18.3.1
-      react-dom:
-        specifier: ^17.0.0 || ^18.0.0 || ^19.0.0
-        version: 18.3.1(react@18.3.1)
-    devDependencies:
-      '@types/node':
-        specifier: ^20.11.5
-        version: 20.19.24
       tsup:
         specifier: ^8.0.1
         version: 8.5.0(typescript@5.9.3)
@@ -5080,22 +3686,6 @@ packages:
       '@sinclair/typebox': 0.27.10
     dev: true
 
-  /@joshwooding/vite-plugin-react-docgen-typescript@0.5.0(typescript@5.9.3)(vite@5.4.21):
-    resolution: {integrity: sha512-qYDdL7fPwLRI+bJNurVcis+tNgJmvWjH4YTBGXTA8xMuxFrnAz6E5o35iyzyKbq5J5Lr8mJGfrR5GXl+WGwhgQ==}
-    peerDependencies:
-      typescript: '>= 4.3.x'
-      vite: ^3.0.0 || ^4.0.0 || ^5.0.0 || ^6.0.0
-    peerDependenciesMeta:
-      typescript:
-        optional: true
-    dependencies:
-      glob: 10.4.5
-      magic-string: 0.27.0
-      react-docgen-typescript: 2.4.0(typescript@5.9.3)
-      typescript: 5.9.3
-      vite: 5.4.21(less@4.2.0)(sass@1.77.6)(terser@5.31.6)
-    dev: true
-
   /@jridgewell/gen-mapping@0.3.13:
     resolution: {integrity: sha512-2kkt/7niJ6MgEPxF0bYdQ6etZaA+fQvDcLKckhy1yIQOzaoKjBBjSj63/aLVjYE3qhRt5dvM+uUyfCg6UKCBbA==}
     dependencies:
@@ -5668,17 +4258,6 @@ packages:
       read-yaml-file: 1.1.0
     dev: true
 
-  /@mdx-js/react@3.1.1(@types/react@18.3.26)(react@18.3.1):
-    resolution: {integrity: sha512-f++rKLQgUVYDAtECQ6fn/is15GkEH9+nZPM3MS0RcxVqoTfawHvDlSCH7JbMhAM6uJ32v3eXLvLmLvjGu7PTQw==}
-    peerDependencies:
-      '@types/react': '>=16'
-      react: '>=16'
-    dependencies:
-      '@types/mdx': 2.0.13
-      '@types/react': 18.3.26
-      react: 18.3.1
-    dev: true
-
   /@msgpackr-extract/msgpackr-extract-darwin-arm64@3.0.3:
     resolution: {integrity: sha512-QZHtlVgbAdy2zAqNA9Gu1UpIuI8Xvsd1v8ic6B2pZmeFnFcMWiPLfWXh7TVw4eGEZ/C9TH281KwhVoeQUKbyjw==}
     cpu: [arm64]
@@ -6215,21 +4794,6 @@ packages:
       is-module: 1.0.0
       resolve: 1.22.11
       rollup: 4.60.4
-    dev: true
-
-  /@rollup/pluginutils@5.3.0(rollup@4.52.5):
-    resolution: {integrity: sha512-5EdhGZtnu3V88ces7s53hhfK5KSASnJZv8Lulpc04cWO3REESroJXg73DFsOmgbU2BhwV0E20bu2IDZb3VKW4Q==}
-    engines: {node: '>=14.0.0'}
-    peerDependencies:
-      rollup: ^1.20.0||^2.0.0||^3.0.0||^4.0.0
-    peerDependenciesMeta:
-      rollup:
-        optional: true
-    dependencies:
-      '@types/estree': 1.0.8
-      estree-walker: 2.0.2
-      picomatch: 4.0.3
-      rollup: 4.52.5
     dev: true
 
   /@rollup/pluginutils@5.3.0(rollup@4.60.4):
@@ -6831,425 +5395,6 @@ packages:
     engines: {node: '>=18'}
     dev: true
 
-  /@storybook/addon-a11y@8.6.18(storybook@8.6.14):
-    resolution: {integrity: sha512-LFvudttdIfDTNWprA8/N1vbiWbJRrNscyt2OP9Qwi85E1d3LKLy+e8AWiqY08gpy2OUYujK7AjxfpKtNeddrxw==}
-    peerDependencies:
-      storybook: ^8.6.18
-    dependencies:
-      '@storybook/addon-highlight': 8.6.18(storybook@8.6.14)
-      '@storybook/global': 5.0.0
-      '@storybook/test': 8.6.18(storybook@8.6.14)
-      axe-core: 4.11.3
-      storybook: 8.6.14(prettier@3.8.3)
-    dev: true
-
-  /@storybook/addon-actions@8.6.14(storybook@8.6.14):
-    resolution: {integrity: sha512-mDQxylxGGCQSK7tJPkD144J8jWh9IU9ziJMHfB84PKpI/V5ZgqMDnpr2bssTrUaGDqU5e1/z8KcRF+Melhs9pQ==}
-    peerDependencies:
-      storybook: ^8.6.14
-    dependencies:
-      '@storybook/global': 5.0.0
-      '@types/uuid': 9.0.8
-      dequal: 2.0.3
-      polished: 4.3.1
-      storybook: 8.6.14(prettier@3.8.3)
-      uuid: 9.0.1
-    dev: true
-
-  /@storybook/addon-backgrounds@8.6.14(storybook@8.6.14):
-    resolution: {integrity: sha512-l9xS8qWe5n4tvMwth09QxH2PmJbCctEvBAc1tjjRasAfrd69f7/uFK4WhwJAstzBTNgTc8VXI4w8ZR97i1sFbg==}
-    peerDependencies:
-      storybook: ^8.6.14
-    dependencies:
-      '@storybook/global': 5.0.0
-      memoizerific: 1.11.3
-      storybook: 8.6.14(prettier@3.8.3)
-      ts-dedent: 2.2.0
-    dev: true
-
-  /@storybook/addon-controls@8.6.14(storybook@8.6.14):
-    resolution: {integrity: sha512-IiQpkNJdiRyA4Mq9mzjZlvQugL/aE7hNgVxBBGPiIZG6wb6Ht9hNnBYpap5ZXXFKV9p2qVI0FZK445ONmAa+Cw==}
-    peerDependencies:
-      storybook: ^8.6.14
-    dependencies:
-      '@storybook/global': 5.0.0
-      dequal: 2.0.3
-      storybook: 8.6.14(prettier@3.8.3)
-      ts-dedent: 2.2.0
-    dev: true
-
-  /@storybook/addon-docs@8.6.14(@types/react@18.3.26)(storybook@8.6.14):
-    resolution: {integrity: sha512-Obpd0OhAF99JyU5pp5ci17YmpcQtMNgqW2pTXV8jAiiipWpwO++hNDeQmLmlSXB399XjtRDOcDVkoc7rc6JzdQ==}
-    peerDependencies:
-      storybook: ^8.6.14
-    dependencies:
-      '@mdx-js/react': 3.1.1(@types/react@18.3.26)(react@18.3.1)
-      '@storybook/blocks': 8.6.14(react-dom@18.3.1)(react@18.3.1)(storybook@8.6.14)
-      '@storybook/csf-plugin': 8.6.14(storybook@8.6.14)
-      '@storybook/react-dom-shim': 8.6.14(react-dom@18.3.1)(react@18.3.1)(storybook@8.6.14)
-      react: 18.3.1
-      react-dom: 18.3.1(react@18.3.1)
-      storybook: 8.6.14(prettier@3.8.3)
-      ts-dedent: 2.2.0
-    transitivePeerDependencies:
-      - '@types/react'
-    dev: true
-
-  /@storybook/addon-essentials@8.6.14(@types/react@18.3.26)(storybook@8.6.14):
-    resolution: {integrity: sha512-5ZZSHNaW9mXMOFkoPyc3QkoNGdJHETZydI62/OASR0lmPlJ1065TNigEo5dJddmZNn0/3bkE8eKMAzLnO5eIdA==}
-    peerDependencies:
-      storybook: ^8.6.14
-    dependencies:
-      '@storybook/addon-actions': 8.6.14(storybook@8.6.14)
-      '@storybook/addon-backgrounds': 8.6.14(storybook@8.6.14)
-      '@storybook/addon-controls': 8.6.14(storybook@8.6.14)
-      '@storybook/addon-docs': 8.6.14(@types/react@18.3.26)(storybook@8.6.14)
-      '@storybook/addon-highlight': 8.6.14(storybook@8.6.14)
-      '@storybook/addon-measure': 8.6.14(storybook@8.6.14)
-      '@storybook/addon-outline': 8.6.14(storybook@8.6.14)
-      '@storybook/addon-toolbars': 8.6.14(storybook@8.6.14)
-      '@storybook/addon-viewport': 8.6.14(storybook@8.6.14)
-      storybook: 8.6.14(prettier@3.8.3)
-      ts-dedent: 2.2.0
-    transitivePeerDependencies:
-      - '@types/react'
-    dev: true
-
-  /@storybook/addon-highlight@8.6.14(storybook@8.6.14):
-    resolution: {integrity: sha512-4H19OJlapkofiE9tM6K/vsepf4ir9jMm9T+zw5L85blJZxhKZIbJ6FO0TCG9PDc4iPt3L6+aq5B0X29s9zicNQ==}
-    peerDependencies:
-      storybook: ^8.6.14
-    dependencies:
-      '@storybook/global': 5.0.0
-      storybook: 8.6.14(prettier@3.8.3)
-    dev: true
-
-  /@storybook/addon-highlight@8.6.18(storybook@8.6.14):
-    resolution: {integrity: sha512-wTFJ1DPM0C8gK6nGTJxH75byayQj7BPAz02fME4AOmT6clrBpVl1zSTFTkXaSr+k4xOfeMR/xNUfVskaXz6T9w==}
-    peerDependencies:
-      storybook: ^8.6.18
-    dependencies:
-      '@storybook/global': 5.0.0
-      storybook: 8.6.14(prettier@3.8.3)
-    dev: true
-
-  /@storybook/addon-interactions@8.6.14(storybook@8.6.14):
-    resolution: {integrity: sha512-8VmElhm2XOjh22l/dO4UmXxNOolGhNiSpBcls2pqWSraVh4a670EyYBZsHpkXqfNHo2YgKyZN3C91+9zfH79qQ==}
-    peerDependencies:
-      storybook: ^8.6.14
-    dependencies:
-      '@storybook/global': 5.0.0
-      '@storybook/instrumenter': 8.6.14(storybook@8.6.14)
-      '@storybook/test': 8.6.14(storybook@8.6.14)
-      polished: 4.3.1
-      storybook: 8.6.14(prettier@3.8.3)
-      ts-dedent: 2.2.0
-    dev: true
-
-  /@storybook/addon-links@8.6.14(react@18.3.1)(storybook@8.6.14):
-    resolution: {integrity: sha512-DRlXHIyZzOruAZkxmXfVgTF+4d6K27pFcH4cUsm3KT1AXuZbr23lb5iZHpUZoG6lmU85Sru4xCEgewSTXBIe1w==}
-    peerDependencies:
-      react: ^16.8.0 || ^17.0.0 || ^18.0.0 || ^19.0.0-beta
-      storybook: ^8.6.14
-    peerDependenciesMeta:
-      react:
-        optional: true
-    dependencies:
-      '@storybook/global': 5.0.0
-      react: 18.3.1
-      storybook: 8.6.14(prettier@3.8.3)
-      ts-dedent: 2.2.0
-    dev: true
-
-  /@storybook/addon-measure@8.6.14(storybook@8.6.14):
-    resolution: {integrity: sha512-1Tlyb72NX8aAqm6I6OICsUuGOP6hgnXcuFlXucyhKomPa6j3Eu2vKu561t/f0oGtAK2nO93Z70kVaEh5X+vaGw==}
-    peerDependencies:
-      storybook: ^8.6.14
-    dependencies:
-      '@storybook/global': 5.0.0
-      storybook: 8.6.14(prettier@3.8.3)
-      tiny-invariant: 1.3.3
-    dev: true
-
-  /@storybook/addon-outline@8.6.14(storybook@8.6.14):
-    resolution: {integrity: sha512-CW857JvN6OxGWElqjlzJO2S69DHf+xO3WsEfT5mT3ZtIjmsvRDukdWfDU9bIYUFyA2lFvYjncBGjbK+I91XR7w==}
-    peerDependencies:
-      storybook: ^8.6.14
-    dependencies:
-      '@storybook/global': 5.0.0
-      storybook: 8.6.14(prettier@3.8.3)
-      ts-dedent: 2.2.0
-    dev: true
-
-  /@storybook/addon-toolbars@8.6.14(storybook@8.6.14):
-    resolution: {integrity: sha512-W/wEXT8h3VyZTVfWK/84BAcjAxTdtRiAkT2KAN0nbSHxxB5KEM1MjKpKu2upyzzMa3EywITqbfy4dP6lpkVTwQ==}
-    peerDependencies:
-      storybook: ^8.6.14
-    dependencies:
-      storybook: 8.6.14(prettier@3.8.3)
-    dev: true
-
-  /@storybook/addon-viewport@8.6.14(storybook@8.6.14):
-    resolution: {integrity: sha512-gNzVQbMqRC+/4uQTPI2ZrWuRHGquTMZpdgB9DrD88VTEjNudP+J6r8myLfr2VvGksBbUMHkGHMXHuIhrBEnXYA==}
-    peerDependencies:
-      storybook: ^8.6.14
-    dependencies:
-      memoizerific: 1.11.3
-      storybook: 8.6.14(prettier@3.8.3)
-    dev: true
-
-  /@storybook/blocks@8.6.14(react-dom@18.3.1)(react@18.3.1)(storybook@8.6.14):
-    resolution: {integrity: sha512-rBMHAfA39AGHgkrDze4RmsnQTMw1ND5fGWobr9pDcJdnDKWQWNRD7Nrlxj0gFlN3n4D9lEZhWGdFrCbku7FVAQ==}
-    peerDependencies:
-      react: ^16.8.0 || ^17.0.0 || ^18.0.0 || ^19.0.0
-      react-dom: ^16.8.0 || ^17.0.0 || ^18.0.0 || ^19.0.0
-      storybook: ^8.6.14
-    peerDependenciesMeta:
-      react:
-        optional: true
-      react-dom:
-        optional: true
-    dependencies:
-      '@storybook/icons': 1.6.0(react-dom@18.3.1)(react@18.3.1)
-      react: 18.3.1
-      react-dom: 18.3.1(react@18.3.1)
-      storybook: 8.6.14(prettier@3.8.3)
-      ts-dedent: 2.2.0
-    dev: true
-
-  /@storybook/builder-vite@8.6.14(storybook@8.6.14)(vite@5.4.21):
-    resolution: {integrity: sha512-ajWYhy32ksBWxwWHrjwZzyC0Ii5ZTeu5lsqA95Q/EQBB0P5qWlHWGM3AVyv82Mz/ND03ebGy123uVwgf6olnYQ==}
-    peerDependencies:
-      storybook: ^8.6.14
-      vite: ^4.0.0 || ^5.0.0 || ^6.0.0
-    dependencies:
-      '@storybook/csf-plugin': 8.6.14(storybook@8.6.14)
-      browser-assert: 1.2.1
-      storybook: 8.6.14(prettier@3.8.3)
-      ts-dedent: 2.2.0
-      vite: 5.4.21(less@4.2.0)(sass@1.77.6)(terser@5.31.6)
-    dev: true
-
-  /@storybook/components@8.6.14(storybook@8.6.14):
-    resolution: {integrity: sha512-HNR2mC5I4Z5ek8kTrVZlIY/B8gJGs5b3XdZPBPBopTIN6U/YHXiDyOjY3JlaS4fSG1fVhp/Qp1TpMn1w/9m1pw==}
-    peerDependencies:
-      storybook: ^8.2.0 || ^8.3.0-0 || ^8.4.0-0 || ^8.5.0-0 || ^8.6.0-0
-    dependencies:
-      storybook: 8.6.14(prettier@3.8.3)
-    dev: true
-
-  /@storybook/core@8.6.14(prettier@3.8.3)(storybook@8.6.14):
-    resolution: {integrity: sha512-1P/w4FSNRqP8j3JQBOi3yGt8PVOgSRbP66Ok520T78eJBeqx9ukCfl912PQZ7SPbW3TIunBwLXMZOjZwBB/JmA==}
-    peerDependencies:
-      prettier: ^2 || ^3
-    peerDependenciesMeta:
-      prettier:
-        optional: true
-    dependencies:
-      '@storybook/theming': 8.6.14(storybook@8.6.14)
-      better-opn: 3.0.2
-      browser-assert: 1.2.1
-      esbuild: 0.25.12
-      esbuild-register: 3.6.0(esbuild@0.25.12)
-      jsdoc-type-pratt-parser: 4.8.0
-      prettier: 3.8.3
-      process: 0.11.10
-      recast: 0.23.11
-      semver: 7.7.3
-      util: 0.12.5
-      ws: 8.18.3
-    transitivePeerDependencies:
-      - bufferutil
-      - storybook
-      - supports-color
-      - utf-8-validate
-    dev: true
-
-  /@storybook/csf-plugin@8.6.14(storybook@8.6.14):
-    resolution: {integrity: sha512-dErtc9teAuN+eelN8FojzFE635xlq9cNGGGEu0WEmMUQ4iJ8pingvBO1N8X3scz4Ry7KnxX++NNf3J3gpxS8qQ==}
-    peerDependencies:
-      storybook: ^8.6.14
-    dependencies:
-      storybook: 8.6.14(prettier@3.8.3)
-      unplugin: 1.16.1
-    dev: true
-
-  /@storybook/global@5.0.0:
-    resolution: {integrity: sha512-FcOqPAXACP0I3oJ/ws6/rrPT9WGhu915Cg8D02a9YxLo0DE9zI+a9A5gRGvmQ09fiWPukqI8ZAEoQEdWUKMQdQ==}
-    dev: true
-
-  /@storybook/icons@1.6.0(react-dom@18.3.1)(react@18.3.1):
-    resolution: {integrity: sha512-hcFZIjW8yQz8O8//2WTIXylm5Xsgc+lW9ISLgUk1xGmptIJQRdlhVIXCpSyLrQaaRiyhQRaVg7l3BD9S216BHw==}
-    engines: {node: '>=14.0.0'}
-    peerDependencies:
-      react: ^16.8.0 || ^17.0.0 || ^18.0.0 || ^19.0.0-beta
-      react-dom: ^16.8.0 || ^17.0.0 || ^18.0.0 || ^19.0.0-beta
-    dependencies:
-      react: 18.3.1
-      react-dom: 18.3.1(react@18.3.1)
-    dev: true
-
-  /@storybook/instrumenter@8.6.14(storybook@8.6.14):
-    resolution: {integrity: sha512-iG4MlWCcz1L7Yu8AwgsnfVAmMbvyRSk700Mfy2g4c8y5O+Cv1ejshE1LBBsCwHgkuqU0H4R0qu4g23+6UnUemQ==}
-    peerDependencies:
-      storybook: ^8.6.14
-    dependencies:
-      '@storybook/global': 5.0.0
-      '@vitest/utils': 2.1.9
-      storybook: 8.6.14(prettier@3.8.3)
-    dev: true
-
-  /@storybook/instrumenter@8.6.18(storybook@8.6.14):
-    resolution: {integrity: sha512-viEC1BGlYyjAzi1Tv3LZjByh7Y3Oh04u6QKsujxdeUbr5rUOH4pa/wCKmxXmY6yWrD4WjcNtojmUvQZN/66FXQ==}
-    peerDependencies:
-      storybook: ^8.6.18
-    dependencies:
-      '@storybook/global': 5.0.0
-      '@vitest/utils': 2.1.9
-      storybook: 8.6.14(prettier@3.8.3)
-    dev: true
-
-  /@storybook/manager-api@8.6.14(storybook@8.6.14):
-    resolution: {integrity: sha512-ez0Zihuy17udLbfHZQXkGqwtep0mSGgHcNzGN7iZrMP1m+VmNo+7aGCJJdvXi7+iU3yq8weXSQFWg5DqWgLS7g==}
-    peerDependencies:
-      storybook: ^8.2.0 || ^8.3.0-0 || ^8.4.0-0 || ^8.5.0-0 || ^8.6.0-0
-    dependencies:
-      storybook: 8.6.14(prettier@3.8.3)
-    dev: true
-
-  /@storybook/preview-api@8.6.14(storybook@8.6.14):
-    resolution: {integrity: sha512-2GhcCd4dNMrnD7eooEfvbfL4I83qAqEyO0CO7JQAmIO6Rxb9BsOLLI/GD5HkvQB73ArTJ+PT50rfaO820IExOQ==}
-    peerDependencies:
-      storybook: ^8.2.0 || ^8.3.0-0 || ^8.4.0-0 || ^8.5.0-0 || ^8.6.0-0
-    dependencies:
-      storybook: 8.6.14(prettier@3.8.3)
-    dev: true
-
-  /@storybook/react-dom-shim@8.6.14(react-dom@18.3.1)(react@18.3.1)(storybook@8.6.14):
-    resolution: {integrity: sha512-0hixr3dOy3f3M+HBofp3jtMQMS+sqzjKNgl7Arfuj3fvjmyXOks/yGjDImySR4imPtEllvPZfhiQNlejheaInw==}
-    peerDependencies:
-      react: ^16.8.0 || ^17.0.0 || ^18.0.0 || ^19.0.0-beta
-      react-dom: ^16.8.0 || ^17.0.0 || ^18.0.0 || ^19.0.0-beta
-      storybook: ^8.6.14
-    dependencies:
-      react: 18.3.1
-      react-dom: 18.3.1(react@18.3.1)
-      storybook: 8.6.14(prettier@3.8.3)
-    dev: true
-
-  /@storybook/react-vite@8.6.14(@storybook/test@8.6.14)(react-dom@18.3.1)(react@18.3.1)(storybook@8.6.14)(typescript@5.9.3)(vite@5.4.21):
-    resolution: {integrity: sha512-FZU0xMPxa4/TO87FgcWwappOxLBHZV5HSRK5K+2bJD7rFJAoNorbHvB4Q1zvIAk7eCMjkr2GPCPHx9PRB9vJFg==}
-    engines: {node: '>=18.0.0'}
-    peerDependencies:
-      '@storybook/test': 8.6.14
-      react: ^16.8.0 || ^17.0.0 || ^18.0.0 || ^19.0.0-beta
-      react-dom: ^16.8.0 || ^17.0.0 || ^18.0.0 || ^19.0.0-beta
-      storybook: ^8.6.14
-      vite: ^4.0.0 || ^5.0.0 || ^6.0.0
-    peerDependenciesMeta:
-      '@storybook/test':
-        optional: true
-    dependencies:
-      '@joshwooding/vite-plugin-react-docgen-typescript': 0.5.0(typescript@5.9.3)(vite@5.4.21)
-      '@rollup/pluginutils': 5.3.0(rollup@4.52.5)
-      '@storybook/builder-vite': 8.6.14(storybook@8.6.14)(vite@5.4.21)
-      '@storybook/react': 8.6.14(@storybook/test@8.6.14)(react-dom@18.3.1)(react@18.3.1)(storybook@8.6.14)(typescript@5.9.3)
-      '@storybook/test': 8.6.14(storybook@8.6.14)
-      find-up: 5.0.0
-      magic-string: 0.30.21
-      react: 18.3.1
-      react-docgen: 7.1.1
-      react-dom: 18.3.1(react@18.3.1)
-      resolve: 1.22.11
-      storybook: 8.6.14(prettier@3.8.3)
-      tsconfig-paths: 4.2.0
-      vite: 5.4.21(less@4.2.0)(sass@1.77.6)(terser@5.31.6)
-    transitivePeerDependencies:
-      - rollup
-      - supports-color
-      - typescript
-    dev: true
-
-  /@storybook/react@8.6.14(@storybook/test@8.6.14)(react-dom@18.3.1)(react@18.3.1)(storybook@8.6.14)(typescript@5.9.3):
-    resolution: {integrity: sha512-BOepx5bBFwl/CPI+F+LnmMmsG1wQYmrX/UQXgUbHQUU9Tj7E2ndTnNbpIuSLc8IrM03ru+DfwSg1Co3cxWtT+g==}
-    engines: {node: '>=18.0.0'}
-    peerDependencies:
-      '@storybook/test': 8.6.14
-      react: ^16.8.0 || ^17.0.0 || ^18.0.0 || ^19.0.0-beta
-      react-dom: ^16.8.0 || ^17.0.0 || ^18.0.0 || ^19.0.0-beta
-      storybook: ^8.6.14
-      typescript: '>= 4.2.x'
-    peerDependenciesMeta:
-      '@storybook/test':
-        optional: true
-      typescript:
-        optional: true
-    dependencies:
-      '@storybook/components': 8.6.14(storybook@8.6.14)
-      '@storybook/global': 5.0.0
-      '@storybook/manager-api': 8.6.14(storybook@8.6.14)
-      '@storybook/preview-api': 8.6.14(storybook@8.6.14)
-      '@storybook/react-dom-shim': 8.6.14(react-dom@18.3.1)(react@18.3.1)(storybook@8.6.14)
-      '@storybook/test': 8.6.14(storybook@8.6.14)
-      '@storybook/theming': 8.6.14(storybook@8.6.14)
-      react: 18.3.1
-      react-dom: 18.3.1(react@18.3.1)
-      storybook: 8.6.14(prettier@3.8.3)
-      typescript: 5.9.3
-    dev: true
-
-  /@storybook/test@8.6.14(storybook@8.6.14):
-    resolution: {integrity: sha512-GkPNBbbZmz+XRdrhMtkxPotCLOQ1BaGNp/gFZYdGDk2KmUWBKmvc5JxxOhtoXM2703IzNFlQHSSNnhrDZYuLlw==}
-    peerDependencies:
-      storybook: ^8.6.14
-    dependencies:
-      '@storybook/global': 5.0.0
-      '@storybook/instrumenter': 8.6.14(storybook@8.6.14)
-      '@testing-library/dom': 10.4.0
-      '@testing-library/jest-dom': 6.5.0
-      '@testing-library/user-event': 14.5.2(@testing-library/dom@10.4.0)
-      '@vitest/expect': 2.0.5
-      '@vitest/spy': 2.0.5
-      storybook: 8.6.14(prettier@3.8.3)
-    dev: true
-
-  /@storybook/test@8.6.18(storybook@8.6.14):
-    resolution: {integrity: sha512-u/RwfWMyHcH0N2hqfMTw2CoZ58IXdeED3b8NmcHc8bmERB3byI5vVAkwYbcD7+WeRHIiym38ZHi0SRn+IpkO3Q==}
-    peerDependencies:
-      storybook: ^8.6.18
-    dependencies:
-      '@storybook/global': 5.0.0
-      '@storybook/instrumenter': 8.6.18(storybook@8.6.14)
-      '@testing-library/dom': 10.4.0
-      '@testing-library/jest-dom': 6.5.0
-      '@testing-library/user-event': 14.5.2(@testing-library/dom@10.4.0)
-      '@vitest/expect': 2.0.5
-      '@vitest/spy': 2.0.5
-      storybook: 8.6.14(prettier@3.8.3)
-    dev: true
-
-  /@storybook/theming@8.6.14(storybook@8.6.14):
-    resolution: {integrity: sha512-r4y+LsiB37V5hzpQo+BM10PaCsp7YlZ0YcZzQP1OCkPlYXmUAFy2VvDKaFRpD8IeNPKug2u4iFm/laDEbs03dg==}
-    peerDependencies:
-      storybook: ^8.2.0 || ^8.3.0-0 || ^8.4.0-0 || ^8.5.0-0 || ^8.6.0-0
-    dependencies:
-      storybook: 8.6.14(prettier@3.8.3)
-    dev: true
-
-  /@testing-library/dom@10.4.0:
-    resolution: {integrity: sha512-pemlzrSESWbdAloYml3bAJMEfNh1Z7EduzqPKprCH5S341frlpYnUEW0H72dLxa6IsYr+mPno20GiSm+h9dEdQ==}
-    engines: {node: '>=18'}
-    dependencies:
-      '@babel/code-frame': 7.29.0
-      '@babel/runtime': 7.28.4
-      '@types/aria-query': 5.0.4
-      aria-query: 5.3.0
-      chalk: 4.1.2
-      dom-accessibility-api: 0.5.16
-      lz-string: 1.5.0
-      pretty-format: 27.5.1
-    dev: true
-
   /@testing-library/dom@10.4.1:
     resolution: {integrity: sha512-o4PXJQidqJl82ckFaXUeoAW+XysPLauYI43Abki5hABd853iMhitooc6znOnczgbTYmEP6U6/y1ZyKAIsvMKGg==}
     engines: {node: '>=18'}
@@ -7305,15 +5450,6 @@ packages:
       react-dom: 18.3.1(react@18.3.1)
     transitivePeerDependencies:
       - '@types/react'
-    dev: true
-
-  /@testing-library/user-event@14.5.2(@testing-library/dom@10.4.0):
-    resolution: {integrity: sha512-YAh82Wh4TIrxYLmfGcixwD18oIjyC1pFQC2Y01F2lzV2HTMiYrI0nze0FD0ocB//CKS/7jIUgae+adPqxK5yCQ==}
-    engines: {node: '>=12', npm: '>=6'}
-    peerDependencies:
-      '@testing-library/dom': '>=7.21.4'
-    dependencies:
-      '@testing-library/dom': 10.4.0
     dev: true
 
   /@testing-library/user-event@14.5.2(@testing-library/dom@10.4.1):
@@ -7406,10 +5542,6 @@ packages:
       '@types/node': 20.19.24
     dev: true
 
-  /@types/doctrine@0.0.9:
-    resolution: {integrity: sha512-eOIHzCUSH7SMfonMG1LsC2f8vxBFtho6NGBznK41R84YzPuvSBzrhEps33IsQiOW9+VL6NQ9DbjQJznk/S4uRA==}
-    dev: true
-
   /@types/estree@1.0.5:
     resolution: {integrity: sha512-/kYRxGDLWzHOB7q+wtSUQlFrtcdUccpfy+X+9iMBpHK8QLLhx2wIPYuS5DYtR9Wa/YlZAbIovy7qVdB1Aq6Lyw==}
     dev: true
@@ -7448,10 +5580,6 @@ packages:
 
   /@types/json-schema@7.0.15:
     resolution: {integrity: sha512-5+fP8P8MFNC+AyZCDxrB2pkZFPGzqQWUzpSeuuVLvm8VMcorNYavBqoFcxK8bQz4Qsbn4oUEEem4wDLfcysGHA==}
-    dev: true
-
-  /@types/mdx@2.0.13:
-    resolution: {integrity: sha512-+OWZQfAYyio6YkJb3HLxDrvnx6SWWDbC0zVPfBRzUk0/nqoDyf6dNxQi3eArPe8rJ473nobTMQ/8Zk+LxJ+Yuw==}
     dev: true
 
   /@types/mime@1.3.5:
@@ -7532,10 +5660,6 @@ packages:
     resolution: {integrity: sha512-60BCwRFOZCQhDncwQdxxeOEEkbc5dIMccYLwbxsS4TUNeVECQ/pBJ0j09mrHOl/JJvpRPGwO9SvE4nR2Nb/a4Q==}
     dev: true
 
-  /@types/resolve@1.20.6:
-    resolution: {integrity: sha512-A4STmOXPhMUtHH+S6ymgE2GiBSMqf4oTvcQZMcHzokuTLVYzXTB8ttjcgxOVaAp2lGwEdzZ0J+cRbbeevQj1UQ==}
-    dev: true
-
   /@types/retry@0.12.2:
     resolution: {integrity: sha512-XISRgDJ2Tc5q4TRqvgJtzsRkFYNJzZrhTdtMoGVBttwzzQJkPnS3WWTFc7kuDRoPtPakl+T+OfdEUjYJj7Jbow==}
     dev: true
@@ -7575,10 +5699,6 @@ packages:
 
   /@types/unist@3.0.3:
     resolution: {integrity: sha512-ko/gIFJRv177XgZsZcBwnqJN5x/Gien8qNOn0D5bQU/zAzVf9Zt3BlcUiLqhV9y4ARk0GbT3tnUiPNgnTXzc/Q==}
-    dev: true
-
-  /@types/uuid@9.0.8:
-    resolution: {integrity: sha512-jg+97EGIcY9AGHJJRaaPVgetKDsrTgbRjQ5Msgjh/DQKEFl0DtyRr/VCOyD1T2R1MNeWPK/u7JoGhlDZnKBAfA==}
     dev: true
 
   /@types/wrap-ansi@3.0.0:
@@ -7766,27 +5886,6 @@ packages:
       chai: 4.5.0
     dev: true
 
-  /@vitest/expect@2.0.5:
-    resolution: {integrity: sha512-yHZtwuP7JZivj65Gxoi8upUN2OzHTi3zVfjwdpu2WrvCZPLwsJ2Ey5ILIPccoW23dd/zQBlJ4/dhi7DWNyXCpA==}
-    dependencies:
-      '@vitest/spy': 2.0.5
-      '@vitest/utils': 2.0.5
-      chai: 5.3.3
-      tinyrainbow: 1.2.0
-    dev: true
-
-  /@vitest/pretty-format@2.0.5:
-    resolution: {integrity: sha512-h8k+1oWHfwTkyTkb9egzwNMfJAEx4veaPSnMeKbVSjp4euqGSbQlm5+6VHwTr7u4FJslVVsUG5nopCaAYdOmSQ==}
-    dependencies:
-      tinyrainbow: 1.2.0
-    dev: true
-
-  /@vitest/pretty-format@2.1.9:
-    resolution: {integrity: sha512-KhRIdGV2U9HOUzxfiHmY8IFHTdqtOhIzCpd8WRdJiE7D/HUcZVD0EgQCVjm+Q9gkUXWgBvMmTtZgIG48wq7sOQ==}
-    dependencies:
-      tinyrainbow: 1.2.0
-    dev: true
-
   /@vitest/runner@1.6.1:
     resolution: {integrity: sha512-3nSnYXkVkf3mXFfE7vVyPmi3Sazhb/2cfZGGs0JRzFsPFvAMBEcrweV1V1GsrstdXeKCTXlJbvnQwGWgEIHmOA==}
     dependencies:
@@ -7809,12 +5908,6 @@ packages:
       tinyspy: 2.2.1
     dev: true
 
-  /@vitest/spy@2.0.5:
-    resolution: {integrity: sha512-c/jdthAhvJdpfVuaexSrnawxZz6pywlTPe84LUB2m/4t3rl2fTo9NFGBG4oWgaD+FTgDDV8hJ/nibT7IfH3JfA==}
-    dependencies:
-      tinyspy: 3.0.2
-    dev: true
-
   /@vitest/utils@1.6.1:
     resolution: {integrity: sha512-jOrrUvXM4Av9ZWiG1EajNto0u96kWAhJ1LmPmJhXXQx/32MecEKd10pOLYgS2BQx1TgkGhloPU1ArDW2vvaY6g==}
     dependencies:
@@ -7822,23 +5915,6 @@ packages:
       estree-walker: 3.0.3
       loupe: 2.3.7
       pretty-format: 29.7.0
-    dev: true
-
-  /@vitest/utils@2.0.5:
-    resolution: {integrity: sha512-d8HKbqIcya+GR67mkZbrzhS5kKhtp8dQLcmRZLGTscGVg7yImT82cIrhtn2L8+VujWcy6KZweApgNmPsTAO/UQ==}
-    dependencies:
-      '@vitest/pretty-format': 2.0.5
-      estree-walker: 3.0.3
-      loupe: 3.2.1
-      tinyrainbow: 1.2.0
-    dev: true
-
-  /@vitest/utils@2.1.9:
-    resolution: {integrity: sha512-v0psaMSkNJ3A2NMrUEHFRzJtDPFn+/VWZ5WxImB21T9fjucJRmS7xCS3ppEnARb9y11OAzaD+P2Ps+b+BGX5iQ==}
-    dependencies:
-      '@vitest/pretty-format': 2.1.9
-      loupe: 3.2.1
-      tinyrainbow: 1.2.0
     dev: true
 
   /@volar/language-core@2.4.15:
@@ -8431,18 +6507,6 @@ packages:
     resolution: {integrity: sha512-jgsaNduz+ndvGyFt3uSuWqvy4lCnIJiovtouQN5JZHOKCS2QuhEdbcQHFhVksz2N2U9hXJo8odG7ETyWlEeuDw==}
     dev: true
 
-  /assertion-error@2.0.1:
-    resolution: {integrity: sha512-Izi8RQcffqCeNVgFigKli1ssklIbpHnCYc6AknXGYoB6grJqyeby7jv12JUQgmTAnIDnbck1uxksT4dzN3PWBA==}
-    engines: {node: '>=12'}
-    dev: true
-
-  /ast-types@0.16.1:
-    resolution: {integrity: sha512-6t10qk83GOG8p0vKmaCr8eiilZwO171AvbROMtvvNiwrTly62t+7XkA8RdIIVbpMhCASAsxgAzdRSwh6nw/5Dg==}
-    engines: {node: '>=4'}
-    dependencies:
-      tslib: 2.8.1
-    dev: true
-
   /async-function@1.0.0:
     resolution: {integrity: sha512-hsU18Ae8CDTR6Kgu9DYf0EbCr/a5iGL0rytQDobUcdpYOKokk8LEjVphnXkDkgpi0wYVsqrXuP0bZxJaTqdgoA==}
     engines: {node: '>= 0.4'}
@@ -8473,11 +6537,6 @@ packages:
     engines: {node: '>= 0.4'}
     dependencies:
       possible-typed-array-names: 1.1.0
-
-  /axe-core@4.11.3:
-    resolution: {integrity: sha512-zBQouZixDTbo3jMGqHKyePxYxr1e5W8UdTmBQ7sNtaA9M2bE32daxxPLS/jojhKOHxQ7LWwPjfiwf/fhaJWzlg==}
-    engines: {node: '>=4'}
-    dev: true
 
   /babel-loader@9.1.3(@babel/core@7.26.10)(webpack@5.94.0):
     resolution: {integrity: sha512-xG3ST4DglodGf8qSwv0MdeWLhrDsw/32QMdTO5T1ZIp9gQur0HkCyFs7Awskr10JKXFXwpAhiCuYX5oGXnRGbw==}
@@ -8548,13 +6607,6 @@ packages:
 
   /batch@0.6.1:
     resolution: {integrity: sha512-x+VAiMRL6UPkx+kudNvxTl6hB2XNNCG2r+7wixVfIYwu/2HKRXimwQyaumLjMveWvT2Hkd/cAJw+QBMfJ/EKVw==}
-    dev: true
-
-  /better-opn@3.0.2:
-    resolution: {integrity: sha512-aVNobHnJqLiUelTaHat9DZ1qM2w0C0Eym4LPI/3JxOnSokGVdsl1T1kN7TFvsEAD8G47A6VKQ0TVHqbBnYMJlQ==}
-    engines: {node: '>=12.0.0'}
-    dependencies:
-      open: 8.4.2
     dev: true
 
   /better-path-resolve@1.0.0:
@@ -8628,10 +6680,6 @@ packages:
     engines: {node: '>=8'}
     dependencies:
       fill-range: 7.1.1
-
-  /browser-assert@1.2.1:
-    resolution: {integrity: sha512-nfulgvOR6S4gt9UKCeGJOuSGBPGiFT6oQ/2UBnvTY/5aQ1PnksW72fhZkM30DzoRRv2WpwZf1vHHEr3mtuXIWQ==}
-    dev: true
 
   /browserslist@4.27.0:
     resolution: {integrity: sha512-AXVQwdhot1eqLihwasPElhX2tAZiBjWdJ9i/Zcj2S6QYIjkx62OKSfnobkriB81C3l4w0rVy3Nt4jaTBltYEpw==}
@@ -8770,17 +6818,6 @@ packages:
       type-detect: 4.1.0
     dev: true
 
-  /chai@5.3.3:
-    resolution: {integrity: sha512-4zNhdJD/iOjSH0A05ea+Ke6MU5mmpQcbQsSOkgdaUMJ9zTlDTD/GYlwohmIE2u0gaxHYiVHEn1Fw9mZ/ktJWgw==}
-    engines: {node: '>=18'}
-    dependencies:
-      assertion-error: 2.0.1
-      check-error: 2.1.3
-      deep-eql: 5.0.2
-      loupe: 3.2.1
-      pathval: 2.0.1
-    dev: true
-
   /chalk@3.0.0:
     resolution: {integrity: sha512-4D3B6Wf41KOYRFdszmDqMCGq5VV/uMAB273JILmO+3jAlh8X4qDtdtgCR3fxtbLEMzSx22QdhnDcJvu2u1fVwg==}
     engines: {node: '>=8'}
@@ -8808,11 +6845,6 @@ packages:
     resolution: {integrity: sha512-iKEoDYaRmd1mxM90a2OEfWhjsjPpYPuQ+lMYsoxB126+t8fw7ySEO48nmDg5COTjxDI65/Y2OWpeEHk3ZOe8zg==}
     dependencies:
       get-func-name: 2.0.2
-    dev: true
-
-  /check-error@2.1.3:
-    resolution: {integrity: sha512-PAJdDJusoxnwm1VwW07VWwUN1sl7smmC3OKggvndJFadxxDRyFJBX/ggnu/KE4kQAB7a3Dp8f/YXC1FlUprWmA==}
-    engines: {node: '>= 16'}
     dev: true
 
   /chokidar@3.6.0:
@@ -9252,11 +7284,6 @@ packages:
       type-detect: 4.1.0
     dev: true
 
-  /deep-eql@5.0.2:
-    resolution: {integrity: sha512-h5k/5U50IJJFpzfL6nO9jaaumfjO/f2NjK/oYB2Djzm4p9L+3T9qWpZqZ2hAbLPuuYq9wrU08WQyBTL5GbPk5Q==}
-    engines: {node: '>=6'}
-    dev: true
-
   /deep-equal@2.2.3:
     resolution: {integrity: sha512-ZIwpnevOurS8bpT4192sqAowWM76JDKSHYzMLty3BZGSswgq6pBaH3DhCSW5xVAZICZyKdOBPjwww5wfgT/6PA==}
     engines: {node: '>= 0.4'}
@@ -9315,11 +7342,6 @@ packages:
       es-define-property: 1.0.1
       es-errors: 1.3.0
       gopd: 1.2.0
-
-  /define-lazy-prop@2.0.0:
-    resolution: {integrity: sha512-Ds09qNh8yw3khSjiJjiUInaGX9xlqZDY7JVryGxdxV7NPeuqQfplOpQ66yJFZut3jLa5zOwkXw1g9EI2uKh4Og==}
-    engines: {node: '>=8'}
-    dev: true
 
   /define-lazy-prop@3.0.0:
     resolution: {integrity: sha512-N+MeXYoqr3pOgn8xfyRPREN7gHakLYjhsHhWGT3fWAiL4IkAt0iDw14QiiEm2bE30c5XX5q0FtAA3CK5f9/BUg==}
@@ -9706,17 +7728,6 @@ packages:
       is-date-object: 1.1.0
       is-symbol: 1.1.1
     dev: false
-
-  /esbuild-register@3.6.0(esbuild@0.25.12):
-    resolution: {integrity: sha512-H2/S7Pm8a9CL1uhp9OvjwrBh5Pvx0H8qVOxNu8Wed9Y7qv56MPtq+GGM8RJpq6glYJn9Wspr8uw7l55uyinNeg==}
-    peerDependencies:
-      esbuild: '>=0.12 <1'
-    dependencies:
-      debug: 4.4.3
-      esbuild: 0.25.12
-    transitivePeerDependencies:
-      - supports-color
-    dev: true
 
   /esbuild-sass-plugin@3.7.0(esbuild@0.28.0)(sass-embedded@1.99.0):
     resolution: {integrity: sha512-vxNSXFx3/0ZFApKo9036ek2iRfsT+yVO99qIYqa+JaDSuJuId2/N4s1TY+xfK+5LRpAMQkfdBVUTxb/1r2bq1A==}
@@ -10415,6 +8426,7 @@ packages:
   /generator-function@2.0.1:
     resolution: {integrity: sha512-SFdFmIJi+ybC0vjlHN0ZGVGHc3lgE0DxPAT0djjVg+kjOnSqclqmj0KQ7ykTOLP6YxoqOvuAODGdcHJn+43q3g==}
     engines: {node: '>= 0.4'}
+    dev: false
 
   /gensync@1.0.0-beta.2:
     resolution: {integrity: sha512-3hN7NaskYvMDLQY55gnW3NQ+mesEAepTqlg+VEbj7zzqEMBVNhzcGYYeqFo/TlYz6eQiFcp1HcsCZO+nGgS8zg==}
@@ -10987,12 +8999,6 @@ packages:
       call-bound: 1.0.4
       has-tostringtag: 1.0.2
 
-  /is-docker@2.2.1:
-    resolution: {integrity: sha512-F+i2BKsFrH66iaUFc0woD8sLy8getkwTwtOBjvs56Cx4CgJDeKQeqfz8wAYiSb8JOprWhHH5p77PbmYCvvUuXQ==}
-    engines: {node: '>=8'}
-    hasBin: true
-    dev: true
-
   /is-docker@3.0.0:
     resolution: {integrity: sha512-eljcgEDlEns/7AXFosB5K/2nCM4P7FQPkGc/DWLy5rmFEWvZayGrik1d9/QIY5nJ4f9YsVvBkA6kJpHn9rISdQ==}
     engines: {node: ^12.20.0 || ^14.13.1 || >=16.0.0}
@@ -11037,6 +9043,7 @@ packages:
       get-proto: 1.0.1
       has-tostringtag: 1.0.2
       safe-regex-test: 1.1.0
+    dev: false
 
   /is-glob@4.0.3:
     resolution: {integrity: sha512-xelSayHH36ZgE7ZWhli7pW34hNbNl8Ojv5KVmkJD4hBdD3th8Tfk9vYasLM+mXWOZhFkgZfxhLSnrwRr4elSSg==}
@@ -11166,6 +9173,7 @@ packages:
     engines: {node: '>= 0.4'}
     dependencies:
       which-typed-array: 1.1.19
+    dev: false
 
   /is-unicode-supported@0.1.0:
     resolution: {integrity: sha512-knxG2q4UC3u8stRGyAVJCOdxFmv5DZiRcdlIaAQXAbSfJya+OhopNotLQrstBhququ4ZpuKbDc/8S6mgXgPFPw==}
@@ -11202,13 +9210,6 @@ packages:
   /is-windows@1.0.2:
     resolution: {integrity: sha512-eXK1UInq2bPmjyX6e3VHIzMLobc4J94i4AWn+Hpq3OU5KkrRC96OAcR3PRJ/pGu6m8TRnBHP9dkXQVsT/COVIA==}
     engines: {node: '>=0.10.0'}
-    dev: true
-
-  /is-wsl@2.2.0:
-    resolution: {integrity: sha512-fKzAra0rGJUUBwGBgNkHZuToZcn+TtXHpeCgmkMJMMYx1sQDYaCSyjJBSCa2nH1DGm7s3n1oBnohoVTBaN7Lww==}
-    engines: {node: '>=8'}
-    dependencies:
-      is-docker: 2.2.1
     dev: true
 
   /is-wsl@3.1.1:
@@ -11332,11 +9333,6 @@ packages:
     hasBin: true
     dependencies:
       argparse: 2.0.1
-
-  /jsdoc-type-pratt-parser@4.8.0:
-    resolution: {integrity: sha512-iZ8Bdb84lWRuGHamRXFyML07r21pcwBrLkHEuHgEY5UbCouBwv7ECknDRKzsQIXMiqpPymqtIf8TC/shYKB5rw==}
-    engines: {node: '>=12.0.0'}
-    dev: true
 
   /jsdom@24.1.3:
     resolution: {integrity: sha512-MyL55p3Ut3cXbeBEG7Hcv0mVM8pp8PBNWxRqchZnSfAiES1v1mRnMeFfaHWIPULpwsYfvO+ZmMZz5tGCnjzDUQ==}
@@ -11671,10 +9667,6 @@ packages:
       get-func-name: 2.0.2
     dev: true
 
-  /loupe@3.2.1:
-    resolution: {integrity: sha512-CdzqowRJCeLU72bHvWqwRBBlLcMEtIvGrlvef74kMnV2AolS9Y8xUv1I0U/MNAWMhBlKIoyuEgoJ0t/bbwHbLQ==}
-    dev: true
-
   /lru-cache@10.4.3:
     resolution: {integrity: sha512-JNAzZcXrCt42VGLuYz0zfAzDfAvJWW6AfYlDBQyDV5DClI2m5sAmK+OIO7s59XfsRsWHp02jAJrRadPRGTt6SQ==}
     dev: true
@@ -11688,13 +9680,6 @@ packages:
   /lz-string@1.5.0:
     resolution: {integrity: sha512-h5bgJWpxJNswbU7qCrV0tIKQCaS3blPDrqKWx+QxzuzL1zGUzij9XCWLrSLsJPu5t+eWA/ycetzYAO5IOMcWAQ==}
     hasBin: true
-    dev: true
-
-  /magic-string@0.27.0:
-    resolution: {integrity: sha512-8UnnX2PeRAPZuN12svgR9j7M1uWMovg/CEnIwIG0LFkXSJJe4PdfUGiTGl8V9bsBHFUtfVINcSyYxd7q+kx9fA==}
-    engines: {node: '>=12'}
-    dependencies:
-      '@jridgewell/sourcemap-codec': 1.5.5
     dev: true
 
   /magic-string@0.30.11:
@@ -11743,10 +9728,6 @@ packages:
       ssri: 10.0.6
     transitivePeerDependencies:
       - supports-color
-    dev: true
-
-  /map-or-similar@1.5.0:
-    resolution: {integrity: sha512-0aF7ZmVon1igznGI4VS30yugpduQW3y3GkcgGJOp7d8x8QrizhigUxjI/m2UojsXXto+jLAH3KSz+xOJTiORjg==}
     dev: true
 
   /math-intrinsics@1.1.0:
@@ -11798,12 +9779,6 @@ packages:
       thingies: 2.6.0(tslib@2.8.1)
       tree-dump: 1.1.0(tslib@2.8.1)
       tslib: 2.8.1
-    dev: true
-
-  /memoizerific@1.11.3:
-    resolution: {integrity: sha512-/EuHYwAPdLtXwAwSZkh/Gutery6pD2KYd44oQLhAvQp/50mpyduZh8Q7PYHXTCJ+wuXxt7oij2LXyIJOOYFPog==}
-    dependencies:
-      map-or-similar: 1.5.0
     dev: true
 
   /merge-descriptors@1.0.3:
@@ -11894,10 +9869,6 @@ packages:
     engines: {node: '>=16 || 14 >=14.17'}
     dependencies:
       brace-expansion: 2.0.2
-
-  /minimist@1.2.8:
-    resolution: {integrity: sha512-2yyAR8qBkN3YuheJanUpWC5U3bb5osDywNB8RzDVlDwDHbocAJveqqj1u8+SVD7jkWT4yvsHCpWqqWqAxb0zCA==}
-    dev: true
 
   /minipass-collect@2.0.1:
     resolution: {integrity: sha512-D7V8PO9oaz7PWGLbCACuI1qEOsq7UKfLotx/C0Aet43fCUB/wfQ7DYeq2oR/svFJGYDHPr38SHATeaj/ZoKHKw==}
@@ -12424,15 +10395,6 @@ packages:
       is-wsl: 3.1.1
     dev: true
 
-  /open@8.4.2:
-    resolution: {integrity: sha512-7x81NCL719oNbsq/3mh+hVrAWmFuEYUqrq/Iw3kUzH8ReypT9QQ0BLoJS7/G9k6N81XjW4qHWtjWwe/9eLy1EQ==}
-    engines: {node: '>=12'}
-    dependencies:
-      define-lazy-prop: 2.0.0
-      is-docker: 2.2.1
-      is-wsl: 2.2.0
-    dev: true
-
   /optionator@0.9.4:
     resolution: {integrity: sha512-6IpQ7mKUxRcZNLIObR0hz7lxsapSSIYNZJwXPGeF0mTVqGKFIXj1DQcMoT22S3ROcLyY/rz0PWaWZ9ayWmad9g==}
     engines: {node: '>= 0.8.0'}
@@ -12706,11 +10668,6 @@ packages:
     resolution: {integrity: sha512-Dp6zGqpTdETdR63lehJYPeIOqpiNBNtc7BpWSLrOje7UaIsE5aY92r/AunQA7rsXvet3lrJ3JnZX29UPTKXyKQ==}
     dev: true
 
-  /pathval@2.0.1:
-    resolution: {integrity: sha512-//nshmD55c46FuFw26xV/xFAaB5HF9Xdap7HJBBnrKdAd6/GxDBaNA1870O79+9ueg61cZLSVc+OaFlfmObYVQ==}
-    engines: {node: '>= 14.16'}
-    dev: true
-
   /picocolors@1.1.1:
     resolution: {integrity: sha512-xceH2snhtb5M9liqDsmEw56le376mTZkEX/jEb/RxNFyegNul7eNslCXP9FDj/Lcu0X8KEyMceP2ntpaHrDEVA==}
 
@@ -12780,13 +10737,6 @@ packages:
       confbox: 0.1.8
       mlly: 1.8.0
       pathe: 2.0.3
-    dev: true
-
-  /polished@4.3.1:
-    resolution: {integrity: sha512-OBatVyC/N7SCW/FaDHrSd+vn0o5cS855TOmYi4OkdWUMSJCET/xip//ch8xGUvtr3i44X9LVyWwQlRMTN3pwSA==}
-    engines: {node: '>=10'}
-    dependencies:
-      '@babel/runtime': 7.28.4
     dev: true
 
   /possible-typed-array-names@1.1.0:
@@ -12953,11 +10903,6 @@ packages:
     resolution: {integrity: sha512-3ouUOpQhtgrbOa17J7+uxOTpITYWaGP7/AhoR3+A+/1e9skrzelGi/dXzEYyvbxubEF6Wn2ypscTKiKJFFn1ag==}
     dev: true
 
-  /process@0.11.10:
-    resolution: {integrity: sha512-cdGef/drWFoydD1JsMzuFf8100nZl+GT+yacc2bEced5f9Rjk4z+WtFUTBu9PhOi9j/jfmBPu0mMEY4wIdAF8A==}
-    engines: {node: '>= 0.6.0'}
-    dev: true
-
   /promise-inflight@1.0.1:
     resolution: {integrity: sha512-6zWPyEOFaQBJYcGMHBKTKJ3u6TBsnMFOIZSa6ce1e/ZrrsOlnHRHbabMjLiBYKp+n44X9eUI6VUPaukCXHuG4g==}
     peerDependencies:
@@ -13057,32 +11002,6 @@ packages:
       unpipe: 1.0.0
     dev: true
 
-  /react-docgen-typescript@2.4.0(typescript@5.9.3):
-    resolution: {integrity: sha512-ZtAp5XTO5HRzQctjPU0ybY0RRCQO19X/8fxn3w7y2VVTUbGHDKULPTL4ky3vB05euSgG5NpALhEhDPvQ56wvXg==}
-    peerDependencies:
-      typescript: '>= 4.3.x'
-    dependencies:
-      typescript: 5.9.3
-    dev: true
-
-  /react-docgen@7.1.1:
-    resolution: {integrity: sha512-hlSJDQ2synMPKFZOsKo9Hi8WWZTC7POR8EmWvTSjow+VDgKzkmjQvFm2fk0tmRw+f0vTOIYKlarR0iL4996pdg==}
-    engines: {node: '>=16.14.0'}
-    dependencies:
-      '@babel/core': 7.28.5
-      '@babel/traverse': 7.28.5
-      '@babel/types': 7.28.5
-      '@types/babel__core': 7.20.5
-      '@types/babel__traverse': 7.28.0
-      '@types/doctrine': 0.0.9
-      '@types/resolve': 1.20.6
-      doctrine: 3.0.0
-      resolve: 1.22.11
-      strip-indent: 4.1.1
-    transitivePeerDependencies:
-      - supports-color
-    dev: true
-
   /react-dom@18.3.1(react@18.3.1):
     resolution: {integrity: sha512-5m4nQKp+rZRb09LNH59GM4BxTh9251/ylbKIbpe7TpGxfJ+9kv6BLkLBXIjjspbgbnIBNqlI23tRnTWT0snUIw==}
     peerDependencies:
@@ -13156,17 +11075,6 @@ packages:
   /readdirp@4.1.2:
     resolution: {integrity: sha512-GDhwkLfywWL2s6vEjyhri+eXmfH6j1L7JE27WhqLeYzoh/A3DBaYGEj2H/HFZCn/kMfim73FXxEJTw06WtxQwg==}
     engines: {node: '>= 14.18.0'}
-    dev: true
-
-  /recast@0.23.11:
-    resolution: {integrity: sha512-YTUo+Flmw4ZXiWfQKGcwwc11KnoRAYgzAE2E7mXKCjSviTKShtxBsN6YUUBB2gtaBzKzeKunxhUwNHQuRryhWA==}
-    engines: {node: '>= 4'}
-    dependencies:
-      ast-types: 0.16.1
-      esprima: 4.0.1
-      source-map: 0.6.1
-      tiny-invariant: 1.3.3
-      tslib: 2.8.1
     dev: true
 
   /redent@3.0.0:
@@ -14204,23 +12112,6 @@ packages:
       es-errors: 1.3.0
       internal-slot: 1.1.0
 
-  /storybook@8.6.14(prettier@3.8.3):
-    resolution: {integrity: sha512-sVKbCj/OTx67jhmauhxc2dcr1P+yOgz/x3h0krwjyMgdc5Oubvxyg4NYDZmzAw+ym36g/lzH8N0Ccp4dwtdfxw==}
-    hasBin: true
-    peerDependencies:
-      prettier: ^2 || ^3
-    peerDependenciesMeta:
-      prettier:
-        optional: true
-    dependencies:
-      '@storybook/core': 8.6.14(prettier@3.8.3)(storybook@8.6.14)
-      prettier: 3.8.3
-    transitivePeerDependencies:
-      - bufferutil
-      - supports-color
-      - utf-8-validate
-    dev: true
-
   /string-width@4.2.3:
     resolution: {integrity: sha512-wKyQRQpjJ0sIp62ErSZdGsjMJWsap5oRNihHhu6G7JVO/9jIB6UyevL+tXuOqrng8j/cxKTWyWUwvSTriiZz/g==}
     engines: {node: '>=8'}
@@ -14346,11 +12237,6 @@ packages:
     engines: {node: '>=8'}
     dependencies:
       min-indent: 1.0.1
-    dev: true
-
-  /strip-indent@4.1.1:
-    resolution: {integrity: sha512-SlyRoSkdh1dYP0PzclLE7r0M9sgbFKKMFXpFRUMNuKhQSbC6VQIGzq3E0qsfvGJaUFJPGv6Ws1NZ/haTAjfbMA==}
-    engines: {node: '>=12'}
     dev: true
 
   /strip-json-comments@3.1.1:
@@ -14511,10 +12397,6 @@ packages:
     resolution: {integrity: sha512-eHY7nBftgThBqOyHGVN+l8gF0BucP09fMo0oO/Lb0w1OF80dJv+lDVpXG60WMQvkcxAkNybKsrEIE3ZtKGmPrA==}
     dev: true
 
-  /tiny-invariant@1.3.3:
-    resolution: {integrity: sha512-+FbBPE1o9QAYvviau/qC5SE3caw21q3xkvWKBtja5vgqOWIHHJ3ioaq1VPfn/Szqctz2bU/oYeKd9/z5BL+PVg==}
-    dev: true
-
   /tinybench@2.9.0:
     resolution: {integrity: sha512-0+DUvqWMValLmha6lr4kD8iAMK1HzV0/aKnCtWb9v9641TnP/MFb7Pc2bxoxQjTXAErryXVgUOfv2YqNllqGeg==}
     dev: true
@@ -14536,18 +12418,8 @@ packages:
     engines: {node: '>=14.0.0'}
     dev: true
 
-  /tinyrainbow@1.2.0:
-    resolution: {integrity: sha512-weEDEq7Z5eTHPDh4xjX789+fHfF+P8boiFB+0vbWzpbnbsEr/GRaohi/uMKxg8RZMXnl1ItAi/IUHWMsjDV7kQ==}
-    engines: {node: '>=14.0.0'}
-    dev: true
-
   /tinyspy@2.2.1:
     resolution: {integrity: sha512-KYad6Vy5VDWV4GH3fjpseMQ/XU2BhIYP7Vzd0LG44qRWm/Yt2WCOTicFdvmgo6gWaqooMQCawTtILVQJupKu7A==}
-    engines: {node: '>=14.0.0'}
-    dev: true
-
-  /tinyspy@3.0.2:
-    resolution: {integrity: sha512-n1cw8k1k0x4pgA2+9XrOkFydTerNcJ1zWCO5Nn9scWHTD+5tp8dghT2x1uduQePZTZgd3Tupf+x9BxJjeJi77Q==}
     engines: {node: '>=14.0.0'}
     dev: true
 
@@ -14624,11 +12496,6 @@ packages:
       typescript: 5.4.5
     dev: false
 
-  /ts-dedent@2.2.0:
-    resolution: {integrity: sha512-q5W7tVM71e2xjHZTlgfTDoPF/SmqKG5hddq9SzR49CH2hayqRKJtQ4mtRlSxKaJlR/+9rEM+mnBHf7I2/BQcpQ==}
-    engines: {node: '>=6.10'}
-    dev: true
-
   /ts-interface-checker@0.1.13:
     resolution: {integrity: sha512-Y/arvbn+rrz3JCKl9C4kVNfTfSm2/mEp5FSz5EsZSANGPSlQrpRI5M4PKF+mJnE52jOO90PnPSc3Ur3bTQw0gA==}
     dev: true
@@ -14638,15 +12505,6 @@ packages:
     dependencies:
       '@ts-morph/common': 0.22.0
       code-block-writer: 12.0.0
-    dev: true
-
-  /tsconfig-paths@4.2.0:
-    resolution: {integrity: sha512-NoZ4roiN7LnbKn9QqE1amc9DJfzvZXxF4xDavcOWt1BPkdx+m+0gJuPM+S0vCe7zTJMYUP0R8pO2XMr+Y8oLIg==}
-    engines: {node: '>=6'}
-    dependencies:
-      json5: 2.2.3
-      minimist: 1.2.8
-      strip-bom: 3.0.0
     dev: true
 
   /tslib@2.6.3:
@@ -14939,14 +12797,6 @@ packages:
     engines: {node: '>= 0.8'}
     dev: true
 
-  /unplugin@1.16.1:
-    resolution: {integrity: sha512-4/u/j4FrCKdi17jaxuJA0jClGxB1AvU2hw/IuayPc4ay1XGaJs/rbb4v5WKwAjNifjmXK9PIFyuPiaK8azyR9w==}
-    engines: {node: '>=14.0.0'}
-    dependencies:
-      acorn: 8.15.0
-      webpack-virtual-modules: 0.6.2
-    dev: true
-
   /update-browserslist-db@1.1.4(browserslist@4.27.0):
     resolution: {integrity: sha512-q0SPT4xyU84saUX+tomz1WLkxUbuaJnR1xWt17M7fJtEJigJeWUNGUqrauFXsHnqev9y9JTRGwk13tFBuKby4A==}
     hasBin: true
@@ -14985,16 +12835,6 @@ packages:
     resolution: {integrity: sha512-EPD5q1uXyFxJpCrLnCc1nHnq3gOa6DZBocAIiI2TaSCA7VCJ1UJDMagCzIkXNsUYfD1daK//LTEQ8xiIbrHtcw==}
     dev: true
 
-  /util@0.12.5:
-    resolution: {integrity: sha512-kZf/K6hEIrWHI6XqOFUiiMa+79wE/D8Q+NCNAWclkyg3b4d2k7s0QGepNjiABc+aR3N1PAyHL7p6UcLY6LmrnA==}
-    dependencies:
-      inherits: 2.0.4
-      is-arguments: 1.2.0
-      is-generator-function: 1.1.2
-      is-typed-array: 1.1.15
-      which-typed-array: 1.1.19
-    dev: true
-
   /utils-merge@1.0.1:
     resolution: {integrity: sha512-pMZTvIkT1d+TFGvDOqodOclx0QWkkgi6Tdoa8gC8ffGAAqz9pzPTZWAybbsHHoED/ztMtkv/VoYTYyShUn81hA==}
     engines: {node: '>= 0.4.0'}
@@ -15003,11 +12843,6 @@ packages:
   /uuid@8.3.2:
     resolution: {integrity: sha512-+NYs2QeMWy+GWFOEm9xnn6HCDp0l7QBD7ml8zLUmJ+93Q5NF0NocErnwkTkXVFNiX3/fpC6afS8Dhb/gz7R7eg==}
     deprecated: uuid@10 and below is no longer supported.  For ESM codebases, update to uuid@latest.  For CommonJS codebases, use uuid@11 (but be aware this version will likely be deprecated in 2028).
-    hasBin: true
-    dev: true
-
-  /uuid@9.0.1:
-    resolution: {integrity: sha512-b+1eJOlsR9K8HJpow9Ok3fiWOWSIcIzXodvv0rQjVoOVNpWMpxf1wZNpt4y9h10odCNrqnYp1OBzRktckBe3sA==}
     hasBin: true
     dev: true
 
@@ -15501,10 +13336,6 @@ packages:
     dependencies:
       typed-assert: 1.0.9
       webpack: 5.94.0(esbuild@0.23.0)
-    dev: true
-
-  /webpack-virtual-modules@0.6.2:
-    resolution: {integrity: sha512-66/V2i5hQanC51vBQKPH4aI8NMAcBW59FVBs+rC7eGHupMyfn34q7rZIE+ETlJ+XTevqfUhVVBgSUNSW2flEUQ==}
     dev: true
 
   /webpack@5.94.0(esbuild@0.23.0):
