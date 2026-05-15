@@ -21,6 +21,6 @@ jobs:
       - run: pnpm format:check
       - run: pnpm test
       # Build only the published packages — mirrors the release workflow's
-      # `pnpm build --filter=./packages/*` step. Storybook and playground
-      # are dev apps and get their own dedicated workflows.
+      # `pnpm build --filter=./packages/*` step. Playground apps are dev-only
+      # and not part of the published surface.
       - run: pnpm turbo run build --filter=./packages/*

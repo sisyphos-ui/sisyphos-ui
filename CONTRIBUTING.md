@@ -14,11 +14,10 @@ cd sisyphos-ui
 pnpm install
 pnpm build
 pnpm test
-pnpm storybook        # component playground at :6006
 pnpm dev:playground   # standalone Vite app for ad-hoc testing
 ```
 
-Requires **Node ≥ 18** and **pnpm ≥ 8**.
+Requires **Node ≥ 18.19** and **pnpm ≥ 8**.
 
 ---
 
@@ -29,7 +28,7 @@ Requires **Node ≥ 18** and **pnpm ≥ 8**.
    ```bash
    git checkout -b feat/your-change
    ```
-3. Make the change. Add or update tests and stories.
+3. Make the change. Add or update tests.
 4. Run the full suite locally:
    ```bash
    pnpm lint
@@ -55,9 +54,8 @@ When adding a new component or a major feature to an existing one:
 - [ ] **`forwardRef`** — consumers can grab the underlying DOM node. Set `displayName` for DevTools.
 - [ ] **Strict types** — no `any`. Props documented with JSDoc where non-obvious.
 - [ ] **Themed via CSS variables** — colors, spacing, radii come from `--sisyphos-*`. No hard-coded hex/px beyond the variables.
-- [ ] **Light + dark** — verify both modes in Storybook.
+- [ ] **Light + dark** — verify both modes in the playground (`pnpm dev:playground`).
 - [ ] **Unit tests** — cover keyboard interaction, ARIA expectations, controlled + uncontrolled, and edge cases.
-- [ ] **Storybook story** — default + relevant variants. The a11y addon must pass.
 - [ ] **README** — install, basic usage, props table, accessibility notes.
 - [ ] **Changeset** — see Workflow step 5.
 
@@ -70,7 +68,6 @@ When adding a new component or a major feature to an existing one:
 - `@sisyphos-ui/core` owns design tokens (`applyTheme`, CSS variables) and small shared primitives. Most component packages depend on it.
 - Components are built with **tsup** (ESM + CJS + `.d.ts`) and styles are emitted as a single `styles.css` per package.
 - Tests run in **Vitest + jsdom** with `@testing-library/react`.
-- Storybook is the interactive spec. A story without the `a11y` addon passing is not ready to ship.
 
 ---
 
@@ -98,7 +95,7 @@ Maintainers: do not publish manually unless you are recovering from a failed rel
 
 - **Prettier** and **ESLint** run in CI. Use `pnpm format` to fix style before you commit — it only touches files you've changed (staged → working tree → branch diff).
 - If you want to re-format the entire repo intentionally, run `pnpm format:all`. Don't do this inside a feature PR; it balloons the diff and churns unrelated files.
-- Follow the component patterns in existing packages (e.g. [`packages/button`](./packages/button)) — `forwardRef` default export, `Component.scss` co-located, tests in `Component.test.tsx`, stories in `Component.stories.tsx`.
+- Follow the component patterns in existing packages (e.g. [`packages/react/src/button`](./packages/react/src/button)) — `forwardRef` default export, `Component.scss` co-located, tests in `Component.test.tsx`.
 - Keep public APIs small. If you're adding a prop, check whether the behavior belongs under an existing one first.
 
 ---

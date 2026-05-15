@@ -29,7 +29,7 @@ dependencies beyond your framework.
   is identical.
 - **Accessible by default** — focus trap, scroll lock, keyboard
   navigation, WAI-ARIA roles built in. Verified against keyboard and
-  screen-reader expectations across all three frameworks (1038 tests).
+  screen-reader expectations across all three frameworks (797 tests).
 - **Themeable at runtime** — CSS custom properties under `--sisyphos-*`.
   `applyTheme()` flips colors, spacing, typography, and radii for the
   whole library. One call, every framework.
@@ -117,7 +117,7 @@ export class AppComponent {
 }
 ```
 
-Works with **React 18+**, **Vue 3+**, **Angular 18+**, Node **≥ 18**,
+Works with **React 18+**, **Vue 3+**, **Angular 18+**, Node **≥ 18.19**,
 and any bundler that supports ES modules.
 
 <details>
@@ -216,8 +216,6 @@ Every component targets [WAI-ARIA Authoring Practices](https://www.w3.org/WAI/AR
 - `Toast` differentiates `role="alert"` (errors) from `role="status"` (everything else) and respects `aria-live` politeness.
 - Form controls are wired to their labels through `id`/`htmlFor` and expose `aria-invalid`/`aria-describedby` when an error is set.
 
-Storybook ships with `@storybook/addon-a11y`. Every story is scanned on each render.
-
 ---
 
 ## Development
@@ -226,7 +224,6 @@ Storybook ships with `@storybook/addon-a11y`. Every story is scanned on each ren
 pnpm install
 pnpm build            # build every package
 pnpm test             # run vitest across all packages
-pnpm storybook        # interactive component playground at :6006
 pnpm dev:playground   # standalone Vite app for ad-hoc testing
 ```
 
