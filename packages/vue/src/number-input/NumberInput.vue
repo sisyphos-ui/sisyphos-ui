@@ -118,29 +118,41 @@ function step(direction: 1 | -1) {
 }
 
 const containerClasses = computed(() => [
-  "sisyphos-number-input-container",
+  "sisyphos-number-input",
+  props.variant,
+  props.size,
   focused.value && "focused",
   props.error && "error",
   props.disabled && "disabled",
   props.fullWidth && "full-width",
 ]);
 
-const inputClasses = computed(() => [
-  "sisyphos-number-input",
-  props.variant,
-  props.size,
-  focused.value && "focused",
+const wrapperClasses = computed(() => [
+  "sisyphos-number-input-wrapper",
+  props.withStepper && "has-stepper",
+  Boolean(props.suffix) && "has-suffix",
 ]);
 </script>
 
 <template>
   <div :class="containerClasses">
     <label v-if="label" :for="inputId" class="sisyphos-number-input-label">{{ label }}</label>
-    <div class="sisyphos-number-input-wrapper">
+    <div :class="wrapperClasses">
+      <button
+        v-if="withStepper"
+        type="button"
+        class="sisyphos-number-input-step decrement"
+        aria-label="Decrement"
+        :disabled="disabled || (min !== undefined && (modelValue ?? 0) <= min)"
+        :tabindex="-1"
+        @click="step(-1)"
+      >
+        −
+      </button>
       <span v-if="prefix" class="sisyphos-number-input-prefix">{{ prefix }}</span>
       <input
         :id="inputId"
-        :class="inputClasses"
+        class="sisyphos-number-input-field"
         type="text"
         inputmode="decimal"
         :value="draft"
@@ -154,28 +166,17 @@ const inputClasses = computed(() => [
         @blur="onBlur"
       />
       <span v-if="suffix" class="sisyphos-number-input-suffix">{{ suffix }}</span>
-      <div v-if="withStepper" class="sisyphos-number-input-stepper">
-        <button
-          type="button"
-          class="sisyphos-number-input-step up"
-          aria-label="Increment"
-          :disabled="disabled || (max !== undefined && (modelValue ?? 0) >= max)"
-          :tabindex="-1"
-          @click="step(1)"
-        >
-          ▲
-        </button>
-        <button
-          type="button"
-          class="sisyphos-number-input-step down"
-          aria-label="Decrement"
-          :disabled="disabled || (min !== undefined && (modelValue ?? 0) <= min)"
-          :tabindex="-1"
-          @click="step(-1)"
-        >
-          ▼
-        </button>
-      </div>
+      <button
+        v-if="withStepper"
+        type="button"
+        class="sisyphos-number-input-step increment"
+        aria-label="Increment"
+        :disabled="disabled || (max !== undefined && (modelValue ?? 0) >= max)"
+        :tabindex="-1"
+        @click="step(1)"
+      >
+        +
+      </button>
     </div>
     <span v-if="error && errorMessage" class="sisyphos-number-input-error" role="alert">
       {{ errorMessage }}

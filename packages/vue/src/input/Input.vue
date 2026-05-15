@@ -136,7 +136,7 @@ const showCount = computed(() => Boolean(props.maxLength && props.showCharacterC
       <span class="sisyphos-input-label-text">{{ label }}</span>
     </label>
     <div class="sisyphos-input-wrapper">
-      <span v-if="$slots.startIcon" class="sisyphos-input-start-icon">
+      <span v-if="$slots.startIcon" class="sisyphos-input-icon sisyphos-input-icon--start">
         <slot name="startIcon" />
       </span>
       <input
@@ -167,7 +167,7 @@ const showCount = computed(() => Boolean(props.maxLength && props.showCharacterC
       >
         {{ showPassword ? "🙈" : "👁" }}
       </button>
-      <span v-if="$slots.endIcon && !isPassword" class="sisyphos-input-end-icon">
+      <span v-if="$slots.endIcon && !isPassword" class="sisyphos-input-icon sisyphos-input-icon--end">
         <slot name="endIcon" />
       </span>
     </div>

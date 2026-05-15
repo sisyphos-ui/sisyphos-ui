@@ -135,9 +135,16 @@ const tooltipClasses = computed(() => [
 </script>
 
 <template>
+  <!--
+    Vue can't attach listeners to slot children the way React's cloneElement
+    can, so we wrap with a span. `display: contents` removes it from the box
+    tree so consumers see the same layout as React/Angular — events bubble
+    out of the slotted child without an extra layout box getting in the way.
+  -->
   <span
     ref="anchorWrapperRef"
     class="sisyphos-tooltip-anchor"
+    style="display: contents"
     :aria-describedby="visible ? tooltipId : undefined"
     @mouseenter="show"
     @mouseleave="hide"
