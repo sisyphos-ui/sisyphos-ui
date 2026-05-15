@@ -20,15 +20,29 @@ function activate() {
 </script>
 
 <template>
-  <button
-    type="button"
-    :id="item.triggerId"
-    :aria-controls="item.contentId"
-    :aria-expanded="open"
-    :disabled="disabled"
-    :class="['sisyphos-accordion-trigger', open && 'active']"
-    @click="activate"
-  >
-    <slot />
-  </button>
+  <h3 class="sisyphos-accordion-heading">
+    <button
+      type="button"
+      :id="item.triggerId"
+      :aria-controls="item.contentId"
+      :aria-expanded="open"
+      :disabled="disabled"
+      :class="['sisyphos-accordion-trigger', open && 'open']"
+      @click="activate"
+    >
+      <span class="sisyphos-accordion-trigger-label">
+        <slot />
+      </span>
+      <span
+        :class="['sisyphos-accordion-trigger-icon', open && 'rotated']"
+        aria-hidden="true"
+      >
+        <slot name="icon">
+          <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true">
+            <path d="M7 10l5 5 5-5z" fill="currentColor" />
+          </svg>
+        </slot>
+      </span>
+    </button>
+  </h3>
 </template>
