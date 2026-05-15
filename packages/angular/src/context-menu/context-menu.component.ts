@@ -53,21 +53,21 @@ let menuCounter = 0;
         [style.z-index]="1100"
       >
         @if (items().length === 0 && hasEmpty) {
-          <div class="sisyphos-dropdown-menu-empty" role="note">
+          <div class="sisyphos-context-menu-empty" role="note">
             <ng-content select="[menu-empty]" />
           </div>
         } @else {
           <ul
             #list
             role="menu"
-            class="sisyphos-dropdown-menu-list"
+            class="sisyphos-context-menu-list"
             (keydown)="onMenuKeydown($event)"
           >
             @for (item of items(); track $index; let i = $index) {
               @if (item.type === "separator") {
-                <li class="sisyphos-dropdown-menu-separator" role="separator"></li>
+                <li class="sisyphos-context-menu-separator" role="separator"></li>
               } @else if (item.type === "label") {
-                <li class="sisyphos-dropdown-menu-label" role="presentation">{{ item.label }}</li>
+                <li class="sisyphos-context-menu-label" role="presentation">{{ item.label }}</li>
               } @else {
                 <li
                   role="menuitem"
@@ -79,11 +79,11 @@ let menuCounter = 0;
                   (click)="select(item, $event)"
                 >
                   @if (item.icon) {
-                    <span class="sisyphos-dropdown-menu-item-icon">{{ item.icon }}</span>
+                    <span class="sisyphos-context-menu-item-icon">{{ item.icon }}</span>
                   }
-                  <span class="sisyphos-dropdown-menu-item-label">{{ item.label }}</span>
+                  <span class="sisyphos-context-menu-item-label">{{ item.label }}</span>
                   @if (item.shortcut) {
-                    <span class="sisyphos-dropdown-menu-item-shortcut">{{ item.shortcut }}</span>
+                    <span class="sisyphos-context-menu-item-shortcut">{{ item.shortcut }}</span>
                   }
                 </li>
               }
@@ -132,7 +132,7 @@ export class ContextMenu implements OnDestroy {
 
   private lastTrigger: HTMLElement | null = null;
 
-  readonly panelClasses = computed(() => `sisyphos-dropdown-menu sisyphos-context-menu`);
+  readonly panelClasses = computed(() => `sisyphos-context-menu`);
 
   readonly actionIndexes = computed(() =>
     this._items()
@@ -143,7 +143,7 @@ export class ContextMenu implements OnDestroy {
   itemClasses(item: ContextMenuItem): string {
     if (!isContextMenuAction(item)) return "";
     return [
-      "sisyphos-dropdown-menu-item",
+      "sisyphos-context-menu-item",
       item.destructive && "destructive",
       item.disabled && "disabled",
     ]
