@@ -20,7 +20,7 @@ describe("Button (Vue)", () => {
     const root = wrapper.element as HTMLButtonElement;
     expect(root.getAttribute("aria-busy")).toBe("true");
     expect(root.disabled).toBe(true);
-    expect(wrapper.find(".sisyphos-button-spinner").exists()).toBe(true);
+    expect(wrapper.find(".sisyphos-button-loading-spinner").exists()).toBe(true);
   });
 
   it("variant + color + size apply as classes", () => {
