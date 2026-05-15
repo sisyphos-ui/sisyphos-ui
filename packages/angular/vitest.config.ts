@@ -17,17 +17,17 @@ export default defineConfig({
       inlineStylesExtension: "scss",
     }),
   ],
-  css: {
-    preprocessorOptions: {
-      scss: { api: "modern-compiler" },
-    },
-  },
   test: {
     globals: true,
     environment: "jsdom",
     setupFiles: ["./vitest.setup.ts"],
     include: ["src/**/*.{test,spec}.ts"],
     exclude: ["**/node_modules/**", "**/dist/**"],
+    // The @analogjs/vite-plugin-angular pipeline segfaulted under Node 20
+    // when vitest used multiple worker forks in parallel. Switching to the
+    // threads pool sidesteps the native-module crash while keeping each
+    // test file in its own isolated worker.
+    pool: "threads",
   },
   define: {
     "import.meta.vitest": "undefined",
