@@ -31,8 +31,14 @@ describe("Pagination helpers", () => {
 
 describe("Pagination (Angular)", () => {
   it("emits pageChange when a numeric tab is clicked", () => {
-    @Component({ standalone: true, imports: [Pagination], template: `<sui-pagination [page]="1" [pageCount]="5" (pageChange)="last = $event" />` })
-    class Host { last = -1; }
+    @Component({
+      standalone: true,
+      imports: [Pagination],
+      template: `<sui-pagination [page]="1" [pageCount]="5" (pageChange)="last = $event" />`,
+    })
+    class Host {
+      last = -1;
+    }
     const fixture = TestBed.createComponent(Host);
     fixture.detectChanges();
     const buttons = fixture.nativeElement.querySelectorAll(".sisyphos-pagination-page");
@@ -41,7 +47,11 @@ describe("Pagination (Angular)", () => {
   });
 
   it("disables prev at page=1 and next at last page", () => {
-    @Component({ standalone: true, imports: [Pagination], template: `<sui-pagination [page]="1" [pageCount]="5" />` })
+    @Component({
+      standalone: true,
+      imports: [Pagination],
+      template: `<sui-pagination [page]="1" [pageCount]="5" />`,
+    })
     class Host {}
     const fixture = TestBed.createComponent(Host);
     fixture.detectChanges();
@@ -84,7 +94,13 @@ class Host {
   sort?: SortState;
   searchable = false;
   lastSearch = "";
-  pagination?: { page: number; pageCount: number; onPageChange: (p: number) => void; total?: number; pageSize?: number };
+  pagination?: {
+    page: number;
+    pageCount: number;
+    onPageChange: (p: number) => void;
+    total?: number;
+    pageSize?: number;
+  };
 }
 
 describe("Table (Angular)", () => {
@@ -161,7 +177,9 @@ describe("Table (Angular)", () => {
     const fixture = TestBed.createComponent(Host);
     fixture.componentInstance.searchable = true;
     fixture.detectChanges();
-    const search = fixture.nativeElement.querySelector('input[role="searchbox"]') as HTMLInputElement;
+    const search = fixture.nativeElement.querySelector(
+      'input[role="searchbox"]'
+    ) as HTMLInputElement;
     search.value = "Ada";
     search.dispatchEvent(new Event("input"));
     fixture.detectChanges();

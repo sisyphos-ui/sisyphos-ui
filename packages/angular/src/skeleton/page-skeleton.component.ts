@@ -6,13 +6,7 @@
  * `<sui-skeleton-text>` building blocks under the same class names so the
  * shared stylesheet works.
  */
-import {
-  ChangeDetectionStrategy,
-  Component,
-  Input,
-  computed,
-  signal,
-} from "@angular/core";
+import { ChangeDetectionStrategy, Component, Input, computed, signal } from "@angular/core";
 import { Skeleton, type SkeletonAnimation } from "./skeleton.component";
 import { SkeletonText } from "./skeleton-text.component";
 
@@ -35,7 +29,7 @@ export type PageSkeletonLayout = "default" | "cards" | "table" | "detail";
         </div>
       }
 
-      @if (layout() === 'default' || layout() === 'cards') {
+      @if (layout() === "default" || layout() === "cards") {
         @if (cardCount() > 0) {
           <div
             class="sisyphos-page-skeleton-cards"
@@ -52,7 +46,7 @@ export type PageSkeletonLayout = "default" | "cards" | "table" | "detail";
         }
       }
 
-      @if (layout() === 'default' || layout() === 'table') {
+      @if (layout() === "default" || layout() === "table") {
         @if (tableRows() > 0) {
           <div class="sisyphos-page-skeleton-table">
             <div class="sisyphos-page-skeleton-table-header">
@@ -63,11 +57,7 @@ export type PageSkeletonLayout = "default" | "cards" | "table" | "detail";
             @for (_ of rowIndexes(); track $index) {
               <div class="sisyphos-page-skeleton-table-row">
                 @for (c of columnIndexes(); track c) {
-                  <sui-skeleton
-                    [height]="12"
-                    [width]="cellWidth(c)"
-                    [animation]="animation()"
-                  />
+                  <sui-skeleton [height]="12" [width]="cellWidth(c)" [animation]="animation()" />
                 }
               </div>
             }
@@ -75,7 +65,7 @@ export type PageSkeletonLayout = "default" | "cards" | "table" | "detail";
         }
       }
 
-      @if (layout() === 'detail') {
+      @if (layout() === "detail") {
         <div class="sisyphos-page-skeleton-detail">
           <sui-skeleton [width]="160" [height]="120" [animation]="animation()" />
           <div class="sisyphos-page-skeleton-detail-body">
@@ -101,22 +91,32 @@ export class PageSkeleton {
   readonly tableRows = this._tableRows.asReadonly();
   readonly animation = this._animation.asReadonly();
 
-  @Input("layout") set layoutInput(v: PageSkeletonLayout) { this._layout.set(v); }
-  @Input("showHeader") set showHeaderInput(v: boolean) { this._showHeader.set(v); }
-  @Input("cardCount") set cardCountInput(v: number) { this._cardCount.set(v); }
-  @Input("tableRows") set tableRowsInput(v: number) { this._tableRows.set(v); }
-  @Input("tableColumns") set tableColumnsInput(v: number) { this._tableColumns.set(v); }
-  @Input("animation") set animationInput(v: SkeletonAnimation) { this._animation.set(v); }
+  @Input("layout") set layoutInput(v: PageSkeletonLayout) {
+    this._layout.set(v);
+  }
+  @Input("showHeader") set showHeaderInput(v: boolean) {
+    this._showHeader.set(v);
+  }
+  @Input("cardCount") set cardCountInput(v: number) {
+    this._cardCount.set(v);
+  }
+  @Input("tableRows") set tableRowsInput(v: number) {
+    this._tableRows.set(v);
+  }
+  @Input("tableColumns") set tableColumnsInput(v: number) {
+    this._tableColumns.set(v);
+  }
+  @Input("animation") set animationInput(v: SkeletonAnimation) {
+    this._animation.set(v);
+  }
 
   readonly rootClasses = computed(() => `sisyphos-page-skeleton ${this._layout()}`);
-  readonly cardsGridTemplate = computed(
-    () => `repeat(${this._cardCount()}, minmax(0, 1fr))`
-  );
+  readonly cardsGridTemplate = computed(() => `repeat(${this._cardCount()}, minmax(0, 1fr))`);
 
   readonly cardIndexes = computed(() => Array.from({ length: this._cardCount() }, (_, i) => i));
   readonly rowIndexes = computed(() => Array.from({ length: this._tableRows() }, (_, i) => i));
-  readonly columnIndexes = computed(
-    () => Array.from({ length: this._tableColumns() }, (_, i) => i)
+  readonly columnIndexes = computed(() =>
+    Array.from({ length: this._tableColumns() }, (_, i) => i)
   );
 
   /** Mirrors React's per-column width pattern. */

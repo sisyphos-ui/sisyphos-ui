@@ -134,7 +134,9 @@ describe("Input (Angular)", () => {
     fixture.componentInstance.showCount = true;
     fixture.componentInstance.value = "hi";
     fixture.detectChanges();
-    const count = fixture.nativeElement.querySelector(".sisyphos-input-character-count") as HTMLElement;
+    const count = fixture.nativeElement.querySelector(
+      ".sisyphos-input-character-count"
+    ) as HTMLElement;
     expect(count?.textContent).toContain("2 / 10");
   });
 
@@ -142,7 +144,9 @@ describe("Input (Angular)", () => {
     const fixture = TestBed.createComponent(Host);
     fixture.componentInstance.type = "password";
     fixture.detectChanges();
-    const toggle = fixture.nativeElement.querySelector(".sisyphos-input-password-toggle") as HTMLButtonElement;
+    const toggle = fixture.nativeElement.querySelector(
+      ".sisyphos-input-password-toggle"
+    ) as HTMLButtonElement;
     expect(toggle).toBeTruthy();
     const input = fixture.nativeElement.querySelector("input") as HTMLInputElement;
     expect(input.type).toBe("password");
@@ -155,7 +159,9 @@ describe("Input (Angular)", () => {
     const fixture = TestBed.createComponent(Host);
     fixture.componentInstance.copyable = true;
     fixture.detectChanges();
-    const btn = fixture.nativeElement.querySelector(".sisyphos-input-copy-button") as HTMLButtonElement;
+    const btn = fixture.nativeElement.querySelector(
+      ".sisyphos-input-copy-button"
+    ) as HTMLButtonElement;
     expect(btn).toBeTruthy();
   });
 

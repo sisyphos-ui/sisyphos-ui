@@ -48,7 +48,9 @@ describe("Carousel (Angular)", () => {
   it("aria-hidden marks inactive slides", () => {
     const fixture = TestBed.createComponent(Host);
     fixture.detectChanges();
-    const slides = fixture.nativeElement.querySelectorAll(".sisyphos-carousel-slide") as NodeListOf<HTMLElement>;
+    const slides = fixture.nativeElement.querySelectorAll(
+      ".sisyphos-carousel-slide"
+    ) as NodeListOf<HTMLElement>;
     expect(slides[0].getAttribute("aria-hidden")).toBe("false");
     expect(slides[1].getAttribute("aria-hidden")).toBe("true");
   });
@@ -56,7 +58,9 @@ describe("Carousel (Angular)", () => {
   it("Next button advances and emits indexChange", () => {
     const fixture = TestBed.createComponent(Host);
     fixture.detectChanges();
-    const next = fixture.nativeElement.querySelector(".sisyphos-carousel-arrow.next") as HTMLButtonElement;
+    const next = fixture.nativeElement.querySelector(
+      ".sisyphos-carousel-arrow.next"
+    ) as HTMLButtonElement;
     next.click();
     fixture.detectChanges();
     expect(fixture.componentInstance.index).toBe(1);
@@ -66,7 +70,9 @@ describe("Carousel (Angular)", () => {
     const fixture = TestBed.createComponent(Host);
     fixture.componentInstance.index = 1;
     fixture.detectChanges();
-    const prev = fixture.nativeElement.querySelector(".sisyphos-carousel-arrow.prev") as HTMLButtonElement;
+    const prev = fixture.nativeElement.querySelector(
+      ".sisyphos-carousel-arrow.prev"
+    ) as HTMLButtonElement;
     prev.click();
     fixture.detectChanges();
     expect(fixture.componentInstance.index).toBe(0);
@@ -76,7 +82,9 @@ describe("Carousel (Angular)", () => {
     const fixture = TestBed.createComponent(Host);
     fixture.componentInstance.index = 2;
     fixture.detectChanges();
-    const next = fixture.nativeElement.querySelector(".sisyphos-carousel-arrow.next") as HTMLButtonElement;
+    const next = fixture.nativeElement.querySelector(
+      ".sisyphos-carousel-arrow.next"
+    ) as HTMLButtonElement;
     next.click();
     fixture.detectChanges();
     expect(fixture.componentInstance.index).toBe(0);
@@ -87,7 +95,9 @@ describe("Carousel (Angular)", () => {
     fixture.componentInstance.loop = false;
     fixture.componentInstance.index = 2;
     fixture.detectChanges();
-    const next = fixture.nativeElement.querySelector(".sisyphos-carousel-arrow.next") as HTMLButtonElement;
+    const next = fixture.nativeElement.querySelector(
+      ".sisyphos-carousel-arrow.next"
+    ) as HTMLButtonElement;
     expect(next.disabled).toBe(true);
   });
 
@@ -157,7 +167,9 @@ describe("Carousel autoPlay", () => {
         [index]="index"
         (indexChange)="index = $event"
       >
-        <ng-template let-item><span>{{ item }}</span></ng-template>
+        <ng-template let-item
+          ><span>{{ item }}</span></ng-template
+        >
       </sui-carousel>
     `,
   })

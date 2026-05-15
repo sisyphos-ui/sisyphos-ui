@@ -3,14 +3,7 @@
  * AccordionItem's open state. Inherits `aria-expanded`, `aria-controls`,
  * and the chevron icon from the React/Vue versions.
  */
-import {
-  ChangeDetectionStrategy,
-  Component,
-  Input,
-  computed,
-  inject,
-  signal,
-} from "@angular/core";
+import { ChangeDetectionStrategy, Component, Input, computed, inject, signal } from "@angular/core";
 import { AccordionCtx, AccordionItemCtx } from "./context";
 
 @Component({
@@ -47,24 +40,16 @@ export class AccordionTrigger {
   private readonly _disabled = signal(false);
   readonly disabled = this._disabled.asReadonly();
 
-  @Input("disabled") set disabledInput(v: boolean) { this._disabled.set(v); }
+  @Input("disabled") set disabledInput(v: boolean) {
+    this._disabled.set(v);
+  }
 
   readonly buttonClasses = computed(() =>
-    [
-      "sisyphos-accordion-trigger",
-      this.item.open() && "open",
-    ]
-      .filter(Boolean)
-      .join(" ")
+    ["sisyphos-accordion-trigger", this.item.open() && "open"].filter(Boolean).join(" ")
   );
 
   readonly iconClasses = computed(() =>
-    [
-      "sisyphos-accordion-trigger-icon",
-      this.item.open() && "rotated",
-    ]
-      .filter(Boolean)
-      .join(" ")
+    ["sisyphos-accordion-trigger-icon", this.item.open() && "rotated"].filter(Boolean).join(" ")
   );
 
   onClick(): void {

@@ -99,13 +99,27 @@ export class Chip {
   readonly deletable = this._deletable.asReadonly();
   readonly deleteAriaLabel = this._deleteAriaLabel.asReadonly();
 
-  @Input("variant") set variantInput(v: ChipVariant) { this._variant.set(v); }
-  @Input("color") set colorInput(v: ChipColor) { this._color.set(v); }
-  @Input("size") set sizeInput(v: ChipSize) { this._size.set(v); }
-  @Input("radius") set radiusInput(v: ChipRadius) { this._radius.set(v); }
-  @Input("disabled") set disabledInput(v: boolean) { this._disabled.set(v); }
-  @Input("clickable") set clickableInput(v: boolean) { this._clickable.set(v); }
-  @Input("deletable") set deletableInput(v: boolean) { this._deletable.set(v); }
+  @Input("variant") set variantInput(v: ChipVariant) {
+    this._variant.set(v);
+  }
+  @Input("color") set colorInput(v: ChipColor) {
+    this._color.set(v);
+  }
+  @Input("size") set sizeInput(v: ChipSize) {
+    this._size.set(v);
+  }
+  @Input("radius") set radiusInput(v: ChipRadius) {
+    this._radius.set(v);
+  }
+  @Input("disabled") set disabledInput(v: boolean) {
+    this._disabled.set(v);
+  }
+  @Input("clickable") set clickableInput(v: boolean) {
+    this._clickable.set(v);
+  }
+  @Input("deletable") set deletableInput(v: boolean) {
+    this._deletable.set(v);
+  }
   @Input("deleteAriaLabel") set deleteAriaLabelInput(v: string) {
     this._deleteAriaLabel.set(v);
   }

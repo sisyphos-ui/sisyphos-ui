@@ -4,13 +4,7 @@
  *
  * Mirrors the React/Vue versions; computes line widths the same way.
  */
-import {
-  ChangeDetectionStrategy,
-  Component,
-  Input,
-  computed,
-  signal,
-} from "@angular/core";
+import { ChangeDetectionStrategy, Component, Input, computed, signal } from "@angular/core";
 import { Skeleton, type SkeletonAnimation } from "./skeleton.component";
 
 @Component({
@@ -32,8 +26,13 @@ import { Skeleton, type SkeletonAnimation } from "./skeleton.component";
   `,
   styles: [
     `
-      :host { display: block; }
-      div.sisyphos-skeleton-text { display: flex; flex-direction: column; }
+      :host {
+        display: block;
+      }
+      div.sisyphos-skeleton-text {
+        display: flex;
+        flex-direction: column;
+      }
     `,
   ],
 })
@@ -51,11 +50,21 @@ export class SkeletonText {
     return typeof v === "number" ? `${v}px` : v;
   });
 
-  @Input("lines") set linesInput(v: number) { this._lines.set(v); }
-  @Input("animation") set animationInput(v: SkeletonAnimation) { this._animation.set(v); }
-  @Input("lastNarrow") set lastNarrowInput(v: boolean) { this._lastNarrow.set(v); }
-  @Input("lineHeight") set lineHeightInput(v: number | string) { this._lineHeight.set(v); }
-  @Input("gap") set gapInput(v: number | string) { this._gap.set(v); }
+  @Input("lines") set linesInput(v: number) {
+    this._lines.set(v);
+  }
+  @Input("animation") set animationInput(v: SkeletonAnimation) {
+    this._animation.set(v);
+  }
+  @Input("lastNarrow") set lastNarrowInput(v: boolean) {
+    this._lastNarrow.set(v);
+  }
+  @Input("lineHeight") set lineHeightInput(v: number | string) {
+    this._lineHeight.set(v);
+  }
+  @Input("gap") set gapInput(v: number | string) {
+    this._gap.set(v);
+  }
 
   readonly indexes = computed(() => Array.from({ length: this._lines() }, (_, i) => i));
 

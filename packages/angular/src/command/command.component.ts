@@ -70,7 +70,9 @@ export class Command implements CommandContextValue {
   @Input("defaultValue") set defaultValueInput(v: string) {
     if (this._search() === "") this._search.set(v ?? "");
   }
-  @Input("label") set labelInput(v: string) { this._label.set(v); }
+  @Input("label") set labelInput(v: string) {
+    this._label.set(v);
+  }
 
   /** Two-way `[(value)]` for the search input. */
   @Output() readonly valueChange = new EventEmitter<string>();

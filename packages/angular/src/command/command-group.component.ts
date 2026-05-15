@@ -1,9 +1,4 @@
-import {
-  ChangeDetectionStrategy,
-  Component,
-  Input,
-  signal,
-} from "@angular/core";
+import { ChangeDetectionStrategy, Component, Input, signal } from "@angular/core";
 
 @Component({
   selector: "sui-command-group",
@@ -24,5 +19,7 @@ export class CommandGroup {
   private readonly _heading = signal<string | undefined>(undefined);
   readonly heading = this._heading.asReadonly();
 
-  @Input("heading") set headingInput(v: string | undefined) { this._heading.set(v); }
+  @Input("heading") set headingInput(v: string | undefined) {
+    this._heading.set(v);
+  }
 }

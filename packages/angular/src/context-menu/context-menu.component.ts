@@ -12,9 +12,7 @@
  *     <div class="row">{{ row.name }}</div>
  *   </sui-context-menu>
  */
-import type {
-  ElementRef,
-  OnDestroy} from "@angular/core";
+import type { ElementRef, OnDestroy } from "@angular/core";
 import {
   ChangeDetectionStrategy,
   Component,
@@ -26,10 +24,7 @@ import {
   computed,
   signal,
 } from "@angular/core";
-import {
-  isContextMenuAction,
-  type ContextMenuItem,
-} from "./types";
+import { isContextMenuAction, type ContextMenuItem } from "./types";
 
 let menuCounter = 0;
 
@@ -69,9 +64,9 @@ let menuCounter = 0;
             (keydown)="onMenuKeydown($event)"
           >
             @for (item of items(); track $index; let i = $index) {
-              @if (item.type === 'separator') {
+              @if (item.type === "separator") {
                 <li class="sisyphos-dropdown-menu-separator" role="separator"></li>
-              } @else if (item.type === 'label') {
+              } @else if (item.type === "label") {
                 <li class="sisyphos-dropdown-menu-label" role="presentation">{{ item.label }}</li>
               } @else {
                 <li
@@ -116,10 +111,18 @@ export class ContextMenu implements OnDestroy {
 
   hasEmpty = false;
 
-  @Input("items") set itemsInput(v: ContextMenuItem[]) { this._items.set(v ?? []); }
-  @Input("disabled") set disabledInput(v: boolean) { this._disabled.set(v); }
-  @Input("margin") set marginInput(v: number) { this._margin.set(v); }
-  @Input("hasEmpty") set hasEmptyInput(v: boolean) { this.hasEmpty = v; }
+  @Input("items") set itemsInput(v: ContextMenuItem[]) {
+    this._items.set(v ?? []);
+  }
+  @Input("disabled") set disabledInput(v: boolean) {
+    this._disabled.set(v);
+  }
+  @Input("margin") set marginInput(v: number) {
+    this._margin.set(v);
+  }
+  @Input("hasEmpty") set hasEmptyInput(v: boolean) {
+    this.hasEmpty = v;
+  }
 
   @Output() readonly openChange = new EventEmitter<boolean>();
 
@@ -148,7 +151,9 @@ export class ContextMenu implements OnDestroy {
       .join(" ");
   }
 
-  ngOnDestroy(): void { /* no-op */ }
+  ngOnDestroy(): void {
+    /* no-op */
+  }
 
   // ── trigger ──────────────────────────────────────────────────────────
 

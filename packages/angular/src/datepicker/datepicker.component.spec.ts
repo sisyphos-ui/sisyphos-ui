@@ -61,7 +61,9 @@ describe("DatePicker (Angular)", () => {
   it("renders the trigger with calendar icon and a placeholder", () => {
     const fixture = TestBed.createComponent(Host);
     fixture.detectChanges();
-    const trigger = fixture.nativeElement.querySelector(".sisyphos-datepicker-trigger") as HTMLElement;
+    const trigger = fixture.nativeElement.querySelector(
+      ".sisyphos-datepicker-trigger"
+    ) as HTMLElement;
     expect(trigger).toBeTruthy();
     expect(fixture.nativeElement.querySelector(".sisyphos-datepicker-input")).toBeTruthy();
   });
@@ -70,7 +72,9 @@ describe("DatePicker (Angular)", () => {
     const fixture = TestBed.createComponent(Host);
     fixture.componentInstance.value = new Date(2024, 0, 15);
     fixture.detectChanges();
-    const input = fixture.nativeElement.querySelector(".sisyphos-datepicker-input") as HTMLInputElement;
+    const input = fixture.nativeElement.querySelector(
+      ".sisyphos-datepicker-input"
+    ) as HTMLInputElement;
     expect(input.value).toBe("15.01.2024");
   });
 
@@ -79,14 +83,18 @@ describe("DatePicker (Angular)", () => {
     fixture.componentInstance.isRange = true;
     fixture.componentInstance.values = [new Date(2024, 0, 10), new Date(2024, 0, 20)];
     fixture.detectChanges();
-    const input = fixture.nativeElement.querySelector(".sisyphos-datepicker-input") as HTMLInputElement;
+    const input = fixture.nativeElement.querySelector(
+      ".sisyphos-datepicker-input"
+    ) as HTMLInputElement;
     expect(input.value).toBe("10.01.2024 - 20.01.2024");
   });
 
   it("opens the dropdown when the trigger is clicked", () => {
     const fixture = TestBed.createComponent(Host);
     fixture.detectChanges();
-    const trigger = fixture.nativeElement.querySelector(".sisyphos-datepicker-trigger") as HTMLElement;
+    const trigger = fixture.nativeElement.querySelector(
+      ".sisyphos-datepicker-trigger"
+    ) as HTMLElement;
     trigger.click();
     fixture.detectChanges();
     expect(fixture.nativeElement.querySelector("[role=dialog]")).toBeTruthy();
@@ -96,7 +104,9 @@ describe("DatePicker (Angular)", () => {
     const fixture = TestBed.createComponent(Host);
     fixture.componentInstance.disabled = true;
     fixture.detectChanges();
-    const trigger = fixture.nativeElement.querySelector(".sisyphos-datepicker-trigger") as HTMLElement;
+    const trigger = fixture.nativeElement.querySelector(
+      ".sisyphos-datepicker-trigger"
+    ) as HTMLElement;
     trigger.click();
     fixture.detectChanges();
     expect(fixture.nativeElement.querySelector("[role=dialog]")).toBeNull();
@@ -107,7 +117,9 @@ describe("DatePicker (Angular)", () => {
     fixture.componentInstance.value = new Date(2024, 0, 15);
     fixture.componentInstance.allowClear = true;
     fixture.detectChanges();
-    const clear = fixture.nativeElement.querySelector(".sisyphos-datepicker-clear") as HTMLButtonElement;
+    const clear = fixture.nativeElement.querySelector(
+      ".sisyphos-datepicker-clear"
+    ) as HTMLButtonElement;
     expect(clear).toBeTruthy();
     clear.click();
     fixture.detectChanges();
@@ -120,7 +132,9 @@ describe("DatePicker (Angular)", () => {
     fixture.componentInstance.values = [new Date(2024, 0, 10), new Date(2024, 0, 20)];
     fixture.componentInstance.allowClear = true;
     fixture.detectChanges();
-    const clear = fixture.nativeElement.querySelector(".sisyphos-datepicker-clear") as HTMLButtonElement;
+    const clear = fixture.nativeElement.querySelector(
+      ".sisyphos-datepicker-clear"
+    ) as HTMLButtonElement;
     clear.click();
     fixture.detectChanges();
     expect(fixture.componentInstance.values).toEqual([null, null]);
@@ -154,7 +168,9 @@ describe("DatePicker (Angular)", () => {
     const buttons = fixture.nativeElement.querySelectorAll(".sisyphos-datepicker-day");
     // Find the button labelled "20" — should be in the current month (Jan).
     const target = Array.from(buttons).find(
-      (b) => (b as HTMLButtonElement).textContent?.trim() === "20" && !(b as HTMLButtonElement).className.includes("other-month")
+      (b) =>
+        (b as HTMLButtonElement).textContent?.trim() === "20" &&
+        !(b as HTMLButtonElement).className.includes("other-month")
     ) as HTMLButtonElement | undefined;
     expect(target).toBeTruthy();
     target!.click();
@@ -168,7 +184,9 @@ describe("DatePicker (Angular)", () => {
     fixture.detectChanges();
     (fixture.nativeElement.querySelector(".sisyphos-datepicker-trigger") as HTMLElement).click();
     fixture.detectChanges();
-    const title = fixture.nativeElement.querySelector(".sisyphos-datepicker-header-title") as HTMLButtonElement;
+    const title = fixture.nativeElement.querySelector(
+      ".sisyphos-datepicker-header-title"
+    ) as HTMLButtonElement;
     expect(fixture.nativeElement.querySelector(".sisyphos-datepicker-days")).toBeTruthy();
     title.click();
     fixture.detectChanges();
@@ -184,7 +202,9 @@ describe("DatePicker (Angular)", () => {
       imports: [DatePicker],
       template: `<sui-datepicker [showTime]="true" [value]="value" />`,
     })
-    class T { value = new Date(2024, 0, 1, 9, 30); }
+    class T {
+      value = new Date(2024, 0, 1, 9, 30);
+    }
     const fixture = TestBed.createComponent(T);
     fixture.detectChanges();
     (fixture.nativeElement.querySelector(".sisyphos-datepicker-trigger") as HTMLElement).click();

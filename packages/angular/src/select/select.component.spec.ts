@@ -62,7 +62,9 @@ describe("Select (Angular) — single", () => {
     fixture.detectChanges();
     (fixture.nativeElement.querySelector("[role=combobox]") as HTMLElement).click();
     fixture.detectChanges();
-    const options = fixture.nativeElement.querySelectorAll("[role=option]") as NodeListOf<HTMLLIElement>;
+    const options = fixture.nativeElement.querySelectorAll(
+      "[role=option]"
+    ) as NodeListOf<HTMLLIElement>;
     options[1].click();
     fixture.detectChanges();
     expect(fixture.componentInstance.value).toBe("b");
@@ -74,7 +76,9 @@ describe("Select (Angular) — single", () => {
     fixture.detectChanges();
     (fixture.nativeElement.querySelector("[role=combobox]") as HTMLElement).click();
     fixture.detectChanges();
-    const options = fixture.nativeElement.querySelectorAll("[role=option]") as NodeListOf<HTMLLIElement>;
+    const options = fixture.nativeElement.querySelectorAll(
+      "[role=option]"
+    ) as NodeListOf<HTMLLIElement>;
     options[2].click();
     fixture.detectChanges();
     expect(fixture.componentInstance.value).toBeNull();
@@ -84,9 +88,9 @@ describe("Select (Angular) — single", () => {
     const fixture = TestBed.createComponent(Host);
     fixture.componentInstance.value = "b";
     fixture.detectChanges();
-    expect(
-      fixture.nativeElement.querySelector(".sisyphos-select-single")?.textContent
-    ).toBe("Banana");
+    expect(fixture.nativeElement.querySelector(".sisyphos-select-single")?.textContent).toBe(
+      "Banana"
+    );
   });
 
   it("clearable shows the clear button when a value is set", () => {
@@ -94,7 +98,9 @@ describe("Select (Angular) — single", () => {
     fixture.componentInstance.value = "a";
     fixture.componentInstance.clearable = true;
     fixture.detectChanges();
-    const clear = fixture.nativeElement.querySelector(".sisyphos-select-clear") as HTMLButtonElement;
+    const clear = fixture.nativeElement.querySelector(
+      ".sisyphos-select-clear"
+    ) as HTMLButtonElement;
     expect(clear).toBeTruthy();
     clear.click();
     fixture.detectChanges();
@@ -138,7 +144,9 @@ describe("Select (Angular) — multiple", () => {
     fixture.detectChanges();
     (fixture.nativeElement.querySelector("[role=combobox]") as HTMLElement).click();
     fixture.detectChanges();
-    const options = fixture.nativeElement.querySelectorAll("[role=option]") as NodeListOf<HTMLLIElement>;
+    const options = fixture.nativeElement.querySelectorAll(
+      "[role=option]"
+    ) as NodeListOf<HTMLLIElement>;
     options[0].click();
     fixture.detectChanges();
     options[1].click();
@@ -178,7 +186,9 @@ describe("Select (Angular) — searchable", () => {
     fixture.detectChanges();
     (fixture.nativeElement.querySelector("[role=combobox]") as HTMLElement).click();
     fixture.detectChanges();
-    const search = fixture.nativeElement.querySelector(".sisyphos-select-search") as HTMLInputElement;
+    const search = fixture.nativeElement.querySelector(
+      ".sisyphos-select-search"
+    ) as HTMLInputElement;
     search.value = "ban";
     search.dispatchEvent(new Event("input"));
     fixture.detectChanges();

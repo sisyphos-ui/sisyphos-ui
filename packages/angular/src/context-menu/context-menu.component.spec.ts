@@ -98,7 +98,9 @@ describe("ContextMenu (Angular)", () => {
     fixture.detectChanges();
     rightClick(fixture.nativeElement.querySelector(".zone") as HTMLElement);
     fixture.detectChanges();
-    const items = fixture.nativeElement.querySelectorAll("[role=menuitem]") as NodeListOf<HTMLLIElement>;
+    const items = fixture.nativeElement.querySelectorAll(
+      "[role=menuitem]"
+    ) as NodeListOf<HTMLLIElement>;
     items[0].click();
     fixture.detectChanges();
     expect(editFn).toHaveBeenCalled();

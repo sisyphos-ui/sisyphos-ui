@@ -19,7 +19,9 @@ import { CommandItem } from "./command-item.component";
         <sui-command-group heading="Suggestions">
           <sui-command-item value="calendar">Calendar</sui-command-item>
           <sui-command-item value="search">Search</sui-command-item>
-          <sui-command-item value="settings" [disabled]="settingsDisabled">Settings</sui-command-item>
+          <sui-command-item value="settings" [disabled]="settingsDisabled"
+            >Settings</sui-command-item
+          >
         </sui-command-group>
       </sui-command-list>
     </sui-command>
@@ -53,7 +55,9 @@ describe("Command (Angular)", () => {
     fixture.detectChanges();
     await tick();
     fixture.detectChanges();
-    const items = fixture.nativeElement.querySelectorAll("[role=option]") as NodeListOf<HTMLElement>;
+    const items = fixture.nativeElement.querySelectorAll(
+      "[role=option]"
+    ) as NodeListOf<HTMLElement>;
     expect(items[0].getAttribute("aria-selected")).toBe("true");
     expect(items[1].getAttribute("aria-selected")).toBeNull();
   });
@@ -105,7 +109,9 @@ describe("Command (Angular)", () => {
     fixture.detectChanges();
     await tick();
     fixture.detectChanges();
-    const items = fixture.nativeElement.querySelectorAll("[role=option]") as NodeListOf<HTMLElement>;
+    const items = fixture.nativeElement.querySelectorAll(
+      "[role=option]"
+    ) as NodeListOf<HTMLElement>;
     items[0].click();
     fixture.detectChanges();
     expect(fixture.componentInstance.selected).toEqual(["calendar"]);

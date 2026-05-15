@@ -52,10 +52,18 @@ export class Switch {
   readonly disabled = this._disabled.asReadonly();
   readonly ariaLabel = this._ariaLabel.asReadonly();
 
-  @Input("color") set colorInput(v: SwitchColor) { this._color.set(v); }
-  @Input("size") set sizeInput(v: SwitchSize) { this._size.set(v); }
-  @Input("disabled") set disabledInput(v: boolean) { this._disabled.set(v); }
-  @Input("aria-label") set ariaLabelInput(v: string | undefined) { this._ariaLabel.set(v); }
+  @Input("color") set colorInput(v: SwitchColor) {
+    this._color.set(v);
+  }
+  @Input("size") set sizeInput(v: SwitchSize) {
+    this._size.set(v);
+  }
+  @Input("disabled") set disabledInput(v: boolean) {
+    this._disabled.set(v);
+  }
+  @Input("aria-label") set ariaLabelInput(v: string | undefined) {
+    this._ariaLabel.set(v);
+  }
 
   readonly rootClasses = computed(() =>
     [

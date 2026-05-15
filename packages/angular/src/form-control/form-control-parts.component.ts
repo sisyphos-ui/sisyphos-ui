@@ -6,14 +6,7 @@
  * ancestor, the consumer can pass the IDs explicitly via inputs and we
  * fall back gracefully (no DI lookup).
  */
-import {
-  ChangeDetectionStrategy,
-  Component,
-  Input,
-  computed,
-  inject,
-  signal,
-} from "@angular/core";
+import { ChangeDetectionStrategy, Component, Input, computed, inject, signal } from "@angular/core";
 import { FormControlCtx } from "./context";
 
 @Component({
@@ -21,11 +14,7 @@ import { FormControlCtx } from "./context";
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <label
-      [id]="effectiveId()"
-      [attr.for]="effectiveFor()"
-      [class]="labelClasses()"
-    >
+    <label [id]="effectiveId()" [attr.for]="effectiveFor()" [class]="labelClasses()">
       <ng-content />
       @if (showRequired()) {
         <span class="sisyphos-form-label-required" aria-hidden="true">*</span>
@@ -39,8 +28,12 @@ export class FormLabel {
   private readonly _for = signal<string | undefined>(undefined);
   private readonly _id = signal<string | undefined>(undefined);
 
-  @Input("for") set forInput(v: string | undefined) { this._for.set(v); }
-  @Input("id") set idInput(v: string | undefined) { this._id.set(v); }
+  @Input("for") set forInput(v: string | undefined) {
+    this._for.set(v);
+  }
+  @Input("id") set idInput(v: string | undefined) {
+    this._id.set(v);
+  }
 
   readonly effectiveId = computed(() => this._id() ?? this.ctx?.labelId() ?? null);
   readonly effectiveFor = computed(() => this._for() ?? this.ctx?.id() ?? null);
@@ -48,12 +41,7 @@ export class FormLabel {
   readonly showRequired = computed(() => Boolean(this.ctx?.required()));
 
   readonly labelClasses = computed(() =>
-    [
-      "sisyphos-form-label",
-      this.ctx?.disabled() && "disabled",
-    ]
-      .filter(Boolean)
-      .join(" ")
+    ["sisyphos-form-label", this.ctx?.disabled() && "disabled"].filter(Boolean).join(" ")
   );
 }
 
@@ -73,7 +61,9 @@ export class FormHelperText {
   private readonly ctx = inject(FormControlCtx, { optional: true });
 
   private readonly _id = signal<string | undefined>(undefined);
-  @Input("id") set idInput(v: string | undefined) { this._id.set(v); }
+  @Input("id") set idInput(v: string | undefined) {
+    this._id.set(v);
+  }
 
   readonly effectiveId = computed(() => this._id() ?? this.ctx?.helperId() ?? null);
   /** Hidden when the parent FormControl is in error state — leaves room for
@@ -98,7 +88,9 @@ export class FormErrorText {
   private readonly ctx = inject(FormControlCtx, { optional: true });
 
   private readonly _id = signal<string | undefined>(undefined);
-  @Input("id") set idInput(v: string | undefined) { this._id.set(v); }
+  @Input("id") set idInput(v: string | undefined) {
+    this._id.set(v);
+  }
 
   readonly effectiveId = computed(() => this._id() ?? this.ctx?.errorId() ?? null);
   /** Visible only when the parent FormControl is in error state. Standalone

@@ -19,6 +19,4 @@ export interface RadioGroupContextValue {
   select: (next: string | number) => void;
 }
 
-export const RadioGroupCtx = new InjectionToken<RadioGroupContextValue>(
-  "sisyphos.radio-group"
-);
+export const RadioGroupCtx = new InjectionToken<RadioGroupContextValue>("sisyphos.radio-group");

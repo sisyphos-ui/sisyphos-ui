@@ -42,22 +42,18 @@ describe("Breadcrumb (Angular)", () => {
   });
 
   it("renders <a> for items with href (not the last)", () => {
-    const items: BreadcrumbItem[] = [
-      { label: "Home", href: "/" },
-      { label: "Users" },
-    ];
+    const items: BreadcrumbItem[] = [{ label: "Home", href: "/" }, { label: "Users" }];
     const fixture = setup({ items });
-    const link = fixture.nativeElement.querySelector("a.sisyphos-breadcrumb-link") as HTMLAnchorElement;
+    const link = fixture.nativeElement.querySelector(
+      "a.sisyphos-breadcrumb-link"
+    ) as HTMLAnchorElement;
     expect(link).toBeTruthy();
     expect(link.getAttribute("href")).toBe("/");
   });
 
   it("renders <button> for items with onClick (not href)", () => {
     const onClick = vi.fn();
-    const items: BreadcrumbItem[] = [
-      { label: "Home", onClick },
-      { label: "Users" },
-    ];
+    const items: BreadcrumbItem[] = [{ label: "Home", onClick }, { label: "Users" }];
     const fixture = setup({ items });
     const button = fixture.nativeElement.querySelector(
       "button.sisyphos-breadcrumb-link"
@@ -68,10 +64,7 @@ describe("Breadcrumb (Angular)", () => {
   });
 
   it("emits itemClick when an item is activated", () => {
-    const items: BreadcrumbItem[] = [
-      { label: "Home", onClick: () => {} },
-      { label: "Users" },
-    ];
+    const items: BreadcrumbItem[] = [{ label: "Home", onClick: () => {} }, { label: "Users" }];
     const fixture = setup({ items });
     const emitted: BreadcrumbItem[] = [];
     fixture.componentInstance.itemClick.subscribe((it) => emitted.push(it));
@@ -116,14 +109,9 @@ describe("Breadcrumb (Angular)", () => {
   });
 
   it("renders icon glyph string", () => {
-    const items: BreadcrumbItem[] = [
-      { label: "Home", href: "/", icon: "🏠" },
-      { label: "Users" },
-    ];
+    const items: BreadcrumbItem[] = [{ label: "Home", href: "/", icon: "🏠" }, { label: "Users" }];
     const fixture = setup({ items });
-    const icon = fixture.nativeElement.querySelector(
-      ".sisyphos-breadcrumb-icon"
-    ) as HTMLElement;
+    const icon = fixture.nativeElement.querySelector(".sisyphos-breadcrumb-icon") as HTMLElement;
     expect(icon.textContent?.trim()).toBe("🏠");
   });
 });

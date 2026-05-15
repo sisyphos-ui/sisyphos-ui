@@ -63,9 +63,7 @@ describe("FileUpload (Angular)", () => {
 
   it("renders the file list when value contains files", () => {
     const fixture = TestBed.createComponent(Host);
-    fixture.componentInstance.files = [
-      { id: "1", name: "a.txt", size: 100, status: "success" },
-    ];
+    fixture.componentInstance.files = [{ id: "1", name: "a.txt", size: 100, status: "success" }];
     fixture.detectChanges();
     expect(fixture.nativeElement.querySelectorAll("li.sisyphos-file-upload-item").length).toBe(1);
   });
@@ -127,14 +125,21 @@ describe("FileUpload (Angular)", () => {
     const f1 = makeFile("b.txt", 100);
     const f2 = makeFile("c.txt", 100);
     Object.defineProperty(native, "files", {
-      value: { 0: f1, 1: f2, length: 2, item: (i: number) => (i === 0 ? f1 : f2) } as unknown as FileList,
+      value: {
+        0: f1,
+        1: f2,
+        length: 2,
+        item: (i: number) => (i === 0 ? f1 : f2),
+      } as unknown as FileList,
       writable: true,
     });
     native.dispatchEvent(new Event("change"));
     fixture.detectChanges();
     // 1 existing + 2 new = 3, max=2 → only one slot remains
     expect(fixture.componentInstance.files.length).toBe(2);
-    expect(fixture.componentInstance.rejectedReasons.some((r) => r.kind === "max-files")).toBe(true);
+    expect(fixture.componentInstance.rejectedReasons.some((r) => r.kind === "max-files")).toBe(
+      true
+    );
   });
 
   it("disabled blocks the dropzone (canAddMore=false)", () => {

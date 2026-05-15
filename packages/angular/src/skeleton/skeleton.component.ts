@@ -6,13 +6,7 @@
  * sizing rules (text shape gets `height: 1em`; circular shape forces
  * `border-radius: 50%`).
  */
-import {
-  ChangeDetectionStrategy,
-  Component,
-  Input,
-  computed,
-  signal,
-} from "@angular/core";
+import { ChangeDetectionStrategy, Component, Input, computed, signal } from "@angular/core";
 
 export type SkeletonShape = "rectangular" | "circular" | "text";
 export type SkeletonAnimation = "shimmer" | "pulse" | "none";
@@ -49,15 +43,23 @@ export class Skeleton {
   readonly shape = this._shape.asReadonly();
   readonly animation = this._animation.asReadonly();
 
-  @Input("shape") set shapeInput(v: SkeletonShape) { this._shape.set(v); }
-  @Input("animation") set animationInput(v: SkeletonAnimation) { this._animation.set(v); }
-  @Input("width") set widthInput(v: number | string | undefined) { this._width.set(v); }
-  @Input("height") set heightInput(v: number | string | undefined) { this._height.set(v); }
-  @Input("radius") set radiusInput(v: number | string | undefined) { this._radius.set(v); }
+  @Input("shape") set shapeInput(v: SkeletonShape) {
+    this._shape.set(v);
+  }
+  @Input("animation") set animationInput(v: SkeletonAnimation) {
+    this._animation.set(v);
+  }
+  @Input("width") set widthInput(v: number | string | undefined) {
+    this._width.set(v);
+  }
+  @Input("height") set heightInput(v: number | string | undefined) {
+    this._height.set(v);
+  }
+  @Input("radius") set radiusInput(v: number | string | undefined) {
+    this._radius.set(v);
+  }
 
-  readonly rootClasses = computed(
-    () => `sisyphos-skeleton ${this._shape()} ${this._animation()}`
-  );
+  readonly rootClasses = computed(() => `sisyphos-skeleton ${this._shape()} ${this._animation()}`);
 
   readonly resolvedWidth = computed(() => toSize(this._width()) ?? null);
 

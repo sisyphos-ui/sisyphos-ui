@@ -10,10 +10,7 @@
  * text content, since the projected DOM doesn't exist when the item is
  * hidden.
  */
-import type {
-  ElementRef,
-  OnDestroy,
-  OnInit} from "@angular/core";
+import type { ElementRef, OnDestroy, OnInit } from "@angular/core";
 import {
   ChangeDetectionStrategy,
   Component,
@@ -59,10 +56,16 @@ export class CommandItem implements OnInit, OnDestroy {
   private readonly _label = signal<string>("");
   private readonly _disabled = signal(false);
 
-  @Input("value") set valueInput(v: string) { this._value.set(v); }
+  @Input("value") set valueInput(v: string) {
+    this._value.set(v);
+  }
   /** Searchable label, used when `value` isn't given. Defaults to `value`. */
-  @Input("label") set labelInput(v: string) { this._label.set(v); }
-  @Input("disabled") set disabledInput(v: boolean) { this._disabled.set(v); }
+  @Input("label") set labelInput(v: string) {
+    this._label.set(v);
+  }
+  @Input("disabled") set disabledInput(v: boolean) {
+    this._disabled.set(v);
+  }
 
   /** Fired when this item is activated (click or Enter via root). */
   @Output() readonly select = new EventEmitter<void>();
@@ -70,16 +73,10 @@ export class CommandItem implements OnInit, OnDestroy {
   @ViewChild("itemEl") itemRef?: ElementRef<HTMLDivElement>;
 
   readonly isActive = computed(() => this.ctx.activeId() === this.id);
-  readonly visible = computed(
-    () => this.ctx.matchedIds().includes(this.id) && !this._disabled()
-  );
+  readonly visible = computed(() => this.ctx.matchedIds().includes(this.id) && !this._disabled());
 
   readonly rootClasses = computed(() =>
-    [
-      "sisyphos-command-item",
-      this.isActive() && "active",
-      this._disabled() && "disabled",
-    ]
+    ["sisyphos-command-item", this.isActive() && "active", this._disabled() && "disabled"]
       .filter(Boolean)
       .join(" ")
   );
@@ -104,7 +101,9 @@ export class CommandItem implements OnInit, OnDestroy {
     );
   }
 
-  ngOnDestroy(): void { this.unregister?.(); }
+  ngOnDestroy(): void {
+    this.unregister?.();
+  }
 
   onClick(): void {
     if (this._disabled()) return;

@@ -2,23 +2,14 @@ import { describe, it, expect } from "vitest";
 import { Component } from "@angular/core";
 import { TestBed } from "@angular/core/testing";
 import { FormControl } from "./form-control.component";
-import {
-  FormErrorText,
-  FormHelperText,
-  FormLabel,
-} from "./form-control-parts.component";
+import { FormErrorText, FormHelperText, FormLabel } from "./form-control-parts.component";
 
 describe("FormControl (Angular)", () => {
   @Component({
     standalone: true,
     imports: [FormControl, FormLabel, FormHelperText, FormErrorText],
     template: `
-      <sui-form-control
-        [id]="id"
-        [error]="error"
-        [required]="required"
-        [disabled]="disabled"
-      >
+      <sui-form-control [id]="id" [error]="error" [required]="required" [disabled]="disabled">
         <sui-form-label>Email</sui-form-label>
         <input class="control" type="email" />
         <sui-form-helper-text>We won't share it.</sui-form-helper-text>
@@ -59,9 +50,9 @@ describe("FormControl (Angular)", () => {
   it("shows helper text when no error is set", () => {
     const fixture = TestBed.createComponent(Host);
     fixture.detectChanges();
-    expect(fixture.nativeElement.querySelector(".sisyphos-form-helper-text")?.textContent).toContain(
-      "We won't share it."
-    );
+    expect(
+      fixture.nativeElement.querySelector(".sisyphos-form-helper-text")?.textContent
+    ).toContain("We won't share it.");
     expect(fixture.nativeElement.querySelector(".sisyphos-form-error-text")).toBeNull();
   });
 

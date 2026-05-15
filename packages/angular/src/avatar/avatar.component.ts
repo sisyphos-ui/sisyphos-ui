@@ -29,13 +29,7 @@ import {
 import { getInitials } from "./initials";
 
 export type AvatarSize = "xs" | "sm" | "md" | "lg" | "xl";
-export type AvatarColor =
-  | "neutral"
-  | "primary"
-  | "success"
-  | "error"
-  | "warning"
-  | "info";
+export type AvatarColor = "neutral" | "primary" | "success" | "error" | "warning" | "info";
 export type AvatarShape = "circular" | "rounded" | "square";
 
 @Component({
@@ -79,14 +73,30 @@ export class Avatar {
   readonly color = this._color.asReadonly();
   readonly shape = this._shape.asReadonly();
 
-  @Input("src") set srcInput(v: string | undefined) { this._src.set(v); }
-  @Input("alt") set altInput(v: string | undefined) { this._alt.set(v); }
-  @Input("name") set nameInput(v: string | undefined) { this._name.set(v); }
-  @Input("initialsMax") set initialsMaxInput(v: number) { this._initialsMax.set(v); }
-  @Input("fallback") set fallbackInput(v: string | undefined) { this._fallback.set(v); }
-  @Input("size") set sizeInput(v: AvatarSize) { this._size.set(v); }
-  @Input("color") set colorInput(v: AvatarColor) { this._color.set(v); }
-  @Input("shape") set shapeInput(v: AvatarShape) { this._shape.set(v); }
+  @Input("src") set srcInput(v: string | undefined) {
+    this._src.set(v);
+  }
+  @Input("alt") set altInput(v: string | undefined) {
+    this._alt.set(v);
+  }
+  @Input("name") set nameInput(v: string | undefined) {
+    this._name.set(v);
+  }
+  @Input("initialsMax") set initialsMaxInput(v: number) {
+    this._initialsMax.set(v);
+  }
+  @Input("fallback") set fallbackInput(v: string | undefined) {
+    this._fallback.set(v);
+  }
+  @Input("size") set sizeInput(v: AvatarSize) {
+    this._size.set(v);
+  }
+  @Input("color") set colorInput(v: AvatarColor) {
+    this._color.set(v);
+  }
+  @Input("shape") set shapeInput(v: AvatarShape) {
+    this._shape.set(v);
+  }
 
   /** Tracks image load failures so we can fall back to initials. */
   private readonly imgFailed = signal(false);

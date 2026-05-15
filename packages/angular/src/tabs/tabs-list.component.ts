@@ -8,10 +8,7 @@
  *     `ResizeObserver` + `window.resize` to stay in sync, exactly matching
  *     the React/Vue versions' behavior.
  */
-import type {
-  AfterViewInit,
-  ElementRef,
-  OnDestroy} from "@angular/core";
+import type { AfterViewInit, ElementRef, OnDestroy } from "@angular/core";
 import {
   ChangeDetectionStrategy,
   Component,
@@ -102,10 +99,13 @@ export class TabsList implements AfterViewInit, OnDestroy {
     }
     // Use attribute selector to find the active trigger; CSS.escape protects
     // values containing special characters.
-    const escaped = typeof CSS !== "undefined" && (CSS as unknown as { escape: (v: string) => string }).escape
-      ? (CSS as unknown as { escape: (v: string) => string }).escape(value)
-      : value.replace(/(["\\])/g, "\\$1");
-    const active = list.querySelector(`[data-sisyphos-tab-value="${escaped}"]`) as HTMLElement | null;
+    const escaped =
+      typeof CSS !== "undefined" && (CSS as unknown as { escape: (v: string) => string }).escape
+        ? (CSS as unknown as { escape: (v: string) => string }).escape(value)
+        : value.replace(/(["\\])/g, "\\$1");
+    const active = list.querySelector(
+      `[data-sisyphos-tab-value="${escaped}"]`
+    ) as HTMLElement | null;
     if (!active) {
       this.indicator.set(null);
       return;
@@ -124,7 +124,8 @@ export class TabsList implements AfterViewInit, OnDestroy {
     const horizontal = this.ctx.orientation() === "horizontal";
     const next = horizontal ? "ArrowRight" : "ArrowDown";
     const prev = horizontal ? "ArrowLeft" : "ArrowUp";
-    if (event.key !== next && event.key !== prev && event.key !== "Home" && event.key !== "End") return;
+    if (event.key !== next && event.key !== prev && event.key !== "Home" && event.key !== "End")
+      return;
     event.preventDefault();
     const all = this.ctx.triggerValues();
     if (all.length === 0) return;

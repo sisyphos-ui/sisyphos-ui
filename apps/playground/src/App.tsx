@@ -245,12 +245,7 @@ export default function App() {
         </Section>
 
         <Section title="Data table" description="Sortable, paginated table with column templates.">
-          <Table
-            data={tableRows}
-            columns={tableColumns}
-            rowKey={(r) => r.id}
-            striped
-          />
+          <Table data={tableRows} columns={tableColumns} rowKey={(r) => r.id} striped />
         </Section>
 
         <Section title="DatePicker" description="Single date selection with locale + format.">

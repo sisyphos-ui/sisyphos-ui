@@ -15,7 +15,9 @@ function setup(props: Record<string, unknown> = {}) {
   }
   fixture.detectChanges();
   const root = fixture.nativeElement.querySelector(".sisyphos-avatar") as HTMLElement;
-  const image = fixture.nativeElement.querySelector(".sisyphos-avatar-image") as HTMLImageElement | null;
+  const image = fixture.nativeElement.querySelector(
+    ".sisyphos-avatar-image"
+  ) as HTMLImageElement | null;
   const fallback = fixture.nativeElement.querySelector(
     ".sisyphos-avatar-fallback"
   ) as HTMLElement | null;

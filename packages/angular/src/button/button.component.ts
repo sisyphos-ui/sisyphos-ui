@@ -14,8 +14,7 @@
  * Dropdown items pass via `[dropdownItems]`. The chevron and outside-click
  * handling are built in.
  */
-import type {
-  ElementRef} from "@angular/core";
+import type { ElementRef } from "@angular/core";
 import {
   ChangeDetectionStrategy,
   Component,
@@ -47,10 +46,7 @@ export interface ButtonDropdownItem {
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <div
-      [class]="wrapperClasses()"
-      #wrapper
-    >
+    <div [class]="wrapperClasses()" #wrapper>
       @if (href()) {
         <a
           #buttonEl
@@ -99,7 +95,7 @@ export interface ButtonDropdownItem {
     </div>
 
     <ng-template #contentTpl>
-      @if (loading() && loadingPosition() === 'start') {
+      @if (loading() && loadingPosition() === "start") {
         <ng-container *ngTemplateOutlet="spinnerTpl; context: { $implicit: 'start' }" />
       }
       @if (!loading()) {
@@ -112,7 +108,7 @@ export interface ButtonDropdownItem {
           <ng-content />
         </span>
       }
-      @if (loading() && loadingPosition() === 'center') {
+      @if (loading() && loadingPosition() === "center") {
         <ng-container *ngTemplateOutlet="spinnerTpl; context: { $implicit: 'center' }" />
       }
       @if (hasDropdown()) {
@@ -122,7 +118,7 @@ export interface ButtonDropdownItem {
           </svg>
         </span>
       } @else {
-        @if (loading() && loadingPosition() === 'end') {
+        @if (loading() && loadingPosition() === "end") {
           <ng-container *ngTemplateOutlet="spinnerTpl; context: { $implicit: 'end' }" />
         }
         @if (!loading()) {
@@ -134,12 +130,20 @@ export interface ButtonDropdownItem {
     </ng-template>
 
     <ng-template #spinnerTpl let-position>
-      <span [class]="'sisyphos-button-loading-spinner sisyphos-button-loading-spinner--' + position" aria-hidden="true">
+      <span
+        [class]="'sisyphos-button-loading-spinner sisyphos-button-loading-spinner--' + position"
+        aria-hidden="true"
+      >
         <svg class="sisyphos-button-loading-spinner-svg" viewBox="0 0 24 24" fill="none">
           <circle
-            cx="12" cy="12" r="10"
-            stroke="currentColor" stroke-width="2" stroke-linecap="round"
-            stroke-dasharray="32" stroke-dashoffset="12"
+            cx="12"
+            cy="12"
+            r="10"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-dasharray="32"
+            stroke-dashoffset="12"
           />
         </svg>
       </span>
@@ -147,7 +151,9 @@ export interface ButtonDropdownItem {
   `,
   styles: [
     `
-      .sisyphos-button-icon:empty { display: none; }
+      .sisyphos-button-icon:empty {
+        display: none;
+      }
     `,
   ],
   imports: [NgTemplateOutlet],
@@ -176,19 +182,39 @@ export class Button {
   readonly dropdownItems = this._dropdownItems.asReadonly();
   readonly dropdownOpen = this._dropdownOpen.asReadonly();
 
-  @Input("variant") set variantInput(v: ButtonVariant) { this._variant.set(v); }
-  @Input("color") set colorInput(v: ButtonColor) { this._color.set(v); }
-  @Input("size") set sizeInput(v: ButtonSize) { this._size.set(v); }
-  @Input("radius") set radiusInput(v: ButtonRadius) { this._radius.set(v); }
-  @Input("disabled") set disabledInput(v: boolean) { this._disabled.set(v); }
-  @Input("loading") set loadingInput(v: boolean) { this._loading.set(v); }
+  @Input("variant") set variantInput(v: ButtonVariant) {
+    this._variant.set(v);
+  }
+  @Input("color") set colorInput(v: ButtonColor) {
+    this._color.set(v);
+  }
+  @Input("size") set sizeInput(v: ButtonSize) {
+    this._size.set(v);
+  }
+  @Input("radius") set radiusInput(v: ButtonRadius) {
+    this._radius.set(v);
+  }
+  @Input("disabled") set disabledInput(v: boolean) {
+    this._disabled.set(v);
+  }
+  @Input("loading") set loadingInput(v: boolean) {
+    this._loading.set(v);
+  }
   @Input("loadingPosition") set loadingPositionInput(v: ButtonLoadingPosition) {
     this._loadingPosition.set(v);
   }
-  @Input("fullWidth") set fullWidthInput(v: boolean) { this._fullWidth.set(v); }
-  @Input("href") set hrefInput(v: string | undefined) { this._href.set(v); }
-  @Input("type") set typeInput(v: "button" | "submit" | "reset") { this._type.set(v); }
-  @Input("aria-label") set ariaLabelInput(v: string | undefined) { this._ariaLabel.set(v); }
+  @Input("fullWidth") set fullWidthInput(v: boolean) {
+    this._fullWidth.set(v);
+  }
+  @Input("href") set hrefInput(v: string | undefined) {
+    this._href.set(v);
+  }
+  @Input("type") set typeInput(v: "button" | "submit" | "reset") {
+    this._type.set(v);
+  }
+  @Input("aria-label") set ariaLabelInput(v: string | undefined) {
+    this._ariaLabel.set(v);
+  }
   @Input("dropdownItems") set dropdownItemsInput(v: ButtonDropdownItem[] | undefined) {
     this._dropdownItems.set(v);
   }
@@ -228,20 +254,14 @@ export class Button {
   );
 
   readonly wrapperClasses = computed(() =>
-    this.hasDropdown()
-      ? "sisyphos-button-wrapper has-dropdown"
-      : "sisyphos-button-wrapper"
+    this.hasDropdown() ? "sisyphos-button-wrapper has-dropdown" : "sisyphos-button-wrapper"
   );
 
-  readonly dropdownClasses = computed(
-    () => `sisyphos-button-dropdown ${this._dropdownPosition()}`
-  );
+  readonly dropdownClasses = computed(() => `sisyphos-button-dropdown ${this._dropdownPosition()}`);
 
   readonly chevronClasses = computed(
     () =>
-      `sisyphos-button-icon sisyphos-button-icon--dropdown${
-        this._dropdownOpen() ? " open" : ""
-      }`
+      `sisyphos-button-icon sisyphos-button-icon--dropdown${this._dropdownOpen() ? " open" : ""}`
   );
 
   onClick(event: MouseEvent): void {

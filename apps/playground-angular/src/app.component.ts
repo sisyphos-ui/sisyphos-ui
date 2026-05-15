@@ -73,7 +73,9 @@ interface Row {
         <p>All sisyphos-ui components rendered through &#64;sisyphos-ui/angular.</p>
         <div class="hero-actions">
           <sui-button (buttonClick)="hi()">Try a toast</sui-button>
-          <sui-button variant="outlined" (buttonClick)="dialogOpen.set(true)">Open dialog</sui-button>
+          <sui-button variant="outlined" (buttonClick)="dialogOpen.set(true)"
+            >Open dialog</sui-button
+          >
         </div>
       </header>
 
@@ -172,14 +174,44 @@ interface Row {
   `,
   styles: [
     `
-      :host { display: block; font-family: system-ui, sans-serif; }
-      .page { max-width: 960px; margin: 0 auto; padding: 32px; }
-      .hero { padding: 48px 0; }
-      .hero h1 { font-size: 32px; margin: 12px 0; }
-      .hero-actions { display: flex; gap: 12px; margin-top: 16px; }
-      .showcase-section { margin: 24px 0; padding: 24px; border-radius: 12px; background: #f9fafb; }
-      .showcase-section h2 { font-size: 20px; margin: 0 0 12px; }
-      .row { display: flex; gap: 12px; flex-wrap: wrap; align-items: center; margin: 12px 0; }
+      :host {
+        display: block;
+        font-family: system-ui, sans-serif;
+      }
+      .page {
+        max-width: 960px;
+        margin: 0 auto;
+        padding: 32px;
+      }
+      .hero {
+        padding: 48px 0;
+      }
+      .hero h1 {
+        font-size: 32px;
+        margin: 12px 0;
+      }
+      .hero-actions {
+        display: flex;
+        gap: 12px;
+        margin-top: 16px;
+      }
+      .showcase-section {
+        margin: 24px 0;
+        padding: 24px;
+        border-radius: 12px;
+        background: #f9fafb;
+      }
+      .showcase-section h2 {
+        font-size: 20px;
+        margin: 0 0 12px;
+      }
+      .row {
+        display: flex;
+        gap: 12px;
+        flex-wrap: wrap;
+        align-items: center;
+        margin: 12px 0;
+      }
     `,
   ],
 })

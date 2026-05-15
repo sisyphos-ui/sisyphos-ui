@@ -62,10 +62,18 @@ export class Tabs implements TabsContextValue {
     this._defaultValue.set(v);
     if (v && !this._value()) this._value.set(v);
   }
-  @Input("orientation") set orientationInput(v: TabsOrientation) { this._orientation.set(v); }
-  @Input("variant") set variantInput(v: TabsVariant) { this._variant.set(v); }
-  @Input("size") set sizeInput(v: TabsSize) { this._size.set(v); }
-  @Input("fullWidth") set fullWidthInput(v: boolean) { this._fullWidth.set(v); }
+  @Input("orientation") set orientationInput(v: TabsOrientation) {
+    this._orientation.set(v);
+  }
+  @Input("variant") set variantInput(v: TabsVariant) {
+    this._variant.set(v);
+  }
+  @Input("size") set sizeInput(v: TabsSize) {
+    this._size.set(v);
+  }
+  @Input("fullWidth") set fullWidthInput(v: boolean) {
+    this._fullWidth.set(v);
+  }
 
   /** Two-way `[(value)]` sugar. */
   @Output() readonly valueChange = new EventEmitter<string>();

@@ -2,14 +2,7 @@
  * AccordionContent — disclosure panel. Hidden via `hidden` attribute when
  * closed; unmounted entirely when `forceMount=false`.
  */
-import {
-  ChangeDetectionStrategy,
-  Component,
-  Input,
-  computed,
-  inject,
-  signal,
-} from "@angular/core";
+import { ChangeDetectionStrategy, Component, Input, computed, inject, signal } from "@angular/core";
 import { AccordionItemCtx } from "./context";
 
 @Component({
@@ -37,7 +30,9 @@ export class AccordionContent {
 
   private readonly _forceMount = signal(true);
 
-  @Input("forceMount") set forceMountInput(v: boolean) { this._forceMount.set(v); }
+  @Input("forceMount") set forceMountInput(v: boolean) {
+    this._forceMount.set(v);
+  }
 
   readonly shouldRender = computed(() => this.item.open() || this._forceMount());
 }

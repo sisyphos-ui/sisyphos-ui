@@ -15,12 +15,7 @@
  *     <sui-avatar name="Dan" />     <!-- collapses into +1 -->
  *   </sui-avatar-group>
  */
-import {
-  ChangeDetectionStrategy,
-  Component,
-  computed,
-  input,
-} from "@angular/core";
+import { ChangeDetectionStrategy, Component, computed, input } from "@angular/core";
 import { Avatar, type AvatarColor, type AvatarShape, type AvatarSize } from "./avatar.component";
 
 @Component({

@@ -6,13 +6,7 @@
  * Class names and SVG geometry match the React/Vue versions exactly so the
  * shared stylesheet works without changes.
  */
-import {
-  ChangeDetectionStrategy,
-  Component,
-  Input,
-  computed,
-  signal,
-} from "@angular/core";
+import { ChangeDetectionStrategy, Component, Input, computed, signal } from "@angular/core";
 
 export type SpinnerSize = "xs" | "sm" | "md" | "lg" | "xl";
 export type SpinnerColor =
@@ -60,7 +54,7 @@ const ARC_INNER = CIRCUMFERENCE * 0.3;
           [attr.pathLength]="circumference"
         />
       </svg>
-      @if (variant() === 'double') {
+      @if (variant() === "double") {
         <svg
           class="sisyphos-spinner-svg sisyphos-spinner-svg--inner"
           [attr.viewBox]="viewBox"
@@ -93,11 +87,21 @@ export class Spinner {
   readonly thickness = this._thickness.asReadonly();
   readonly label = this._label.asReadonly();
 
-  @Input("size") set sizeInput(v: SpinnerSize) { this._size.set(v); }
-  @Input("color") set colorInput(v: SpinnerColor) { this._color.set(v); }
-  @Input("thickness") set thicknessInput(v: number) { this._thickness.set(v); }
-  @Input("variant") set variantInput(v: SpinnerVariant) { this._variant.set(v); }
-  @Input("label") set labelInput(v: string) { this._label.set(v); }
+  @Input("size") set sizeInput(v: SpinnerSize) {
+    this._size.set(v);
+  }
+  @Input("color") set colorInput(v: SpinnerColor) {
+    this._color.set(v);
+  }
+  @Input("thickness") set thicknessInput(v: number) {
+    this._thickness.set(v);
+  }
+  @Input("variant") set variantInput(v: SpinnerVariant) {
+    this._variant.set(v);
+  }
+  @Input("label") set labelInput(v: string) {
+    this._label.set(v);
+  }
 
   readonly viewBox = `0 0 ${VIEWBOX} ${VIEWBOX}`;
   readonly center = CENTER;
@@ -107,7 +111,6 @@ export class Spinner {
   readonly dashInner = `${ARC_INNER} ${CIRCUMFERENCE}`;
 
   readonly rootClasses = computed(
-    () =>
-      `sisyphos-spinner ${this._size()} ${this._color()} ${this._variant()}`
+    () => `sisyphos-spinner ${this._size()} ${this._color()} ${this._variant()}`
   );
 }

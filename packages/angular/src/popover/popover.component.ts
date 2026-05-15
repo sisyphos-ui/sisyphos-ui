@@ -15,9 +15,7 @@
  *     </div>
  *   </sui-popover>
  */
-import type {
-  ElementRef,
-  OnDestroy} from "@angular/core";
+import type { ElementRef, OnDestroy } from "@angular/core";
 import {
   ChangeDetectionStrategy,
   Component,
@@ -98,14 +96,30 @@ export class Popover implements OnDestroy {
   @Input("open") set openInput(v: boolean) {
     if (typeof v === "boolean") this._open.set(v);
   }
-  @Input("placement") set placementInput(v: Placement) { this._placement.set(v); }
-  @Input("offset") set offsetInput(v: number) { this._offset.set(v); }
-  @Input("trigger") set triggerInput(v: "click" | "hover" | "manual") { this._trigger.set(v); }
-  @Input("openDelay") set openDelayInput(v: number) { this._openDelay.set(v); }
-  @Input("closeDelay") set closeDelayInput(v: number) { this._closeDelay.set(v); }
-  @Input("arrow") set arrowInput(v: boolean) { this._arrow.set(v); }
-  @Input("disabled") set disabledInput(v: boolean) { this._disabled.set(v); }
-  @Input("closeOnEscape") set closeOnEscapeInput(v: boolean) { this._closeOnEscape.set(v); }
+  @Input("placement") set placementInput(v: Placement) {
+    this._placement.set(v);
+  }
+  @Input("offset") set offsetInput(v: number) {
+    this._offset.set(v);
+  }
+  @Input("trigger") set triggerInput(v: "click" | "hover" | "manual") {
+    this._trigger.set(v);
+  }
+  @Input("openDelay") set openDelayInput(v: number) {
+    this._openDelay.set(v);
+  }
+  @Input("closeDelay") set closeDelayInput(v: number) {
+    this._closeDelay.set(v);
+  }
+  @Input("arrow") set arrowInput(v: boolean) {
+    this._arrow.set(v);
+  }
+  @Input("disabled") set disabledInput(v: boolean) {
+    this._disabled.set(v);
+  }
+  @Input("closeOnEscape") set closeOnEscapeInput(v: boolean) {
+    this._closeOnEscape.set(v);
+  }
   @Input("closeOnOutsideClick") set closeOnOutsideClickInput(v: boolean) {
     this._closeOnOutsideClick.set(v);
   }
@@ -194,8 +208,14 @@ export class Popover implements OnDestroy {
   }
 
   private clearTimers(): void {
-    if (this.openTimer) { clearTimeout(this.openTimer); this.openTimer = null; }
-    if (this.closeTimer) { clearTimeout(this.closeTimer); this.closeTimer = null; }
+    if (this.openTimer) {
+      clearTimeout(this.openTimer);
+      this.openTimer = null;
+    }
+    if (this.closeTimer) {
+      clearTimeout(this.closeTimer);
+      this.closeTimer = null;
+    }
   }
 
   private schedule(next: boolean, delay: number): void {

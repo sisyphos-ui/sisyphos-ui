@@ -2,13 +2,7 @@
  * CommandInput — searchbox with arrow-key navigation that drives the parent
  * Command's active item.
  */
-import {
-  ChangeDetectionStrategy,
-  Component,
-  Input,
-  inject,
-  signal,
-} from "@angular/core";
+import { ChangeDetectionStrategy, Component, Input, inject, signal } from "@angular/core";
 import { CommandCtx } from "./context";
 
 @Component({
@@ -40,7 +34,9 @@ export class CommandInput {
   private readonly _placeholder = signal<string>("Type a command or search…");
   readonly placeholder = this._placeholder.asReadonly();
 
-  @Input("placeholder") set placeholderInput(v: string) { this._placeholder.set(v); }
+  @Input("placeholder") set placeholderInput(v: string) {
+    this._placeholder.set(v);
+  }
 
   onInput(event: Event): void {
     this.ctx.setSearch((event.target as HTMLInputElement).value);

@@ -8,11 +8,7 @@ import type { DropdownMenuItem } from "./types";
   standalone: true,
   imports: [DropdownMenu],
   template: `
-    <sui-dropdown-menu
-      [items]="items"
-      [open]="open"
-      (openChange)="open = $event"
-    >
+    <sui-dropdown-menu [items]="items" [open]="open" (openChange)="open = $event">
       <button class="trigger">Open</button>
     </sui-dropdown-menu>
     <button class="outside">Outside</button>
@@ -46,9 +42,7 @@ describe("DropdownMenu (Angular)", () => {
     const fixture = TestBed.createComponent(Host);
     fixture.componentInstance.items = sampleItems;
     fixture.detectChanges();
-    const anchor = fixture.nativeElement.querySelector(
-      ".sisyphos-dropdown-anchor"
-    ) as HTMLElement;
+    const anchor = fixture.nativeElement.querySelector(".sisyphos-dropdown-anchor") as HTMLElement;
     expect(anchor.getAttribute("aria-expanded")).toBeNull();
     (fixture.nativeElement.querySelector(".trigger") as HTMLButtonElement).click();
     fixture.detectChanges();
@@ -63,7 +57,7 @@ describe("DropdownMenu (Angular)", () => {
     fixture.detectChanges();
     expect(fixture.nativeElement.querySelectorAll("[role=menuitem]").length).toBe(3);
     expect(fixture.nativeElement.querySelectorAll("[role=separator]").length).toBe(1);
-    expect(fixture.nativeElement.querySelectorAll('.sisyphos-dropdown-menu-label').length).toBe(1);
+    expect(fixture.nativeElement.querySelectorAll(".sisyphos-dropdown-menu-label").length).toBe(1);
   });
 
   it("disabled items get aria-disabled and are not selectable", () => {
@@ -77,7 +71,9 @@ describe("DropdownMenu (Angular)", () => {
     fixture.componentInstance.items = items;
     fixture.componentInstance.open = true;
     fixture.detectChanges();
-    const lis = fixture.nativeElement.querySelectorAll("[role=menuitem]") as NodeListOf<HTMLLIElement>;
+    const lis = fixture.nativeElement.querySelectorAll(
+      "[role=menuitem]"
+    ) as NodeListOf<HTMLLIElement>;
     expect(lis[1].getAttribute("aria-disabled")).toBe("true");
     lis[1].click();
     expect(disabledFn).not.toHaveBeenCalled();
@@ -89,7 +85,9 @@ describe("DropdownMenu (Angular)", () => {
     fixture.componentInstance.items = sampleItems;
     fixture.componentInstance.open = true;
     fixture.detectChanges();
-    const lis = fixture.nativeElement.querySelectorAll("[role=menuitem]") as NodeListOf<HTMLLIElement>;
+    const lis = fixture.nativeElement.querySelectorAll(
+      "[role=menuitem]"
+    ) as NodeListOf<HTMLLIElement>;
     // First menuitem is Edit (after the label li)
     lis[0].click();
     fixture.detectChanges();

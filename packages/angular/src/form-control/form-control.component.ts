@@ -11,13 +11,7 @@
  *     <sui-form-error-text>{{ err }}</sui-form-error-text>
  *   </sui-form-control>
  */
-import {
-  ChangeDetectionStrategy,
-  Component,
-  Input,
-  computed,
-  signal,
-} from "@angular/core";
+import { ChangeDetectionStrategy, Component, Input, computed, signal } from "@angular/core";
 import { FormControlCtx, type FormControlContextValue } from "./context";
 
 let fcCounter = 0;
@@ -51,18 +45,26 @@ export class FormControl implements FormControlContextValue {
   readonly helperId = computed(() => `${this._id()}-helper`);
   readonly errorId = computed(() => `${this._id()}-error`);
 
-  readonly describedBy = computed(() =>
-    this._error() ? this.errorId() : this.helperId()
-  );
+  readonly describedBy = computed(() => (this._error() ? this.errorId() : this.helperId()));
 
   @Input("id") set idInput(v: string | undefined) {
     if (v) this._id.set(v);
   }
-  @Input("disabled") set disabledInput(v: boolean) { this._disabled.set(v); }
-  @Input("required") set requiredInput(v: boolean) { this._required.set(v); }
-  @Input("readOnly") set readOnlyInput(v: boolean) { this._readOnly.set(v); }
-  @Input("error") set errorInput(v: boolean) { this._error.set(v); }
-  @Input("fullWidth") set fullWidthInput(v: boolean) { this._fullWidth.set(v); }
+  @Input("disabled") set disabledInput(v: boolean) {
+    this._disabled.set(v);
+  }
+  @Input("required") set requiredInput(v: boolean) {
+    this._required.set(v);
+  }
+  @Input("readOnly") set readOnlyInput(v: boolean) {
+    this._readOnly.set(v);
+  }
+  @Input("error") set errorInput(v: boolean) {
+    this._error.set(v);
+  }
+  @Input("fullWidth") set fullWidthInput(v: boolean) {
+    this._fullWidth.set(v);
+  }
 
   readonly rootClasses = computed(() =>
     [

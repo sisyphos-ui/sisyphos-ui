@@ -9,9 +9,7 @@
  *   <sui-select [options]="opts" [(value)]="picked" placeholder="Pick one" />
  *   <sui-select [options]="opts" [(values)]="picked" multiple searchable />
  */
-import type {
-  ElementRef,
-  OnDestroy} from "@angular/core";
+import type { ElementRef, OnDestroy } from "@angular/core";
 import {
   ChangeDetectionStrategy,
   Component,
@@ -65,7 +63,9 @@ let selectCounter = 0;
                     [attr.aria-label]="'Remove ' + labelOf(v)"
                     [disabled]="disabled()"
                     (click)="removeTag(v, $event)"
-                  >×</button>
+                  >
+                    ×
+                  </button>
                 </span>
               }
             </div>
@@ -83,14 +83,22 @@ let selectCounter = 0;
             (click)="onClear($event)"
           >
             <svg viewBox="0 0 24 24" width="14" height="14" aria-hidden="true">
-              <path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z" fill="currentColor" />
+              <path
+                d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"
+                fill="currentColor"
+              />
             </svg>
           </button>
         }
         <span class="sisyphos-select-chevron">
-          <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"
-               [style.transform]="open() ? 'rotate(180deg)' : null"
-               [style.transition]="'transform 150ms'">
+          <svg
+            viewBox="0 0 24 24"
+            width="18"
+            height="18"
+            aria-hidden="true"
+            [style.transform]="open() ? 'rotate(180deg)' : null"
+            [style.transition]="'transform 150ms'"
+          >
             <path d="M7 10l5 5 5-5z" fill="currentColor" />
           </svg>
         </span>
@@ -196,7 +204,12 @@ export class Select implements OnDestroy {
   private readonly _open = signal(false);
   private readonly _search = signal("");
   private readonly _activeIndex = signal(-1);
-  protected readonly pos = signal<{ left: number; top: number; placement: Placement; width: number } | null>(null);
+  protected readonly pos = signal<{
+    left: number;
+    top: number;
+    placement: Placement;
+    width: number;
+  } | null>(null);
 
   // Public read API ────────────────────────────────────────────────────
   readonly options = this._options.asReadonly();
@@ -216,7 +229,9 @@ export class Select implements OnDestroy {
   readonly search = this._search.asReadonly();
   readonly activeIndex = this._activeIndex.asReadonly();
 
-  @Input("options") set optionsInput(v: SelectOption[]) { this._options.set(v ?? []); }
+  @Input("options") set optionsInput(v: SelectOption[]) {
+    this._options.set(v ?? []);
+  }
   /** Single-mode value. Use only when `multiple=false`. */
   @Input("value") set valueInput(v: SelectValue | null | undefined) {
     if (v !== undefined) this._value.set(v);
@@ -225,23 +240,57 @@ export class Select implements OnDestroy {
   @Input("values") set valuesInput(v: SelectValue[] | undefined) {
     if (v !== undefined) this._values.set(v ?? []);
   }
-  @Input("multiple") set multipleInput(v: boolean) { this._multiple.set(v); }
-  @Input("placeholder") set placeholderInput(v: string) { this._placeholder.set(v); }
-  @Input("label") set labelInput(v: string | undefined) { this._label.set(v); }
-  @Input("helperText") set helperTextInput(v: string | undefined) { this._helperText.set(v); }
-  @Input("error") set errorInput(v: boolean) { this._error.set(v); }
-  @Input("errorMessage") set errorMessageInput(v: string | undefined) { this._errorMessage.set(v); }
-  @Input("disabled") set disabledInput(v: boolean) { this._disabled.set(v); }
-  @Input("required") set requiredInput(v: boolean) { this._required.set(v); }
-  @Input("size") set sizeInput(v: "xs" | "sm" | "md" | "lg" | "xl") { this._size.set(v); }
-  @Input("radius") set radiusInput(v: "none" | "sm" | "md" | "lg" | "full") { this._radius.set(v); }
-  @Input("fullWidth") set fullWidthInput(v: boolean) { this._fullWidth.set(v); }
-  @Input("searchable") set searchableInput(v: boolean) { this._searchable.set(v); }
-  @Input("clearable") set clearableInput(v: boolean) { this._clearable.set(v); }
-  @Input("creatable") set creatableInput(v: boolean) { this._creatable.set(v); }
-  @Input("loading") set loadingInput(v: boolean) { this._loading.set(v); }
-  @Input("hasMore") set hasMoreInput(v: boolean | undefined) { this._hasMore.set(v); }
-  @Input("placement") set placementInput(v: Placement) { this._placement.set(v); }
+  @Input("multiple") set multipleInput(v: boolean) {
+    this._multiple.set(v);
+  }
+  @Input("placeholder") set placeholderInput(v: string) {
+    this._placeholder.set(v);
+  }
+  @Input("label") set labelInput(v: string | undefined) {
+    this._label.set(v);
+  }
+  @Input("helperText") set helperTextInput(v: string | undefined) {
+    this._helperText.set(v);
+  }
+  @Input("error") set errorInput(v: boolean) {
+    this._error.set(v);
+  }
+  @Input("errorMessage") set errorMessageInput(v: string | undefined) {
+    this._errorMessage.set(v);
+  }
+  @Input("disabled") set disabledInput(v: boolean) {
+    this._disabled.set(v);
+  }
+  @Input("required") set requiredInput(v: boolean) {
+    this._required.set(v);
+  }
+  @Input("size") set sizeInput(v: "xs" | "sm" | "md" | "lg" | "xl") {
+    this._size.set(v);
+  }
+  @Input("radius") set radiusInput(v: "none" | "sm" | "md" | "lg" | "full") {
+    this._radius.set(v);
+  }
+  @Input("fullWidth") set fullWidthInput(v: boolean) {
+    this._fullWidth.set(v);
+  }
+  @Input("searchable") set searchableInput(v: boolean) {
+    this._searchable.set(v);
+  }
+  @Input("clearable") set clearableInput(v: boolean) {
+    this._clearable.set(v);
+  }
+  @Input("creatable") set creatableInput(v: boolean) {
+    this._creatable.set(v);
+  }
+  @Input("loading") set loadingInput(v: boolean) {
+    this._loading.set(v);
+  }
+  @Input("hasMore") set hasMoreInput(v: boolean | undefined) {
+    this._hasMore.set(v);
+  }
+  @Input("placement") set placementInput(v: Placement) {
+    this._placement.set(v);
+  }
 
   /** Two-way bindings — single & multi modes use separate output names. */
   @Output() readonly valueChange = new EventEmitter<SelectValue | null>();
@@ -289,17 +338,13 @@ export class Select implements OnDestroy {
   );
 
   readonly labelClasses = computed(() =>
-    [
-      "sisyphos-select-label",
-      this._error() && "error",
-      this._required() && "required",
-    ]
+    ["sisyphos-select-label", this._error() && "error", this._required() && "required"]
       .filter(Boolean)
       .join(" ")
   );
 
-  readonly listClasses = computed(() =>
-    `sisyphos-select-list ${this.pos()?.placement ?? this._placement()}`
+  readonly listClasses = computed(
+    () => `sisyphos-select-list ${this.pos()?.placement ?? this._placement()}`
   );
 
   isSelected(v: SelectValue): boolean {
@@ -341,7 +386,9 @@ export class Select implements OnDestroy {
     });
   }
 
-  ngOnDestroy(): void { this.removeScrollListeners(); }
+  ngOnDestroy(): void {
+    this.removeScrollListeners();
+  }
 
   // ── Trigger ──────────────────────────────────────────────────────────
 
@@ -351,7 +398,10 @@ export class Select implements OnDestroy {
   }
 
   onTriggerKeydown(event: KeyboardEvent): void {
-    if (!this._open() && (event.key === "ArrowDown" || event.key === "Enter" || event.key === " ")) {
+    if (
+      !this._open() &&
+      (event.key === "ArrowDown" || event.key === "Enter" || event.key === " ")
+    ) {
       event.preventDefault();
       this.setOpen(true);
       return;

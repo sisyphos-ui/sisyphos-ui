@@ -7,9 +7,7 @@
  * Mouse + touch + keyboard (Arrow / Page / Home / End). Mirrors the
  * React/Vue versions: same class names, same step-snapping, same minGap.
  */
-import type {
-  ElementRef,
-  OnDestroy} from "@angular/core";
+import type { ElementRef, OnDestroy } from "@angular/core";
 import {
   ChangeDetectionStrategy,
   Component,
@@ -45,14 +43,16 @@ function snap(value: number, min: number, step: number): number {
       }
       @if (showValue() && !range()) {
         <div class="sisyphos-slider-values single">
-          <span [style.margin-left]="'calc(' + startPct() + '% - 16px)'">{{ formatValueOf(0) }}</span>
+          <span [style.margin-left]="'calc(' + startPct() + '% - 16px)'">{{
+            formatValueOf(0)
+          }}</span>
         </div>
       }
       <div #track class="sisyphos-slider-track" (mousedown)="onTrackMousedown($event)">
         <div
           class="sisyphos-slider-progress"
           [style.left]="range() ? startPct() + '%' : '0'"
-          [style.width]="range() ? (endPct() - startPct()) + '%' : endPct() + '%'"
+          [style.width]="range() ? endPct() - startPct() + '%' : endPct() + '%'"
         ></div>
         @if (!range()) {
           <button
@@ -143,23 +143,39 @@ export class Slider implements OnDestroy {
   readonly showValue = this._showValue.asReadonly();
   readonly current = this._tuple.asReadonly();
 
-  @Input("min") set minInput(v: number) { this._min.set(v); }
-  @Input("max") set maxInput(v: number) { this._max.set(v); }
-  @Input("step") set stepInput(v: number) { this._step.set(v); }
-  @Input("disabled") set disabledInput(v: boolean) { this._disabled.set(v); }
-  @Input("size") set sizeInput(v: "sm" | "md" | "lg") { this._size.set(v); }
+  @Input("min") set minInput(v: number) {
+    this._min.set(v);
+  }
+  @Input("max") set maxInput(v: number) {
+    this._max.set(v);
+  }
+  @Input("step") set stepInput(v: number) {
+    this._step.set(v);
+  }
+  @Input("disabled") set disabledInput(v: boolean) {
+    this._disabled.set(v);
+  }
+  @Input("size") set sizeInput(v: "sm" | "md" | "lg") {
+    this._size.set(v);
+  }
   @Input("color") set colorInput(v: "primary" | "success" | "error" | "warning" | "info") {
     this._color.set(v);
   }
-  @Input("showValue") set showValueInput(v: boolean) { this._showValue.set(v); }
+  @Input("showValue") set showValueInput(v: boolean) {
+    this._showValue.set(v);
+  }
   @Input("formatValue") set formatValueInput(fn: (v: number) => string) {
     if (typeof fn === "function") this._formatValue.set(fn);
   }
   @Input("ariaLabel") set ariaLabelInput(v: string | [string, string] | undefined) {
     this._ariaLabel.set(v);
   }
-  @Input("range") set rangeInput(v: boolean) { this._range.set(v); }
-  @Input("minGap") set minGapInput(v: number) { this._minGap.set(v); }
+  @Input("range") set rangeInput(v: boolean) {
+    this._range.set(v);
+  }
+  @Input("minGap") set minGapInput(v: number) {
+    this._minGap.set(v);
+  }
 
   /** Single-mode value. */
   @Input("value") set valueInput(v: number | undefined) {
@@ -197,7 +213,9 @@ export class Slider implements OnDestroy {
       .join(" ")
   );
 
-  ngOnDestroy(): void { this.detachDocListeners(); }
+  ngOnDestroy(): void {
+    this.detachDocListeners();
+  }
 
   pct(v: number): number {
     return ((v - this._min()) / (this._max() - this._min())) * 100;
@@ -298,7 +316,10 @@ export class Slider implements OnDestroy {
       const v = this.valueFromClientX(clientX);
       this.updateThumb(this.dragIdx, v);
     };
-    this.upHandler = () => { this.dragIdx = null; this.detachDocListeners(); };
+    this.upHandler = () => {
+      this.dragIdx = null;
+      this.detachDocListeners();
+    };
     window.addEventListener("mousemove", this.moveHandler);
     window.addEventListener("touchmove", this.moveHandler);
     window.addEventListener("mouseup", this.upHandler);

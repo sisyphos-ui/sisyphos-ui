@@ -6,9 +6,7 @@
  * Use `[isRange]="true"` to switch to range mode; bind via `[(value)]` for
  * single (Date | null) or `[(values)]` for range ([Date | null, Date | null]).
  */
-import type {
-  ElementRef,
-  OnDestroy} from "@angular/core";
+import type { ElementRef, OnDestroy } from "@angular/core";
 import {
   ChangeDetectionStrategy,
   Component,
@@ -23,13 +21,7 @@ import {
 } from "@angular/core";
 import { computePosition, type Placement } from "@sisyphos-ui/core/internal";
 import { formatDate, sameDay, withTime } from "./format";
-import {
-  MONTHS,
-  PLACEHOLDERS,
-  RANGE_LABELS,
-  WEEK_DAYS,
-  type DateLocale,
-} from "./locale";
+import { MONTHS, PLACEHOLDERS, RANGE_LABELS, WEEK_DAYS, type DateLocale } from "./locale";
 
 type ViewMode = "days" | "months" | "years";
 
@@ -58,13 +50,19 @@ function buildCalendar(month: Date, locale: DateLocale): Date[] {
       @if (label()) {
         <label [for]="fieldId" [class]="labelClasses()">{{ label() }}</label>
       }
-      <div
-        #trigger
-        [class]="triggerClasses()"
-        (click)="openPicker()"
-      >
+      <div #trigger [class]="triggerClasses()" (click)="openPicker()">
         <span class="sisyphos-datepicker-start-icon" aria-hidden="true">
-          <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <svg
+            viewBox="0 0 24 24"
+            width="20"
+            height="20"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1.5"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            aria-hidden="true"
+          >
             <rect x="3" y="4" width="18" height="18" rx="2" />
             <line x1="16" y1="2" x2="16" y2="6" />
             <line x1="8" y1="2" x2="8" y2="6" />
@@ -92,13 +90,21 @@ function buildCalendar(month: Date, locale: DateLocale): Date[] {
               (click)="onClear($event)"
             >
               <svg viewBox="0 0 24 24" width="14" height="14" aria-hidden="true">
-                <path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z" fill="currentColor" />
+                <path
+                  d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"
+                  fill="currentColor"
+                />
               </svg>
             </button>
           }
           <span class="sisyphos-datepicker-chevron" aria-hidden="true">
-            <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"
-                 [style.transform]="isOpen() ? 'rotate(180deg)' : null">
+            <svg
+              viewBox="0 0 24 24"
+              width="16"
+              height="16"
+              aria-hidden="true"
+              [style.transform]="isOpen() ? 'rotate(180deg)' : null"
+            >
               <path d="M7 10l5 5 5-5z" fill="currentColor" />
             </svg>
           </span>
@@ -119,18 +125,42 @@ function buildCalendar(month: Date, locale: DateLocale): Date[] {
           [style.z-index]="1100"
         >
           <div class="sisyphos-datepicker-header">
-            <button type="button" class="sisyphos-datepicker-nav" aria-label="Previous" (click)="navPrev()">‹</button>
-            <button type="button" class="sisyphos-datepicker-header-title" (click)="cycleViewMode()">
+            <button
+              type="button"
+              class="sisyphos-datepicker-nav"
+              aria-label="Previous"
+              (click)="navPrev()"
+            >
+              ‹
+            </button>
+            <button
+              type="button"
+              class="sisyphos-datepicker-header-title"
+              (click)="cycleViewMode()"
+            >
               @switch (viewMode()) {
-                @case ('days') { {{ MONTHS[locale()][cursor().getMonth()] }} {{ cursor().getFullYear() }} }
-                @case ('months') { {{ cursor().getFullYear() }} }
-                @case ('years') { {{ years()[0] }} - {{ years()[9] }} }
+                @case ("days") {
+                  {{ MONTHS[locale()][cursor().getMonth()] }} {{ cursor().getFullYear() }}
+                }
+                @case ("months") {
+                  {{ cursor().getFullYear() }}
+                }
+                @case ("years") {
+                  {{ years()[0] }} - {{ years()[9] }}
+                }
               }
             </button>
-            <button type="button" class="sisyphos-datepicker-nav" aria-label="Next" (click)="navNext()">›</button>
+            <button
+              type="button"
+              class="sisyphos-datepicker-nav"
+              aria-label="Next"
+              (click)="navNext()"
+            >
+              ›
+            </button>
           </div>
 
-          @if (viewMode() === 'days') {
+          @if (viewMode() === "days") {
             <div class="sisyphos-datepicker-weekdays">
               @for (d of WEEK_DAYS[locale()]; track d) {
                 <div class="sisyphos-datepicker-weekday">{{ d }}</div>
@@ -144,17 +174,23 @@ function buildCalendar(month: Date, locale: DateLocale): Date[] {
                   [disabled]="isDateDisabled(d) || d.getMonth() !== cursor().getMonth()"
                   [attr.aria-selected]="isSelected(d) || null"
                   (click)="onDaySelect(d)"
-                >{{ d.getDate() }}</button>
+                >
+                  {{ d.getDate() }}
+                </button>
               }
             </div>
-          } @else if (viewMode() === 'months') {
+          } @else if (viewMode() === "months") {
             <div class="sisyphos-datepicker-months">
               @for (m of MONTHS[locale()]; track m; let idx = $index) {
                 <button
                   type="button"
-                  [class]="'sisyphos-datepicker-month' + (idx === cursor().getMonth() ? ' selected' : '')"
+                  [class]="
+                    'sisyphos-datepicker-month' + (idx === cursor().getMonth() ? ' selected' : '')
+                  "
                   (click)="selectMonth(idx)"
-                >{{ m }}</button>
+                >
+                  {{ m }}
+                </button>
               }
             </div>
           } @else {
@@ -162,9 +198,13 @@ function buildCalendar(month: Date, locale: DateLocale): Date[] {
               @for (y of years(); track y) {
                 <button
                   type="button"
-                  [class]="'sisyphos-datepicker-year' + (y === cursor().getFullYear() ? ' selected' : '')"
+                  [class]="
+                    'sisyphos-datepicker-year' + (y === cursor().getFullYear() ? ' selected' : '')
+                  "
                   (click)="selectYear(y)"
-                >{{ y }}</button>
+                >
+                  {{ y }}
+                </button>
               }
             </div>
           }
@@ -173,7 +213,9 @@ function buildCalendar(month: Date, locale: DateLocale): Date[] {
             <div [class]="'sisyphos-datepicker-time' + (isRange() ? ' range' : '')">
               @if (isRange()) {
                 <div class="sisyphos-datepicker-time-group">
-                  <div class="sisyphos-datepicker-time-label">{{ RANGE_LABELS[locale()].start }}</div>
+                  <div class="sisyphos-datepicker-time-label">
+                    {{ RANGE_LABELS[locale()].start }}
+                  </div>
                   <div class="sisyphos-datepicker-time-row">
                     <select
                       [attr.aria-label]="RANGE_LABELS[locale()].start + ' hour'"
@@ -302,7 +344,12 @@ export class DatePicker implements OnDestroy {
   private readonly _isOpen = signal(false);
   private readonly _viewMode = signal<ViewMode>("days");
   private readonly _cursor = signal<Date>(new Date());
-  protected readonly pos = signal<{ left: number; top: number; placement: Placement; width: number } | null>(null);
+  protected readonly pos = signal<{
+    left: number;
+    top: number;
+    placement: Placement;
+    width: number;
+  } | null>(null);
 
   // ── public reads ─────────────────────────────────────────────────────
   readonly label = this._label.asReadonly();
@@ -320,27 +367,57 @@ export class DatePicker implements OnDestroy {
   readonly singleValue = this._value.asReadonly();
   readonly rangeValue = this._values.asReadonly();
 
-  @NgInput("label") set labelInput(v: string | undefined) { this._label.set(v); }
+  @NgInput("label") set labelInput(v: string | undefined) {
+    this._label.set(v);
+  }
   @NgInput("placeholder") set placeholderInput(v: string | undefined) {
     this._placeholder.set(v);
   }
-  @NgInput("disabled") set disabledInput(v: boolean) { this._disabled.set(v); }
-  @NgInput("readOnly") set readOnlyInput(v: boolean) { this._readOnly.set(v); }
-  @NgInput("required") set requiredInput(v: boolean) { this._required.set(v); }
-  @NgInput("error") set errorInput(v: boolean) { this._error.set(v); }
+  @NgInput("disabled") set disabledInput(v: boolean) {
+    this._disabled.set(v);
+  }
+  @NgInput("readOnly") set readOnlyInput(v: boolean) {
+    this._readOnly.set(v);
+  }
+  @NgInput("required") set requiredInput(v: boolean) {
+    this._required.set(v);
+  }
+  @NgInput("error") set errorInput(v: boolean) {
+    this._error.set(v);
+  }
   @NgInput("errorMessage") set errorMessageInput(v: string | undefined) {
     this._errorMessage.set(v);
   }
-  @NgInput("variant") set variantInput(v: "standard" | "outlined") { this._variant.set(v); }
-  @NgInput("size") set sizeInput(v: "sm" | "md" | "lg") { this._size.set(v); }
-  @NgInput("minDate") set minDateInput(v: Date | undefined) { this._minDate.set(v); }
-  @NgInput("maxDate") set maxDateInput(v: Date | undefined) { this._maxDate.set(v); }
-  @NgInput("format") set formatInput(v: string | undefined) { this._format.set(v); }
-  @NgInput("locale") set localeInput(v: DateLocale) { this._locale.set(v); }
-  @NgInput("showTime") set showTimeInput(v: boolean) { this._showTime.set(v); }
-  @NgInput("minuteStep") set minuteStepInput(v: number) { this._minuteStep.set(v); }
-  @NgInput("defaultHour") set defaultHourInput(v: number) { this._defaultHour.set(v); }
-  @NgInput("defaultMinute") set defaultMinuteInput(v: number) { this._defaultMinute.set(v); }
+  @NgInput("variant") set variantInput(v: "standard" | "outlined") {
+    this._variant.set(v);
+  }
+  @NgInput("size") set sizeInput(v: "sm" | "md" | "lg") {
+    this._size.set(v);
+  }
+  @NgInput("minDate") set minDateInput(v: Date | undefined) {
+    this._minDate.set(v);
+  }
+  @NgInput("maxDate") set maxDateInput(v: Date | undefined) {
+    this._maxDate.set(v);
+  }
+  @NgInput("format") set formatInput(v: string | undefined) {
+    this._format.set(v);
+  }
+  @NgInput("locale") set localeInput(v: DateLocale) {
+    this._locale.set(v);
+  }
+  @NgInput("showTime") set showTimeInput(v: boolean) {
+    this._showTime.set(v);
+  }
+  @NgInput("minuteStep") set minuteStepInput(v: number) {
+    this._minuteStep.set(v);
+  }
+  @NgInput("defaultHour") set defaultHourInput(v: number) {
+    this._defaultHour.set(v);
+  }
+  @NgInput("defaultMinute") set defaultMinuteInput(v: number) {
+    this._defaultMinute.set(v);
+  }
   @NgInput("defaultStartHour") set defaultStartHourInput(v: number | undefined) {
     this._defaultStartHour.set(v);
   }
@@ -353,10 +430,18 @@ export class DatePicker implements OnDestroy {
   @NgInput("defaultEndMinute") set defaultEndMinuteInput(v: number | undefined) {
     this._defaultEndMinute.set(v);
   }
-  @NgInput("allowClear") set allowClearInput(v: boolean) { this._allowClear.set(v); }
-  @NgInput("fullWidth") set fullWidthInput(v: boolean) { this._fullWidth.set(v); }
-  @NgInput("placement") set placementInput(v: Placement) { this._placement.set(v); }
-  @NgInput("isRange") set isRangeInput(v: boolean) { this._isRange.set(v); }
+  @NgInput("allowClear") set allowClearInput(v: boolean) {
+    this._allowClear.set(v);
+  }
+  @NgInput("fullWidth") set fullWidthInput(v: boolean) {
+    this._fullWidth.set(v);
+  }
+  @NgInput("placement") set placementInput(v: Placement) {
+    this._placement.set(v);
+  }
+  @NgInput("isRange") set isRangeInput(v: boolean) {
+    this._isRange.set(v);
+  }
 
   /** Single-mode value. */
   @NgInput("value") set valueInput(v: Date | null | undefined) {
@@ -422,22 +507,13 @@ export class DatePicker implements OnDestroy {
   );
 
   readonly labelClasses = computed(() =>
-    [
-      "sisyphos-datepicker-label",
-      this._error() && "error",
-      this._required() && "required",
-    ]
+    ["sisyphos-datepicker-label", this._error() && "error", this._required() && "required"]
       .filter(Boolean)
       .join(" ")
   );
 
   readonly triggerClasses = computed(() =>
-    [
-      "sisyphos-datepicker-trigger",
-      this._isOpen() && "focused",
-    ]
-      .filter(Boolean)
-      .join(" ")
+    ["sisyphos-datepicker-trigger", this._isOpen() && "focused"].filter(Boolean).join(" ")
   );
 
   // ── lifecycle ────────────────────────────────────────────────────────
@@ -457,7 +533,9 @@ export class DatePicker implements OnDestroy {
     });
   }
 
-  ngOnDestroy(): void { this.removeScrollListeners(); }
+  ngOnDestroy(): void {
+    this.removeScrollListeners();
+  }
 
   // ── trigger ──────────────────────────────────────────────────────────
   openPicker(): void {
@@ -597,14 +675,16 @@ export class DatePicker implements OnDestroy {
   navPrev(): void {
     const c = this._cursor();
     if (this._viewMode() === "days") this._cursor.set(new Date(c.getFullYear(), c.getMonth() - 1));
-    else if (this._viewMode() === "months") this._cursor.set(new Date(c.getFullYear() - 1, c.getMonth()));
+    else if (this._viewMode() === "months")
+      this._cursor.set(new Date(c.getFullYear() - 1, c.getMonth()));
     else this._cursor.set(new Date(c.getFullYear() - 10, c.getMonth()));
   }
 
   navNext(): void {
     const c = this._cursor();
     if (this._viewMode() === "days") this._cursor.set(new Date(c.getFullYear(), c.getMonth() + 1));
-    else if (this._viewMode() === "months") this._cursor.set(new Date(c.getFullYear() + 1, c.getMonth()));
+    else if (this._viewMode() === "months")
+      this._cursor.set(new Date(c.getFullYear() + 1, c.getMonth()));
     else this._cursor.set(new Date(c.getFullYear() + 10, c.getMonth()));
   }
 

@@ -163,9 +163,7 @@ describe("Chip — projected slots", () => {
   it("projects start/end icon slots into their respective containers", () => {
     const fixture = TestBed.createComponent(Host);
     fixture.detectChanges();
-    const start = fixture.nativeElement.querySelector(
-      ".sisyphos-chip-icon--start .start"
-    );
+    const start = fixture.nativeElement.querySelector(".sisyphos-chip-icon--start .start");
     const end = fixture.nativeElement.querySelector(".sisyphos-chip-icon--end .end");
     expect(start).toBeTruthy();
     expect(end).toBeTruthy();

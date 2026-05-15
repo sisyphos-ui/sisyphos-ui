@@ -6,8 +6,7 @@
  * Two-way bind via `[(value)]`. Class names + behavior + ARIA mirror the
  * React/Vue versions exactly.
  */
-import type {
-  ElementRef} from "@angular/core";
+import type { ElementRef } from "@angular/core";
 import {
   ChangeDetectionStrategy,
   Component,
@@ -43,7 +42,13 @@ export type InputRadius = "none" | "sm" | "md" | "lg" | "full";
               [title]="labelTooltip()"
               [tabindex]="0"
             >
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+              <svg
+                width="14"
+                height="14"
+                viewBox="0 0 24 24"
+                fill="currentColor"
+                aria-hidden="true"
+              >
                 <path d="M12 2a10 10 0 1010 10A10.011 10.011 0 0012 2zm1 15h-2v-6h2zm0-8h-2V7h2z" />
               </svg>
             </span>
@@ -92,11 +97,27 @@ export type InputRadius = "none" | "sm" | "md" | "lg" | "full";
             (click)="copyToClipboard($event)"
           >
             @if (copied()) {
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+              <svg
+                width="16"
+                height="16"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                aria-hidden="true"
+              >
                 <polyline points="20 6 9 17 4 12" />
               </svg>
             } @else {
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+              <svg
+                width="16"
+                height="16"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                aria-hidden="true"
+              >
                 <rect x="9" y="9" width="13" height="13" rx="2" />
                 <path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1" />
               </svg>
@@ -112,12 +133,28 @@ export type InputRadius = "none" | "sm" | "md" | "lg" | "full";
             (click)="togglePassword($event)"
           >
             @if (showPassword()) {
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24" />
+              <svg
+                width="20"
+                height="20"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+              >
+                <path
+                  d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"
+                />
                 <line x1="1" y1="1" x2="23" y2="23" />
               </svg>
             } @else {
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <svg
+                width="20"
+                height="20"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+              >
                 <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" />
                 <circle cx="12" cy="12" r="3" />
               </svg>
@@ -137,7 +174,9 @@ export type InputRadius = "none" | "sm" | "md" | "lg" | "full";
   `,
   styles: [
     `
-      .sisyphos-input-icon:empty { display: none; }
+      .sisyphos-input-icon:empty {
+        display: none;
+      }
     `,
   ],
 })
@@ -199,35 +238,69 @@ export class Input {
     if (v === undefined || v === null) return;
     this._value.set(String(v));
   }
-  @NgInput("label") set labelInput(v: string | undefined) { this._label.set(v); }
+  @NgInput("label") set labelInput(v: string | undefined) {
+    this._label.set(v);
+  }
   @NgInput("labelTooltip") set labelTooltipInput(v: string | undefined) {
     this._labelTooltip.set(v);
   }
-  @NgInput("placeholder") set placeholderInput(v: string | undefined) { this._placeholder.set(v); }
-  @NgInput("name") set nameInput(v: string | undefined) { this._name.set(v); }
+  @NgInput("placeholder") set placeholderInput(v: string | undefined) {
+    this._placeholder.set(v);
+  }
+  @NgInput("name") set nameInput(v: string | undefined) {
+    this._name.set(v);
+  }
   @NgInput("autocomplete") set autocompleteInput(v: string | undefined) {
     this._autocomplete.set(v);
   }
-  @NgInput("type") set typeInput(v: string) { this._type.set(v); }
-  @NgInput("variant") set variantInput(v: InputVariant) { this._variant.set(v); }
-  @NgInput("size") set sizeInput(v: InputSize) { this._size.set(v); }
-  @NgInput("radius") set radiusInput(v: InputRadius) { this._radius.set(v); }
-  @NgInput("error") set errorInput(v: boolean) { this._error.set(v); }
+  @NgInput("type") set typeInput(v: string) {
+    this._type.set(v);
+  }
+  @NgInput("variant") set variantInput(v: InputVariant) {
+    this._variant.set(v);
+  }
+  @NgInput("size") set sizeInput(v: InputSize) {
+    this._size.set(v);
+  }
+  @NgInput("radius") set radiusInput(v: InputRadius) {
+    this._radius.set(v);
+  }
+  @NgInput("error") set errorInput(v: boolean) {
+    this._error.set(v);
+  }
   @NgInput("errorMessage") set errorMessageInput(v: string | undefined) {
     this._errorMessage.set(v);
   }
-  @NgInput("disabled") set disabledInput(v: boolean) { this._disabled.set(v); }
-  @NgInput("readOnly") set readOnlyInput(v: boolean) { this._readOnly.set(v); }
-  @NgInput("required") set requiredInput(v: boolean) { this._required.set(v); }
-  @NgInput("maxLength") set maxLengthInput(v: number | undefined) { this._maxLength.set(v); }
+  @NgInput("disabled") set disabledInput(v: boolean) {
+    this._disabled.set(v);
+  }
+  @NgInput("readOnly") set readOnlyInput(v: boolean) {
+    this._readOnly.set(v);
+  }
+  @NgInput("required") set requiredInput(v: boolean) {
+    this._required.set(v);
+  }
+  @NgInput("maxLength") set maxLengthInput(v: number | undefined) {
+    this._maxLength.set(v);
+  }
   @NgInput("showCharacterCount") set showCharacterCountInput(v: boolean) {
     this._showCharacterCount.set(v);
   }
-  @NgInput("fullWidth") set fullWidthInput(v: boolean) { this._fullWidth.set(v); }
-  @NgInput("copyable") set copyableInput(v: boolean) { this._copyable.set(v); }
-  @NgInput("mask") set maskInput(v: string | undefined) { this._mask.set(v); }
-  @NgInput("hasStartIcon") set hasStartIconInput(v: boolean) { this.hasStartIcon = v; }
-  @NgInput("hasEndIcon") set hasEndIconInput(v: boolean) { this.hasEndIcon = v; }
+  @NgInput("fullWidth") set fullWidthInput(v: boolean) {
+    this._fullWidth.set(v);
+  }
+  @NgInput("copyable") set copyableInput(v: boolean) {
+    this._copyable.set(v);
+  }
+  @NgInput("mask") set maskInput(v: string | undefined) {
+    this._mask.set(v);
+  }
+  @NgInput("hasStartIcon") set hasStartIconInput(v: boolean) {
+    this.hasStartIcon = v;
+  }
+  @NgInput("hasEndIcon") set hasEndIconInput(v: boolean) {
+    this.hasEndIcon = v;
+  }
 
   /** Two-way `[(value)]` for the (masked) display value. */
   @Output() readonly valueChange = new EventEmitter<string>();
@@ -257,9 +330,7 @@ export class Input {
     () => this.isPassword() || this._copyable() || this.hasEndIcon
   );
 
-  readonly showCount = computed(
-    () => Boolean(this._maxLength()) && this._showCharacterCount()
-  );
+  readonly showCount = computed(() => Boolean(this._maxLength()) && this._showCharacterCount());
 
   readonly describedBy = computed(() => {
     const ids: string[] = [];

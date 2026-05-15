@@ -4,9 +4,7 @@
  * React/Vue versions exactly: same class names, same node shape, same
  * `descendantIds` / `nodeState` rules from the shared `utils`.
  */
-import type {
-  ElementRef,
-  OnDestroy} from "@angular/core";
+import type { ElementRef, OnDestroy } from "@angular/core";
 import {
   ChangeDetectionStrategy,
   Component,
@@ -21,12 +19,7 @@ import {
 } from "@angular/core";
 import { computePosition, type Placement } from "@sisyphos-ui/core/internal";
 import { TreeNodeRow } from "./tree-node-row.component";
-import {
-  descendantIds,
-  filterTree,
-  findNode,
-  nodeState,
-} from "./utils";
+import { descendantIds, filterTree, findNode, nodeState } from "./utils";
 import type { TreeNode, TreeNodeId } from "./types";
 
 let treeCounter = 0;
@@ -75,14 +68,22 @@ let treeCounter = 0;
             (click)="clearAll($event)"
           >
             <svg viewBox="0 0 24 24" width="14" height="14" aria-hidden="true">
-              <path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z" fill="currentColor" />
+              <path
+                d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"
+                fill="currentColor"
+              />
             </svg>
           </button>
         }
         <span class="sisyphos-tree-select-chevron">
-          <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"
-               [style.transform]="open() ? 'rotate(180deg)' : null"
-               [style.transition]="'transform 150ms'">
+          <svg
+            viewBox="0 0 24 24"
+            width="18"
+            height="18"
+            aria-hidden="true"
+            [style.transform]="open() ? 'rotate(180deg)' : null"
+            [style.transition]="'transform 150ms'"
+          >
             <path d="M7 10l5 5 5-5z" fill="currentColor" />
           </svg>
         </span>
@@ -162,7 +163,12 @@ export class TreeSelect implements OnDestroy {
   private readonly _open = signal(false);
   private readonly _search = signal("");
   private readonly _expanded = signal<Record<string, boolean>>({});
-  protected readonly pos = signal<{ left: number; top: number; placement: Placement; width: number } | null>(null);
+  protected readonly pos = signal<{
+    left: number;
+    top: number;
+    placement: Placement;
+    width: number;
+  } | null>(null);
 
   readonly value = this._value.asReadonly();
   readonly label = this._label.asReadonly();
@@ -178,31 +184,57 @@ export class TreeSelect implements OnDestroy {
   readonly search = this._search.asReadonly();
   readonly expanded = this._expanded.asReadonly();
 
-  @NgInput("nodes") set nodesInput(v: TreeNode[]) { this._nodes.set(v ?? []); }
+  @NgInput("nodes") set nodesInput(v: TreeNode[]) {
+    this._nodes.set(v ?? []);
+  }
   @NgInput("value") set valueInput(v: TreeNodeId[] | undefined) {
     if (v !== undefined) this._value.set(v);
   }
-  @NgInput("label") set labelInput(v: string | undefined) { this._label.set(v); }
-  @NgInput("placeholder") set placeholderInput(v: string) { this._placeholder.set(v); }
+  @NgInput("label") set labelInput(v: string | undefined) {
+    this._label.set(v);
+  }
+  @NgInput("placeholder") set placeholderInput(v: string) {
+    this._placeholder.set(v);
+  }
   @NgInput("triggerLabel") set triggerLabelInput(v: string | undefined) {
     this._triggerLabel.set(v);
   }
-  @NgInput("error") set errorInput(v: boolean) { this._error.set(v); }
+  @NgInput("error") set errorInput(v: boolean) {
+    this._error.set(v);
+  }
   @NgInput("errorMessage") set errorMessageInput(v: string | undefined) {
     this._errorMessage.set(v);
   }
-  @NgInput("disabled") set disabledInput(v: boolean) { this._disabled.set(v); }
-  @NgInput("required") set requiredInput(v: boolean) { this._required.set(v); }
-  @NgInput("searchable") set searchableInput(v: boolean) { this._searchable.set(v); }
+  @NgInput("disabled") set disabledInput(v: boolean) {
+    this._disabled.set(v);
+  }
+  @NgInput("required") set requiredInput(v: boolean) {
+    this._required.set(v);
+  }
+  @NgInput("searchable") set searchableInput(v: boolean) {
+    this._searchable.set(v);
+  }
   @NgInput("searchPlaceholder") set searchPlaceholderInput(v: string) {
     this._searchPlaceholder.set(v);
   }
-  @NgInput("clearable") set clearableInput(v: boolean) { this._clearable.set(v); }
-  @NgInput("fullWidth") set fullWidthInput(v: boolean) { this._fullWidth.set(v); }
-  @NgInput("size") set sizeInput(v: "sm" | "md" | "lg") { this._size.set(v); }
-  @NgInput("cascade") set cascadeInput(v: boolean) { this._cascade.set(v); }
-  @NgInput("maxTagCount") set maxTagCountInput(v: number) { this._maxTagCount.set(v); }
-  @NgInput("placement") set placementInput(v: Placement) { this._placement.set(v); }
+  @NgInput("clearable") set clearableInput(v: boolean) {
+    this._clearable.set(v);
+  }
+  @NgInput("fullWidth") set fullWidthInput(v: boolean) {
+    this._fullWidth.set(v);
+  }
+  @NgInput("size") set sizeInput(v: "sm" | "md" | "lg") {
+    this._size.set(v);
+  }
+  @NgInput("cascade") set cascadeInput(v: boolean) {
+    this._cascade.set(v);
+  }
+  @NgInput("maxTagCount") set maxTagCountInput(v: number) {
+    this._maxTagCount.set(v);
+  }
+  @NgInput("placement") set placementInput(v: Placement) {
+    this._placement.set(v);
+  }
 
   @Output() readonly valueChange = new EventEmitter<TreeNodeId[]>();
 
@@ -239,22 +271,13 @@ export class TreeSelect implements OnDestroy {
   );
 
   readonly labelClasses = computed(() =>
-    [
-      "sisyphos-tree-select-label",
-      this._error() && "error",
-      this._required() && "required",
-    ]
+    ["sisyphos-tree-select-label", this._error() && "error", this._required() && "required"]
       .filter(Boolean)
       .join(" ")
   );
 
   readonly triggerClasses = computed(() =>
-    [
-      "sisyphos-tree-select-trigger",
-      this._open() && "open",
-    ]
-      .filter(Boolean)
-      .join(" ")
+    ["sisyphos-tree-select-trigger", this._open() && "open"].filter(Boolean).join(" ")
   );
 
   private resizeListener?: () => void;
@@ -274,7 +297,9 @@ export class TreeSelect implements OnDestroy {
     });
   }
 
-  ngOnDestroy(): void { this.removeScrollListeners(); }
+  ngOnDestroy(): void {
+    this.removeScrollListeners();
+  }
 
   // ── trigger + dropdown ───────────────────────────────────────────────
 

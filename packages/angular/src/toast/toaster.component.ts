@@ -14,15 +14,8 @@
  *   import { toast } from '@sisyphos-ui/angular';
  *   toast.success('Saved!');
  */
-import type {
-  OnDestroy} from "@angular/core";
-import {
-  ChangeDetectionStrategy,
-  Component,
-  Input,
-  computed,
-  signal,
-} from "@angular/core";
+import type { OnDestroy } from "@angular/core";
+import { ChangeDetectionStrategy, Component, Input, computed, signal } from "@angular/core";
 import { toastStore, type ToastRecord, type ToastType } from "./store";
 
 export type ToasterPosition =
@@ -98,9 +91,15 @@ export class Toaster implements OnDestroy {
   readonly gap = this._gap.asReadonly();
   readonly toasts = this._toasts.asReadonly();
 
-  @Input("position") set positionInput(v: ToasterPosition) { this._position.set(v); }
-  @Input("max") set maxInput(v: number) { this._max.set(v); }
-  @Input("gap") set gapInput(v: number) { this._gap.set(v); }
+  @Input("position") set positionInput(v: ToasterPosition) {
+    this._position.set(v);
+  }
+  @Input("max") set maxInput(v: number) {
+    this._max.set(v);
+  }
+  @Input("gap") set gapInput(v: number) {
+    this._gap.set(v);
+  }
 
   readonly visible = computed(() => {
     const all = this._toasts();

@@ -2,14 +2,7 @@
  * TabsPanel — `<sui-tabs-panel>`. Hidden via the `hidden` attribute when
  * inactive; unmounted entirely when `forceMount=false`.
  */
-import {
-  ChangeDetectionStrategy,
-  Component,
-  Input,
-  computed,
-  inject,
-  signal,
-} from "@angular/core";
+import { ChangeDetectionStrategy, Component, Input, computed, inject, signal } from "@angular/core";
 import { TabsCtx } from "./context";
 
 @Component({
@@ -37,8 +30,12 @@ export class TabsPanel {
   private readonly _value = signal<string>("");
   private readonly _forceMount = signal(true);
 
-  @Input("value") set valueInput(v: string) { this._value.set(v); }
-  @Input("forceMount") set forceMountInput(v: boolean) { this._forceMount.set(v); }
+  @Input("value") set valueInput(v: string) {
+    this._value.set(v);
+  }
+  @Input("forceMount") set forceMountInput(v: boolean) {
+    this._forceMount.set(v);
+  }
 
   readonly isSelected = computed(() => this.ctx.value() === this._value());
   readonly shouldRender = computed(() => this.isSelected() || this._forceMount());

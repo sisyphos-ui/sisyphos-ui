@@ -29,10 +29,7 @@ export interface DropdownMenuLabel {
   label: string;
 }
 
-export type DropdownMenuItem =
-  | DropdownMenuAction
-  | DropdownMenuSeparator
-  | DropdownMenuLabel;
+export type DropdownMenuItem = DropdownMenuAction | DropdownMenuSeparator | DropdownMenuLabel;
 
 export function isDropdownMenuAction(item: DropdownMenuItem): item is DropdownMenuAction {
   return item.type === undefined || item.type === "action";
