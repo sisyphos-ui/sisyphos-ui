@@ -1,7 +1,47 @@
 <script setup lang="ts">
+import { onBeforeUnmount, ref, watch } from "vue";
 import { useTabs } from "./context";
 
 const tabs = useTabs();
+const listRef = ref<HTMLDivElement | null>(null);
+const indicator = ref<{ x: number; y: number; width: number; height: number } | null>(null);
+
+function measureIndicator() {
+  const list = listRef.value;
+  if (!list) return;
+  const active = list.querySelector<HTMLButtonElement>(
+    `[data-sisyphos-tab-value="${tabs.value.value}"]`
+  );
+  if (!active) {
+    indicator.value = null;
+    return;
+  }
+  const aRect = active.getBoundingClientRect();
+  const lRect = list.getBoundingClientRect();
+  indicator.value = {
+    x: aRect.left - lRect.left + list.scrollLeft,
+    y: aRect.top - lRect.top + list.scrollTop,
+    width: aRect.width,
+    height: aRect.height,
+  };
+}
+
+let observer: ResizeObserver | null = null;
+watch(
+  listRef,
+  (el) => {
+    observer?.disconnect();
+    observer = null;
+    if (!el) return;
+    measureIndicator();
+    if (typeof ResizeObserver === "undefined") return;
+    observer = new ResizeObserver(() => measureIndicator());
+    observer.observe(el);
+  },
+  { flush: "post" }
+);
+watch(() => tabs.value.value, () => measureIndicator(), { flush: "post" });
+onBeforeUnmount(() => observer?.disconnect());
 
 function handleKeyDown(e: KeyboardEvent) {
   const all = tabs.values();
@@ -30,7 +70,23 @@ function handleKeyDown(e: KeyboardEvent) {
 </script>
 
 <template>
-  <div role="tablist" :aria-orientation="tabs.orientation" class="sisyphos-tabs-list" @keydown="handleKeyDown">
+  <div
+    ref="listRef"
+    role="tablist"
+    :aria-orientation="tabs.orientation"
+    class="sisyphos-tabs-list"
+    @keydown="handleKeyDown"
+  >
+    <span
+      v-if="indicator"
+      class="sisyphos-tabs-indicator"
+      :style="{
+        transform: `translate(${indicator.x}px, ${indicator.y}px)`,
+        width: `${indicator.width}px`,
+        height: `${indicator.height}px`,
+      }"
+      aria-hidden="true"
+    />
     <slot />
   </div>
 </template>
