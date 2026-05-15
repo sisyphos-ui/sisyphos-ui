@@ -1,8 +1,8 @@
-/* Import SCSS tokens FIRST (references CSS Variables) */
-/* NOTE: @forward must come before @import in SCSS */
+/* Forward token modules so consumers can @use this entry point. */
 @forward "tokens/variables";
 @forward "tokens/main";
 @forward "tokens/mixins";
 
-/* Import default theme CSS variables (defines all CSS variables) */
-@import "theme/default-theme";
+/* Pull in the default theme — it only emits :root custom properties,
+   so a plain @use with no namespace is the right migration off @import. */
+@use "theme/default-theme";
