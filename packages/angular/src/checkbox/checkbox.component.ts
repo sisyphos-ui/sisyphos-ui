@@ -40,7 +40,7 @@ export type CheckboxRadius = "none" | "sm" | "md" | "lg" | "full";
         <input
           #nativeInput
           type="checkbox"
-          class="sisyphos-checkbox-native"
+          class="sisyphos-checkbox-input"
           [checked]="checked()"
           [disabled]="disabled()"
           [indeterminate]="indeterminate()"
@@ -49,7 +49,7 @@ export type CheckboxRadius = "none" | "sm" | "md" | "lg" | "full";
           [attr.aria-label]="ariaLabel() || null"
           (change)="handleToggle()"
         />
-        <span class="sisyphos-checkbox-indicator" aria-hidden="true">
+        <span class="sisyphos-checkbox-mark" aria-hidden="true">
           @if (indeterminate()) {
             <svg viewBox="0 0 16 16" width="100%" height="100%">
               <line
@@ -76,7 +76,7 @@ export type CheckboxRadius = "none" | "sm" | "md" | "lg" | "full";
         </span>
       </span>
       @if (label()) {
-        <span class="sisyphos-checkbox-label">{{ label() }}</span>
+        <span class="sisyphos-checkbox-label-text">{{ label() }}</span>
       }
     </label>
   `,
@@ -135,6 +135,7 @@ export class Checkbox {
   readonly containerClasses = computed(() =>
     [
       "sisyphos-checkbox",
+      "sisyphos-checkbox-label",
       this.size(),
       this.color(),
       `radius-${this.radius()}`,
