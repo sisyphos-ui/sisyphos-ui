@@ -11,7 +11,7 @@ const opts = [
 describe("Select (Vue)", () => {
   it("opens on trigger click and shows options", async () => {
     const wrapper = mount(Select, { props: { options: opts }, attachTo: document.body });
-    await wrapper.find(".sisyphos-select-trigger").trigger("click");
+    await wrapper.find(".sisyphos-select-control").trigger("click");
     await flushPromises();
     const items = document.querySelectorAll('[role="option"]');
     expect(items.length).toBe(3);
@@ -20,7 +20,7 @@ describe("Select (Vue)", () => {
 
   it("emits update:modelValue with selected value (single)", async () => {
     const wrapper = mount(Select, { props: { options: opts }, attachTo: document.body });
-    await wrapper.find(".sisyphos-select-trigger").trigger("click");
+    await wrapper.find(".sisyphos-select-control").trigger("click");
     await flushPromises();
     (document.querySelectorAll('[role="option"]')[1] as HTMLButtonElement).click();
     expect(wrapper.emitted("update:modelValue")?.[0]).toEqual(["b"]);
@@ -32,7 +32,7 @@ describe("Select (Vue)", () => {
       props: { options: opts, multiple: true, modelValue: [] },
       attachTo: document.body,
     });
-    await wrapper.find(".sisyphos-select-trigger").trigger("click");
+    await wrapper.find(".sisyphos-select-control").trigger("click");
     await flushPromises();
     (document.querySelectorAll('[role="option"]')[0] as HTMLButtonElement).click();
     expect(wrapper.emitted("update:modelValue")?.at(-1)?.[0]).toEqual(["a"]);
@@ -44,7 +44,7 @@ describe("Select (Vue)", () => {
       props: { options: opts, searchable: true },
       attachTo: document.body,
     });
-    await wrapper.find(".sisyphos-select-trigger").trigger("click");
+    await wrapper.find(".sisyphos-select-control").trigger("click");
     await flushPromises();
     const search = document.querySelector(".sisyphos-select-search") as HTMLInputElement;
     search.value = "ban";
@@ -56,7 +56,7 @@ describe("Select (Vue)", () => {
 
   it("disabled option ignores clicks", async () => {
     const wrapper = mount(Select, { props: { options: opts }, attachTo: document.body });
-    await wrapper.find(".sisyphos-select-trigger").trigger("click");
+    await wrapper.find(".sisyphos-select-control").trigger("click");
     await flushPromises();
     (document.querySelectorAll('[role="option"]')[2] as HTMLButtonElement).click();
     expect(wrapper.emitted("update:modelValue")).toBeUndefined();
