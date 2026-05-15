@@ -52,7 +52,7 @@ onUnmounted(() => {
     <span v-if="$slots.icon" class="sisyphos-alert-icon" aria-hidden="true">
       <slot name="icon" />
     </span>
-    <div class="sisyphos-alert-content">
+    <div class="sisyphos-alert-body">
       <div v-if="title || $slots.title" class="sisyphos-alert-title">
         <slot name="title">{{ title }}</slot>
       </div>
