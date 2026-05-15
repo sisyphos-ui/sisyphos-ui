@@ -1,8 +1,8 @@
 <script setup lang="ts">
 /**
  * Button — Vue 3 binding. Variant + color + size + loading + icons +
- * polymorphic href. Dropdown menu is deferred to Session 4 (depends on
- * the upcoming overlay primitives).
+ * polymorphic href. Class names, ARIA, and visual structure mirror the
+ * React and Angular bindings.
  */
 import { computed } from "vue";
 
@@ -16,7 +16,7 @@ interface Props {
   type?: "button" | "submit" | "reset";
   disabled?: boolean;
   loading?: boolean;
-  loadingPosition?: "start" | "end";
+  loadingPosition?: "start" | "center" | "end";
   fullWidth?: boolean;
 }
 
@@ -35,6 +35,9 @@ const tag = computed(() => (props.href ? "a" : "button"));
 
 const isDisabled = computed(() => props.disabled || props.loading);
 
+// In `center` loading mode the spinner replaces the label, matching React.
+const showText = computed(() => !props.loading || props.loadingPosition !== "center");
+
 const rootClasses = computed(() => [
   "sisyphos-button",
   props.variant,
@@ -45,6 +48,9 @@ const rootClasses = computed(() => [
   props.loading && "loading",
   isDisabled.value && "disabled",
 ]);
+
+const spinnerClass = (position: "start" | "center" | "end") =>
+  `sisyphos-button-loading-spinner sisyphos-button-loading-spinner--${position}`;
 </script>
 
 <template>
@@ -57,52 +63,62 @@ const rootClasses = computed(() => [
     :aria-disabled="isDisabled || undefined"
     :aria-busy="loading || undefined"
   >
-    <span
-      v-if="loading && loadingPosition === 'start'"
-      class="sisyphos-button-spinner"
-      aria-hidden="true"
-    >
-      <svg viewBox="0 0 24 24" width="1em" height="1em">
+    <span v-if="loading && loadingPosition === 'start'" :class="spinnerClass('start')" aria-hidden="true">
+      <svg class="sisyphos-button-loading-spinner-svg" viewBox="0 0 24 24" fill="none">
         <circle
           cx="12"
           cy="12"
           r="10"
-          fill="none"
           stroke="currentColor"
-          stroke-width="3"
+          stroke-width="2"
           stroke-linecap="round"
-          stroke-dasharray="40"
-          stroke-dashoffset="20"
+          stroke-dasharray="32"
+          stroke-dashoffset="12"
         />
       </svg>
     </span>
-    <span v-if="$slots.startIcon" class="sisyphos-button-icon sisyphos-button-icon-start">
+    <span
+      v-if="!loading && $slots.startIcon"
+      class="sisyphos-button-icon sisyphos-button-icon--start"
+    >
       <slot name="startIcon" />
     </span>
-    <span class="sisyphos-button-label">
+    <span v-if="showText" class="sisyphos-button-text">
       <slot />
     </span>
-    <span v-if="$slots.endIcon" class="sisyphos-button-icon sisyphos-button-icon-end">
-      <slot name="endIcon" />
-    </span>
-    <span
-      v-if="loading && loadingPosition === 'end'"
-      class="sisyphos-button-spinner"
-      aria-hidden="true"
-    >
-      <svg viewBox="0 0 24 24" width="1em" height="1em">
+    <span v-if="loading && loadingPosition === 'center'" :class="spinnerClass('center')" aria-hidden="true">
+      <svg class="sisyphos-button-loading-spinner-svg" viewBox="0 0 24 24" fill="none">
         <circle
           cx="12"
           cy="12"
           r="10"
-          fill="none"
           stroke="currentColor"
-          stroke-width="3"
+          stroke-width="2"
           stroke-linecap="round"
-          stroke-dasharray="40"
-          stroke-dashoffset="20"
+          stroke-dasharray="32"
+          stroke-dashoffset="12"
         />
       </svg>
+    </span>
+    <span v-if="loading && loadingPosition === 'end'" :class="spinnerClass('end')" aria-hidden="true">
+      <svg class="sisyphos-button-loading-spinner-svg" viewBox="0 0 24 24" fill="none">
+        <circle
+          cx="12"
+          cy="12"
+          r="10"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-dasharray="32"
+          stroke-dashoffset="12"
+        />
+      </svg>
+    </span>
+    <span
+      v-if="!loading && $slots.endIcon"
+      class="sisyphos-button-icon sisyphos-button-icon--end"
+    >
+      <slot name="endIcon" />
     </span>
   </component>
 </template>
